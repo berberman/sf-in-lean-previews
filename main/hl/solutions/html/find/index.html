@@ -1859,6 +1859,305 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -3855,6 +4154,50 @@ and its border extension paints the outline triangle with the box's border color
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "parity_outer_triple_valid":
+   [{"id": "parity_outer_triple_valid",
+     "data":
+     {"/Hoare2/#parity_outer_triple_valid":
+      {"display": "parity_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_lt_2":
+   [{"id": "parity_lt_2",
+     "data":
+     {"/Hoare2/#parity_lt_2":
+      {"display": "parity_lt_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_ge_2":
+   [{"id": "parity_ge_2",
+     "data":
+     {"/Hoare2/#parity_ge_2":
+      {"display": "parity_ge_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_correct":
+   [{"id": "parity_correct",
+     "data":
+     {"/Hoare2/#parity_correct":
+      {"display": "parity_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "parityDec":
    [{"id": "parityDec",
      "data":
@@ -4046,11 +4389,54 @@ and its border extension paints the outline triangle with the box's border color
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "l3":
+   [{"id": "l3",
+     "data":
+     {"/Hoare2/#l3":
+      {"display": "l3",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "l2":
+   [{"id": "l2",
+     "data":
+     {"/Hoare2/#l2":
+      {"display": "l2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "l1":
+   [{"id": "l1",
+     "data":
+     {"/Hoare2/#l1":
+      {"display": "l1",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "is_wp_example":
    [{"id": "is_wp_example",
      "data":
      {"/Hoare2/#is_wp_example":
       {"display": "is_wp_example",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions (Optional)"]}},
+     "address": "/Hoare2/"}],
+   "isWp_def":
+   [{"id": "isWp_def",
+     "data":
+     {"/Hoare2/#isWp_def":
+      {"display": "isWp_def",
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
@@ -4412,6 +4798,50 @@ and its border extension paints the outline triangle with the box's border color
         "Imp: Simple Imperative Programs",
         "Case Study (Optional)"]}},
      "address": "/Imp/"}],
+   "find_parity_correct'":
+   [{"id": "find_parity_correct___",
+     "data":
+     {"/Hoare2/#find_parity_correct___":
+      {"display": "find_parity_correct'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "find_parity_correct":
+   [{"id": "find_parity_correct",
+     "data":
+     {"/Hoare2/#find_parity_correct":
+      {"display": "find_parity_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "findParityDec'":
+   [{"id": "findParityDec___",
+     "data":
+     {"/Hoare2/#findParityDec___":
+      {"display": "findParityDec'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "findParityDec":
+   [{"id": "findParityDec",
+     "data":
+     {"/Hoare2/#findParityDec":
+      {"display": "findParityDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "fib_eqn":
    [{"id": "fib_eqn",
      "data":
@@ -5003,6 +5433,18 @@ and its border extension paints the outline triangle with the box's border color
         "Imp: Simple Imperative Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
+   "_private.HL.Hoare2.0.SparseAnnotations.DCom.Delab.getDCom?":
+   [{"id":
+     "_private___HL___Hoare2___0___SparseAnnotations___DCom___Delab___getDCom___",
+     "data":
+     {"/Hoare2/#_private___HL___Hoare2___0___SparseAnnotations___DCom___Delab___getDCom___":
+      {"display": "getDCom?",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
    [{"id": "_private___HL___Hoare2___0___DCom___Delab___getDCom___",
      "data":
@@ -5573,6 +6015,656 @@ and its border extension paints the outline triangle with the box's border color
         "Imp: Simple Imperative Programs",
         "Case Study (Optional)"]}},
      "address": "/Imp/"}],
+   "SparseAnnotations.verification_correct":
+   [{"id": "SparseAnnotations___verification_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___verification_correct":
+      {"display": "verification_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.vc_correct":
+   [{"id": "SparseAnnotations___vc_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___vc_correct":
+      {"display": "vc_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.validHoareTriple_def'":
+   [{"id": "SparseAnnotations___validHoareTriple_def___",
+     "data":
+     {"/Hoare2/#SparseAnnotations___validHoareTriple_def___":
+      {"display": "validHoareTriple_def'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.two_loops_correct":
+   [{"id": "SparseAnnotations___two_loops_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___two_loops_correct":
+      {"display": "two_loops_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.twoLoopsDec":
+   [{"id": "SparseAnnotations___twoLoopsDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___twoLoopsDec":
+      {"display": "twoLoopsDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.swap_correct":
+   [{"id": "SparseAnnotations___swap_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___swap_correct":
+      {"display": "swap_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.swapDec":
+   [{"id": "SparseAnnotations___swapDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___swapDec":
+      {"display": "swapDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.subtract_slowly_correct":
+   [{"id": "SparseAnnotations___subtract_slowly_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___subtract_slowly_correct":
+      {"display": "subtract_slowly_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.subtractSlowlyDec":
+   [{"id": "SparseAnnotations___subtractSlowlyDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___subtractSlowlyDec":
+      {"display": "subtractSlowlyDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_simpler_outer_triple_valid":
+   [{"id": "SparseAnnotations___square_simpler_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_simpler_outer_triple_valid":
+      {"display": "square_simpler_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_outer_triple_valid":
+   [{"id": "SparseAnnotations___square_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_outer_triple_valid":
+      {"display": "square_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_dec'_correct":
+   [{"id": "SparseAnnotations___square_dec____correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_dec____correct":
+      {"display": "square_dec'_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareSimplerDec":
+   [{"id": "SparseAnnotations___squareSimplerDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareSimplerDec":
+      {"display": "squareSimplerDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareDec'":
+   [{"id": "SparseAnnotations___squareDec___",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareDec___":
+      {"display": "squareDec'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareDec":
+   [{"id": "SparseAnnotations___squareDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareDec":
+      {"display": "squareDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.sqrt_correct":
+   [{"id": "SparseAnnotations___sqrt_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___sqrt_correct":
+      {"display": "sqrt_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.sqrtDec":
+   [{"id": "SparseAnnotations___sqrtDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___sqrtDec":
+      {"display": "sqrtDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.parity_outer_triple_valid":
+   [{"id": "SparseAnnotations___parity_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___parity_outer_triple_valid":
+      {"display": "parity_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.parityDec":
+   [{"id": "SparseAnnotations___parityDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___parityDec":
+      {"display": "parityDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.if_minus_plus_correct":
+   [{"id": "SparseAnnotations___if_minus_plus_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___if_minus_plus_correct":
+      {"display": "if_minus_plus_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.if_minus_correct":
+   [{"id": "SparseAnnotations___if_minus_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___if_minus_correct":
+      {"display": "if_minus_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.ifMinusPlusDec":
+   [{"id": "SparseAnnotations___ifMinusPlusDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___ifMinusPlusDec":
+      {"display": "ifMinusPlusDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.ifMinusDec":
+   [{"id": "SparseAnnotations___ifMinusDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___ifMinusDec":
+      {"display": "ifMinusDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.factorial_outer_triple_valid":
+   [{"id": "SparseAnnotations___factorial_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___factorial_outer_triple_valid":
+      {"display": "factorial_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.factorialDec":
+   [{"id": "SparseAnnotations___factorialDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___factorialDec":
+      {"display": "factorialDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dpow2_down_correct":
+   [{"id": "SparseAnnotations___dpow2_down_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dpow2_down_correct":
+      {"display": "dpow2_down_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dpow2Down":
+   [{"id": "SparseAnnotations___dpow2Down",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dpow2Down":
+      {"display": "dpow2Down",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.div_mod_outer_triple_valid":
+   [{"id": "SparseAnnotations___div_mod_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___div_mod_outer_triple_valid":
+      {"display": "div_mod_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.divModDec":
+   [{"id": "SparseAnnotations___divModDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___divModDec":
+      {"display": "divModDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dfib_correct":
+   [{"id": "SparseAnnotations___dfib_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dfib_correct":
+      {"display": "dfib_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dfib":
+   [{"id": "SparseAnnotations___dfib",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dfib":
+      {"display": "dfib",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dec_while_correct":
+   [{"id": "SparseAnnotations___dec_while_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dec_while_correct":
+      {"display": "dec_while_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.decWhile":
+   [{"id": "SparseAnnotations___decWhile",
+     "data":
+     {"/Hoare2/#SparseAnnotations___decWhile":
+      {"display": "decWhile",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.T":
+   [{"id": "SparseAnnotations___T",
+     "data":
+     {"/Hoare2/#SparseAnnotations___T":
+      {"display": "T",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.pre":
+   [{"id": "SparseAnnotations___Decorated___pre",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___pre":
+      {"display": "pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.post":
+   [{"id": "SparseAnnotations___Decorated___post",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___post":
+      {"display": "post",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.outerTripleValid_def":
+   [{"id": "SparseAnnotations___Decorated___outerTripleValid_def",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___outerTripleValid_def":
+      {"display": "Decorated.outerTripleValid_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.body":
+   [{"id": "SparseAnnotations___Decorated___body",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___body":
+      {"display": "body",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.VerificationConditions":
+   [{"id": "SparseAnnotations___Decorated___VerificationConditions",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___VerificationConditions":
+      {"display": "Decorated.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.OuterTripleValid":
+   [{"id": "SparseAnnotations___Decorated___OuterTripleValid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___OuterTripleValid":
+      {"display": "Decorated.OuterTripleValid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated":
+   [{"id": "SparseAnnotations___Decorated",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated":
+      {"display": "Decorated",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.whileDo":
+   [{"id": "SparseAnnotations___DCom___whileDo",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.skip":
+   [{"id": "SparseAnnotations___DCom___skip",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.seq":
+   [{"id": "SparseAnnotations___DCom___seq",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.erase":
+   [{"id": "SparseAnnotations___DCom___erase",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___erase":
+      {"display": "DCom.erase",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.cond":
+   [{"id": "SparseAnnotations___DCom___cond",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.awp":
+   [{"id": "SparseAnnotations___DCom___awp",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___awp":
+      {"display": "DCom.awp",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.assert":
+   [{"id": "SparseAnnotations___DCom___assert",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___assert":
+      {"display": "assert",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.asgn":
+   [{"id": "SparseAnnotations___DCom___asgn",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.VerificationConditions":
+   [{"id": "SparseAnnotations___DCom___VerificationConditions",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___VerificationConditions":
+      {"display": "DCom.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandWhileDo":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandWhileDo",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandWhileDo":
+      {"display": "unexpandWhileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandSeq":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandSeq",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandSeq":
+      {"display": "unexpandSeq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandCond":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandCond",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandCond":
+      {"display": "unexpandCond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandAssert":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandAssert",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandAssert":
+      {"display": "unexpandAssert",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandAsgn":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandAsgn",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandAsgn":
+      {"display": "unexpandAsgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.sparse_dcom.parenthesizer.wrapParens":
+   [{"id":
+     "SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer___wrapParens",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer___wrapParens":
+      {"display": "wrapParens",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.sparse_dcom.parenthesizer":
+   [{"id": "SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer":
+      {"display": "sparse_dcom.parenthesizer",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.delabSkip":
+   [{"id": "SparseAnnotations___DCom___Delab___delabSkip",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___delabSkip":
+      {"display": "delabSkip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom":
+   [{"id": "SparseAnnotations___DCom",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom":
+      {"display": "DCom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "Slang.Bexp.optimize0plus_test2":
    [{"id": "Slang___Bexp___optimize0plus_test2",
      "data":
@@ -6730,6 +7822,17 @@ and its border extension paints the outline triangle with the box's border color
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
+   "Lean.Parser.Category.sparse_dcom":
+   [{"id": "Lean___Parser___Category___sparse_dcom",
+     "data":
+     {"/Hoare2/#Lean___Parser___Category___sparse_dcom":
+      {"display": "sparse_dcom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "Lean.Parser.Category.imp_com":
    [{"id": "Lean___Parser___Category___imp_com",
      "data":
@@ -8015,6 +9118,16 @@ and its border extension paints the outline triangle with the box's border color
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HimpHoare2.validHoareTriple_def'":
+   [{"id": "HimpHoare2___validHoareTriple_def___",
+     "data":
+     {"/Hoare2/#HimpHoare2___validHoareTriple_def___":
+      {"display": "validHoareTriple_def'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions (Optional)"]}},
+     "address": "/Hoare2/"}],
    "HimpHoare2.hoare_havoc_weakest":
    [{"id": "HimpHoare2___hoare_havoc_weakest",
      "data":
@@ -8888,6 +10001,61 @@ and its border extension paints the outline triangle with the box's border color
       {"display": "assertion1",
        "context": ["Hoare Logic", "Hoare: Hoare Logic, Part I", "Assertions"]}},
      "address": "/Hoare/"}],
+   "Even.zero":
+   [{"id": "Even___zero",
+     "data":
+     {"/Hoare2/#Even___zero":
+      {"display": "zero",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.sub_two_iff":
+   [{"id": "Even___sub_two_iff",
+     "data":
+     {"/Hoare2/#Even___sub_two_iff":
+      {"display": "Even.sub_two_iff",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.not_add_one":
+   [{"id": "Even___not_add_one",
+     "data":
+     {"/Hoare2/#Even___not_add_one":
+      {"display": "Even.not_add_one",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.addTwo":
+   [{"id": "Even___addTwo",
+     "data":
+     {"/Hoare2/#Even___addTwo":
+      {"display": "addTwo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even":
+   [{"id": "Even",
+     "data":
+     {"/Hoare2/#Even":
+      {"display": "Even",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "Equiv.equiv":
    [{"id": "Equiv___equiv",
      "data":
@@ -10096,6 +11264,28 @@ and its border extension paints the outline triangle with the box's border color
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_le_true":
+   [{"id": "Bexp___eval_le_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_true":
+      {"display": "Bexp.eval_le_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_le_false":
+   [{"id": "Bexp___eval_le_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_false":
+      {"display": "Bexp.eval_le_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_le":
    [{"id": "Bexp___eval_le",
      "data":
@@ -10107,6 +11297,28 @@ and its border extension paints the outline triangle with the box's border color
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_gt_true":
+   [{"id": "Bexp___eval_gt_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_true":
+      {"display": "Bexp.eval_gt_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_gt_false":
+   [{"id": "Bexp___eval_gt_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_false":
+      {"display": "Bexp.eval_gt_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_gt":
    [{"id": "Bexp___eval_gt",
      "data":
@@ -10977,305 +12189,6 @@ if (paramName) {
     });
 }
 </script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -11318,7 +12231,7 @@ window.onload = async () => {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: e5626ab, committed 2026-10-16 11:57 UTC</div>
+            Source revision: ef9a5cf, committed 2026-10-19 12:52 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

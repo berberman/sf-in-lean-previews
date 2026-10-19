@@ -1,5 +1,5 @@
 {
-  "main_sha": "e5626ab5e464b04580aff937b8badeabee375609",
+  "main_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -141,53 +141,6 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
-    },
-    "456": {
-      "base_sha": "e5626ab5e464b04580aff937b8badeabee375609",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "315d72bff41f8a09b3f039f823e67827a8f27b35",
-      "preview_path": "pr/456/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39251494097",
-      "status": "published",
-      "title": "HL/Hoare2: Proofreading, other text improvements, some proofs",
-      "url": "https://github.com/plclub/sf-in-lean/pull/456"
     }
   },
   "schema": 3

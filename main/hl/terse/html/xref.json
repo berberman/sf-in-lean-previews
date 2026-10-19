@@ -1745,6 +1745,16 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "isWp_def":
+   [{"id": "isWp_def",
+     "data":
+     {"/Hoare2/#isWp_def":
+      {"display": "isWp_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions (Optional)"]}},
+     "address": "/Hoare2/"}],
    "if_example'":
    [{"id": "if_example___",
      "data":
@@ -4462,6 +4472,28 @@
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_le_true":
+   [{"id": "Bexp___eval_le_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_true":
+      {"display": "Bexp.eval_le_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_le_false":
+   [{"id": "Bexp___eval_le_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_false":
+      {"display": "Bexp.eval_le_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_le":
    [{"id": "Bexp___eval_le",
      "data":
@@ -4473,6 +4505,28 @@
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_gt_true":
+   [{"id": "Bexp___eval_gt_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_true":
+      {"display": "Bexp.eval_gt_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_gt_false":
+   [{"id": "Bexp___eval_gt_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_false":
+      {"display": "Bexp.eval_gt_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_gt":
    [{"id": "Bexp___eval_gt",
      "data":

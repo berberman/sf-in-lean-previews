@@ -224,9 +224,12 @@ partial def delabBody (stId : FVarId) : DelabM Term := do
     delab
   else
     match_expr e with
-    | MyGetElem.getElem _ _ _ _ st _ =>
+    | MyGetElem.getElem _ _ _ _ st k =>
       guard (st == .fvar stId)
-      withAppArg delab
+      if let .lit (.strVal s) := k then
+        `($(mkIdent (Name.mkSimple s)):ident)
+      else
+        withAppArg delab
     | Aexp.eval st _ =>
       guard (st == .fvar stId)
       withAppArg delab
@@ -997,7 +1000,7 @@ macro_rules
 end Assertion
 
 namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Elab Imp.Delab
 
 /-- Print an `Assertion.subst` back in `P [x ↦ a]` notation.  Emits
 the bare inside-the-braces form: the generic application case of
@@ -1005,7 +1008,11 @@ the bare inside-the-braces form: the generic application case of
 printer supplies the single pair of braces. -/
 @[app_unexpander Assertion.subst]
 def unexpandSubst : Unexpander
-  | `($_ $x:ident $a $P) =>
+  | `($_ $x $a $P) => do
+    let x ← match x with
+      | `($x:ident) => pure x
+      | `($s:str) => pure (mkObjectIdentFrom s.raw s.getString)
+      | _ => throw ()
     match getAssn P with
     | `($P:ident) => `($P:ident [$x:ident ↦ $(getAexp a):imp_aexp])
     | P => `(($P) [$x:ident ↦ $(getAexp a):imp_aexp])
@@ -1289,7 +1296,7 @@ theorem hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :
 --
 --      {{P}} c {{Q'}}
 --         Q' ↠ Q
---      --------------    (hoare_consequence_post)
+--      --------------   (hoare_consequence_post)
 --      {{P}} c {{Q}}
 --
 --  Here are the formal versions:
@@ -2445,30 +2452,30 @@ end RepeatExercise
 --
 --  The rules of Hoare Logic are:
 --
---           -------------------------- (hoare_asgn)
+--           --------------------------          (hoare_asgn)
 --           {{Q [X ↦ a]}} X := a {{Q}}
 --
---              --------------------  (hoare_skip)
+--              --------------------             (hoare_skip)
 --              {{ P }} skip {{ P }}
 --
 --               {{ P }} c₁ {{ Q }}
 --               {{ Q }} c₂ {{ R }}
---              ----------------------  (hoare_seq)
+--              ----------------------            (hoare_seq)
 --              {{ P }} c₁; c₂ {{ R }}
 --
 --              {{P ∧   b}} c₁ {{Q}}
 --              {{P ∧ ¬ b}} c₂ {{Q}}
---      ------------------------------------  (hoare_if)
+--      ------------------------------------       (hoare_if)
 --      {{P}} if b then c₁ else c₂ end {{Q}}
 --
 --               {{P ∧ b}} c {{P}}
---       -----------------------------------  (hoare_while)
+--       -----------------------------------    (hoare_while)
 --       {{P}} while b do c end {{P ∧ ¬ b}}
 --
 --                {{P'}} c {{Q'}}
 --                   P ↠ P'
 --                   Q' ↠ Q
---         -----------------------------   (hoare_consequence)
+--         -----------------------------  (hoare_consequence)
 --                {{P}} c {{Q}}
 --
 --  Our main task in this chapter has been to *define* the rules of Hoare
@@ -2947,4 +2954,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: e5626ab, committed 2026-10-16 11:57 UTC
+-- Source revision: ef9a5cf, committed 2026-10-19 12:52 UTC
