@@ -141,6 +141,16 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
+    },
+    "458": {
+      "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
+      "changed_variants": [],
+      "head_sha": "8a168ff5d25678f909e019020491072a198655d4",
+      "preview_path": "pr/458/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Restore inversion proof-state buttons",
+      "url": "https://github.com/plclub/sf-in-lean/pull/458"
     }
   },
   "schema": 3
