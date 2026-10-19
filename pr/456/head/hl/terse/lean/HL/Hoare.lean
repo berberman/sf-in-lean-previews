@@ -1019,7 +1019,7 @@ theorem assertion_sub_example :
 --
 --      {{P}} c {{Q'}}
 --         Q' ↠ Q
---      --------------    (hoare_consequence_post)
+--      --------------   (hoare_consequence_post)
 --      {{P}} c {{Q}}
 
 --  Here are the formal versions:
@@ -1552,30 +1552,30 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 
 --  The rules of Hoare Logic are:
 --
---           -------------------------- (hoare_asgn)
+--           --------------------------          (hoare_asgn)
 --           {{Q [X ↦ a]}} X := a {{Q}}
 --
---              --------------------  (hoare_skip)
+--              --------------------             (hoare_skip)
 --              {{ P }} skip {{ P }}
 --
 --               {{ P }} c₁ {{ Q }}
 --               {{ Q }} c₂ {{ R }}
---              ----------------------  (hoare_seq)
+--              ----------------------            (hoare_seq)
 --              {{ P }} c₁; c₂ {{ R }}
 --
 --              {{P ∧   b}} c₁ {{Q}}
 --              {{P ∧ ¬ b}} c₂ {{Q}}
---      ------------------------------------  (hoare_if)
+--      ------------------------------------       (hoare_if)
 --      {{P}} if b then c₁ else c₂ end {{Q}}
 --
 --               {{P ∧ b}} c {{P}}
---       -----------------------------------  (hoare_while)
+--       -----------------------------------    (hoare_while)
 --       {{P}} while b do c end {{P ∧ ¬ b}}
 --
 --                {{P'}} c {{Q'}}
 --                   P ↠ P'
 --                   Q' ↠ Q
---         -----------------------------   (hoare_consequence)
+--         -----------------------------  (hoare_consequence)
 --                {{P}} c {{Q}}
 
 --  Our main task in this chapter has been to *define* the
@@ -1593,4 +1593,4 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  of Hoare logic as a closed world for reasoning about
 --  programs.
 
--- Source revision: 6fa62b1, committed 2026-10-19 03:30 UTC
+-- Source revision: bcfcfb7, committed 2026-10-19 12:21 UTC

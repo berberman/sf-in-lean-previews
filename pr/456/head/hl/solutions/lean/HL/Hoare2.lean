@@ -473,11 +473,13 @@ theorem reduce_to_zero_correct' :
   -- First put the postcondition into the form expected by
   -- the while rule.
   apply hoare_consequence_post
-  -- We use the fact that after the `while` loop, the loops condition must not hold.
+  -- We use the fact that after the `while` loop,
+  -- the loops condition must not hold.
   · apply hoare_while
     -- Trivial postcondition: we just need to prove `True`
     · apply hoare_post_true; simp
-    -- Our precondition that `X ≠ 0` cannot hold is exactly what we need to prove `X = 0`.
+    -- Our precondition that `X ≠ 0` cannot hold is
+    -- exactly what we need to prove `X = 0`.
   · simp
     intros _ h; assumption
 
@@ -490,7 +492,7 @@ theorem reduce_to_zero_correct' :
 --  the available hypotheses, simplifies assertions, maps, and arithmetic
 --  expressions, and then asks `lia` to solve linear arithmetic goals.
 --  What's left after `verify_assertion` does its work should be just the
---  "interesting parts" of the proof (which, if we're lucky, might be
+--  "interesting parts" of the proof (which, if we're lucky, will be
 --  nothing at all!).
 
 macro "verify_assertion" : tactic =>
@@ -1153,19 +1155,18 @@ sf_expect_failure_in
       DCom.postcondition]
 
 --  Fortunately, our `verify_assertion` tactic can generally take care of
---  most (or sometimes all) of them.
+--  most (or sometimes, all) of them.
 
 example : decWhile.VerificationConditions := by
   simp only [decWhile]
   verify_assertion
 
---  To automate the overall process of verification, we can use
---  `verification_conditions_correct` to extract the verification
---  conditions, use the logic of `verify_assertion` to verify them as much
---  as it can, and finally tidy up any remaining bits by hand.
---
---  We first add some low-level simplification lemmas to make this process
---  feel more smooth.
+--  We develop another tactic, `verify`, to automate the overall process of
+--  verification. It uses `verification_conditions_correct` to extract the
+--  verification conditions, and the logic of `verify_assertion` to verify
+--  them as much as it can. We enhance this logic with some low-level
+--  simplification lemmas, defined next, to make the process a little
+--  smoother.
 
 theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
     (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
@@ -1183,8 +1184,6 @@ theorem Bexp.eval_gt_false {st : State} {a₁ a₂ : Aexp} :
     (Bexp.gt a₁ a₂).eval st = false ↔ ¬ a₁.eval st > a₂.eval st := by
   simp
 
--- Unlike `verify_assertion`, this leaves any conjunct `lia` cannot
--- prove open as a separate goal.
 macro "verify" : tactic =>
   `(tactic|
     (apply verification_conditions_correct;
@@ -3524,4 +3523,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 6fa62b1, committed 2026-10-19 03:30 UTC
+-- Source revision: bcfcfb7, committed 2026-10-19 12:21 UTC

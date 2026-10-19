@@ -1393,18 +1393,26 @@
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
  "106":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1052":
+ "1056":
  "<code>isWp_def {p : Assertion} {c : Com} {q : Assertion} :\n  IsWp p c q ↔ ValidHoareTriple p c q ∧ ∀ (p' : Assertion), {{p'}} ~c {{q}} → p' ↠ p</code>",
- "1051": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
- "1050": "<code>dec_while_correct : decWhile.OuterTripleValid</code>",
+ "1055": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
+ "1054": "<code>dec_while_correct : decWhile.OuterTripleValid</code>",
+ "1053":
+ "<code class=\"docstring\">`try tac` runs `tac` and succeeds even if `tac` failed. </code>",
+ "1052":
+ "<code class=\"docstring\">`and_intros` applies `And.intro` until it does not make progress. </code>",
+ "1051":
+ "<code><span class=\"literal string\">\"verify\"</span> : String</code>",
+ "1050":
+ "<code>Bexp.eval_gt_false {st : State} {a₁ a₂ : Aexp} : eval st (bexp {a₁ &gt; a₂}) = false ↔ ¬Aexp.eval st a₁ &gt; Aexp.eval st a₂</code>",
  "105":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
  "1049":
- "<code class=\"docstring\">`try tac` runs `tac` and succeeds even if `tac` failed. </code>",
+ "<code>Bexp.eval_gt_true {st : State} {a₁ a₂ : Aexp} : eval st (bexp {a₁ &gt; a₂}) = true ↔ Aexp.eval st a₁ &gt; Aexp.eval st a₂</code>",
  "1048":
- "<code class=\"docstring\">`and_intros` applies `And.intro` until it does not make progress. </code>",
+ "<code>Bexp.eval_le_false {st : State} {a₁ a₂ : Aexp} : eval st (bexp {a₁ ≤ a₂}) = false ↔ ¬Aexp.eval st a₁ ≤ Aexp.eval st a₂</code>",
  "1047":
- "<code><span class=\"literal string\">\"verify\"</span> : String</code>",
+ "<code>Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} : eval st (bexp {a₁ ≤ a₂}) = true ↔ Aexp.eval st a₁ ≤ Aexp.eval st a₂</code>",
  "1046":
  "<code>Decorated.mk (pre : Assertion) (body : DCom) : Decorated</code>",
  "1045": "<code>dec.VerificationConditions</code>",
