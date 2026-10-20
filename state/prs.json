@@ -191,11 +191,48 @@
     },
     "459": {
       "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "910d3d7820e4255b446dd8cb209df4e8c4f32966",
       "preview_path": "pr/459/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39467279765",
+      "status": "published",
       "title": "HL/Hoare2: Formatting adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/459"
     }
