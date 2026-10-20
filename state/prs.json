@@ -282,6 +282,53 @@
       "status": "published",
       "title": "Upgrade Lean to v4.34.0 to fix macOS 27 crash",
       "url": "https://github.com/plclub/sf-in-lean/pull/460"
+    },
+    "461": {
+      "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2ec36714c39229d4e365db37958a6587d34ad3cc",
+      "preview_path": "pr/461/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39480126179",
+      "status": "published",
+      "title": "Hoare: grade swap_exercise by hand",
+      "url": "https://github.com/plclub/sf-in-lean/pull/461"
     }
   },
   "schema": 3
