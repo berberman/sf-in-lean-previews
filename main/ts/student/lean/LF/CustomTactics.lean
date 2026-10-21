@@ -10,15 +10,6 @@ meta section
 namespace Lean.Parser
 open Tactic
 
-/-- Internal syntactic representation of a single inversion alternative. -/
-declare_syntax_cat invAlt
-syntax " | " caseArg " => " tacticSeq : invAlt
-
-/-- An inversion alternative matching one or more goal tags,
-  expanding to multiple single [invAlt]s. -/
-declare_syntax_cat invAlts
-syntax (" | " caseArg)+ " => " tacticSeq : invAlts
-
 /--
   `inversion h` behaves like `cases h` except that where `cases` would fail with
   > "Dependent elimination failed: Failed to solve equation ...",
@@ -40,7 +31,7 @@ syntax (" | " caseArg)+ " => " tacticSeq : invAlts
     is supported, similar to that of `cases` and `induction`.
 -/
 syntax (name := inversion)
-  "inversion " optConfig ident (" with " (tacticSeq)? (colGe invAlts)*)? : tactic
+  "inversion " optConfig ident (" with " (tacticSeq)? (colGe inductionAlt)*)? : tactic
 
 end Lean.Parser
 
@@ -133,6 +124,7 @@ def casesClearMany (subgoals : Array CasesSubgoal) (fvarIds : Array FVarId) : Me
 end Lean.Meta
 
 namespace Lean.Elab.Tactic
+open Lean.Parser.Tactic (inductionAlt)
 open Meta Term
 
 -- [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/Lemma.lean]
@@ -203,26 +195,35 @@ def _root_.Lean.MVarId.inversion (goal : MVarId) (h : FVarId) (config : Inversio
 /-- Given an inversion alternative and a list of goals,
   solve the tagged goal with the provided tactics,
   throwing an error if the goal cannot be found or solved. -/
-def evalInvAlt (goals : List MVarId) (alt : TSyntax `invAlt) : TacticM (List MVarId) :=
+def evalInvAlt (goals : List MVarId) (alt : TSyntax ``inductionAlt) : TacticM (List MVarId) :=
   match alt with
-  | `(invAlt| | $tag:ident $vars:binderIdent* => $tactics:tacticSeq) => do
+  | `(inductionAlt| | $tag:ident $vars* => $tactics:tacticSeq) => do
     if let some goal ← goals.findM? (matchTag tag.getId <$> ·.getUserName) then
-      return [← trySolveGoal alt.raw[2] vars tactics goal]
+      return [← trySolveGoal alt vars tactics goal]
     else throwError m!"Invalid alternative name `{tag.getId}`: {← errorMsg}"
-  | `(invAlt| | _ $vars:binderIdent* => $tactics:tacticSeq) => do
+  | `(inductionAlt| | _ $vars* => $tactics:tacticSeq) => do
     if !goals.isEmpty then
-      goals.mapM (trySolveGoal alt.raw[2] vars tactics)
+      goals.mapM (trySolveGoal alt vars tactics)
     else throwErrorAt alt m!"Invalid wildcard alternative: {← errorMsg}"
   | _ => throwErrorAt alt "Could not parse inversion alternative"
 where
   matchTag tag name : Bool :=
     tag == name || tag.isPrefixOf name || tag.isSuffixOf name
-  trySolveGoal stx vars tactics goal : TacticM MVarId := do
-    let renamedGoal ← withRef stx $ renameInaccessibles goal vars
-    let goals ← evalTacticAt tactics renamedGoal
-    unless goals.isEmpty do
-      reportUnsolvedGoals goals
-    return goal
+  trySolveGoal alt vars tactics goal : TacticM MVarId := do
+    let vars := vars.map fun var => ⟨mkNode ``binderIdent #[var.raw]⟩
+    let renamedGoal ← withRef alt.raw[1][0] $ renameInaccessibles goal vars
+    let savedGoals ← getGoals
+    try
+      setGoals [renamedGoal]
+      -- Use the same branch information as `cases` for SubVerso's proof states.
+      withTacticInfoContext (mkNullNode #[alt.raw[0], alt.raw[1][0]]) do
+        evalTactic tactics
+        let goals ← getUnsolvedGoals
+        unless goals.isEmpty do
+          reportUnsolvedGoals goals
+      return goal
+    finally
+      setGoals savedGoals
   errorMsg : TacticM MessageData := do
     let goalMsgs ← goals.mapM (.ofName <$> ·.getUserName)
     return if goals.isEmpty
@@ -231,7 +232,7 @@ where
 
 @[tactic Lean.Parser.inversion, inherit_doc Lean.Parser.inversion]
 public meta def evalInversion : Tactic
-  | `(tactic| inversion $config $h:ident $[with $[$tactics?:tacticSeq]? $[$alts?:invAlts]*]?) => do
+  | `(tactic| inversion $config $h:ident $[with $[$tactics?:tacticSeq]? $[$alts?:inductionAlt]*]?) => do
     let casesSubgoals ← (← getMainGoal).inversion (← getFVarId h) (← elabInversionConfig config)
     let mut goals ← casesSubgoals.toList.mapM setUserName
     if let some tactics := tactics?.join then
@@ -251,9 +252,11 @@ where
     if let some name := subgoal.ctorName then
       subgoal.mvarId.setUserName name.getSuffix
     return subgoal.mvarId
-  expandInvAlts
-    | alts@`(invAlts| $[| $args:caseArg]* => $tactics:tacticSeq) =>
-      args.mapM $ (withRef alts `(invAlt| | $(·) => $tactics))
+  expandInvAlts (alt : TSyntax ``inductionAlt) : TacticM (Array (TSyntax ``inductionAlt)) :=
+    match alt with
+    | alt@`(inductionAlt| $lhs* => $_:tacticSeq) =>
+      -- Keep the original source nodes when splitting grouped alternatives.
+      pure <| lhs.map fun lhs => ⟨alt.raw.setArg 0 (mkNullNode #[lhs.raw])⟩
     | stx => throwErrorAt stx "Could not parse inversion alternatives"
 
 end Lean.Elab.Tactic

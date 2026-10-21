@@ -1101,4 +1101,4 @@ theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
 --       while (true) {X := 0}
 --       {{ X = 0 }}
 
--- Source revision: acf9172, committed 2026-10-21 10:32 UTC
+-- Source revision: 16537a4, committed 2026-10-21 11:10 UTC

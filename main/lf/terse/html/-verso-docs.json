@@ -240,9 +240,9 @@
  "<code>Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
  "84": "<code>isRed (c : Color) : Bool</code>",
  "839":
- "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
- "838":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
+ "838":
+ "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
  "837": "<code>Silly n</code>",
  "836": "<code>∃ m, n = m + 2</code>",
  "835": "<code>Silly.mk3 {n : Nat} (h : ∃ m, n = m + 2) : Silly n</code>",

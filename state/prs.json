@@ -1,5 +1,5 @@
 {
-  "main_sha": "acf917282904eb49d8786b3f64e45429221adc08",
+  "main_sha": "16537a4a440a4d6968019cb989ca80c3bae23939",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -188,53 +188,6 @@
       "status": "published",
       "title": "HL/Hoare2: Formatting adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/459"
-    },
-    "461": {
-      "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2ec36714c39229d4e365db37958a6587d34ad3cc",
-      "preview_path": "pr/461/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39480126179",
-      "status": "published",
-      "title": "Hoare: grade swap_exercise by hand",
-      "url": "https://github.com/plclub/sf-in-lean/pull/461"
     }
   },
   "schema": 3

@@ -1766,7 +1766,7 @@ theorem hoare_asgn_example4 :
     · exact hoare_asgn
     · assertion_auto
 
---  ### Exercise (3 stars): swap_exercise ⭐⭐⭐
+--  ### Exercise (3 stars): swap_exercise (Manually graded) ⭐⭐⭐
 
 --  Write an Imp program `c` that swaps the values of `X` and `Y` and show
 --  that it satisfies the following specification:
@@ -3478,4 +3478,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: acf9172, committed 2026-10-21 10:32 UTC
+-- Source revision: 16537a4, committed 2026-10-21 11:10 UTC
