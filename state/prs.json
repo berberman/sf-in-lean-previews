@@ -141,16 +141,6 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
-    },
-    "459": {
-      "base_sha": "16537a4a440a4d6968019cb989ca80c3bae23939",
-      "changed_variants": [],
-      "head_sha": "16566438861b447c1a866e6444822157149d6ecc",
-      "preview_path": "pr/459/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "HL/Hoare2: Formatting adjustments",
-      "url": "https://github.com/plclub/sf-in-lean/pull/459"
     }
   },
   "schema": 3
