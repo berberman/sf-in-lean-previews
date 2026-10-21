@@ -463,7 +463,7 @@
  "681": "<code>Scope</code>",
  "680": "<code>TmElab</code>",
  "68":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "679": "<code>StlcCommon.Elab.TmElabHandler : Type</code>",
  "678": "<code>Stlc.Elab.boolTmHandler : TmElabHandler</code>",
  "677": "<code>StlcCommon.Elab.unsupportedTy (lang : Language) : TyElab</code>",
@@ -530,7 +530,7 @@
  "631": "<code>&lt;{ ⊢ true ⦂ Nat }&gt;</code>",
  "630": "<code>&lt;{ ⊢ t ⦂ Nat }&gt;</code>",
  "63":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "629":
  "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
  "628": "<code>&lt;{ ⊢ succ t₀ ⦂ Bool }&gt;</code>",

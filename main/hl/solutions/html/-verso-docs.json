@@ -442,7 +442,7 @@
  "710":
  "<code>Aexp.eval (\"Z\" →ₜ Aexp.eval st (aexp {Z - 1}) ; st) (aexp {X - 1}) = n✝</code>",
  "71":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "709": "<code>Aexp.eval st (aexp {Z - 1}) = n✝¹</code>",
  "708": "<code>Aexp.eval (\"Z\" →ₜ n✝¹ ; st) (aexp {X - 1}) = n✝</code>",
  "707": "<code>imp {X := X - 1}.EvalR (\"Z\" →ₜ n✝ ; st) st'</code>",
@@ -507,7 +507,7 @@
  "661": "<code>imp {while (b) {c}} = imp {while (b✝) {c✝}}</code>",
  "660": "<code>st =[ cmd ]=&gt; st'</code>",
  "66":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "659": "<code>imp {while (b) {c}} = cmd</code>",
  "658":
  "<code>guard_false_after_loop {b : Bexp} {c : Com} {st st' : State} (heval : st =[ while (b) {c} ]=&gt; st') :\n  Bexp.eval st' b = false</code>",

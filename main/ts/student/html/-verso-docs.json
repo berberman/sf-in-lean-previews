@@ -420,7 +420,7 @@
  "<code>StlcCommon.Elab.elabCtxCommon (lang : Language) (elabTy : TyElab) (Γ : TSyntax `stlcCtx) : TermElabM (Expr × Scope)</code>",
  "720": "<code>StlcCommon.Elab.CtxElab : Type</code>",
  "72":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "719": "<code>Stlc.Elab.elabCtx : CtxElab</code>",
  "718": "<code>StlcCommon.Elab.unsupportedTm : TmElab</code>",
  "717": "<code>StlcCommon.Elab.TmElab : Type</code>",
@@ -487,7 +487,7 @@
  "671": "<code>∃ t', a ⟶ t'</code>",
  "670": "<code>a.IsValue</code>",
  "67":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "669": "<code>¬a.IsValue</code>",
  "668": "<code>a.IsNormalForm</code>",
  "667": "<code>a.IsStuck</code>",

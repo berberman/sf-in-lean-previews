@@ -524,7 +524,7 @@
  "671": "<code>a₂.foldConstants = aexp {a₁✝ - a₂✝}</code>",
  "670": "<code>a₂.foldConstants = aexp {a₁✝ * a₂✝}</code>",
  "67":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "669":
  "<code class=\"docstring\">`exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.\nIt is useful for existential goals.\n</code>",
  "668":
@@ -600,7 +600,7 @@
  "621": "<code>st =[ while (b) {c} ]=&gt; st''</code>",
  "620": "<code>b ≃ bexp {false}</code>",
  "62":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "619":
  "<code>Com.while_false {b : Bexp} {c : Com} (hb : b ≃ bexp {false}) : imp {while (b) {c}} ≃ imp {skip}</code>",
  "618": "<code>st =[ if (b) {c₁} else {c₂} ]=&gt; st'</code>",

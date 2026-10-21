@@ -1,5 +1,5 @@
 {
-  "main_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
+  "main_sha": "acf917282904eb49d8786b3f64e45429221adc08",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -142,53 +142,6 @@
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
     },
-    "458": {
-      "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8a168ff5d25678f909e019020491072a198655d4",
-      "preview_path": "pr/458/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39280632692",
-      "status": "published",
-      "title": "Restore inversion proof-state buttons",
-      "url": "https://github.com/plclub/sf-in-lean/pull/458"
-    },
     "459": {
       "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
       "changed_variants": [
@@ -235,53 +188,6 @@
       "status": "published",
       "title": "HL/Hoare2: Formatting adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/459"
-    },
-    "460": {
-      "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b41ef1e28703022181befff8840889045dd406a2",
-      "preview_path": "pr/460/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39473732561",
-      "status": "published",
-      "title": "Upgrade Lean to v4.34.0 to fix macOS 27 crash",
-      "url": "https://github.com/plclub/sf-in-lean/pull/460"
     },
     "461": {
       "base_sha": "ef9a5cfc9a8700227b10b8535ff6f0e8d2e2e20c",

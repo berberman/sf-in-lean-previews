@@ -76,6 +76,105 @@
   background: none;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+/* The counter must be established inside <main>, whose container declaration (see
+   Html/Style.lean) applies style containment: a counter established outside the
+   containment boundary cannot be incremented by the notes within it. */
+.content-wrapper {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 .namedocs {
   position: relative;
   border: solid 1px #98B2C0;
@@ -1008,102 +1107,6 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
-.marginalia .note {
-  position: relative;
-  padding: 0.5rem;
-}
-
-/*
-The margin-note layout responds to the width of <main>, not the viewport, because the
-ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
-query container (see Html/Style.lean), so the container queries below track the actual
-content width.
-
-There are two "in the margin" regimes, split at the same width where the content stops
-being left-aligned and becomes centered (1112px and 1212px of content width; at the
-default ToC width these are the old 1400px and 1500px viewport breakpoints):
-
-  * While the content is left-aligned there is a large area to its right, so a fixed
-    13rem note with a fixed 16rem overhang fits comfortably.
-  * Once the content is centered the note must fit the symmetric right gap, whose width
-    is (content - text column) / 2. A fixed overhang would overflow the page for content
-    widths just above the centering threshold, so the note and its overhang are sized in
-    container units, which always fit that gap.
-*/
-
-/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
-@media screen and (width <= 700px) {
-  .marginalia .note {
-    float: left;
-    clear: left;
-    width: 90%;
-    margin: 1rem 5%;
-  }
-}
-
-/* Wider than a phone: by default float the note at the right of the text column,
-   overlapping the content. The container queries below lift it into the true margin
-   once there is room. */
-@media screen and (min-width: 701px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 40%;
-    margin: 1rem 0;
-    margin-left: 10%;
-  }
-}
-
-/* Left-aligned content: a fixed-size note in the wide area to its right. */
-@container main (width >= 1112px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 13rem;
-    margin: 1rem -16rem 0 0;
-  }
-}
-
-/* Centered content: size the note in container units so it always fits the symmetric
-   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
-   so the fixed-overhang note above is only ever used while the content is left-aligned.
-   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
-   content width at which the content is centered. */
-@container main (width >= 1212px) {
-  .marginalia .note {
-    width: 15cqi;
-    margin-right: -18cqi;
-  }
-}
-
-.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
-  background-color: var(--lean-accent-light-blue);
-}
-
-body {
-  counter-reset: margin-note-counter;
-}
-.marginalia .note {
-  counter-increment: margin-note-counter;
-}
-.marginalia .note::before {
-  content: counter(margin-note-counter) ".";
-  position: absolute;
-  vertical-align: baseline;
-  font-size: 0.9em;
-  font-weight: bold;
-  left: -3rem;
-  width: 3rem;
-  text-align: right;
-}
-.marginalia::after {
-  content: counter(margin-note-counter);
-  vertical-align: super;
-  font-size: 0.7em;
-  font-weight: bold;
-  margin-right: 0.5em;
-}
-</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1930,305 +1933,6 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -5610,6 +5314,30 @@ window.onload = async () => {
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
+   "reverse_reverse":
+   [{"id": "reverse_reverse",
+     "data":
+     {"/Poly/#reverse_reverse":
+      {"display": "reverse_reverse",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Exercises"]}},
+     "address": "/Poly/"}],
+   "reverse_append":
+   [{"id": "reverse_append",
+     "data":
+     {"/Poly/#reverse_append":
+      {"display": "reverse_append",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Exercises"]}},
+     "address": "/Poly/"}],
    "rev_nil":
    [{"id": "rev_nil",
      "data":
@@ -5702,6 +5430,17 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
+   "prod_ext_example":
+   [{"id": "prod_ext_example",
+     "data":
+     {"/Logic/#prod_ext_example":
+      {"display": "prod_ext_example",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Other Extensionality Principles"]}},
+     "address": "/Logic/"}],
    "plus_2_2_is_4":
    [{"id": "plus_2_2_is_4",
      "data":
@@ -5732,6 +5471,17 @@ window.onload = async () => {
      "data":
      {"/Logic/#or_intro_l":
       {"display": "or_intro_l",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
+   "or_commute":
+   [{"id": "or_commute",
+     "data":
+     {"/Logic/#or_commute":
+      {"display": "or_commute",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -5804,6 +5554,28 @@ window.onload = async () => {
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
+   "not_true_iff_false":
+   [{"id": "not_true_iff_false",
+     "data":
+     {"/Logic/#not_true_iff_false":
+      {"display": "not_true_iff_false",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Logical Equivalence"]}},
+     "address": "/Logic/"}],
+   "not_False":
+   [{"id": "not_False",
+     "data":
+     {"/Logic/#not_False":
+      {"display": "not_False",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Falsehood and Negation"]}},
+     "address": "/Logic/"}],
    "nextWorkingDay'":
    [{"id": "nextWorkingDay___",
      "data":
@@ -5860,6 +5632,17 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
+   "mul_eq_0_ternary":
+   [{"id": "mul_eq_0_ternary",
+     "data":
+     {"/Logic/#mul_eq_0_ternary":
+      {"display": "mul_eq_0_ternary",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Propositional Extensionality"]}},
+     "address": "/Logic/"}],
    "monochrome'":
    [{"id": "monochrome___",
      "data":
@@ -6029,6 +5812,39 @@ window.onload = async () => {
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "iff_trans":
+   [{"id": "iff_trans",
+     "data":
+     {"/Logic/#iff_trans":
+      {"display": "iff_trans",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Logical Equivalence"]}},
+     "address": "/Logic/"}],
+   "iff_sym":
+   [{"id": "iff_sym",
+     "data":
+     {"/Logic/#iff_sym":
+      {"display": "iff_sym",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Logical Equivalence"]}},
+     "address": "/Logic/"}],
+   "iff_refl":
+   [{"id": "iff_refl",
+     "data":
+     {"/Logic/#iff_refl":
+      {"display": "iff_refl",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Logical Equivalence"]}},
+     "address": "/Logic/"}],
    "identity":
    [{"id": "identity",
      "data":
@@ -6149,6 +5965,16 @@ window.onload = async () => {
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
+   "even_double_conv":
+   [{"id": "even_double_conv",
+     "data":
+     {"/Logic/#even_double_conv":
+      {"display": "even_double_conv",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
    "even_double":
    [{"id": "even_double",
      "data":
@@ -6181,6 +6007,17 @@ window.onload = async () => {
         "Deciding Propositions",
         "Decidable  and Equality"]}},
      "address": "/Typeclasses/"}],
+   "double_neg":
+   [{"id": "double_neg",
+     "data":
+     {"/Logic/#double_neg":
+      {"display": "double_neg",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Falsehood and Negation"]}},
+     "address": "/Logic/"}],
    "double_injective":
    [{"id": "double_injective-next",
      "data":
@@ -6245,6 +6082,17 @@ window.onload = async () => {
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
+   "contradiction_implies_anything":
+   [{"id": "contradiction_implies_anything",
+     "data":
+     {"/Logic/#contradiction_implies_anything":
+      {"display": "contradiction_implies_anything",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Falsehood and Negation"]}},
+     "address": "/Logic/"}],
    "constFun":
    [{"id": "constFun",
      "data":
@@ -6297,6 +6145,42 @@ window.onload = async () => {
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "append_nil":
+   [{"id": "append_nil",
+     "data":
+     {"/Poly/#append_nil":
+      {"display": "append_nil",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Exercises"]}},
+     "address": "/Poly/"}],
+   "append_length":
+   [{"id": "append_length",
+     "data":
+     {"/Poly/#append_length":
+      {"display": "append_length",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Exercises"]}},
+     "address": "/Poly/"}],
+   "append_assoc":
+   [{"id": "append_assoc",
+     "data":
+     {"/Poly/#append_assoc":
+      {"display": "append_assoc",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Exercises"]}},
+     "address": "/Poly/"}],
    "and_is_false":
    [{"id": "and_is_false",
      "data":
@@ -6374,6 +6258,16 @@ window.onload = async () => {
         "The Logic of Lean",
         "Functional Extensionality"]}},
      "address": "/Logic/"}],
+   "add_beq_true":
+   [{"id": "add_beq_true",
+     "data":
+     {"/Logic/#add_beq_true":
+      {"display": "add_beq_true",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
    "addTwice":
    [{"id": "addTwice",
      "data":
@@ -6427,6 +6321,50 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "TotalMap.update_shadow":
+   [{"id": "TotalMap___update_shadow",
+     "data":
+     {"/Typeclasses/#TotalMap___update_shadow":
+      {"display": "update_shadow",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Reasoning About Total Maps"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.update_same":
+   [{"id": "TotalMap___update_same",
+     "data":
+     {"/Typeclasses/#TotalMap___update_same":
+      {"display": "update_same",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Reasoning About Total Maps"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.update_permute":
+   [{"id": "TotalMap___update_permute",
+     "data":
+     {"/Typeclasses/#TotalMap___update_permute":
+      {"display": "update_permute",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Reasoning About Total Maps"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.update_neq":
+   [{"id": "TotalMap___update_neq",
+     "data":
+     {"/Typeclasses/#TotalMap___update_neq":
+      {"display": "update_neq",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Reasoning About Total Maps"]}},
+     "address": "/Typeclasses/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
      "data":
@@ -6652,6 +6590,28 @@ window.onload = async () => {
         "Tactic Combinators",
         "The  try  Combinator"]}},
      "address": "/Automation/"}],
+   "RegExp.weak_pumping_star_zero":
+   [{"id": "RegExp___weak_pumping_star_zero",
+     "data":
+     {"/Automation/#RegExp___weak_pumping_star_zero":
+      {"display": "weak_pumping_star_zero",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.weak_pumping_star_app":
+   [{"id": "RegExp___weak_pumping_star_app",
+     "data":
+     {"/Automation/#RegExp___weak_pumping_star_app":
+      {"display": "weak_pumping_star_app",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
    "RegExp.star_app":
    [{"id": "RegExp___star_app",
      "data":
@@ -6773,6 +6733,17 @@ window.onload = async () => {
         "Case Study: Regular Expressions",
         "The \"Weak\" Pumping Lemma"]}},
      "address": "/Automation/"}],
+   "RegExp.in_re_match":
+   [{"id": "RegExp___in_re_match",
+     "data":
+     {"/Automation/#RegExp___in_re_match":
+      {"display": "in_re_match",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Examples"]}},
+     "address": "/Automation/"}],
    "RegExp.Union":
    [{"id": "RegExp___Union",
      "data":
@@ -6794,6 +6765,17 @@ window.onload = async () => {
         "Automation: More Automation",
         "Case Study: Regular Expressions",
         "Definitions"]}},
+     "address": "/Automation/"}],
+   "RegExp.MStar1":
+   [{"id": "RegExp___MStar1",
+     "data":
+     {"/Automation/#RegExp___MStar1":
+      {"display": "MStar1",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Examples"]}},
      "address": "/Automation/"}],
    "RegExp.ExpMatch.mUnionR":
    [{"id": "RegExp___ExpMatch___mUnionR",
@@ -7782,6 +7764,18 @@ window.onload = async () => {
         "Working with Numerals",
         "Equality and Ordering"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.zero_add_one":
+   [{"id": "NatPlayground___Nat___zero_add_one",
+     "data":
+     {"/Basics/#NatPlayground___Nat___zero_add_one":
+      {"display": "zero_add_one",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Multiplication"]}},
+     "address": "/Basics/"}],
    "NatPlayground.Nat.zero_add":
    [{"id": "NatPlayground___Nat___zero_add",
      "data":
@@ -7848,6 +7842,24 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.succ_mul":
+   [{"id": "NatPlayground___Nat___succ_mul",
+     "data":
+     {"/Induction/#NatPlayground___Nat___succ_mul":
+      {"display": "succ_mul",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
+   "NatPlayground.Nat.succ_eq_add_one":
+   [{"id": "NatPlayground___Nat___succ_eq_add_one",
+     "data":
+     {"/Induction/#NatPlayground___Nat___succ_eq_add_one":
+      {"display": "succ_eq_add_one",
+       "context":
+       ["Logical Foundations", "Induction: Proof by Induction", "Review"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.succ_ble_zero":
    [{"id": "NatPlayground___Nat___succ_ble_zero",
      "data":
@@ -7907,6 +7919,16 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.right_distrib":
+   [{"id": "NatPlayground___Nat___right_distrib",
+     "data":
+     {"/Induction/#NatPlayground___Nat___right_distrib":
+      {"display": "right_distrib",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.review₄":
    [{"id": "NatPlayground___Nat___review___-next-next-next",
      "data":
@@ -8025,6 +8047,60 @@ window.onload = async () => {
         "Induction: Proof by Induction",
         "Proofs Within Proofs"]}},
      "address": "/Induction/"}],
+   "NatPlayground.Nat.mul_zero":
+   [{"id": "NatPlayground___Nat___mul_zero",
+     "data":
+     {"/Basics/#NatPlayground___Nat___mul_zero":
+      {"display": "mul_zero",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Multiplication"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.mul_succ":
+   [{"id": "NatPlayground___Nat___mul_succ",
+     "data":
+     {"/Basics/#NatPlayground___Nat___mul_succ":
+      {"display": "mul_succ",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Multiplication"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.mul_one":
+   [{"id": "NatPlayground___Nat___mul_one",
+     "data":
+     {"/Induction/#NatPlayground___Nat___mul_one":
+      {"display": "mul_one",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
+   "NatPlayground.Nat.mul_comm":
+   [{"id": "NatPlayground___Nat___mul_comm",
+     "data":
+     {"/Induction/#NatPlayground___Nat___mul_comm":
+      {"display": "mul_comm",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
+   "NatPlayground.Nat.mul_assoc":
+   [{"id": "NatPlayground___Nat___mul_assoc",
+     "data":
+     {"/Induction/#NatPlayground___Nat___mul_assoc":
+      {"display": "mul_assoc",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.mul":
    [{"id": "NatPlayground___Nat___mul",
      "data":
@@ -8048,8 +8124,18 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.left_distrib":
+   [{"id": "NatPlayground___Nat___left_distrib",
+     "data":
+     {"/Induction/#NatPlayground___Nat___left_distrib":
+      {"display": "left_distrib",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero",
+   [{"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8064,7 +8150,7 @@ window.onload = async () => {
         "Induction: Proof by Induction",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero-next",
+    {"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8145,6 +8231,16 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.ble_refl":
+   [{"id": "NatPlayground___Nat___ble_refl",
+     "data":
+     {"/Induction/#NatPlayground___Nat___ble_refl":
+      {"display": "ble_refl",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
    [{"id": "NatPlayground___Nat___ble",
      "data":
@@ -8157,6 +8253,17 @@ window.onload = async () => {
         "Working with Numerals",
         "Equality and Ordering"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.beq_self":
+   [{"id": "NatPlayground___Nat___beq_self",
+     "data":
+     {"/Induction/#NatPlayground___Nat___beq_self":
+      {"display": "beq_self",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "Proof by Induction",
+        "Induction: In Principle and in Lean"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.beq'":
    [{"id": "NatPlayground___Nat___beq___",
      "data":
@@ -8181,6 +8288,16 @@ window.onload = async () => {
         "Working with Numerals",
         "Equality and Ordering"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.andb_false":
+   [{"id": "NatPlayground___Nat___andb_false",
+     "data":
+     {"/Induction/#NatPlayground___Nat___andb_false":
+      {"display": "andb_false",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.and_commutative":
    [{"id": "NatPlayground___Nat___and_commutative",
      "data":
@@ -8200,6 +8317,27 @@ window.onload = async () => {
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Case Analysis"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.all3_spec":
+   [{"id": "NatPlayground___Nat___all3_spec",
+     "data":
+     {"/Induction/#NatPlayground___Nat___all3_spec":
+      {"display": "all3_spec",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
+   "NatPlayground.Nat.add_zero_zero_zero":
+   [{"id": "NatPlayground___Nat___add_zero_zero_zero",
+     "data":
+     {"/Basics/#NatPlayground___Nat___add_zero_zero_zero":
+      {"display": "add_zero_zero_zero",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Proof State and Tactics"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero_zero_explained":
    [{"id": "NatPlayground___Nat___add_zero_zero_explained",
@@ -8245,6 +8383,16 @@ window.onload = async () => {
         "Proof by Rewriting",
         "A New  add  Rule"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.add_shuffle3":
+   [{"id": "NatPlayground___Nat___add_shuffle3",
+     "data":
+     {"/Induction/#NatPlayground___Nat___add_shuffle3":
+      {"display": "add_shuffle3",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.add_rearrange":
    [{"id": "NatPlayground___Nat___add_rearrange",
      "data":
@@ -8287,6 +8435,17 @@ window.onload = async () => {
         "Proof by Rewriting",
         "General Proofs about Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.add_comm":
+   [{"id": "NatPlayground___Nat___add_comm",
+     "data":
+     {"/Induction/#NatPlayground___Nat___add_comm":
+      {"display": "add_comm",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "Proof by Induction",
+        "Induction: In Principle and in Lean"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.add":
    [{"id": "NatPlayground___Nat___add",
      "data":
@@ -8342,6 +8501,17 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "Nat.zero_or_succ":
+   [{"id": "Nat___zero_or_succ",
+     "data":
+     {"/Logic/#Nat___zero_or_succ":
+      {"display": "Nat.zero_or_succ",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
    "Nat.odd_def":
    [{"id": "Nat___odd_def",
      "data":
@@ -8362,6 +8532,17 @@ window.onload = async () => {
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.mul_is_zero":
+   [{"id": "Nat___mul_is_zero",
+     "data":
+     {"/Logic/#Nat___mul_is_zero":
+      {"display": "Nat.mul_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
    "Nat.minusTwo":
    [{"id": "Nat___minusTwo",
      "data":
@@ -8453,6 +8634,17 @@ window.onload = async () => {
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.add_is_zero":
+   [{"id": "Nat___add_is_zero",
+     "data":
+     {"/Logic/#Nat___add_is_zero":
+      {"display": "Nat.add_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Conjunction"]}},
+     "address": "/Logic/"}],
    "Nat.IsThree":
    [{"id": "Nat___IsThree",
      "data":
@@ -8653,6 +8845,61 @@ window.onload = async () => {
      "data":
      {"/Basics/#MyBool___not":
       {"display": "not",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Booleans"]}},
+     "address": "/Basics/"}],
+   "MyBool.nand_test4":
+   [{"id": "MyBool___nand_test4",
+     "data":
+     {"/Basics/#MyBool___nand_test4":
+      {"display": "nand_test4",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Booleans"]}},
+     "address": "/Basics/"}],
+   "MyBool.nand_test3":
+   [{"id": "MyBool___nand_test3",
+     "data":
+     {"/Basics/#MyBool___nand_test3":
+      {"display": "nand_test3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Booleans"]}},
+     "address": "/Basics/"}],
+   "MyBool.nand_test2":
+   [{"id": "MyBool___nand_test2",
+     "data":
+     {"/Basics/#MyBool___nand_test2":
+      {"display": "nand_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Booleans"]}},
+     "address": "/Basics/"}],
+   "MyBool.nand_test1":
+   [{"id": "MyBool___nand_test1",
+     "data":
+     {"/Basics/#MyBool___nand_test1":
+      {"display": "nand_test1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Booleans"]}},
+     "address": "/Basics/"}],
+   "MyBool.nand":
+   [{"id": "MyBool___nand",
+     "data":
+     {"/Basics/#MyBool___nand":
+      {"display": "nand",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -9063,6 +9310,17 @@ window.onload = async () => {
         "Lists of Numbers",
         "Replicate"]}},
      "address": "/Lists/"}],
+   "Lists.NatList.remove_does_not_increase_count'":
+   [{"id": "Lists___NatList___remove_does_not_increase_count___",
+     "data":
+     {"/Lists/#Lists___NatList___remove_does_not_increase_count___":
+      {"display": "remove_does_not_increase_count'",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "List Exercises, Part 2"]}},
+     "address": "/Lists/"}],
    "Lists.NatList.nthBad":
    [{"id": "Lists___NatList___nthBad",
      "data":
@@ -9173,6 +9431,18 @@ window.onload = async () => {
      "data":
      {"/Lists/#Lists___NatList___length_append_succ":
       {"display": "length_append_succ",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Reversing a List"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.length_append":
+   [{"id": "Lists___NatList___length_append",
+     "data":
+     {"/Lists/#Lists___NatList___length_append":
+      {"display": "length_append",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -9352,6 +9622,16 @@ window.onload = async () => {
         "Lists: Working with Structured Data",
         "Partial Maps"]}},
      "address": "/Lists/"}],
+   "Lists.MyId.beq_refl":
+   [{"id": "Lists___MyId___beq_refl",
+     "data":
+     {"/Lists/#Lists___MyId___beq_refl":
+      {"display": "MyId.beq_refl",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Partial Maps"]}},
+     "address": "/Lists/"}],
    "Lists.MyId.beq":
    [{"id": "Lists___MyId___beq",
      "data":
@@ -9427,6 +9707,13 @@ window.onload = async () => {
       {"display": "List.elemPoly_nil",
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly_eq_elemNat":
+   [{"id": "List___elemPoly_eq_elemNat",
+     "data":
+     {"/Typeclasses/#List___elemPoly_eq_elemNat":
+      {"display": "List.elemPoly_eq_elemNat",
+       "context": ["Logical Foundations", "Typeclasses", "Using Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly_cons":
    [{"id": "List___elemPoly_cons",
@@ -9674,6 +9961,46 @@ window.onload = async () => {
      "data":
      {"/Typeclasses/#HasTwo":
       {"display": "HasTwo",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "HasThree.two":
+   [{"id": "HasThree___two",
+     "data":
+     {"/Typeclasses/#HasThree___two":
+      {"display": "two",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "HasThree.three":
+   [{"id": "HasThree___three",
+     "data":
+     {"/Typeclasses/#HasThree___three":
+      {"display": "three",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "HasThree.one_neq_two":
+   [{"id": "HasThree___one_neq_two",
+     "data":
+     {"/Typeclasses/#HasThree___one_neq_two":
+      {"display": "one_neq_two",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "HasThree.one":
+   [{"id": "HasThree___one",
+     "data":
+     {"/Typeclasses/#HasThree___one":
+      {"display": "one",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "HasThree":
+   [{"id": "HasThree",
+     "data":
+     {"/Typeclasses/#HasThree":
+      {"display": "HasThree",
        "context":
        ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
      "address": "/Typeclasses/"}],
@@ -10024,7 +10351,7 @@ window.onload = async () => {
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -10041,7 +10368,7 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -10146,6 +10473,30 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "Algebra.inv_unique":
+   [{"id": "Algebra___inv_unique",
+     "data":
+     {"/Typeclasses/#Algebra___inv_unique":
+      {"display": "inv_unique",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.inv_inv'":
+   [{"id": "Algebra___inv_inv___",
+     "data":
+     {"/Typeclasses/#Algebra___inv_inv___":
+      {"display": "inv_inv'",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.inv_inv":
+   [{"id": "Algebra___inv_inv",
+     "data":
+     {"/Typeclasses/#Algebra___inv_inv":
+      {"display": "inv_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "Algebra.id_unique":
    [{"id": "Algebra___id_unique",
      "data":
@@ -10183,6 +10534,14 @@ window.onload = async () => {
      "data":
      {"/Typeclasses/#Algebra___Monoid___left_id":
       {"display": "left_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.id_unique_left":
+   [{"id": "Algebra___Monoid___id_unique_left",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___id_unique_left":
+      {"display": "Monoid.id_unique_left",
        "context":
        ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
      "address": "/Typeclasses/"}],
@@ -10294,6 +10653,46 @@ let paramName = params.get("name");
 
 let xref = /** @type {{xref: XRef}} */ (/** @type {unknown} */ (window)).xref;
 
+/**
+ * The replacements for characters that are not valid in slugs. This mirrors the mangling table in
+ * MultiVerso.Slug.
+ * @type {Record<string, string>}
+ */
+const slugReplacements = {
+    "<": "_LT_",
+    ">": "_GT_",
+    ";": "_SEMI_",
+    "‹": "_FLQ_",
+    "›": "_FRQ_",
+    "«": "_FLQQ_",
+    "»": "_FLQQ_",
+    "⟨": "_LANGLE_",
+    "⟩": "_RANGLE_",
+    "(": "_LPAR_",
+    ")": "_RPAR_",
+    "[": "_LSQ_",
+    "]": "_RSQ_",
+    "→": "_ARR_",
+    "↦": "_MAPSTO_",
+    "⊢": "_VDASH_",
+};
+
+/**
+ * Converts a string to a valid slug, mangling as appropriate. This mirrors the slug computation in
+ * MultiVerso.Slug, so names can be compared with links that were minted from their slugs.
+ * @param {string} s
+ * @returns {string}
+ */
+function sluggify(s) {
+    let out = "";
+    for (const c of s) {
+        if (/^[a-zA-Z0-9_-]$/.test(c)) out += c;
+        else if (c === " " || c === "\t" || c === "\r" || c === "\n") out += "-";
+        else out += slugReplacements[c] ?? "___";
+    }
+    return out;
+}
+
 if (paramName) {
     /**
      * @type (Item & {domain: string})[]
@@ -10318,6 +10717,27 @@ if (paramName) {
             if (opts["contents"].hasOwnProperty(paramName)) {
                 for (const i of opts["contents"][paramName]) {
                     options.push(Object.assign(i, { domain: dom }));
+                }
+            }
+        }
+    }
+
+    if (options.length == 0) {
+        // Permalinks from before a bug fix that separated sections' HTML IDs from their
+        // canonical names in the section domain were mangled as slugs. If we don't find
+        // any results, we try to recover by checking equality modulo sluggification.
+        // This workaround was introduced in August 2026 and should be removed when it
+        // seems unlikely for old permalinks to be a significant problem.
+        const nameSlug = sluggify(paramName);
+        const searchDomains = domains && domains.length > 0 ? domains : Object.keys(xref);
+        for (const domain of searchDomains) {
+            if (!xref.hasOwnProperty(domain)) continue;
+            const contents = xref[domain]["contents"];
+            for (const key of Object.keys(contents)) {
+                if (sluggify(key) === nameSlug) {
+                    for (const i of contents[key]) {
+                        options.push(Object.assign(i, { domain: domain }));
+                    }
                 }
             }
         }
@@ -10400,6 +10820,305 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -10442,7 +11161,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: ef9a5cf, committed 2026-10-19 12:52 UTC</div>
+            Source revision: acf9172, committed 2026-10-21 10:32 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>
