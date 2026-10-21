@@ -144,11 +144,48 @@
     },
     "462": {
       "base_sha": "8b2ca479c6ab9ab3c3758a7746bd18410a4ece58",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "8379fb3ef4ed6d1d269ae4238dfa4bc7b9496c82",
       "preview_path": "pr/462/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39603899178",
+      "status": "published",
       "title": "HL: More fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/462"
     }
