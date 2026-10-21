@@ -460,44 +460,41 @@ end DComFirstTry
 --
 --  Instead, our formal syntax of decorated commands will omit
 --  preconditions whenever possible and embed just postconditions.
---  - The `skip` command, for example, is decorated only with its
---    postcondition
+--
+--  The **skip** command `skip` is decorated only with its postcondition.
 --
 --      skip {{ q }}
 --
---  on the assumption that the precondition will be provided by somebody
---  else.
+--  The precondition will be provided by somebody else. We carry the same
+--  assumption through the other syntactic forms: each decorated command is
+--  assumed to carry its own postcondition within itself but take its
+--  precondition from its context in which it is used.
 --
---  We carry the same assumption through the other syntactic forms: each
---  decorated command is assumed to carry its own postcondition within
---  itself but take its precondition from its context in which it is used.
---  - Sequences `d₁ ; d₂` need no additional decorations.
+--  **Sequences** `d₁ ; d₂` need no additional decorations. Why? Because
+--  inside `d₂` there will be a postcondition, which also serves as the
+--  postcondition of `d₁;d₂`. Similarly, inside `d₁` there will also be a
+--  postcondition, which additionally serves as the *precondition* for
+--  `d₂`.
 --
---  Why?
---
---  Because inside `d₂` there will be a postcondition, which also serves as
---  the postcondition of `d₁;d₂`.
---
---  Similarly, inside `d₁` there will also be a postcondition, which
---  additionally serves as the *precondition* for `d₂`.
---  - An assignment `X := a` is decorated only with its postcondition:
+--  An **assignment** `X := a` is decorated only with its postcondition:
 --
 --      X := a {{ q }}
 --
---  - A conditional `if b then d₁ else d₂` is decorated with a
---    postcondition for the entire statement, as well as preconditions for
---    each branch:
+--  A **conditional** `if b then d₁ else d₂` is decorated with a
+--  postcondition for the entire statement, as well as preconditions for
+--  each branch:
 --
 --      if b then {{ p₁ }} d₁ else {{ p₂ }} d₂ end {{ q }}
 --
---  - A loop `while (b) {d}` is decorated with its final postcondition plus
---    a precondition for the body:
+--  A **loop** `while (b) {d}` is decorated with its final postcondition
+--  plus a precondition for the body:
 --
 --      while (b) {{ p }} { d } {{ q }}
 --
 --  The postcondition embedded in `d` serves as the loop invariant.
---  - Implications `↠` can be added as decorations either for a
---    precondition...
+--
+--  **Implications** `↠` can be added as decorations either for a
+--  precondition...
 --
 --      ↠ {{ p }} d
 --
@@ -752,11 +749,13 @@ example :
 def Decorated.precondition (dec : Decorated) : Assertion :=
   dec.pre
 
---  Notice the `@[simp]` annotation we added here. This directs Lean to
---  generate an equational lemma of the same form as the characterizing
---  lemmas we've been writing by hand, such as `validHoareTriple_def` and
---  `Assertion.subst_apply` in the Hoare chapter, and add it to the `simp`
---  set. We can see the added equation by printing it.
+--  Notice the `@[simp]` annotation we added here.
+--
+--  This directs Lean to generate an equational lemma of the same form as
+--  the characterizing lemmas we've been writing by hand, such as
+--  `validHoareTriple_def` and `Assertion.subst_apply` in the Hoare
+--  chapter, and add it to the `simp` set. We can see the added equation by
+--  printing it.
 
 #print equations Decorated.precondition
 
@@ -789,8 +788,11 @@ example : decWhile.postcondition = {{ X = 0 }} := by
   funext st
   rfl
 
---  We can then express what it means for a decorated program to be correct
---  as follows:
+--  ### Extracting Verification Conditions
+
+--  Now that we have defined what a decorated program is, we can express
+--  what it means for a particular decorated program to be *correct*, as a
+--  valid Hoare Triple:
 
 def Decorated.OuterTripleValid (dec : Decorated) : Prop :=
   ValidHoareTriple dec.precondition dec.erase
@@ -817,9 +819,7 @@ example : decWhile.OuterTripleValid =
 --  they are the facts that must be verified to see that the decorations
 --  are locally consistent and thus constitute a proof of validity of the
 --  outer triple.
-
---  ### Extracting Verification Conditions
-
+--
 --  The function `DCom.VerificationConditions` takes a decorated command
 --  `d` together with a precondition `p` and returns a *proposition* that,
 --  if it can be proved, implies that the triple
@@ -835,75 +835,47 @@ example : decWhile.OuterTripleValid =
 --    decorated command and the assertions imposed by the external
 --    precondition; these uses correspond to applications of the
 --    consequence rule.
+
+--  #### Local consistency
+
+--  The **skip** command `skip {{q}}` is locally consistent with respect to
+--  a precondition `p` if `p ↠ q`.
 --
---  *Local consistency* is defined as follows...
---  - The decorated command
+--  The **sequential composition** `d₁` and `d₂` is locally consistent with
+--  respect to `p` if `d₁` is locally consistent with respect to `p` and
+--  `d₂` is locally consistent with respect to the postcondition of `d₁`.
 --
---      skip {{q}}
+--  An **assignment** `X := a {{q}}` is locally consistent with respect to
+--  a precondition `p` if `p ↠ q [X ↦ a]`.
 --
---  is locally consistent with respect to a precondition `p` if `p ↠ q`.
---  - The sequential composition of `d₁` and `d₂` is locally consistent
---    with respect to `p` if `d₁` is locally consistent with respect to `p`
---    and `d₂` is locally consistent with respect to the postcondition of
---    `d₁`.
+--  A **conditional** `if b then {{p₁}} d₁ else {{p₂}} d₂ end {{q}}` is
+--  locally consistent with respect to precondition `p` if
+--  1. `p ∧ b ↠ p₁`
+--  2. `p ∧ b ↠ p₂`
+--  3. `d₁` is locally consistent with respect to `p₁`
+--  4. `d₂` is locally consistent with respect to `p₂`
+--  5. `d₁.postcondition ↠ q`
+--  6. `d₂.postcondition ↠ q`
 --
---  - An assignment
+--  A **loop** `while (b) {{{q}} d} {{r}}` is locally consistent with
+--  respect to precondition `p` if:
+--  1. `p ↠ d.postcondition`
+--  2. `d.postcondition ∧ b ↠ q`
+--  3. `d.postcondition ∧ b ↠ r`
+--  4. `d` is locally consistent with respect to `q`
 --
---      X := a {{q}}
+--  A command with an extra **assertion at the beginning**, `↠ {{q}} d` is
+--  locally consistent with respect to a precondition `p` if:
+--  1. `p ↠ q`
+--  2. `d` is locally consistent with respect to `q`
 --
---  is locally consistent with respect to a precondition `p` if:
---
---      p ↠ q [X ↦ a]
---
---  - A conditional
---
---      if b then {{p₁}} d₁ else {{p₂}} d₂ end {{q}}
---
---  is locally consistent with respect to precondition `p` if
---
---  (1) `p ∧ b ↠ p₁`
---
---  (2) `p ∧ b ↠ p₂`
---
---  (3) `d₁` is locally consistent with respect to `p₁`
---
---  (4) `d₂` is locally consistent with respect to `p₂`
---
---  (5) `d₁.postcondition ↠ q`
---
---  (6) `d₂.postcondition ↠ q`
---  - A loop
---
---      while (b) {{{q}} d} {{r}}
---
---  is locally consistent with respect to precondition `p` if:
---
---  (1) `p ↠ d.postcondition`
---
---  (2) `d.postcondition ∧ b ↠ q`
---
---  (3) `d.postcondition ∧ b ↠ r`
---
---  (4) `d` is locally consistent with respect to `q`
---  - A command with an extra assertion at the beginning
---
---      ↠ {{q}} d
---
---  is locally consistent with respect to a precondition `p` if:
---
---  (1) `p ↠ q`
---
---  (2) `d` is locally consistent with respect to `q`
---  - A command with an extra assertion at the end
---
---      d ↠ {{q}}
---
---  is locally consistent with respect to a precondition `p` if:
---
---  (1) `d` is locally consistent with respect to `p`
---
---  (2) `d.postcondition ↠ q`
---
+--  A command with an extra **assertion at the end** `d ↠ {{q}}` is locally
+--  consistent with respect to a precondition `p` if:
+--  1. `d` is locally consistent with respect to `p`
+--  2. `d.postcondition ↠ q`
+
+--  #### Verification Condition Generation
+
 --  With all this in mind, we can write a *verification condition
 --  generator* that takes a decorated command and reads off a proposition
 --  saying that all its decorations are locally consistent.
@@ -2092,4 +2064,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 16537a4, committed 2026-10-21 11:10 UTC
+-- Source revision: 8b2ca47, committed 2026-10-21 12:38 UTC

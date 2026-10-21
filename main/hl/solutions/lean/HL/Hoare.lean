@@ -1910,16 +1910,6 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
 
 --  Now we can formalize the Hoare proof rule for conditionals and prove it
 --  correct.
---
---  The statement of the rule reads: given `htrue : {{ P ∧ b }} c₁ {{Q}}`
---  and `hfalse : {{ P ∧ ¬b }} c₂ {{Q}}`, we can conclude
---  `{{P}} if (b) { c₁ } else { c₂ } {{Q}}`. That is (unwrapping the
---  notations):
---
---      theorem hoare_if {P Q : Assertion} {b : Bexp} {c₁ c₂ : Com}
---          (htrue : {{ fun st => P st ∧ b.eval st = true }} c₁ {{ Q }})
---          (hfalse : {{ fun st => P st ∧ ¬ (b.eval st = true) }} c₂ {{ Q }}) :
---          {{ P }} if (b) { c₁ } else { c₂ } {{ Q }}
 
 theorem hoare_if {P Q : Assertion} {b : Bexp} {c₁ c₂ : Com}
     (htrue : {{ P ∧ b }} c₁ {{ Q }})
@@ -3478,4 +3468,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: 16537a4, committed 2026-10-21 11:10 UTC
+-- Source revision: 8b2ca47, committed 2026-10-21 12:38 UTC
