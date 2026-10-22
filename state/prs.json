@@ -1,5 +1,5 @@
 {
-  "main_sha": "8b2ca479c6ab9ab3c3758a7746bd18410a4ece58",
+  "main_sha": "22af3e61d544e1f9c6a87470cfa25f012b83031b",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -143,24 +143,14 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
     },
     "462": {
-      "base_sha": "8b2ca479c6ab9ab3c3758a7746bd18410a4ece58",
+      "base_sha": "22af3e61d544e1f9c6a87470cfa25f012b83031b",
       "changed_variants": [],
-      "head_sha": "88ccfbdb454ff3def3ecafce9a53e2e2ad203818",
+      "head_sha": "0cae45a056f27db87cc776f03d81b6a655bd107d",
       "preview_path": "pr/462/head/",
       "run_url": null,
       "status": "waiting-ci",
       "title": "More fixes to Hoare2, Imp; updated README",
       "url": "https://github.com/plclub/sf-in-lean/pull/462"
-    },
-    "463": {
-      "base_sha": "8b2ca479c6ab9ab3c3758a7746bd18410a4ece58",
-      "changed_variants": [],
-      "head_sha": "a7f37ddb6fa57b9911244ccafaf4249a669c8329",
-      "preview_path": "pr/463/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Hoare2: add grading",
-      "url": "https://github.com/plclub/sf-in-lean/pull/463"
     }
   },
   "schema": 3

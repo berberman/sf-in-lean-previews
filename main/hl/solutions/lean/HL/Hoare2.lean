@@ -1217,20 +1217,20 @@ theorem positive_difference_correct :
 
 --  Here is a skeleton of the formal decorated version of the
 --  `if_minus_plus` program that we saw earlier. Replace all occurrences of
---  `FILL_IN_HERE` with appropriate assertions and fill in the proof (which
---  should be just as straightforward as in the examples above).
+--  `sorry` with appropriate assertions and fill in the proof (which should
+--  be just as straightforward as in the examples above).
 
 def ifMinusPlusDec : Decorated where
   pre := ({{ True }})
   body := dcom {
     if (X ≤ Y) then
-      {{ True ∧ X ≤ Y }}
-      ↠ {{ Y = X + (Y - X) }}
-      Z := Y - X {{ Y = X + Z }}
+      {{ ({{ True ∧ X ≤ Y }}) }}
+      ↠ {{ ({{ Y = X + (Y - X) }}) }}
+      Z := Y - X {{ ({{ Y = X + Z }}) }}
     else
-      {{ True ∧ ¬ X ≤ Y }}
-      ↠ {{ X + Z = X + Z }}
-      Y := X + Z {{ Y = X + Z }}
+      {{ ({{ True ∧ ¬ X ≤ Y }}) }}
+      ↠ {{ ({{ X + Z = X + Z }}) }}
+      Y := X + Z {{ ({{ Y = X + Z }}) }}
     end
       {{ Y = X + Z }}
   }
@@ -1247,17 +1247,17 @@ theorem if_minus_plus_correct :
 def divModDec (a b : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ↠ {{ b * 0 + a = a }}
-    X := ~(Aexp.num a) {{ b * 0 + X = a }};
-    Y := 0 {{ b * Y + X = a }};
+    ↠ {{ ({{ b * 0 + a = a }}) }}
+    X := ~(Aexp.num a) {{ ({{ b * 0 + X = a }}) }};
+    Y := 0 {{ ({{ b * Y + X = a }}) }};
     while (~(Aexp.num b) ≤ X) do
-      {{ b * Y + X = a ∧ b ≤ X }}
-      ↠ {{ b * (Y + 1) + (X - b) = a }}
-      X := X - ~(Aexp.num b) {{ b * (Y + 1) + X = a }};
-      Y := Y + 1 {{ b * Y + X = a }}
+      {{ ({{ b * Y + X = a ∧ b ≤ X }}) }}
+      ↠ {{ ({{ b * (Y + 1) + (X - b) = a }}) }}
+      X := X - ~(Aexp.num b) {{ ({{ b * (Y + 1) + X = a }}) }};
+      Y := Y + 1 {{ ({{ b * Y + X = a }}) }}
     end
-      {{ b * Y + X = a ∧ ¬ b ≤ X }}
-    ↠ {{ b * Y + X = a ∧ X < b }}
+      {{ ({{ b * Y + X = a ∧ ¬ b ≤ X }}) }}
+    ↠ {{ ({{ b * Y + X = a ∧ X < b }}) }}
   }
 
 theorem div_mod_outer_triple_valid (a b : Nat) :
@@ -3495,4 +3495,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 8b2ca47, committed 2026-10-21 12:38 UTC
+-- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
