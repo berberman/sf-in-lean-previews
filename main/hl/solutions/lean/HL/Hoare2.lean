@@ -29,29 +29,11 @@ open scoped Com MyGetElem Assertion HasTriple HasEval
 --  Note to developers (Michael Clarkson @clarksmr, before next release, 2020):
 --      Here are a bunch of improvements I wanted to make but didn't have
 --      time to get to. Maybe next time if no one else gets to them first.
---      - 1. This chapter feels largely disconnected from the style of the
---           rest of the series, which is "100% Rocq script". There's a
---           significant amount of "just comments" here instead. I think we
---           could make this much better by introducing formal decorated
---           programs right after we informally define them. Then in the
---           examples that follow do each informal decorated program (to
---           get students to find the right assertions, more or less)
---           followed immediately by a formal version, instead of delaying
---           formal so far to the end. The `parity` exercise is a good
---           example of one that already almost does this already. (BCP 21:
---           Done!)
---      - 2. There are several places where we are verifying Imp program
---           schemas, not actual programs. We're mixing Rocq variables with
---           Imp variables. That's confusing. One example is `two_loops`;
---           I've tried to mark others as I come across them. (BCP: I've
---           added some quizzes and such to try to clarify the relation
---           between programs / triples and program/triple schemas. BCP 25:
---           I think this is a non-issue now.)
---      - 3. Weakest preconditions show up in this chapter as completely
+--      - 1. Weakest preconditions show up in this chapter as completely
 --           optional, then are revisited (and required) in HoareAsLogic.
 --           Consider moving the entire treatment to that chapter. (BCP 23:
 --           Yes, we should do that!)
---      - 4. It seems a shame that the SparseAnnotations section is not
+--      - 2. It seems a shame that the SparseAnnotations section is not
 --           visible in the full version, but only in a solution. It's
 --           fantastic! It would be great to show it off. (BCP 25: Yes!
 --           Indeed, perhaps it should even replace the current treatment!)
@@ -182,30 +164,7 @@ open scoped Com MyGetElem Assertion HasTriple HasEval
 --        end
 --      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ↠
 --      {{ Z = p - m }}
-
---  Note to developers:
---      `HIDE: MRC'20: It bothers me a little in the proof above (and
---      similarly throughout the whole file really when it comes to guards)
---      that when we get to this part:
---      [[
---       while X ≠ 0 do {{ Z - X = p - m ∧ X ≠ 0 }} ↠
---      ]]
---      we are inconsistent about [X ≠ 0] vs. [~(X=0)].  I admit they
---      evaluate the same (er, sort of---the former is a [bexp] whereas the
---      latter is an assertion), but they aren't syntactically the same.
---      Since what we're teaching here (mechanized Hoare logic) is fussy
---      about syntax, it strikes me as something we ought to be precise
---      about. But it's an annoying change to propagate through the file,
---      so I haven't done it. Is it worth a comment, or do others not get
---      bothered by this?  Another way to fix this would be to add the [≠]
---      operator to Imp, so that we can write the guard in the nicer way.
 --
---      BCP 20: I think adding in a few more boolean operators at the
---      outside is the way to go...
---
---      BCP 21: ... and I've now done this: ≠ is available in formal
---      bexps (also >).`
-
 --  Concretely, a decorated program consists of the program's text
 --  interleaved with assertions (sometimes multiple assertions separated by
 --  ↠).
@@ -310,11 +269,6 @@ open scoped Com MyGetElem Assertion HasTriple HasEval
 --    back `Y` produces `X`, as needed by the second disjunct of (6). Note
 --    that `n - m + m = n` does *not* hold for arbitrary natural numbers
 --    `n` and `m` (for example, [3 - 5 + 5 = 5]).
-
---  Note to developers:
---      NOTATION: LATER: The `~` in that paragraph will typeset wrong if
---      the space after it is removed. Maybe it's better to give up on all
---      the unicode hacks in the generated HTML...?
 
 --  ### Exercise (2 stars): if_minus_plus_reloaded (Optional, Manually graded) ⭐⭐
 
@@ -959,8 +913,10 @@ example : decWhile.OuterTripleValid =
 --  a precondition `p` if `p ↠ q`.
 --
 --  The **sequential composition** `d₁` and `d₂` is locally consistent with
---  respect to `p` if `d₁` is locally consistent with respect to `p` and
---  `d₂` is locally consistent with respect to the postcondition of `d₁`.
+--  respect to `p` if
+--  1. `d₁` is locally consistent with respect to `p`
+--  2. `d₂` is locally consistent with respect to the postcondition of
+--     `d₁`.
 --
 --  An **assignment** `X := a {{q}}` is locally consistent with respect to
 --  a precondition `p` if `p ↠ q [X ↦ a]`.
@@ -1006,10 +962,6 @@ example : decWhile.OuterTripleValid =
 --      generator should should use equivalence or implication in a few
 --      places. I (BCP) believe Phil (Wadler) changed some instances of the
 --      former to the latter.
---
---      HIDE: MRC'20: a written explanation of each part of this would be
---      quite nice. BCP 21: Agreed!! (BCP 23: But it's kind of what's just
---      above...)
 
 @[simp]
 def DCom.VerificationConditions
@@ -1136,9 +1088,17 @@ example : decWhile.VerificationConditions := by
 --  We develop another tactic, `verify`, to automate the overall process of
 --  verification. It uses `verification_conditions_correct` to extract the
 --  verification conditions, and the logic of `verify_assertion` to verify
---  them as much as it can. We enhance this logic with some low-level
---  simplification lemmas, defined next, to make the process a little
---  smoother.
+--  them as much as it can.
+--
+--  We enhance this logic with four low-level simplification lemmas,
+--  defined next, to make the process a little smoother. In particular,
+--  these lemmas translate the `Bexp.eval` equations introduced by
+--  conditional and loop guards into inequalities on the underlying
+--  arithmetic expressions. This makes them visible to `lia` for further
+--  simplification. For these lemmas to have maximum effect, the tactic
+--  removes `Bexp.eval_le` and `Bexp.eval_gt`, since these could rewrite
+--  `Bexp.eval` expressions in a way that would cause the four
+--  simplification lemmas not to match.
 
 theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
     (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
@@ -1304,7 +1264,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --
 --  This leads to the following skeleton:
 --
---      (1)    {{ X = m ∧ Y = n }}  ↠                   (a)
+--      (1)    {{ X = m ∧ Y = n }}  ↠                  (a)
 --      (2)    {{ Inv }}
 --               while X ≠ 0 do
 --      (3)              {{ Inv ∧ X ≠ 0 }}  ↠          (c)
@@ -1343,7 +1303,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  Maybe it will work here too. To find out, let's try instantiating `Inv`
 --  with `True` in the skeleton above and see what we get...
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                    (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                   (a - OK)
 --      (2)    {{ True }}
 --               while X ≠ 0 do
 --      (3)                   {{ True ∧ X ≠ 0 }} ↠     (c - OK)
@@ -1368,7 +1328,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  skeleton, instantiate `Inv` with `Y = n - m`, and try checking
 --  conditions (a) to (c) again.
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                        (a - WRONG!)
+--      (1)    {{ X = m ∧ Y = n }} ↠                       (a - WRONG!)
 --      (2)    {{ Y = n - m }}
 --               while X ≠ 0 do
 --      (3)                     {{ Y = n - m ∧ X ≠ 0 }} ↠  (c - WRONG!)
@@ -1407,7 +1367,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  difference is always `n - m`. So let's try instantiating `Inv` in the
 --  skeleton above with `Y - X = n - m`.
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                            (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                           (a - OK)
 --      (2)    {{ Y - X = n - m }}
 --               while X ≠ 0 do
 --      (3)                    {{ Y - X = n - m ∧ X ≠ 0 }} ↠   (c - OK)
@@ -1506,7 +1466,7 @@ def parity : Nat → Nat
 --  Using `parity X = parity m` as an invariant we obtain the following
 --  decorated program:
 --
---      {{ X = m }} ↠                                         (a - OK)
+--      {{ X = m }} ↠                                       (a - OK)
 --      {{ parity X = parity m }}
 --        while 2 ≤ X do
 --                     {{ parity X = parity m ∧ 2 ≤ X }} ↠  (c - OK)
@@ -1526,15 +1486,15 @@ def parity : Nat → Nat
 --  Note to developers:
 --      `HIDE: A more complexly phrased loop invariant for the same program
 --      [[
---              {{ X = m }}  ↠                        (a - OK)
+--              {{ X = m }} ↠                       (a - OK)
 --              {{ ev X <-> ev m }}
 --            while 2 ≤ X do
---                {{ ev X <-> ev m ∧ 2 ≤ X }}  ↠    (c - OK)
+--                {{ ev X <-> ev m ∧ 2 ≤ X }} ↠     (c - OK)
 --                {{ ev (X-2) <-> ev m }}
 --              X := X - 2
 --                {{ ev X <-> ev m }}
 --            end
---              {{ (ev X <-> ev m) ∧ ~(2 ≤ X) }}  ↠     (b - OK)
+--              {{ (ev X <-> ev m) ∧ ~(2 ≤ X) }} ↠  (b - OK)
 --              {{ X=0 <-> ev m }}
 --      ]]`
 --
@@ -1565,22 +1525,6 @@ def parity : Nat → Nat
 --  `parity X = parity m`. Ordinary Lean functions can be applied directly
 --  to Imp variables inside assertions, so this can be written as
 --  `{{ parity X = parity m }}`.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2023):
---      `Maya: In the parity exercise, I was getting annoyed
---      by the verify_assertion tactic unfolding the assumption [(2 ≤?  st
---      X) = true] into a match on the first two layers of [st X]. I ended
---      up digging out the following incantation from the depths of the Rocq
---      manual:
---
---         Arguments leb !n !m.
---
---      I'm not sure what level of automated tests you keep for the
---      exercises, so I wanted to point this struggle out. Perhaps
---      something changed in the Rocq library at some point.
---
---      BCP 23: Worth looking into!  (I tried just adding [Arguments leb !n
---      !m.] to the script, but that broke things.)`
 
 def parityDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
@@ -1879,7 +1823,7 @@ theorem parity_correct (m : Nat) :
 --  As we did before, we can try to use the postcondition as a candidate
 --  loop invariant, obtaining the following decorated program:
 --
---      (1)  {{ X=m }} ↠                  (a - second conjunct of (2) WRONG!)
+--      (1)  {{ X=m }} ↠                (a - second conjunct of (2) WRONG!)
 --      (2)  {{ 0*0 ≤ m ∧ m<(0+1)*(0+1) }}
 --              Z := 0
 --      (3)            {{ Z*Z ≤ m ∧ m<(Z+1)*(Z+1) }};
@@ -1890,7 +1834,7 @@ theorem parity_correct (m : Nat) :
 --                Z := Z+1
 --      (6)            {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --              end
---      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ↠    (b - OK)
+--      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ↠      (b - OK)
 --      (8)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --
 --  This didn't work very well: conditions (a) and (c) both failed. Looking
@@ -1906,7 +1850,7 @@ theorem parity_correct (m : Nat) :
 --
 --  So we now try `X=m ∧ Z*Z ≤ m` as the loop invariant:
 --
---      {{ X=m }} ↠                                           (a - OK)
+--      {{ X=m }} ↠                                       (a - OK)
 --      {{ X=m ∧ 0*0 ≤ m }}
 --        Z := 0
 --                   {{ X=m ∧ Z*Z ≤ m }};
@@ -1985,9 +1929,9 @@ theorem sqrt_correct (m : Nat) :
 --  such cases to add `X = m` to the loop invariant. The other thing that
 --  we know is often useful in the loop invariant is the postcondition, so
 --  let's add that too, leading to the candidate loop invariant
---  `Z = m * m ∧ X = m`.
+--  `Z = m*m ∧ X = m`.
 --
---      {{ X = m }} ↠                                       (a - WRONG)
+--      {{ X = m }} ↠                                    (a - WRONG)
 --      {{ 0 = m*m ∧ X = m }}
 --        Y := 0
 --                     {{ 0 = m*m ∧ X = m }};
@@ -2012,7 +1956,7 @@ theorem sqrt_correct (m : Nat) :
 --  go through the loop, this leads us to derive a new loop invariant
 --  candidate: `Z = Y*m ∧ X = m`.
 --
---      {{ X = m }} ↠                                        (a - OK)
+--      {{ X = m }} ↠                                     (a - OK)
 --      {{ 0 = 0*m ∧ X = m }}
 --        Y := 0
 --                      {{ 0 = Y*m ∧ X = m }};
@@ -2103,20 +2047,6 @@ theorem sqrt_correct (m : Nat) :
 --  Note to developers (before next release):
 --      Move this later? Might be harder than some of the others.
 
---  Note to developers:
---      `HIDE: LY: Many are tempted to use division in their propositions here,
---      with the loop invariant [Y = m!/X!].
---      Informally, such a decorated program can be correct if we assume
---      they use real division (in q or r). The issue is that formally in Rocq,
---      the notation / is also in scope and means integer division, so a pedantic
---      interpretation would mark those answers wrong, even though that is most
---      likely *not* what students intended (thus making the grading unfair).
---      Should we explicitly forbid use of division for this exercise?
---      (I added a note to that effect in the problem statement).
---
---      MRC'20: I strengthened your note so that it explicitly advises
---      against division (and subtraction).`
-
 --  ### Exercise (4 stars): factorial_correct (Advanced) ⭐⭐⭐⭐
 
 --  Recall that `n!` denotes the factorial of `n` (i.e., `n! =
@@ -2192,10 +2122,6 @@ theorem factorial_correct (m : Nat) :
     lia
 
 --  Note to developers:
---      HIDE: MRC'20: That's not really an Imp program though: it is a
---      schema for an Imp program. `m` is not an Imp variable nor a
---      constant. BCP 21: But we do that all over the place, no?
---
 --      `HIDE: LY: I saw one submission for [factorial_dec] use a program
 --      like that instead of the one already given by the informal
 --      exercise. I accepted it because the exercise does not require to
@@ -2214,14 +2140,6 @@ theorem factorial_correct (m : Nat) :
 --
 --  Lean functions can be applied directly inside assertions. For example,
 --  the minimum of `a` and `b` can be written `Nat.min a b`.
-
---  Note to developers:
---      HIDE: MRC'20: It bothers me a bit that the `&&` in the guard below
---      becomes a `∧` in the assertion. We've never explained that it's
---      okay to do a translation like that.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      `Maybe we should write ∧ in assertions??`
 
 def minimumDec (a b : Nat) : Decorated where
   pre := ({{ True }})
@@ -2262,28 +2180,10 @@ def minimumDec (a b : Nat) : Decorated where
     ↠ {{ Z = Nat.min a b }}
   }
 
---  Note to developers:
---      HIDE: BCP 21: I'm sure there is a more elegant proof of this!!
-
 theorem minimum_correct (a b : Nat) :
     (minimumDec a b).OuterTripleValid := by
   simp only [minimumDec]
   verify
-
---  Note to developers:
---      `HIDE: LY: in this exercise, many end up writing the following implication
---      after the while line:
---
---        {{ Z = min a b - min X Y ∧ ... }} ↠
---        {{ Z+1 = min a b - min (X-1) (Y-1) ∧ ... }}
---
---      that is invalid if you interpret [-] pedantically as [sub : nat ->
---      nat -> nat], which takes nonnegative values only. But if we are
---      more generous and interpret these informal proofs in more intuitive
---      domains (Z, q, or r), then these proofs look fine. I made the
---      former choice in my grading because I assume at this point they
---      should know to be careful around [-] with [nat].  BCP 21: Should be
---      fixed now that the proofs are formal! :-)`
 
 --  ### Exercise: Two Loops
 
@@ -2412,24 +2312,6 @@ theorem two_loops (a b c : Nat) :
 
 --  ### Exercise: Power Series
 
---  Note to developers (Michael Clarkson @clarksmr, before next release, 2020):
---      `This is again a program schema rather than a program.  Why not...
---      [[
---            {{ True }}
---          X := 0;
---          Y := 1;
---          Z := 1;
---          while X ≠ W do
---            Z := 2 * Z;
---            Y := Y + Z;
---            X := X + 1
---          end
---            {{ Y = 2 ^ (W + 1) - 1 }}
---      ]]
---         ...?
---
---         BCP 21: Ditto my response above.  IMO this is not a problem.`
-
 --  ### Exercise (4 stars): dpow2 (Optional) ⭐⭐⭐⭐
 
 --  Here is a program that computes the series:
@@ -2550,7 +2432,7 @@ theorem dpow2_down_correct (n : Nat) :
 --      precondition Y = 1 is Y = 1. Similarly, the postcondition in...
 --
 --               {{ Y = y }}
---                 if !Y === A0 then X := A0 else Y := !Y *** A2
+--                 if Y = 0 then X := 0 else Y := Y * 2
 --               {{ (Y = y = X = 0) ∨ (Y = 2*y ∧ y ≠ 0) }}
 --
 --      ...is the strongest one.
@@ -2558,15 +2440,15 @@ theorem dpow2_down_correct (n : Nat) :
 --      Complete each of the following Hoare triples with the strongest
 --      postcondition for the given command and precondition.
 --
---      (a) {{Y=1}} X:=!Y+++A1 {{?}}
---      (b) {{True}} X:=A5 {{?}}
+--      (a) {{ Y = 1 }} X := Y + 1 {{ ? }}
+--      (b) {{ True }} X := 5 {{ ? }}
 --      (c) {{ True }} skip {{ ? }}
 --      (d) {{ True }} while true do skip {{ ? }}
 --      (e) {{ X = x ∧ Y = y }}
---          while BNot (!X === A0) do (
---                          Y := !Y +++ A2;
---                          X := !X --- A1
---                        )
+--          while X ≠ 0 do
+--            Y := Y + 2;
+--            X := X - 1
+--          end
 --          {{ ? }}`
 
 --  ### Exercise (2 stars): fib_eqn (Advanced, Optional) ⭐⭐
@@ -3495,4 +3377,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
+-- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC

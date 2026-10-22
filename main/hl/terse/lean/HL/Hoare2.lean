@@ -126,7 +126,7 @@ open scoped Com MyGetElem Assertion HasTriple HasEval
 --        end
 --      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ↠
 --      {{ Z = p - m }}
-
+--
 --  Concretely, a decorated program consists of the
 --  program's text interleaved with assertions (sometimes
 --  multiple assertions separated by ↠).
@@ -639,9 +639,10 @@ example : decWhile.OuterTripleValid =
 --  with respect to a precondition `p` if `p ↠ q`.
 
 --  The **sequential composition** `d₁` and `d₂` is locally
---  consistent with respect to `p` if `d₁` is locally
---  consistent with respect to `p` and `d₂` is locally
---  consistent with respect to the postcondition of `d₁`.
+--  consistent with respect to `p` if
+--  1. `d₁` is locally consistent with respect to `p`
+--  2. `d₂` is locally consistent with respect to the
+--     postcondition of `d₁`.
 
 --  An **assignment** `X := a {{q}}` is locally consistent
 --  with respect to a precondition `p` if `p ↠ q [X ↦ a]`.
@@ -814,10 +815,19 @@ example : decWhile.VerificationConditions := by
 --  overall process of verification. It uses
 --  `verification_conditions_correct` to extract the
 --  verification conditions, and the logic of
---  `verify_assertion` to verify them as much as it can. We
---  enhance this logic with some low-level simplification
+--  `verify_assertion` to verify them as much as it can.
+--
+--  We enhance this logic with four low-level simplification
 --  lemmas, defined next, to make the process a little
---  smoother.
+--  smoother. In particular, these lemmas translate the
+--  `Bexp.eval` equations introduced by conditional and loop
+--  guards into inequalities on the underlying arithmetic
+--  expressions. This makes them visible to `lia` for
+--  further simplification. For these lemmas to have maximum
+--  effect, the tactic removes `Bexp.eval_le` and
+--  `Bexp.eval_gt`, since these could rewrite `Bexp.eval`
+--  expressions in a way that would cause the four
+--  simplification lemmas not to match.
 
 theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
     (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
@@ -882,7 +892,7 @@ theorem dec_while_correct : decWhile.OuterTripleValid := by
 
 --  This leads to the following skeleton:
 --
---      (1)    {{ X = m ∧ Y = n }}  ↠                   (a)
+--      (1)    {{ X = m ∧ Y = n }}  ↠                  (a)
 --      (2)    {{ Inv }}
 --               while X ≠ 0 do
 --      (3)              {{ Inv ∧ X ≠ 0 }}  ↠          (c)
@@ -907,6 +917,8 @@ theorem dec_while_correct : decWhile.OuterTripleValid := by
 
 --  WORK IN CLASS (by filling in the previous template)
 
+--  ### Example: Finding Square Roots
+
 --  The following program computes the integer square root
 --  of `X` by naive iteration:
 --
@@ -918,6 +930,8 @@ theorem dec_while_correct : decWhile.OuterTripleValid := by
 --      {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --
 --  WORK IN CLASS
+
+--  ### Example: Squaring
 
 --  Here is a program that squares `X` by repeated addition:
 --
@@ -999,4 +1013,4 @@ theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
 --       while (true) {X := 0}
 --       {{ X = 0 }}
 
--- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
+-- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC

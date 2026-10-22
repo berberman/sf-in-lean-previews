@@ -925,6 +925,19 @@ theorem ceval_deterministic {c : Com} {st st1 st2 : State}
           apply ih₁ at hc'; subst hc'
           exact ih₂ hl'
 
+--  Here is an interesting property that
+--  `ceval_deterministic` allows us to prove. (It is the
+--  answer to the second quiz question, above.)
+
+theorem quiz2_answer (c₁ c₂ : Com) (st st' : State)
+    (h₁ : st =[ c₁; c₂ ]=> st') (h₂ : st =[ c₁ ]=> st) :
+    st =[ c₂ ]=> st' := by
+  inversion h₁ with
+  | seq smid hc₁ hc₂ =>
+    have hmid : smid = st := ceval_deterministic hc₁ h₂
+    subst hmid
+    exact hc₂
+
 --  ## Reasoning About Imp Programs
 
 theorem plus2_spec {st : State} {n : Nat} {st' : State}
@@ -1220,4 +1233,4 @@ theorem sCompile_correct (st : State) (a : Aexp) :
 
 end StackCompiler
 
--- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
+-- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC

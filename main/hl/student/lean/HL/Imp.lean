@@ -1052,6 +1052,18 @@ theorem ceval_deterministic {c : Com} {st st1 st2 : State}
           apply ih₁ at hc'; subst hc'
           exact ih₂ hl'
 
+--  Here is an interesting property that `ceval_deterministic` allows us to
+--  prove. (It is the answer to the second quiz question, above.)
+
+theorem quiz2_answer (c₁ c₂ : Com) (st st' : State)
+    (h₁ : st =[ c₁; c₂ ]=> st') (h₂ : st =[ c₁ ]=> st) :
+    st =[ c₂ ]=> st' := by
+  inversion h₁ with
+  | seq smid hc₁ hc₂ =>
+    have hmid : smid = st := ceval_deterministic hc₁ h₂
+    subst hmid
+    exact hc₂
+
 --  ### Exercise (3 stars): pupToN (Optional) ⭐⭐⭐
 
 --  Write an Imp program that sums the numbers from `1` to `X` (inclusive)
@@ -1126,9 +1138,8 @@ theorem no_whiles_eqv (c : Com) :
 
 --  ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
---  Imp programs that don't involve while loops always terminate. State and
---  prove a theorem `no_whiles_terminating` that says this. Use either
---  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
+--  The following theorem states that Imp programs that don't involve
+--  `while` loops always terminate. Prove it.
 
 theorem no_whiles_terminating {c : Com} (st : State)
     (h : Com.NoWhilesR c) :
@@ -1654,4 +1665,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
+-- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC

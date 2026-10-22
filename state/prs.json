@@ -1,5 +1,5 @@
 {
-  "main_sha": "22af3e61d544e1f9c6a87470cfa25f012b83031b",
+  "main_sha": "bfe6c7933f355a5e017276bb3a45d167e6be93d8",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -141,16 +141,6 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
-    },
-    "462": {
-      "base_sha": "22af3e61d544e1f9c6a87470cfa25f012b83031b",
-      "changed_variants": [],
-      "head_sha": "0cae45a056f27db87cc776f03d81b6a655bd107d",
-      "preview_path": "pr/462/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "More fixes to Hoare2, Imp; updated README",
-      "url": "https://github.com/plclub/sf-in-lean/pull/462"
     }
   },
   "schema": 3

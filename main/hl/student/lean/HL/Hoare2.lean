@@ -842,8 +842,10 @@ example : decWhile.OuterTripleValid =
 --  a precondition `p` if `p ↠ q`.
 --
 --  The **sequential composition** `d₁` and `d₂` is locally consistent with
---  respect to `p` if `d₁` is locally consistent with respect to `p` and
---  `d₂` is locally consistent with respect to the postcondition of `d₁`.
+--  respect to `p` if
+--  1. `d₁` is locally consistent with respect to `p`
+--  2. `d₂` is locally consistent with respect to the postcondition of
+--     `d₁`.
 --
 --  An **assignment** `X := a {{q}}` is locally consistent with respect to
 --  a precondition `p` if `p ↠ q [X ↦ a]`.
@@ -1009,9 +1011,17 @@ example : decWhile.VerificationConditions := by
 --  We develop another tactic, `verify`, to automate the overall process of
 --  verification. It uses `verification_conditions_correct` to extract the
 --  verification conditions, and the logic of `verify_assertion` to verify
---  them as much as it can. We enhance this logic with some low-level
---  simplification lemmas, defined next, to make the process a little
---  smoother.
+--  them as much as it can.
+--
+--  We enhance this logic with four low-level simplification lemmas,
+--  defined next, to make the process a little smoother. In particular,
+--  these lemmas translate the `Bexp.eval` equations introduced by
+--  conditional and loop guards into inequalities on the underlying
+--  arithmetic expressions. This makes them visible to `lia` for further
+--  simplification. For these lemmas to have maximum effect, the tactic
+--  removes `Bexp.eval_le` and `Bexp.eval_gt`, since these could rewrite
+--  `Bexp.eval` expressions in a way that would cause the four
+--  simplification lemmas not to match.
 
 theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
     (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
@@ -1175,7 +1185,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --
 --  This leads to the following skeleton:
 --
---      (1)    {{ X = m ∧ Y = n }}  ↠                   (a)
+--      (1)    {{ X = m ∧ Y = n }}  ↠                  (a)
 --      (2)    {{ Inv }}
 --               while X ≠ 0 do
 --      (3)              {{ Inv ∧ X ≠ 0 }}  ↠          (c)
@@ -1214,7 +1224,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  Maybe it will work here too. To find out, let's try instantiating `Inv`
 --  with `True` in the skeleton above and see what we get...
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                    (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                   (a - OK)
 --      (2)    {{ True }}
 --               while X ≠ 0 do
 --      (3)                   {{ True ∧ X ≠ 0 }} ↠     (c - OK)
@@ -1239,7 +1249,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  skeleton, instantiate `Inv` with `Y = n - m`, and try checking
 --  conditions (a) to (c) again.
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                        (a - WRONG!)
+--      (1)    {{ X = m ∧ Y = n }} ↠                       (a - WRONG!)
 --      (2)    {{ Y = n - m }}
 --               while X ≠ 0 do
 --      (3)                     {{ Y = n - m ∧ X ≠ 0 }} ↠  (c - WRONG!)
@@ -1278,7 +1288,7 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  difference is always `n - m`. So let's try instantiating `Inv` in the
 --  skeleton above with `Y - X = n - m`.
 --
---      (1)    {{ X = m ∧ Y = n }} ↠                            (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                           (a - OK)
 --      (2)    {{ Y - X = n - m }}
 --               while X ≠ 0 do
 --      (3)                    {{ Y - X = n - m ∧ X ≠ 0 }} ↠   (c - OK)
@@ -1376,7 +1386,7 @@ def parity : Nat → Nat
 --  Using `parity X = parity m` as an invariant we obtain the following
 --  decorated program:
 --
---      {{ X = m }} ↠                                         (a - OK)
+--      {{ X = m }} ↠                                       (a - OK)
 --      {{ parity X = parity m }}
 --        while 2 ≤ X do
 --                     {{ parity X = parity m ∧ 2 ≤ X }} ↠  (c - OK)
@@ -1470,7 +1480,7 @@ theorem parity_outer_triple_valid (m : Nat) :
 --  As we did before, we can try to use the postcondition as a candidate
 --  loop invariant, obtaining the following decorated program:
 --
---      (1)  {{ X=m }} ↠                  (a - second conjunct of (2) WRONG!)
+--      (1)  {{ X=m }} ↠                (a - second conjunct of (2) WRONG!)
 --      (2)  {{ 0*0 ≤ m ∧ m<(0+1)*(0+1) }}
 --              Z := 0
 --      (3)            {{ Z*Z ≤ m ∧ m<(Z+1)*(Z+1) }};
@@ -1481,7 +1491,7 @@ theorem parity_outer_triple_valid (m : Nat) :
 --                Z := Z+1
 --      (6)            {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --              end
---      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ↠    (b - OK)
+--      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ↠      (b - OK)
 --      (8)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --
 --  This didn't work very well: conditions (a) and (c) both failed. Looking
@@ -1497,7 +1507,7 @@ theorem parity_outer_triple_valid (m : Nat) :
 --
 --  So we now try `X=m ∧ Z*Z ≤ m` as the loop invariant:
 --
---      {{ X=m }} ↠                                           (a - OK)
+--      {{ X=m }} ↠                                       (a - OK)
 --      {{ X=m ∧ 0*0 ≤ m }}
 --        Z := 0
 --                   {{ X=m ∧ Z*Z ≤ m }};
@@ -1562,9 +1572,9 @@ theorem sqrt_correct (m : Nat) :
 --  such cases to add `X = m` to the loop invariant. The other thing that
 --  we know is often useful in the loop invariant is the postcondition, so
 --  let's add that too, leading to the candidate loop invariant
---  `Z = m * m ∧ X = m`.
+--  `Z = m*m ∧ X = m`.
 --
---      {{ X = m }} ↠                                       (a - WRONG)
+--      {{ X = m }} ↠                                    (a - WRONG)
 --      {{ 0 = m*m ∧ X = m }}
 --        Y := 0
 --                     {{ 0 = m*m ∧ X = m }};
@@ -1589,7 +1599,7 @@ theorem sqrt_correct (m : Nat) :
 --  go through the loop, this leads us to derive a new loop invariant
 --  candidate: `Z = Y*m ∧ X = m`.
 --
---      {{ X = m }} ↠                                        (a - OK)
+--      {{ X = m }} ↠                                     (a - OK)
 --      {{ 0 = 0*m ∧ X = m }}
 --        Y := 0
 --                      {{ 0 = Y*m ∧ X = m }};
@@ -2064,4 +2074,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 22af3e6, committed 2026-10-22 16:47 UTC
+-- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC

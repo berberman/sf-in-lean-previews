@@ -1942,6 +1942,17 @@
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "quiz2_answer":
+   [{"id": "quiz2_answer",
+     "data":
+     {"/Imp/#quiz2_answer":
+      {"display": "quiz2_answer",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Determinism of Evaluation"]}},
+     "address": "/Imp/"}],
    "quiz1_answer":
    [{"id": "quiz1_answer",
      "data":
