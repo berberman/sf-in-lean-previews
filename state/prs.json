@@ -144,13 +144,60 @@
     },
     "464": {
       "base_sha": "bfe6c7933f355a5e017276bb3a45d167e6be93d8",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "7e37b1c62d2c836658f4d3a858cfc2ac41824bb5",
       "preview_path": "pr/464/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39845449140",
+      "status": "published",
       "title": "Bump comparator-autograder to v4.34.0",
       "url": "https://github.com/plclub/sf-in-lean/pull/464"
+    },
+    "465": {
+      "base_sha": "bfe6c7933f355a5e017276bb3a45d167e6be93d8",
+      "changed_variants": [],
+      "head_sha": "fcba9a5db9bdc0216c12961129b3a7ac91893e4f",
+      "preview_path": "pr/465/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Hoare2: after-class fix",
+      "url": "https://github.com/plclub/sf-in-lean/pull/465"
     }
   },
   "schema": 3
