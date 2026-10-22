@@ -191,11 +191,48 @@
     },
     "465": {
       "base_sha": "bfe6c7933f355a5e017276bb3a45d167e6be93d8",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c6fd23111dfcb986260bdcba0babd46431c75950",
       "preview_path": "pr/465/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39869520332",
+      "status": "published",
       "title": "Hoare2: after-class fix",
       "url": "https://github.com/plclub/sf-in-lean/pull/465"
     }

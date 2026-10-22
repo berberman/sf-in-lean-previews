@@ -946,7 +946,7 @@ theorem dec_while_correct : decWhile.OuterTripleValid := by
 --
 --  WORK IN CLASS
 
---  ## Weakest Preconditions (Optional)
+--  ## Weakest Preconditions
 
 --  A useless (though valid) Hoare triple:
 --
@@ -990,27 +990,23 @@ theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
       ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p := by
   rfl
 
---  ### Exercise (1 star): wp (Optional) ⭐
+--   ----------------------------------------
+
+--  _Quiz:_
 
 --  What are weakest preconditions of the following commands
 --  for the following postconditions?
---
---      1) {{ ? }}  skip  {{ X = 5 }}
---
---      2) {{ ? }}  X := Y + Z {{ X = 5 }}
---
---      3) {{ ? }}  X := Y  {{ X = Y }}
---
---      4) {{ ? }}
---       if X = 0 then Y := Z + 1 else Y := W + 2 end
---       {{ Y = 5 }}
---
---      5) {{ ? }}
---       X := 5
---       {{ X = 0 }}
---
---      6) {{ ? }}
---       while (true) {X := 0}
---       {{ X = 0 }}
+--  1. `{{ ? }}  skip  {{ X = 5 }}`
+--  2. `{{ ? }}  X := Y + Z  {{ X = 5 }}`
+--  3. `{{ ? }}  X := Y  {{ X = Y }}`
+--  4. `{{ ? }}
+--     if X = 0 then Y := Z + 1 else Y := W + 2 end
+--     {{ Y = 5 }}`
+--  5. `{{ ? }}  X := 5  {{ X = 0 }}`
+--  6. `{{ ? }}
+--     while (true) {X := 0}
+--     {{ X = 0 }}`
 
--- Source revision: 97726c0, committed 2026-10-22 20:37 UTC
+--   ----------------------------------------
+
+-- Source revision: ab60cac, committed 2026-10-22 23:05 UTC

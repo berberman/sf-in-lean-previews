@@ -3205,7 +3205,7 @@ theorem dfib_correct (n : Nat) :
 
 end SparseAnnotations
 
---  ## Weakest Preconditions (Optional)
+--  ## Weakest Preconditions
 
 --  Note to developers:
 --      HIDE: BCP 21: We talked about moving this stuff to the HoareAsLogic
@@ -3268,35 +3268,24 @@ theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
       ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p := by
   rfl
 
---  ### Exercise (1 star): wp (Optional) ⭐
+--   ----------------------------------------
+
+--  _Quiz:_
 
 --  What are weakest preconditions of the following commands for the
 --  following postconditions?
---
---      1) {{ ? }}  skip  {{ X = 5 }}
---
---      2) {{ ? }}  X := Y + Z {{ X = 5 }}
---
---      3) {{ ? }}  X := Y  {{ X = Y }}
---
---      4) {{ ? }}
---       if X = 0 then Y := Z + 1 else Y := W + 2 end
---       {{ Y = 5 }}
---
---      5) {{ ? }}
---       X := 5
---       {{ X = 0 }}
---
---      6) {{ ? }}
---       while (true) {X := 0}
---       {{ X = 0 }}
+--  1. `{{ ? }}  skip  {{ X = 5 }}`
+--  2. `{{ ? }}  X := Y + Z  {{ X = 5 }}`
+--  3. `{{ ? }}  X := Y  {{ X = Y }}`
+--  4. `{{ ? }}
+--     if X = 0 then Y := Z + 1 else Y := W + 2 end
+--     {{ Y = 5 }}`
+--  5. `{{ ? }}  X := 5  {{ X = 0 }}`
+--  6. `{{ ? }}
+--     while (true) {X := 0}
+--     {{ X = 0 }}`
 
---      1) X = 5
---      2) Y + Z = 5
---      3) True
---      4) (X = 0 ∧ Z = 4) ∨ (X ≠ 0 ∧ W = 3)
---      5) False
---      6) True
+--   ----------------------------------------
 
 --  ### Exercise (3 stars): is_wp (Advanced, Optional) ⭐⭐⭐
 
@@ -3377,4 +3366,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 97726c0, committed 2026-10-22 20:37 UTC
+-- Source revision: ab60cac, committed 2026-10-22 23:05 UTC
