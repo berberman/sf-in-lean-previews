@@ -141,6 +141,16 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
+    },
+    "464": {
+      "base_sha": "bfe6c7933f355a5e017276bb3a45d167e6be93d8",
+      "changed_variants": [],
+      "head_sha": "7e37b1c62d2c836658f4d3a858cfc2ac41824bb5",
+      "preview_path": "pr/464/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Bump comparator-autograder to v4.34.0",
+      "url": "https://github.com/plclub/sf-in-lean/pull/464"
     }
   },
   "schema": 3
