@@ -3366,4 +3366,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 7ba9f20, committed 2026-10-23 12:55 UTC
+-- Source revision: a54455c, committed 2026-10-23 14:29 UTC

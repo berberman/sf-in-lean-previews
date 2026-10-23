@@ -1,3 +1,4 @@
+import LF.CustomTactics
 import TS.Slang
 import TS.AttributeDecls
 
@@ -1120,28 +1121,28 @@ inductive IsAValue : Aexp → Prop where
 --      n₁ + n₂ ⟶a num (n₁ + n₂)
 
 inductive AStep : Aexp → Aexp → Prop where
-  | plusLeft (a₁ a₁' a₂ : Aexp)
+  | plusLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       AStep (.plus a₁ a₂) (.plus a₁' a₂)
-  | plusRight (v₁ a₂ a₂' : Aexp)
+  | plusRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       AStep (.plus v₁ a₂) (.plus v₁ a₂')
   | plus (n₁ n₂ : Nat) :
       AStep (.plus (.num n₁) (.num n₂)) (.num (n₁ + n₂))
-  | minusLeft (a₁ a₁' a₂ : Aexp)
+  | minusLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       AStep (.minus a₁ a₂) (.minus a₁' a₂)
-  | minusRight (v₁ a₂ a₂' : Aexp)
+  | minusRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       AStep (.minus v₁ a₂) (.minus v₁ a₂')
   | minus (n₁ n₂ : Nat) :
       AStep (.minus (.num n₁) (.num n₂)) (.num (n₁ - n₂))
-  | multLeft (a₁ a₁' a₂ : Aexp)
+  | multLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       AStep (.mult a₁ a₂) (.mult a₁' a₂)
-  | multRight (v₁ a₂ a₂' : Aexp)
+  | multRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       AStep (.mult v₁ a₂) (.mult v₁ a₂')
@@ -1162,7 +1163,7 @@ scoped notation:40 a:41 " ⟶a " a':41 => AStep a a'
 example :
     (Aexp.plus (.num 3) (.plus (.num 2) (.num 1)))
       ⟶a (.plus (.num 3) (.num 3)) := by
-  exact .plusRight _ _ _ (.num 3) (.plus 2 1)
+  exact .plusRight (.num 3) (.plus 2 1)
 
 --  ### Exercise (2 stars): strong_progress_arith ⭐⭐
 
@@ -1177,33 +1178,54 @@ theorem strong_progress_arith (a : Aexp) :
   | plus a₁ a₂ ih₁ ih₂ =>
       right
       cases ih₁ with
-      | inr h₁ => obtain ⟨a₁', ha₁⟩ := h₁; exact ⟨_, .plusLeft _ _ _ ha₁⟩
+      | inr h₁ =>
+          obtain ⟨a₁', ha₁⟩ := h₁
+          exists .plus a₁' a₂
+          exact .plusLeft ha₁
       | inl hv₁ => cases hv₁ with
         | num n₁ => cases ih₂ with
-          | inr h₂ => obtain ⟨a₂', ha₂⟩ := h₂
-                      exact ⟨_, .plusRight _ _ _ (.num n₁) ha₂⟩
+          | inr h₂ =>
+            obtain ⟨a₂', ha₂⟩ := h₂
+            exists .plus (.num n₁) a₂'
+            exact .plusRight (.num n₁) ha₂
           | inl hv₂ => cases hv₂ with
-            | num n₂ => exact ⟨_, .plus n₁ n₂⟩
+            | num n₂ =>
+              exists .num (n₁ + n₂)
+              constructor
   | minus a₁ a₂ ih₁ ih₂ =>
       right
       cases ih₁ with
-      | inr h₁ => obtain ⟨a₁', ha₁⟩ := h₁; exact ⟨_, .minusLeft _ _ _ ha₁⟩
+      | inr h₁ =>
+        obtain ⟨a₁', ha₁⟩ := h₁
+        exists .minus a₁' a₂
+        exact .minusLeft ha₁
       | inl hv₁ => cases hv₁ with
         | num n₁ => cases ih₂ with
-          | inr h₂ => obtain ⟨a₂', ha₂⟩ := h₂
-                      exact ⟨_, .minusRight _ _ _ (.num n₁) ha₂⟩
+          | inr h₂ =>
+            obtain ⟨a₂', ha₂⟩ := h₂
+            exists .minus (.num n₁) a₂'
+            exact .minusRight (.num n₁) ha₂
           | inl hv₂ => cases hv₂ with
-            | num n₂ => exact ⟨_, .minus n₁ n₂⟩
+            | num n₂ =>
+              exists .num (n₁ - n₂)
+              exact .minus n₁ n₂
   | mult a₁ a₂ ih₁ ih₂ =>
       right
       cases ih₁ with
-      | inr h₁ => obtain ⟨a₁', ha₁⟩ := h₁; exact ⟨_, .multLeft _ _ _ ha₁⟩
+      | inr h₁ =>
+        obtain ⟨a₁', ha₁⟩ := h₁;
+        exists .mult a₁' a₂
+        exact .multLeft ha₁
       | inl hv₁ => cases hv₁ with
         | num n₁ => cases ih₂ with
-          | inr h₂ => obtain ⟨a₂', ha₂⟩ := h₂
-                      exact ⟨_, .multRight _ _ _ (.num n₁) ha₂⟩
+          | inr h₂ =>
+            obtain ⟨a₂', ha₂⟩ := h₂
+            exists .mult (.num n₁) a₂'
+            exact .multRight (.num n₁) ha₂
           | inl hv₂ => cases hv₂ with
-            | num n₂ => exact ⟨_, .mult n₁ n₂⟩
+            | num n₂ =>
+              exists .num (n₁ * n₂)
+              exact .mult n₁ n₂
 
 --  ### Boolean Expressions
 
@@ -1243,51 +1265,51 @@ theorem strong_progress_arith (a : Aexp) :
 --  Here are the formal rules.
 
 inductive BStep : Bexp → Bexp → Prop where
-  | eqLeft (a₁ a₁' a₂ : Aexp)
+  | eqLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       BStep (.eq a₁ a₂) (.eq a₁' a₂)
-  | eqRight (v₁ a₂ a₂' : Aexp)
+  | eqRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       BStep (.eq v₁ a₂) (.eq v₁ a₂')
   | eq (n₁ n₂ : Nat) :
       BStep (.eq (.num n₁) (.num n₂)) (.bool (decide (n₁ = n₂)))
-  | neqLeft (a₁ a₁' a₂ : Aexp)
+  | neqLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       BStep (.neq a₁ a₂) (.neq a₁' a₂)
-  | neqRight (v₁ a₂ a₂' : Aexp)
+  | neqRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       BStep (.neq v₁ a₂) (.neq v₁ a₂')
   | neq (n₁ n₂ : Nat) :
       BStep (.neq (.num n₁) (.num n₂)) (.bool (decide (n₁ ≠ n₂)))
-  | leLeft (a₁ a₁' a₂ : Aexp)
+  | leLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       BStep (.le a₁ a₂) (.le a₁' a₂)
-  | leRight (v₁ a₂ a₂' : Aexp)
+  | leRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       BStep (.le v₁ a₂) (.le v₁ a₂')
   | le (n₁ n₂ : Nat) :
       BStep (.le (.num n₁) (.num n₂)) (.bool (decide (n₁ ≤ n₂)))
-  | gtLeft (a₁ a₁' a₂ : Aexp)
+  | gtLeft {a₁ a₁' a₂ : Aexp}
       (h : AStep a₁ a₁') :
       BStep (.gt a₁ a₂) (.gt a₁' a₂)
-  | gtRight (v₁ a₂ a₂' : Aexp)
+  | gtRight {v₁ a₂ a₂' : Aexp}
       (hv : IsAValue v₁)
       (h : AStep a₂ a₂') :
       BStep (.gt v₁ a₂) (.gt v₁ a₂')
   | gt (n₁ n₂ : Nat) :
       BStep (.gt (.num n₁) (.num n₂)) (.bool (decide (n₁ > n₂)))
-  | notStep (b₁ b₁' : Bexp)
+  | notStep {b₁ b₁' : Bexp}
       (h : BStep b₁ b₁') :
       BStep (.not b₁) (.not b₁')
   | notTrue : BStep (.not (.bool true)) (.bool false)
   | notFalse : BStep (.not (.bool false)) (.bool true)
-  | andStep (b₁ b₁' b₂ : Bexp)
+  | andStep {b₁ b₁' b₂ : Bexp}
       (h : BStep b₁ b₁') :
       BStep (.and b₁ b₂) (.and b₁' b₂)
-  | andTrueStep (b₂ b₂' : Bexp) (h : BStep b₂ b₂') :
+  | andTrueStep {b₂ b₂' : Bexp} (h : BStep b₂ b₂') :
       BStep (.and (.bool true) b₂) (.and (.bool true) b₂')
   | andFalse (b₂ : Bexp) : BStep (.and (.bool false) b₂) (.bool false)
   | andTrueTrue : BStep (.and (.bool true) (.bool true)) (.bool true)
@@ -1301,7 +1323,7 @@ scoped notation:40 b:41 " ⟶b " b':41 => BStep b b'
 example :
     (Bexp.le (.plus (.num 1) (.num 1)) (.num 3))
       ⟶b (.le (.num 2) (.num 3)) := by
-  exact .leLeft _ _ _ (.plus 1 1)
+  exact .leLeft (.plus 1 1)
 
 --   ----------------------------------------
 
@@ -1329,12 +1351,52 @@ example :
 
 theorem astep_deterministic : Deterministic AStep := by
   intro x y₁ y₂ h₁
-  induction h₁ generalizing y₂ <;> intro h₂ <;> cases h₂ <;>
-    first
-      | rfl
-      | cases ‹AStep (Aexp.num _) _›
-      | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
-      | (congr 1 <;> first | rfl | (apply ‹∀ _, AStep _ _ → _ = _› <;> assumption))
+  induction h₁ generalizing y₂ with intro h₂
+  | plusLeft h ih =>
+      inversion h₂ with
+      | plusLeft => congr; apply ih; assumption
+      | plus => inversion h
+      | plusRight _ hv _ => inversion hv; inversion h
+  | plusRight hv h ih =>
+    inversion h₂ with
+      | plusRight => congr; apply ih; assumption
+      | plus => inversion h
+      | plusLeft h => inversion hv; inversion h
+  | plus n₁ n₂ =>
+      inversion h₂ with
+      | plusLeft h => inversion h
+      | plus => rfl
+      | plusRight _ h => inversion h
+  | minusLeft h ih =>
+      inversion h₂ with
+      | minusLeft => congr; apply ih; assumption
+      | minus => inversion h
+      | minusRight _ hv _ => inversion hv; inversion h
+  | minusRight hv h ih =>
+      inversion h₂ with
+      | minusRight => congr; apply ih; assumption
+      | minus => inversion h
+      | minusLeft h => inversion hv; inversion h
+  | minus n₁ n₂ =>
+      inversion h₂ with
+      | minusLeft h => inversion h
+      | minus => rfl
+      | minusRight _ h => inversion h
+  | multLeft h ih =>
+      inversion h₂ with
+      | multLeft => congr; apply ih; assumption
+      | mult => inversion h
+      | multRight _ hv _ => inversion hv; inversion h
+  | multRight  hv h ih =>
+      inversion h₂ with
+      | multRight => congr; apply ih; assumption
+      | mult => inversion h
+      | multLeft h => inversion hv; inversion h
+  | mult n₁ n₂ =>
+      inversion h₂ with
+      | multLeft h => inversion h
+      | mult => rfl
+      | multRight _ h => inversion h
 
 --  ### Exercise (3 stars): bstep_deterministic ⭐⭐⭐
 
@@ -1345,13 +1407,103 @@ theorem astep_deterministic : Deterministic AStep := by
 
 theorem bstep_deterministic : Deterministic BStep := by
   intro x y₁ y₂ h₁
-  induction h₁ generalizing y₂ <;> intro h₂ <;> cases h₂ <;>
-    first
-      | rfl
-      | cases ‹AStep (Aexp.num _) _›
-      | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
-      | cases ‹BStep (Bexp.bool _) _›
-      | (congr 1 <;> first | rfl | (apply astep_deterministic <;> assumption) | (apply ‹∀ _, BStep _ _ → _ = _› <;> assumption))
+  induction h₁ generalizing y₂ with intro h₂
+  | eqLeft h =>
+      inversion h₂ with
+      | eqLeft => congr; apply astep_deterministic <;> assumption
+      | eq => inversion h
+      | eqRight _ hv _ => inversion hv; inversion h
+  | eqRight hv h =>
+      inversion h₂ with
+      | eqRight => congr; apply astep_deterministic <;> assumption
+      | eq => inversion h
+      | eqLeft h => inversion hv; inversion h
+  | eq n₁ n₂ =>
+      inversion h₂ with
+      | eqLeft h => inversion h
+      | eq => rfl
+      | eqRight _ h => inversion h
+  | neqLeft h =>
+      inversion h₂ with
+      | neqLeft => congr; apply astep_deterministic <;> assumption
+      | neq => inversion h
+      | neqRight _ hv _ => inversion hv; inversion h
+  | neqRight hv h =>
+      inversion h₂ with
+      | neqRight => congr; apply astep_deterministic <;> assumption
+      | neq => inversion h
+      | neqLeft h => inversion hv; inversion h
+  | neq n₁ n₂ =>
+      inversion h₂ with
+      | neqLeft h => inversion h
+      | neq => rfl
+      | neqRight _ h => inversion h
+  | leLeft h =>
+      inversion h₂ with
+      | leLeft => congr; apply astep_deterministic <;> assumption
+      | le => inversion h
+      | leRight _ hv _ => inversion hv; inversion h
+  | leRight hv h =>
+      inversion h₂ with
+      | leRight => congr; apply astep_deterministic <;> assumption
+      | le => inversion h
+      | leLeft h => inversion hv; inversion h
+  | le n₁ n₂ =>
+      inversion h₂ with
+      | leLeft h => inversion h
+      | le => rfl
+      | leRight _ h => inversion h
+  | gtLeft h =>
+      inversion h₂ with
+      | gtLeft => congr; apply astep_deterministic <;> assumption
+      | gt => inversion h
+      | gtRight _ hv _ => inversion hv; inversion h
+  | gtRight hv h =>
+      inversion h₂ with
+      | gtRight => congr; apply astep_deterministic <;> assumption
+      | gt => inversion h
+      | gtLeft h => inversion hv; inversion h
+  | gt n₁ n₂ =>
+      inversion h₂ with
+      | gtLeft h => inversion h
+      | gt => rfl
+      | gtRight _ h => inversion h
+  | notStep h ih =>
+      inversion h₂ with first
+      | congr; apply ih; assumption
+      | inversion h
+  | notTrue =>
+      inversion h₂ with
+      | notStep h => inversion h
+      | notTrue => rfl
+  | notFalse =>
+      inversion h₂ with
+      | notStep h => inversion h
+      | notFalse => rfl
+  | andStep h ih =>
+      inversion h₂ with first
+      | congr; apply ih; assumption
+      | inversion h
+  | andTrueStep h ih =>
+      inversion h₂ with
+      | andStep h => inversion h
+      | andTrueStep => congr; apply ih; assumption
+      | andTrueTrue => inversion h
+      | andTrueFalse => inversion h
+  | andFalse b₂ =>
+      inversion h₂ with
+      | andStep h => inversion h
+      | andFalse => rfl
+  | andTrueTrue =>
+      inversion h₂ with
+      | andStep h => inversion h
+      | andTrueStep h => inversion h
+      | andTrueTrue => rfl
+  | andTrueFalse =>
+      inversion h₂ with
+      | andStep h => inversion h
+      | andTrueStep h => inversion h
+      | andTrueFalse => rfl
 
 --  ### Nondeterministic Evaluation
 
@@ -1368,26 +1520,26 @@ theorem bstep_deterministic : Deterministic BStep := by
 --  either operand may take a step at any time.
 
 inductive ANStep : Aexp → Aexp → Prop where
-  | plusLeft (a₁ a₁' a₂ : Aexp)
+  | plusLeft {a₁ a₁' a₂ : Aexp}
       (h : ANStep a₁ a₁') :
       ANStep (.plus a₁ a₂) (.plus a₁' a₂)
-  | plusRight (a₁ a₂ a₂' : Aexp)
+  | plusRight {a₁ a₂ a₂' : Aexp}
       (h : ANStep a₂ a₂') :
       ANStep (.plus a₁ a₂) (.plus a₁ a₂')
   | plus (n₁ n₂ : Nat) :
       ANStep (.plus (.num n₁) (.num n₂)) (.num (n₁ + n₂))
-  | minusLeft (a₁ a₁' a₂ : Aexp)
+  | minusLeft {a₁ a₁' a₂ : Aexp}
       (h : ANStep a₁ a₁') :
       ANStep (.minus a₁ a₂) (.minus a₁' a₂)
-  | minusRight (a₁ a₂ a₂' : Aexp)
+  | minusRight {a₁ a₂ a₂' : Aexp}
       (h : ANStep a₂ a₂') :
       ANStep (.minus a₁ a₂) (.minus a₁ a₂')
   | minus (n₁ n₂ : Nat) :
       ANStep (.minus (.num n₁) (.num n₂)) (.num (n₁ - n₂))
-  | multLeft (a₁ a₁' a₂ : Aexp)
+  | multLeft {a₁ a₁' a₂ : Aexp}
       (h : ANStep a₁ a₁') :
       ANStep (.mult a₁ a₂) (.mult a₁' a₂)
-  | multRight (a₁ a₂ a₂' : Aexp)
+  | multRight {a₁ a₂ a₂' : Aexp}
       (h : ANStep a₂ a₂') :
       ANStep (.mult a₁ a₂) (.mult a₁ a₂')
   | mult (n₁ n₂ : Nat) :
@@ -1403,10 +1555,10 @@ theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
   intro hd
   have s₁ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
       (.plus (.num 2) (.plus (.num 2) (.num 2))) :=
-    .plusLeft _ _ _ (.plus 1 1)
+    .plusLeft (.plus 1 1)
   have s₂ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
       (.plus (.plus (.num 1) (.num 1)) (.num 4)) :=
-    .plusRight _ _ _ (.plus 2 2)
+    .plusRight (.plus 2 2)
   have heq := hd _ _ _ s₁ s₂
   simp at heq
 
@@ -1442,14 +1594,14 @@ theorem multi_anstep_preserves_eval (a a' : Aexp)
 
 theorem astep_imp_anstep (a a' : Aexp) (h : a ⟶a a') : a ⟶n a' := by
   induction h with
-  | plusLeft a₁ a₁' a₂ _ ih => exact .plusLeft a₁ a₁' a₂ ih
-  | plusRight v₁ a₂ a₂' _ _ ih => exact .plusRight v₁ a₂ a₂' ih
+  | plusLeft _ ih => exact .plusLeft ih
+  | plusRight _ _ ih => exact .plusRight ih
   | plus n₁ n₂ => exact .plus n₁ n₂
-  | minusLeft a₁ a₁' a₂ _ ih => exact .minusLeft a₁ a₁' a₂ ih
-  | minusRight v₁ a₂ a₂' _ _ ih => exact .minusRight v₁ a₂ a₂' ih
+  | minusLeft _ ih => exact .minusLeft ih
+  | minusRight _ _ ih => exact .minusRight ih
   | minus n₁ n₂ => exact .minus n₁ n₂
-  | multLeft a₁ a₁' a₂ _ ih => exact .multLeft a₁ a₁' a₂ ih
-  | multRight v₁ a₂ a₂' _ _ ih => exact .multRight v₁ a₂ a₂' ih
+  | multLeft _ ih => exact .multLeft ih
+  | multRight _ _ ih => exact .multRight ih
   | mult n₁ n₂ => exact .mult n₁ n₂
 
 theorem multi_astep_imp_anstep (a a' : Aexp)
@@ -1677,4 +1829,4 @@ theorem normalize_ex :
   · normalize using SimpleArith
   · constructor
 
--- Source revision: 7ba9f20, committed 2026-10-23 12:55 UTC
+-- Source revision: a54455c, committed 2026-10-23 14:29 UTC
