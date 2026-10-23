@@ -144,48 +144,11 @@
     },
     "466": {
       "base_sha": "81376fd1e0060a8e9b349f2ecc1984dcf1b53729",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "65c98e359fa1fa9f2b9c003feaa69de96aba6965",
+      "changed_variants": [],
+      "head_sha": "8d1643c1491031f0e13524f5a601f5bfcba9ba97",
       "preview_path": "pr/466/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39956980165",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "TS/Smallstep: Proofreading",
       "url": "https://github.com/plclub/sf-in-lean/pull/466"
     },
