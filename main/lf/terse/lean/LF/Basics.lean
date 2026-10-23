@@ -979,4 +979,4 @@ theorem and3_exchange (b c d : Bool) :
 
 end Nat
 
--- Source revision: bfe6c79, committed 2026-10-22 17:21 UTC
+-- Source revision: ef74737, committed 2026-10-23 10:14 UTC

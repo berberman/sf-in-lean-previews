@@ -908,11 +908,11 @@
         "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions":
    [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions",
      "data":
-     {"title": "Weakest Preconditions (Optional)",
+     {"title": "Weakest Preconditions",
       "shortTitle": null,
       "sectionNum": "6.4.",
       "searchPriority": 50,
@@ -921,9 +921,7 @@
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
         "number": "6"},
-       {"title": "Weakest Preconditions (Optional)",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Weakest Preconditions", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
    [{"id":
@@ -2327,7 +2325,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "isWp_def":
    [{"id": "isWp_def",
@@ -2337,7 +2335,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "invalid_triple":
    [{"id": "invalid_triple",
@@ -2562,7 +2560,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "hoare_asgn_fwd_exists":
    [{"id": "hoare_asgn_fwd_exists",
@@ -5779,7 +5777,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "Imp.Elab.withSourceInfoOf":
    [{"id": "Imp___Elab___withSourceInfoOf",
@@ -7023,7 +7021,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "HimpHoare2.hoare_havoc_weakest":
    [{"id": "HimpHoare2___hoare_havoc_weakest",
@@ -7033,7 +7031,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "HimpHoare.validHoareTriple_def":
    [{"id": "HimpHoare___validHoareTriple_def",
