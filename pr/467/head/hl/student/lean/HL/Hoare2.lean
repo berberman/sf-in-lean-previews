@@ -853,7 +853,7 @@ example : decWhile.OuterTripleValid =
 --  A **conditional** `if b then {{p₁}} d₁ else {{p₂}} d₂ end {{q}}` is
 --  locally consistent with respect to precondition `p` if
 --  1. `p ∧ b ↠ p₁`
---  2. `p ∧ b ↠ p₂`
+--  2. `p ∧ ¬ b ↠ p₂`
 --  3. `d₁` is locally consistent with respect to `p₁`
 --  4. `d₂` is locally consistent with respect to `p₂`
 --  5. `d₁.postcondition ↠ q`
@@ -863,7 +863,7 @@ example : decWhile.OuterTripleValid =
 --  respect to precondition `p` if:
 --  1. `p ↠ d.postcondition`
 --  2. `d.postcondition ∧ b ↠ q`
---  3. `d.postcondition ∧ b ↠ r`
+--  3. `d.postcondition ∧ ¬ b ↠ r`
 --  4. `d` is locally consistent with respect to `q`
 --
 --  A command with an extra **assertion at the beginning**, `↠ {{q}} d` is
@@ -1950,7 +1950,7 @@ namespace SparseAnnotations
 
 end SparseAnnotations
 
---  ## Weakest Preconditions (Optional)
+--  ## Weakest Preconditions
 
 --  Some preconditions are more interesting than others. For example, the
 --  Hoare triple
@@ -2007,28 +2007,24 @@ theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
       ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p := by
   rfl
 
---  ### Exercise (1 star): wp (Optional) ⭐
+--   ----------------------------------------
+
+--  _Quiz:_
 
 --  What are weakest preconditions of the following commands for the
 --  following postconditions?
---
---      1) {{ ? }}  skip  {{ X = 5 }}
---
---      2) {{ ? }}  X := Y + Z {{ X = 5 }}
---
---      3) {{ ? }}  X := Y  {{ X = Y }}
---
---      4) {{ ? }}
---       if X = 0 then Y := Z + 1 else Y := W + 2 end
---       {{ Y = 5 }}
---
---      5) {{ ? }}
---       X := 5
---       {{ X = 0 }}
---
---      6) {{ ? }}
---       while (true) {X := 0}
---       {{ X = 0 }}
+--  1. `{{ ? }}  skip  {{ X = 5 }}`
+--  2. `{{ ? }}  X := Y + Z  {{ X = 5 }}`
+--  3. `{{ ? }}  X := Y  {{ X = Y }}`
+--  4. `{{ ? }}
+--     if X = 0 then Y := Z + 1 else Y := W + 2 end
+--     {{ Y = 5 }}`
+--  5. `{{ ? }}  X := 5  {{ X = 0 }}`
+--  6. `{{ ? }}
+--     while (true) {X := 0}
+--     {{ X = 0 }}`
+
+--   ----------------------------------------
 
 --  ### Exercise (3 stars): is_wp (Advanced, Optional) ⭐⭐⭐
 
@@ -2074,4 +2070,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: e55b31a, committed 2026-10-23 12:57 UTC
+-- Source revision: fae218d, committed 2026-10-23 15:18 UTC

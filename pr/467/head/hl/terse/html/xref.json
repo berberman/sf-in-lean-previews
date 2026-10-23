@@ -908,11 +908,11 @@
         "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions":
    [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions",
      "data":
-     {"title": "Weakest Preconditions (Optional)",
+     {"title": "Weakest Preconditions",
       "shortTitle": null,
       "sectionNum": "6.4.",
       "searchPriority": 50,
@@ -921,9 +921,7 @@
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
         "number": "6"},
-       {"title": "Weakest Preconditions (Optional)",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Weakest Preconditions", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
    [{"id":
@@ -1810,7 +1808,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "if_example'":
    [{"id": "if_example___",
@@ -3457,7 +3455,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "Imp.Throw.ceval_deterministic_throw":
    [{"id": "Imp___Throw___ceval_deterministic_throw",

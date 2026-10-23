@@ -1,5 +1,6 @@
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
+import LF.CustomTactics
 import TS.Smallstep
 
 import SFLCompat
@@ -189,20 +190,20 @@ section
 set_option hygiene false in
 local notation:40 t:41 " ⟶ " t':41 => Tm.Step t t'
 inductive Tm.Step : Tm → Tm → Prop where
-  | ifTrue (t₁ t₂ : Tm) : <{ if true then t₁ else t₂ }> ⟶ t₁
-  | ifFalse (t₁ t₂ : Tm) : <{ if false then t₁ else t₂ }> ⟶ t₂
-  | ifStep (c c' t₂ t₃ : Tm) (h : c ⟶ c') :
+  | ifTrue {t₁ t₂ : Tm} : <{ if true then t₁ else t₂ }> ⟶ t₁
+  | ifFalse {t₁ t₂ : Tm} : <{ if false then t₁ else t₂ }> ⟶ t₂
+  | ifStep {c c' t₂ t₃ : Tm} (h : c ⟶ c') :
       <{ if c then t₂ else t₃ }> ⟶ <{ if c' then t₂ else t₃ }>
-  | succStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') :
+  | succStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
       <{ succ t₁ }> ⟶ <{ succ t₁' }>
   | predZero : <{ pred 0 }> ⟶ <{ 0 }>
-  | predSucc (v : Tm) (hv : Tm.IsNValue v) : <{ pred (succ v) }> ⟶ v
-  | predStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') :
+  | predSucc {v : Tm} (hv : Tm.IsNValue v) : <{ pred (succ v) }> ⟶ v
+  | predStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
       <{ pred t₁ }> ⟶ <{ pred t₁' }>
   | isZeroZero : <{ iszero 0 }> ⟶ <{ true }>
-  | isZeroSucc (v : Tm) (hv : Tm.IsNValue v) :
+  | isZeroSucc {v : Tm} (hv : Tm.IsNValue v) :
       <{ iszero (succ v) }> ⟶ <{ false }>
-  | isZeroStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') :
+  | isZeroStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
       <{ iszero t₁ }> ⟶ <{ iszero t₁' }>
 end
 
@@ -234,11 +235,11 @@ def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 theorem nvalue_is_nf (t : Tm)
     (h : Tm.IsNValue t) : Tm.IsNormalForm t := by
   induction h with
-  | zero => intro hc; obtain ⟨t', hstp⟩ := hc; cases hstp
+  | zero => intro hc; obtain ⟨t', hstp⟩ := hc; inversion hstp
   | succ t₀ hn₀ ih =>
       intro hc; obtain ⟨t', hstp⟩ := hc
-      cases hstp with
-      | succStep _ t₁' h => exact ih ⟨t₁', h⟩
+      inversion hstp with
+      | succStep t₁' h => exact ih ⟨t₁', h⟩
 
 --  ### Exercise (3 stars): value_is_nf ⭐⭐⭐
 
@@ -326,17 +327,17 @@ section
 set_option hygiene false in
 local notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 inductive Tm.AltStep : Tm → Tm → Prop where
-  | ifTrue (t₁ t₂ : Tm) : <{ if true then t₁ else t₂ }> ⇢ t₁
-  | ifFalse (t₁ t₂ : Tm) : <{ if false then t₁ else t₂ }> ⇢ t₂
-  | ifStep (t₁ t₁' t₂ t₃ : Tm) : t₁ ⇢ t₁' →
+  | ifTrue {t₁ t₂ : Tm} : <{ if true then t₁ else t₂ }> ⇢ t₁
+  | ifFalse {t₁ t₂ : Tm} : <{ if false then t₁ else t₂ }> ⇢ t₂
+  | ifStep {t₁ t₁' t₂ t₃ : Tm} : t₁ ⇢ t₁' →
       <{ if t₁ then t₂ else t₃ }> ⇢ <{ if t₁' then t₂ else t₃ }>
-  | succStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' → <{ succ t₁ }> ⇢ <{ succ t₁' }>
+  | succStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' → <{ succ t₁ }> ⇢ <{ succ t₁' }>
   | predZero : <{ pred 0 }> ⇢ <{ 0 }>
-  | predSucc (t₁ : Tm) : <{ pred (succ t₁) }> ⇢ t₁
-  | predStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' → <{ pred t₁ }> ⇢ <{ pred t₁' }>
+  | predSucc {t₁ : Tm} : <{ pred (succ t₁) }> ⇢ t₁
+  | predStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' → <{ pred t₁ }> ⇢ <{ pred t₁' }>
   | isZeroZero : <{ iszero 0 }> ⇢ <{ true }>
-  | isZeroSucc (t₁ : Tm) : <{ iszero (succ t₁) }> ⇢ <{ false }>
-  | isZeroStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' →
+  | isZeroSucc {t₁ : Tm} : <{ iszero (succ t₁) }> ⇢ <{ false }>
+  | isZeroStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' →
       <{ iszero t₁ }> ⇢ <{ iszero t₁' }>
 end
 
@@ -448,14 +449,14 @@ local macro_rules
 inductive Tm.HasType : Tm → Ty → Prop where
   | tru : <{ ⊢ true ⦂ Bool }>
   | fls : <{ ⊢ false ⦂ Bool }>
-  | ite (t₁ t₂ t₃ : Tm) (τ : Ty)
+  | ite {t₁ t₂ t₃ : Tm} {τ : Ty}
       (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ τ }>)
       (h₃ : <{ ⊢ t₃ ⦂ τ }>) :
       <{ ⊢ if t₁ then t₂ else t₃ ⦂ τ }>
   | zero : <{ ⊢ 0 ⦂ Nat }>
-  | succ (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
-  | pred (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
-  | isZero (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
+  | succ {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
+  | pred {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
+  | isZero {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: typing relation)
 -- The same rules repeated with hygiene enabled, for use after the section.
@@ -486,7 +487,7 @@ end
 --  END DETAILS
 
 example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> := by
-  exact .ite _ _ _ _ .fls .zero (.succ _ .zero)
+  exact .ite .fls .zero (.succ .zero)
 
 --  Typing is a *conservative* (or *static*) approximation
 --  to behavior.
@@ -495,11 +496,11 @@ example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> := by
 --  steps to something well typed.
 
 example : ¬ <{ ⊢ if false then 0 else true ⦂ Bool }> := by
-  intro hc; cases hc with | ite _ _ _ _ h₁ h₂ h₃ => cases h₂
+  intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
 example :
     ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> := by
-  intro hc; cases hc with | ite _ _ _ _ h₁ h₂ h₃ => cases h₂
+  intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
 --  ### Canonical forms
 
@@ -511,16 +512,16 @@ example :
 
 theorem bool_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Bool }>)
     (hv : Tm.IsValue t) : Tm.IsBValue t := by
-  cases hv with
+  inversion hv with
   | inl hb => exact hb
   | inr hn => cases hn with
-    | zero => cases hT
-    | succ t₀ h => cases hT
+    | zero => inversion hT
+    | succ t₀ h => inversion hT
 
 theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>)
     (hv : Tm.IsValue t) : Tm.IsNValue t := by
   cases hv with
-  | inl hb => cases hb <;> cases hT
+  | inl hb => inversion hb <;> inversion hT
   | inr hn => exact hn
 
 --  ### Progress
@@ -680,4 +681,4 @@ theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
 --  breaks. (These are graded manually; there is no Lean
 --  code to complete.)
 
--- Source revision: e55b31a, committed 2026-10-23 12:57 UTC
+-- Source revision: fae218d, committed 2026-10-23 15:18 UTC

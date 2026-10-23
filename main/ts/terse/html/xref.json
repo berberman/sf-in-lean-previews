@@ -1744,17 +1744,6 @@
         "Multi-Step Reduction",
         "Normal Forms Again"]}},
      "address": "/Smallstep/"}],
-   "step_deterministic":
-   [{"id": "step_deterministic",
-     "data":
-     {"/Smallstep/#step_deterministic":
-      {"display": "step_deterministic",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Relations",
-        "Values"]}},
-     "address": "/Smallstep/"}],
    "normal_forms_unique":
    [{"id": "normal_forms_unique",
      "data":
@@ -1857,17 +1846,6 @@
      "data":
      {"/Smallstep/#eval_of_multistep":
       {"display": "eval_of_multistep",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Multi-Step Reduction",
-        "Equivalence of Big-Step and Small-Step"]}},
-     "address": "/Smallstep/"}],
-   "evalF_eval":
-   [{"id": "evalF_eval",
-     "data":
-     {"/Smallstep/#evalF_eval":
-      {"display": "evalF_eval",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
@@ -6016,17 +5994,6 @@
         "Relations",
         "Values"]}},
      "address": "/Smallstep/"}],
-   "Slang.strong_progress_arith":
-   [{"id": "Slang___strong_progress_arith",
-     "data":
-     {"/Smallstep/#Slang___strong_progress_arith":
-      {"display": "strong_progress_arith",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Small-Step Slang",
-        "Arithmetic Expressions"]}},
-     "address": "/Smallstep/"}],
    "Slang.stack_step_deterministic":
    [{"id": "Slang___stack_step_deterministic",
      "data":
@@ -6060,17 +6027,6 @@
         "Small-Step Slang",
         "Nondeterministic Evaluation"]}},
      "address": "/Smallstep/"}],
-   "Slang.compiler_is_correct":
-   [{"id": "Slang___compiler_is_correct",
-     "data":
-     {"/Smallstep/#Slang___compiler_is_correct":
-      {"display": "compiler_is_correct",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Small-Step Slang",
-        "A Small-Step Stack Machine"]}},
-     "address": "/Smallstep/"}],
    "Slang.compile":
    [{"id": "Slang___compile",
      "data":
@@ -6082,44 +6038,11 @@
         "Small-Step Slang",
         "A Small-Step Stack Machine"]}},
      "address": "/Smallstep/"}],
-   "Slang.bstep_deterministic":
-   [{"id": "Slang___bstep_deterministic",
-     "data":
-     {"/Smallstep/#Slang___bstep_deterministic":
-      {"display": "bstep_deterministic",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Small-Step Slang",
-        "Boolean Expressions"]}},
-     "address": "/Smallstep/"}],
    "Slang.astep_imp_anstep":
    [{"id": "Slang___astep_imp_anstep",
      "data":
      {"/Smallstep/#Slang___astep_imp_anstep":
       {"display": "astep_imp_anstep",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Small-Step Slang",
-        "Nondeterministic Evaluation"]}},
-     "address": "/Smallstep/"}],
-   "Slang.astep_deterministic":
-   [{"id": "Slang___astep_deterministic",
-     "data":
-     {"/Smallstep/#Slang___astep_deterministic":
-      {"display": "astep_deterministic",
-       "context":
-       ["Type Systems",
-        "Smallstep: Small-step Operational Semantics",
-        "Small-Step Slang",
-        "Boolean Expressions"]}},
-     "address": "/Smallstep/"}],
-   "Slang.astep_anstep_agree":
-   [{"id": "Slang___astep_anstep_agree",
-     "data":
-     {"/Smallstep/#Slang___astep_anstep_agree":
-      {"display": "astep_anstep_agree",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
