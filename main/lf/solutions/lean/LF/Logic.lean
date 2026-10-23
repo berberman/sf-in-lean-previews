@@ -2390,4 +2390,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Source revision: 43dad93, committed 2026-10-23 15:01 UTC
+-- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC

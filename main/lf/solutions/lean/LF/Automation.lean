@@ -1685,4 +1685,4 @@ theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal 
 
 end PalConv
 
--- Source revision: 43dad93, committed 2026-10-23 15:01 UTC
+-- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC

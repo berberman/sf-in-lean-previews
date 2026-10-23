@@ -790,4 +790,4 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
 
 end RegExp
 
--- Source revision: 43dad93, committed 2026-10-23 15:01 UTC
+-- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC

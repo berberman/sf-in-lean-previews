@@ -2948,25 +2948,6 @@
         "Syntax",
         "Notation"]}},
      "address": "/Types/"}],
-   "TM.subject_expansion":
-   [{"id": "TM___subject_expansion",
-     "data":
-     {"/Types/#TM___subject_expansion":
-      {"display": "subject_expansion",
-       "context":
-       ["Type Systems", "Types: Type Systems", "Additional Exercises"]}},
-     "address": "/Types/"}],
-   "TM.step_deterministic":
-   [{"id": "TM___step_deterministic",
-     "data":
-     {"/Types/#TM___step_deterministic":
-      {"display": "step_deterministic",
-       "context":
-       ["Type Systems",
-        "Types: Type Systems",
-        "Typed Arithmetic Expressions",
-        "Normal Forms and Values"]}},
-     "address": "/Types/"}],
    "TM.soundness":
    [{"id": "TM___soundness",
      "data":
@@ -2978,17 +2959,6 @@
         "Typed Arithmetic Expressions",
         "Type Soundness"]}},
      "address": "/Types/"}],
-   "TM.some_term_is_stuck":
-   [{"id": "TM___some_term_is_stuck",
-     "data":
-     {"/Types/#TM___some_term_is_stuck":
-      {"display": "some_term_is_stuck",
-       "context":
-       ["Type Systems",
-        "Types: Type Systems",
-        "Typed Arithmetic Expressions",
-        "Normal Forms and Values"]}},
-     "address": "/Types/"}],
    "TM.progress":
    [{"id": "TM___progress",
      "data":
@@ -2999,17 +2969,6 @@
         "Types: Type Systems",
         "Typed Arithmetic Expressions",
         "Progress"]}},
-     "address": "/Types/"}],
-   "TM.preservation'":
-   [{"id": "TM___preservation___",
-     "data":
-     {"/Types/#TM___preservation___":
-      {"display": "preservation'",
-       "context":
-       ["Type Systems",
-        "Types: Type Systems",
-        "Typed Arithmetic Expressions",
-        "Type Preservation"]}},
      "address": "/Types/"}],
    "TM.preservation":
    [{"id": "TM___preservation",
