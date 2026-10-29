@@ -20,3 +20,7 @@ register_label_attr StlcSubTyping
 -- MoreStlc.lean
 register_label_attr ExtStlcEval
 register_label_attr ExtStlcTyping
+
+-- References.lean
+register_label_attr StlcRefEval
+register_label_attr StlcRefTyping

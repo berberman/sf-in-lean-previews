@@ -11,7 +11,7 @@ open scoped HasEval MyGetElem Com
 --  This chapter develops a notion of *behavioral equivalence* for Imp's
 --  expressions and commands.
 --
---  To illustrate it use, we verify that program transformations such as
+--  To illustrate its use, we verify that program transformations such as
 --  constant folding preserve behavior. Along the way we also see
 --  techniques for proving that two programs are *not* equivalent. Finally,
 --  we close with an extended look at what equivalence means once Imp is
@@ -1817,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC
+-- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC

@@ -161,11 +161,11 @@
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Types/"}],
-   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-forms":
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-Forms":
    [{"id":
-     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-forms",
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-Forms",
      "data":
-     {"title": "Canonical forms",
+     {"title": "Canonical Forms",
       "shortTitle": null,
       "sectionNum": "4.1.5.",
       "searchPriority": 50,
@@ -175,7 +175,7 @@
        {"title": "Typed Arithmetic Expressions",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Canonical forms", "shortTitle": null, "number": "5"}]},
+       {"title": "Canonical Forms", "shortTitle": null, "number": "5"}]},
      "address": "/Types/"}],
    "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions":
    [{"id": "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions",
@@ -1423,45 +1423,618 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
-   "Type-Systems--Preface--Recommended-Citation-Format--Credits":
-   [{"id": "Type-Systems--Preface--Recommended-Citation-Format--Credits",
+   "Type-Systems--References___-Typing-Mutable-References--Typing--The-Typing-Relation":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Typing--The-Typing-Relation",
      "data":
-     {"title": "Credits",
+     {"title": "The Typing Relation",
       "shortTitle": null,
-      "sectionNum": "1.1.1.",
+      "sectionNum": "9.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
+       {"title": "References: Typing Mutable References",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Credits", "shortTitle": null, "number": "1"}]},
-     "address": "/Preface/"}],
-   "Type-Systems--Preface--Recommended-Citation-Format":
-   [{"id": "Type-Systems--Preface--Recommended-Citation-Format",
+        "number": "9"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "The Typing Relation", "shortTitle": null, "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Typing--Store-typings":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Typing--Store-typings",
      "data":
-     {"title": "Recommended Citation Format",
+     {"title": "Store typings",
+      "shortTitle": null,
+      "sectionNum": "9.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Store typings", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Typing":
+   [{"id": "Type-Systems--References___-Typing-Mutable-References--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "9.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Typing", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--References-and-Nontermination":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--References-and-Nontermination",
+     "data":
+     {"title": "References and Nontermination",
+      "shortTitle": null,
+      "sectionNum": "9.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "References and Nontermination",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Well-Typed-Stores":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Well-Typed-Stores",
+     "data":
+     {"title": "Well-Typed Stores",
+      "shortTitle": null,
+      "sectionNum": "9.5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Well-Typed Stores", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Progress":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Progress",
+     "data":
+     {"title": "Progress",
+      "shortTitle": null,
+      "sectionNum": "9.5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Progress", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Weakening-for-Stores":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Weakening-for-Stores",
+     "data":
+     {"title": "Weakening for Stores",
+      "shortTitle": null,
+      "sectionNum": "9.5.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
+       {"title": "Weakening for Stores", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Substitution-Lemma":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Substitution-Lemma",
+     "data":
+     {"title": "Substitution Lemma",
+      "shortTitle": null,
+      "sectionNum": "9.5.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
+       {"title": "Substitution Lemma", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Preservation___":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Preservation___",
+     "data":
+     {"title": "Preservation!",
+      "shortTitle": null,
+      "sectionNum": "9.5.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
+       {"title": "Preservation!", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Assignment-Preserves-Store-Typing":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Assignment-Preserves-Store-Typing",
+     "data":
+     {"title": "Assignment Preserves Store Typing",
+      "shortTitle": null,
+      "sectionNum": "9.5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
+       {"title": "Assignment Preserves Store Typing",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally",
+     "data":
+     {"title": "Preservation, Finally",
+      "shortTitle": null,
+      "sectionNum": "9.5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings",
+     "data":
+     {"title": "Extending Store Typings",
+      "shortTitle": null,
+      "sectionNum": "9.5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Extending Store Typings",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties":
+   [{"id": "Type-Systems--References___-Typing-Mutable-References--Properties",
+     "data":
+     {"title": "Properties",
+      "shortTitle": null,
+      "sectionNum": "9.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Side-Effects-and-Sequencing":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Side-Effects-and-Sequencing",
+     "data":
+     {"title": "Side Effects and Sequencing",
+      "shortTitle": null,
+      "sectionNum": "9.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "Side Effects and Sequencing",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Shared-State":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Shared-State",
+     "data":
+     {"title": "Shared State",
+      "shortTitle": null,
+      "sectionNum": "9.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "Shared State", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--References-to-Compound-Types":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--References-to-Compound-Types",
+     "data":
+     {"title": "References to Compound Types",
+      "shortTitle": null,
+      "sectionNum": "9.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "References to Compound Types",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--References-and-Aliasing":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--References-and-Aliasing",
+     "data":
+     {"title": "References and Aliasing",
+      "shortTitle": null,
+      "sectionNum": "9.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "References and Aliasing",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Objects":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Objects",
+     "data":
+     {"title": "Objects",
+      "shortTitle": null,
+      "sectionNum": "9.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "Objects", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Null-References":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Null-References",
+     "data":
+     {"title": "Null References",
+      "shortTitle": null,
+      "sectionNum": "9.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "Null References", "shortTitle": null, "number": "6"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Garbage-Collection":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Pragmatics--Garbage-Collection",
+     "data":
+     {"title": "Garbage Collection",
+      "shortTitle": null,
+      "sectionNum": "9.2.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"},
+       {"title": "Garbage Collection", "shortTitle": null, "number": "7"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Pragmatics":
+   [{"id": "Type-Systems--References___-Typing-Mutable-References--Pragmatics",
+     "data":
+     {"title": "Pragmatics",
+      "shortTitle": null,
+      "sectionNum": "9.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Pragmatics", "shortTitle": null, "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Stores":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Stores",
+     "data":
+     {"title": "Stores",
+      "shortTitle": null,
+      "sectionNum": "9.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Stores", "shortTitle": null, "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Reduction":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "9.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Reduction", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Locations":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics--Locations",
+     "data":
+     {"title": "Locations",
+      "shortTitle": null,
+      "sectionNum": "9.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Locations", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Operational-Semantics",
+     "data":
+     {"title": "Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "9.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions--Values-and-Substitution":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Definitions--Values-and-Substitution",
+     "data":
+     {"title": "Values and Substitution",
+      "shortTitle": null,
+      "sectionNum": "9.1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Values and Substitution",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions--Typing-_LPAR_Preview_RPAR_":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Definitions--Typing-_LPAR_Preview_RPAR_",
+     "data":
+     {"title": "Typing (Preview)",
+      "shortTitle": null,
+      "sectionNum": "9.1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Typing (Preview)", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions--Types":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Definitions--Types",
+     "data":
+     {"title": "Types",
+      "shortTitle": null,
+      "sectionNum": "9.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Types", "shortTitle": null, "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions--Terms":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Definitions--Terms",
+     "data":
+     {"title": "Terms",
+      "shortTitle": null,
+      "sectionNum": "9.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Terms", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions--Syntax":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Definitions--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "9.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Definitions":
+   [{"id": "Type-Systems--References___-Typing-Mutable-References--Definitions",
+     "data":
+     {"title": "Definitions",
+      "shortTitle": null,
+      "sectionNum": "9.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Additional-Exercises":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "9.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
+     "address": "/References/"}],
+   "Type-Systems--Preface--Welcome":
+   [{"id": "Type-Systems--Preface--Welcome",
+     "data":
+     {"title": "Welcome",
       "shortTitle": null,
       "sectionNum": "1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "1"}]},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Type-Systems--Preface":
-   [{"id": "Type-Systems--Preface",
+   "Type-Systems--Preface--Practicalities--Citation-Format":
+   [{"id": "Type-Systems--Preface--Practicalities--Citation-Format",
      "data":
-     {"title": "Preface",
+     {"title": "Citation Format",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "1.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations":
+   [{"id":
+     "Type-Systems--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations",
+     "data":
+     {"title": "Building on Your Own Copy of Logical Foundations",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Building on Your Own Copy of Logical Foundations",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface--Practicalities":
+   [{"id": "Type-Systems--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface--Overview":
+   [{"id": "Type-Systems--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface--For-Potential-Contributors--Credits":
+   [{"id": "Type-Systems--Preface--For-Potential-Contributors--Credits",
+     "data":
+     {"title": "Credits",
+      "shortTitle": null,
+      "sectionNum": "1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Credits", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface--For-Potential-Contributors":
+   [{"id": "Type-Systems--Preface--For-Potential-Contributors",
+     "data":
+     {"title": "For Potential Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"}]},
      "address": "/Preface/"}],
    "Type-Systems--MoreStlc___-More-on-the-Simply-Typed-Lambda-Calculus--Simple-Extensions-to-STLC--Unit":
    [{"id":
@@ -1694,6 +2267,30 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Slang/"}],
+   "References":
+   [{"id": "References",
+     "data":
+     {"title": "References: Typing Mutable References",
+      "shortTitle": null,
+      "sectionNum": "9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"}]},
+     "address": "/References/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "MoreStlc":
    [{"id": "MoreStlc",
      "data":
@@ -2349,6 +2946,244 @@
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
+   "_private.TS.References.0.STLCRef.Delab.reservedNames":
+   [{"id": "_private___TS___References___0___STLCRef___Delab___reservedNames",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___reservedNames":
+      {"display": "reservedNames",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Ty.unexpandUnit":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Ty___unexpandUnit",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Ty___unexpandUnit":
+      {"display": "Ty.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Ty.unexpandRef":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Ty___unexpandRef",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Ty___unexpandRef":
+      {"display": "Ty.unexpandRef",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Ty.unexpandNat":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Ty___unexpandNat",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Ty___unexpandNat":
+      {"display": "Ty.unexpandNat",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Ty.unexpandArrow":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Ty___unexpandArrow",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Ty___unexpandArrow":
+      {"display": "Ty.unexpandArrow",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandVar":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandVar",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandVar":
+      {"display": "Tm.unexpandVar",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandUnit":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandUnit",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandUnit":
+      {"display": "Tm.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandTseq":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandTseq",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandTseq":
+      {"display": "Tm.unexpandTseq",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandSucc":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandSucc",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandSucc":
+      {"display": "Tm.unexpandSucc",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandRef":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandRef",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandRef":
+      {"display": "Tm.unexpandRef",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandPred":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandPred",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandPred":
+      {"display": "Tm.unexpandPred",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandMult":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandMult",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandMult":
+      {"display": "Tm.unexpandMult",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandLoc":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandLoc",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandLoc":
+      {"display": "Tm.unexpandLoc",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandIte0":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandIte0",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandIte0":
+      {"display": "Tm.unexpandIte0",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandDeref":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandDeref",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandDeref":
+      {"display": "Tm.unexpandDeref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandConst":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandConst",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandConst":
+      {"display": "Tm.unexpandConst",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandAssign":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandAssign",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandAssign":
+      {"display": "Tm.unexpandAssign",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandApp":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandApp",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandApp":
+      {"display": "Tm.unexpandApp",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.unexpandAbs":
+   [{"id":
+     "_private___TS___References___0___STLCRef___Delab___Tm___unexpandAbs",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___unexpandAbs":
+      {"display": "Tm.unexpandAbs",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "_private.TS.References.0.STLCRef.Delab.Tm.delabVar":
+   [{"id": "_private___TS___References___0___STLCRef___Delab___Tm___delabVar",
+     "data":
+     {"/References/#_private___TS___References___0___STLCRef___Delab___Tm___delabVar":
+      {"display": "Tm.delabVar",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
    "_private.TS.MoreStlc.0.StlcExtended.Delab.reservedNames":
    [{"id":
      "_private___TS___MoreStlc___0___StlcExtended___Delab___reservedNames",
@@ -3097,7 +3932,7 @@
        ["Type Systems",
         "Types: Type Systems",
         "Typed Arithmetic Expressions",
-        "Canonical forms"]}},
+        "Canonical Forms"]}},
      "address": "/Types/"}],
    "TM.delabTy":
    [{"id": "TM___delabTy",
@@ -3143,7 +3978,7 @@
        ["Type Systems",
         "Types: Type Systems",
         "Typed Arithmetic Expressions",
-        "Canonical forms"]}},
+        "Canonical Forms"]}},
      "address": "/Types/"}],
    "TM.alt_simplify_step":
    [{"id": "TM___alt_simplify_step",
@@ -9294,6 +10129,1276 @@
         "Smallstep: Small-step Operational Semantics",
         "A Toy Language"]}},
      "address": "/Smallstep/"}],
+   "STLCRef.weakening_empty":
+   [{"id": "STLCRef___weakening_empty",
+     "data":
+     {"/References/#STLCRef___weakening_empty":
+      {"display": "weakening_empty",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Substitution Lemma"]}},
+     "address": "/References/"}],
+   "STLCRef.weakening":
+   [{"id": "STLCRef___weakening",
+     "data":
+     {"/References/#STLCRef___weakening":
+      {"display": "weakening",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Substitution Lemma"]}},
+     "address": "/References/"}],
+   "STLCRef.unexpandSubst":
+   [{"id": "STLCRef___unexpandSubst",
+     "data":
+     {"/References/#STLCRef___unexpandSubst":
+      {"display": "unexpandSubst",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.substitution_preserves_typing":
+   [{"id": "STLCRef___substitution_preserves_typing",
+     "data":
+     {"/References/#STLCRef___substitution_preserves_typing":
+      {"display": "substitution_preserves_typing",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Substitution Lemma"]}},
+     "address": "/References/"}],
+   "STLCRef.subst":
+   [{"id": "STLCRef___subst",
+     "data":
+     {"/References/#STLCRef___subst":
+      {"display": "subst",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.store_well_typed_app":
+   [{"id": "STLCRef___store_well_typed_app",
+     "data":
+     {"/References/#STLCRef___store_well_typed_app":
+      {"display": "store_well_typed_app",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Weakening for Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.store_weakening":
+   [{"id": "STLCRef___store_weakening",
+     "data":
+     {"/References/#STLCRef___store_weakening":
+      {"display": "store_weakening",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Weakening for Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.store_not_unique":
+   [{"id": "STLCRef___store_not_unique",
+     "data":
+     {"/References/#STLCRef___store_not_unique":
+      {"display": "store_not_unique",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Well-Typed Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.progress_shorter":
+   [{"id": "STLCRef___progress_shorter",
+     "data":
+     {"/References/#STLCRef___progress_shorter":
+      {"display": "progress_shorter",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Progress"]}},
+     "address": "/References/"}],
+   "STLCRef.progress":
+   [{"id": "STLCRef___progress",
+     "data":
+     {"/References/#STLCRef___progress":
+      {"display": "progress",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Progress"]}},
+     "address": "/References/"}],
+   "STLCRef.preservation_wrong":
+   [{"id": "STLCRef___preservation_wrong",
+     "data":
+     {"/References/#STLCRef___preservation_wrong":
+      {"display": "preservation_wrong",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Well-Typed Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.preservation_theorem":
+   [{"id": "STLCRef___preservation_theorem",
+     "data":
+     {"/References/#STLCRef___preservation_theorem":
+      {"display": "preservation_theorem",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally"]}},
+     "address": "/References/"}],
+   "STLCRef.preservation_shorter":
+   [{"id": "STLCRef___preservation_shorter",
+     "data":
+     {"/References/#STLCRef___preservation_shorter":
+      {"display": "preservation_shorter",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Preservation!"]}},
+     "address": "/References/"}],
+   "STLCRef.preservation_less_wrong":
+   [{"id": "STLCRef___preservation_less_wrong",
+     "data":
+     {"/References/#STLCRef___preservation_less_wrong":
+      {"display": "preservation_less_wrong",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Well-Typed Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.preservation":
+   [{"id": "STLCRef___preservation",
+     "data":
+     {"/References/#STLCRef___preservation":
+      {"display": "preservation",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Preservation!"]}},
+     "address": "/References/"}],
+   "STLCRef.length_extends":
+   [{"id": "STLCRef___length_extends",
+     "data":
+     {"/References/#STLCRef___length_extends":
+      {"display": "length_extends",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.extends_refl":
+   [{"id": "STLCRef___extends_refl",
+     "data":
+     {"/References/#STLCRef___extends_refl":
+      {"display": "extends_refl",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.extends_lookup":
+   [{"id": "STLCRef___extends_lookup",
+     "data":
+     {"/References/#STLCRef___extends_lookup":
+      {"display": "extends_lookup",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.extends_app":
+   [{"id": "STLCRef___extends_app",
+     "data":
+     {"/References/#STLCRef___extends_app":
+      {"display": "extends_app",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.cyclic_store":
+   [{"id": "STLCRef___cyclic_store",
+     "data":
+     {"/References/#STLCRef___cyclic_store":
+      {"display": "cyclic_store",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "Store typings"]}},
+     "address": "/References/"}],
+   "STLCRef.assign_pres_store_typing":
+   [{"id": "STLCRef___assign_pres_store_typing",
+     "data":
+     {"/References/#STLCRef___assign_pres_store_typing":
+      {"display": "assign_pres_store_typing",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Preservation, Finally",
+        "Assignment Preserves Store Typing"]}},
+     "address": "/References/"}],
+   "STLCRef.Ty.unit":
+   [{"id": "STLCRef___Ty___unit",
+     "data":
+     {"/References/#STLCRef___Ty___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Types"]}},
+     "address": "/References/"}],
+   "STLCRef.Ty.ref":
+   [{"id": "STLCRef___Ty___ref",
+     "data":
+     {"/References/#STLCRef___Ty___ref":
+      {"display": "ref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Types"]}},
+     "address": "/References/"}],
+   "STLCRef.Ty.nat":
+   [{"id": "STLCRef___Ty___nat",
+     "data":
+     {"/References/#STLCRef___Ty___nat":
+      {"display": "nat",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Types"]}},
+     "address": "/References/"}],
+   "STLCRef.Ty.arrow":
+   [{"id": "STLCRef___Ty___arrow",
+     "data":
+     {"/References/#STLCRef___Ty___arrow":
+      {"display": "arrow",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Types"]}},
+     "address": "/References/"}],
+   "STLCRef.Ty":
+   [{"id": "STLCRef___Ty",
+     "data":
+     {"/References/#STLCRef___Ty":
+      {"display": "Ty",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Types"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.var":
+   [{"id": "STLCRef___Tm___var",
+     "data":
+     {"/References/#STLCRef___Tm___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.unit":
+   [{"id": "STLCRef___Tm___unit",
+     "data":
+     {"/References/#STLCRef___Tm___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.tseq":
+   [{"id": "STLCRef___Tm___tseq",
+     "data":
+     {"/References/#STLCRef___Tm___tseq":
+      {"display": "Tm.tseq",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.succ":
+   [{"id": "STLCRef___Tm___succ",
+     "data":
+     {"/References/#STLCRef___Tm___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.ref":
+   [{"id": "STLCRef___Tm___ref",
+     "data":
+     {"/References/#STLCRef___Tm___ref":
+      {"display": "ref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.pred":
+   [{"id": "STLCRef___Tm___pred",
+     "data":
+     {"/References/#STLCRef___Tm___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.mult":
+   [{"id": "STLCRef___Tm___mult",
+     "data":
+     {"/References/#STLCRef___Tm___mult":
+      {"display": "mult",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.loc":
+   [{"id": "STLCRef___Tm___loc",
+     "data":
+     {"/References/#STLCRef___Tm___loc":
+      {"display": "loc",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.ite0":
+   [{"id": "STLCRef___Tm___ite0",
+     "data":
+     {"/References/#STLCRef___Tm___ite0":
+      {"display": "ite0",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.deref":
+   [{"id": "STLCRef___Tm___deref",
+     "data":
+     {"/References/#STLCRef___Tm___deref":
+      {"display": "deref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.const":
+   [{"id": "STLCRef___Tm___const",
+     "data":
+     {"/References/#STLCRef___Tm___const":
+      {"display": "const",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.assign":
+   [{"id": "STLCRef___Tm___assign",
+     "data":
+     {"/References/#STLCRef___Tm___assign":
+      {"display": "assign",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.app":
+   [{"id": "STLCRef___Tm___app",
+     "data":
+     {"/References/#STLCRef___Tm___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.abs":
+   [{"id": "STLCRef___Tm___abs",
+     "data":
+     {"/References/#STLCRef___Tm___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.IsValue.unit":
+   [{"id": "STLCRef___Tm___IsValue___unit",
+     "data":
+     {"/References/#STLCRef___Tm___IsValue___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.IsValue.nat":
+   [{"id": "STLCRef___Tm___IsValue___nat",
+     "data":
+     {"/References/#STLCRef___Tm___IsValue___nat":
+      {"display": "nat",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.IsValue.loc_":
+   [{"id": "STLCRef___Tm___IsValue___loc_",
+     "data":
+     {"/References/#STLCRef___Tm___IsValue___loc_":
+      {"display": "loc_",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.IsValue.abs":
+   [{"id": "STLCRef___Tm___IsValue___abs",
+     "data":
+     {"/References/#STLCRef___Tm___IsValue___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm.IsValue":
+   [{"id": "STLCRef___Tm___IsValue",
+     "data":
+     {"/References/#STLCRef___Tm___IsValue":
+      {"display": "Tm.IsValue",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Values and Substitution"]}},
+     "address": "/References/"}],
+   "STLCRef.Tm":
+   [{"id": "STLCRef___Tm",
+     "data":
+     {"/References/#STLCRef___Tm":
+      {"display": "Tm",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Store_get_zero_hd":
+   [{"id": "STLCRef___Store_get_zero_hd",
+     "data":
+     {"/References/#STLCRef___Store_get_zero_hd":
+      {"display": "Store_get_zero_hd",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.Store_get_succ_tl":
+   [{"id": "STLCRef___Store_get_succ_tl",
+     "data":
+     {"/References/#STLCRef___Store_get_succ_tl":
+      {"display": "Store_get_succ_tl",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.Store_get_set_neq":
+   [{"id": "STLCRef___Store_get_set_neq",
+     "data":
+     {"/References/#STLCRef___Store_get_set_neq":
+      {"display": "Store_get_set_neq",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.Store_get_set_eq":
+   [{"id": "STLCRef___Store_get_set_eq",
+     "data":
+     {"/References/#STLCRef___Store_get_set_eq":
+      {"display": "Store_get_set_eq",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.StoreWellTyped":
+   [{"id": "STLCRef___StoreWellTyped",
+     "data":
+     {"/References/#STLCRef___StoreWellTyped":
+      {"display": "StoreWellTyped",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Well-Typed Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.StoreTy_get_zero_hd":
+   [{"id": "STLCRef___StoreTy_get_zero_hd",
+     "data":
+     {"/References/#STLCRef___StoreTy_get_zero_hd":
+      {"display": "StoreTy_get_zero_hd",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "Store typings"]}},
+     "address": "/References/"}],
+   "STLCRef.StoreTy_get_succ_tl":
+   [{"id": "STLCRef___StoreTy_get_succ_tl",
+     "data":
+     {"/References/#STLCRef___StoreTy_get_succ_tl":
+      {"display": "StoreTy_get_succ_tl",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "Store typings"]}},
+     "address": "/References/"}],
+   "STLCRef.StoreTy":
+   [{"id": "STLCRef___StoreTy",
+     "data":
+     {"/References/#STLCRef___StoreTy":
+      {"display": "StoreTy",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "Store typings"]}},
+     "address": "/References/"}],
+   "STLCRef.Store":
+   [{"id": "STLCRef___Store",
+     "data":
+     {"/References/#STLCRef___Store":
+      {"display": "Store",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.succNat":
+   [{"id": "STLCRef___Step___succNat",
+     "data":
+     {"/References/#STLCRef___Step___succNat":
+      {"display": "succNat",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.succ":
+   [{"id": "STLCRef___Step___succ",
+     "data":
+     {"/References/#STLCRef___Step___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.ref_":
+   [{"id": "STLCRef___Step___ref_",
+     "data":
+     {"/References/#STLCRef___Step___ref_":
+      {"display": "ref_",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.refValue":
+   [{"id": "STLCRef___Step___refValue",
+     "data":
+     {"/References/#STLCRef___Step___refValue":
+      {"display": "refValue",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.predConst":
+   [{"id": "STLCRef___Step___predConst",
+     "data":
+     {"/References/#STLCRef___Step___predConst":
+      {"display": "predConst",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.pred":
+   [{"id": "STLCRef___Step___pred",
+     "data":
+     {"/References/#STLCRef___Step___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.mult₂":
+   [{"id": "STLCRef___Step___mult___-next",
+     "data":
+     {"/References/#STLCRef___Step___mult___-next":
+      {"display": "mult₂",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.mult₁":
+   [{"id": "STLCRef___Step___mult___",
+     "data":
+     {"/References/#STLCRef___Step___mult___":
+      {"display": "mult₁",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.multConst":
+   [{"id": "STLCRef___Step___multConst",
+     "data":
+     {"/References/#STLCRef___Step___multConst":
+      {"display": "multConst",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.if0Zero":
+   [{"id": "STLCRef___Step___if0Zero",
+     "data":
+     {"/References/#STLCRef___Step___if0Zero":
+      {"display": "if0Zero",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.if0Step":
+   [{"id": "STLCRef___Step___if0Step",
+     "data":
+     {"/References/#STLCRef___Step___if0Step":
+      {"display": "if0Step",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.if0Nonzero":
+   [{"id": "STLCRef___Step___if0Nonzero",
+     "data":
+     {"/References/#STLCRef___Step___if0Nonzero":
+      {"display": "if0Nonzero",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.derefLoc":
+   [{"id": "STLCRef___Step___derefLoc",
+     "data":
+     {"/References/#STLCRef___Step___derefLoc":
+      {"display": "derefLoc",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.deref":
+   [{"id": "STLCRef___Step___deref",
+     "data":
+     {"/References/#STLCRef___Step___deref":
+      {"display": "deref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.assign₂":
+   [{"id": "STLCRef___Step___assign___-next",
+     "data":
+     {"/References/#STLCRef___Step___assign___-next":
+      {"display": "assign₂",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.assign₁":
+   [{"id": "STLCRef___Step___assign___",
+     "data":
+     {"/References/#STLCRef___Step___assign___":
+      {"display": "assign₁",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.assign":
+   [{"id": "STLCRef___Step___assign",
+     "data":
+     {"/References/#STLCRef___Step___assign":
+      {"display": "assign",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.app₂":
+   [{"id": "STLCRef___Step___app___-next",
+     "data":
+     {"/References/#STLCRef___Step___app___-next":
+      {"display": "app₂",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.app₁":
+   [{"id": "STLCRef___Step___app___",
+     "data":
+     {"/References/#STLCRef___Step___app___":
+      {"display": "app₁",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step.appAbs":
+   [{"id": "STLCRef___Step___appAbs",
+     "data":
+     {"/References/#STLCRef___Step___appAbs":
+      {"display": "appAbs",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.Step":
+   [{"id": "STLCRef___Step",
+     "data":
+     {"/References/#STLCRef___Step":
+      {"display": "Step",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.loop_typeable":
+   [{"id": "STLCRef___RefsAndNontermination___loop_typeable",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___loop_typeable":
+      {"display": "loop_typeable",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.loop_steps_to_loop_fun":
+   [{"id": "STLCRef___RefsAndNontermination___loop_steps_to_loop_fun",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___loop_steps_to_loop_fun":
+      {"display": "loop_steps_to_loop_fun",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.loop_fun_step_self":
+   [{"id": "STLCRef___RefsAndNontermination___loop_fun_step_self",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___loop_fun_step_self":
+      {"display": "loop_fun_step_self",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.loop_fun":
+   [{"id": "STLCRef___RefsAndNontermination___loop_fun",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___loop_fun":
+      {"display": "loop_fun",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.loop":
+   [{"id": "STLCRef___RefsAndNontermination___loop",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___loop":
+      {"display": "loop",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.factorial_type":
+   [{"id": "STLCRef___RefsAndNontermination___factorial_type",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___factorial_type":
+      {"display": "factorial_type",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.factorial_4":
+   [{"id": "STLCRef___RefsAndNontermination___factorial_4",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___factorial_4":
+      {"display": "factorial_4",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.factorial":
+   [{"id": "STLCRef___RefsAndNontermination___factorial",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___factorial":
+      {"display": "factorial",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.StepClosure.step":
+   [{"id": "STLCRef___RefsAndNontermination___StepClosure___step",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___StepClosure___step":
+      {"display": "step",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.StepClosure.one":
+   [{"id": "STLCRef___RefsAndNontermination___StepClosure___one",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___StepClosure___one":
+      {"display": "one",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.RefsAndNontermination.StepClosure":
+   [{"id": "STLCRef___RefsAndNontermination___StepClosure",
+     "data":
+     {"/References/#STLCRef___RefsAndNontermination___StepClosure":
+      {"display": "StepClosure",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "References and Nontermination"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.var":
+   [{"id": "STLCRef___HasType___var",
+     "data":
+     {"/References/#STLCRef___HasType___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.unit":
+   [{"id": "STLCRef___HasType___unit",
+     "data":
+     {"/References/#STLCRef___HasType___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.unexpand":
+   [{"id": "STLCRef___HasType___unexpand",
+     "data":
+     {"/References/#STLCRef___HasType___unexpand":
+      {"display": "HasType.unexpand",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.succ":
+   [{"id": "STLCRef___HasType___succ",
+     "data":
+     {"/References/#STLCRef___HasType___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.ref_":
+   [{"id": "STLCRef___HasType___ref_",
+     "data":
+     {"/References/#STLCRef___HasType___ref_":
+      {"display": "ref_",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.pred":
+   [{"id": "STLCRef___HasType___pred",
+     "data":
+     {"/References/#STLCRef___HasType___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.mult":
+   [{"id": "STLCRef___HasType___mult",
+     "data":
+     {"/References/#STLCRef___HasType___mult":
+      {"display": "mult",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.loc_":
+   [{"id": "STLCRef___HasType___loc_",
+     "data":
+     {"/References/#STLCRef___HasType___loc_":
+      {"display": "loc_",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.ite0":
+   [{"id": "STLCRef___HasType___ite0",
+     "data":
+     {"/References/#STLCRef___HasType___ite0":
+      {"display": "ite0",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.deref":
+   [{"id": "STLCRef___HasType___deref",
+     "data":
+     {"/References/#STLCRef___HasType___deref":
+      {"display": "deref",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.const":
+   [{"id": "STLCRef___HasType___const",
+     "data":
+     {"/References/#STLCRef___HasType___const":
+      {"display": "const",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.assign":
+   [{"id": "STLCRef___HasType___assign",
+     "data":
+     {"/References/#STLCRef___HasType___assign":
+      {"display": "assign",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.app":
+   [{"id": "STLCRef___HasType___app",
+     "data":
+     {"/References/#STLCRef___HasType___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType.abs":
+   [{"id": "STLCRef___HasType___abs",
+     "data":
+     {"/References/#STLCRef___HasType___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.HasType":
+   [{"id": "STLCRef___HasType",
+     "data":
+     {"/References/#STLCRef___HasType":
+      {"display": "HasType",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Typing",
+        "The Typing Relation"]}},
+     "address": "/References/"}],
+   "STLCRef.Extends.nil":
+   [{"id": "STLCRef___Extends___nil",
+     "data":
+     {"/References/#STLCRef___Extends___nil":
+      {"display": "nil",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.Extends.cons":
+   [{"id": "STLCRef___Extends___cons",
+     "data":
+     {"/References/#STLCRef___Extends___cons":
+      {"display": "cons",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.Extends":
+   [{"id": "STLCRef___Extends",
+     "data":
+     {"/References/#STLCRef___Extends":
+      {"display": "Extends",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Extending Store Typings"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.tyHandlers":
+   [{"id": "STLCRef___Elab___tyHandlers",
+     "data":
+     {"/References/#STLCRef___Elab___tyHandlers":
+      {"display": "tyHandlers",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.tmHandlers":
+   [{"id": "STLCRef___Elab___tmHandlers",
+     "data":
+     {"/References/#STLCRef___Elab___tmHandlers":
+      {"display": "tmHandlers",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.mkHasType":
+   [{"id": "STLCRef___Elab___mkHasType",
+     "data":
+     {"/References/#STLCRef___Elab___mkHasType":
+      {"display": "mkHasType",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.language":
+   [{"id": "STLCRef___Elab___language",
+     "data":
+     {"/References/#STLCRef___Elab___language":
+      {"display": "language",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.extendedTyHandler":
+   [{"id": "STLCRef___Elab___extendedTyHandler",
+     "data":
+     {"/References/#STLCRef___Elab___extendedTyHandler":
+      {"display": "extendedTyHandler",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.extendedTmHandler":
+   [{"id": "STLCRef___Elab___extendedTmHandler",
+     "data":
+     {"/References/#STLCRef___Elab___extendedTmHandler":
+      {"display": "extendedTmHandler",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.elabTy":
+   [{"id": "STLCRef___Elab___elabTy",
+     "data":
+     {"/References/#STLCRef___Elab___elabTy":
+      {"display": "elabTy",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.elabTm":
+   [{"id": "STLCRef___Elab___elabTm",
+     "data":
+     {"/References/#STLCRef___Elab___elabTm":
+      {"display": "elabTm",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.elabCtx":
+   [{"id": "STLCRef___Elab___elabCtx",
+     "data":
+     {"/References/#STLCRef___Elab___elabCtx":
+      {"display": "elabCtx",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Elab.elabBracket":
+   [{"id": "STLCRef___Elab___elabBracket",
+     "data":
+     {"/References/#STLCRef___Elab___elabBracket":
+      {"display": "elabBracket",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Definitions",
+        "Terms"]}},
+     "address": "/References/"}],
+   "STLCRef.Context":
+   [{"id": "STLCRef___Context",
+     "data":
+     {"/References/#STLCRef___Context":
+      {"display": "Context",
+       "context":
+       ["Type Systems", "References: Typing Mutable References", "Typing"]}},
+     "address": "/References/"}],
    "Relation":
    [{"id": "Relation",
      "data":

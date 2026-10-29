@@ -2,11 +2,6 @@ import SFLCompat
 
 --  # Slang: Arithmetic and Boolean Expressions
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      We need to figure out our approach to text width, especially for
---      proofs. Quite a few proofs here don't render into the chosen page
---      width, and for terse mode it will be worse.
-
 --  In **Logical Foundations** (LF) we went through the basics of how to
 --  use Lean to prove theorems and write functional programs. Now, we begin
 --  to shift gears to using it to reason about properties of programs and
@@ -50,7 +45,7 @@ inductive Bexp where
 
 --  In this chapter, we'll ignore the translation from the *concrete
 --  syntax* that a programmer would actually write to these abstract syntax
---  trees -- the process that, for example, would translate the string
+--  trees — the process that, for example, would translate the string
 --  `"1 + 2 * 3"` to the AST `.plus (.num 1) (.mult (.num 2) (.num 3))`.
 --
 --  For comparison, here's a conventional BNF (Backus-Naur Form) grammar
@@ -69,13 +64,13 @@ inductive Bexp where
 --      | b ∧ b
 
 --  Compared to the Lean version above...
---  - The BNF is more informal -- for example, it gives some suggestions
+--  - The BNF is more informal — for example, it gives some suggestions
 --    about the surface syntax of expressions (like the fact that the
 --    addition operation is written with an infix `+`) while leaving other
 --    aspects of lexical analysis and parsing (like the relative precedence
 --    of `+`, `-`, and `*`, the use of parens to group subexpressions,
---    etc.) unspecified. Some additional information -- and human
---    intelligence -- would be required to turn this description into a
+--    etc.) unspecified. Some additional information — and human
+--    intelligence — would be required to turn this description into a
 --    formal definition, e.g., for implementing a compiler. The Lean
 --    version consistently omits all this information and concentrates on
 --    the abstract syntax only.
@@ -86,7 +81,7 @@ inductive Bexp where
 --    important than nailing down every detail precisely.
 --
 --    Indeed, there are dozens of BNF-like notations and people switch
---    freely among them -- usually without bothering to say which kind of
+--    freely among them — usually without bothering to say which kind of
 --    BNF they're using, because there is no need to: a rough-and-ready
 --    informal understanding is all that's important.
 --
@@ -94,9 +89,12 @@ inductive Bexp where
 --  for communicating between humans and formal ones for carrying out
 --  implementations and proofs.
 
---  ### Evaluation
+--  ### Semantics: Evaluation
 
---  *Evaluating* an arithmetic expression produces a number.
+--  The *semantics* of a programming language gives meaning to its
+--  programs. For Slang, the meaning of each arithmetic expression is the
+--  number it *evaluates* to. We can specify evaluation using a simple
+--  recursive function, an intepreter.
 
 namespace Aexp
 def eval (a : Aexp) : Nat :=
@@ -106,15 +104,19 @@ def eval (a : Aexp) : Nat :=
   | minus a₁ a₂ =>  a₁.eval - a₂.eval
   | mult  a₁ a₂ =>  a₁.eval * a₂.eval
 
-@[simp] theorem eval_num (n : Nat) : (num n).eval = n := rfl
-@[simp] theorem eval_plus (a₁ a₂ : Aexp) : (plus a₁ a₂).eval = a₁.eval + a₂.eval := rfl
-@[simp] theorem eval_minus (a₁ a₂ : Aexp) : (minus a₁ a₂).eval = a₁.eval - a₂.eval := rfl
-@[simp] theorem eval_mult (a₁ a₂ : Aexp) : (mult a₁ a₂).eval = a₁.eval * a₂.eval := rfl
+@[simp] theorem eval_num (n : Nat) : (num n).eval = n := by rfl
+@[simp] theorem eval_plus (a₁ a₂ : Aexp) :
+    (plus a₁ a₂).eval = a₁.eval + a₂.eval := by rfl
+@[simp] theorem eval_minus (a₁ a₂ : Aexp) :
+    (minus a₁ a₂).eval = a₁.eval - a₂.eval := by rfl
+@[simp] theorem eval_mult (a₁ a₂ : Aexp) :
+    (mult a₁ a₂).eval = a₁.eval * a₂.eval := by rfl
 
-example : eval (.plus (.num 2) (.num 2)) = 4 := by simp
+example : eval (.plus (.num 2) (.num 2)) = 4 := by rfl
 end Aexp
 
---  Similarly, evaluating a boolean expression yields a boolean.
+--  Similarly, the semantics of a boolean expression is the boolean it
+--  evaluates to.
 
 namespace Bexp
 def eval (b : Bexp) : Bool :=
@@ -127,20 +129,24 @@ def eval (b : Bexp) : Bool :=
   | not  b₁    =>  !eval b₁
   | and  b₁ b₂ =>  eval b₁ && eval b₂
 
-@[simp] theorem eval_bool (b : Bool) : (bool b).eval = b := rfl
-@[simp] theorem eval_eq (a₁ a₂ : Aexp) : (eq a₁ a₂).eval = (a₁.eval == a₂.eval) := rfl
-@[simp] theorem eval_neq (a₁ a₂ : Aexp) : (neq a₁ a₂).eval = (a₁.eval != a₂.eval) := rfl
-@[simp] theorem eval_le (a₁ a₂ : Aexp) : (le a₁ a₂).eval = (a₁.eval ≤ a₂.eval : Bool) := rfl
-@[simp] theorem eval_gt (a₁ a₂ : Aexp) : (gt a₁ a₂).eval = (a₁.eval > a₂.eval : Bool) := rfl
-@[simp] theorem eval_not (b : Bexp) : (not b).eval = !b.eval := rfl
-@[simp] theorem eval_and (b₁ b₂ : Bexp) : (and b₁ b₂).eval = (b₁.eval && b₂.eval) := rfl
+@[simp] theorem eval_bool (b : Bool) : (bool b).eval = b := by rfl
+@[simp] theorem eval_eq (a₁ a₂ : Aexp) :
+    (eq a₁ a₂).eval = (a₁.eval == a₂.eval) := by rfl
+@[simp] theorem eval_neq (a₁ a₂ : Aexp) :
+    (neq a₁ a₂).eval = (a₁.eval != a₂.eval) := by rfl
+@[simp] theorem eval_le (a₁ a₂ : Aexp) :
+    (le a₁ a₂).eval = (a₁.eval ≤ a₂.eval : Bool) := by rfl
+@[simp] theorem eval_gt (a₁ a₂ : Aexp) :
+    (gt a₁ a₂).eval = (a₁.eval > a₂.eval : Bool) := by rfl
+@[simp] theorem eval_not (b : Bexp) : (not b).eval = !b.eval := by rfl
+@[simp] theorem eval_and (b₁ b₂ : Bexp) :
+    (and b₁ b₂).eval = (b₁.eval && b₂.eval) := by rfl
 end Bexp
 
 --  It's worth noting that `≤` and `>` are `Prop`-valued, i.e.
---  `a₁.eval st ≤ a₂.eval st` is a proposition, but `Bexp.eval` returns a
---  `Bool`, so Lean implicitly inserts a `decide` coercion. You can observe
---  the call to `decide` by hovering over `Bexp.eval_le` and
---  `Bexp.eval_gt`.
+--  `a₁.eval ≤ a₂.eval` is a proposition, but `Bexp.eval` returns a `Bool`,
+--  so Lean implicitly inserts a `decide` coercion. You can observe the
+--  call to `decide` by hovering over `Bexp.eval_le` and `Bexp.eval_gt`.
 
 --   ----------------------------------------
 
@@ -153,6 +159,16 @@ end Bexp
 --  (A) true (B) false (C) 0 (D) 3 (E) 6
 
 --   ----------------------------------------
+
+--  As a technical note: We are specifying the semantics of Slang in what
+--  is called the "big step" style: each `eval` function take an expression
+--  (the input) in one "big step" to its meaning (the output, as a number
+--  or boolean).
+--
+--  This is in contrast to the "small step" style, which breaks a single
+--  evaluation into multiple, smaller steps. The small-step style is
+--  introduced in the Type Systems volume; we stick with big-step
+--  throughout the Hoare Logic volume.
 
 --  ### Optimization
 
@@ -180,19 +196,19 @@ example :
                                       (.plus (.num 0) (.num 1))))
       = .plus (.num 2) (.num 1) := by rfl
 
---  But if we want to be certain the optimization is correct -- that
+--  But if we want to be certain the optimization is correct — that
 --  evaluating an optimized expression *always* gives the same result as
---  the original -- we should prove it!
+--  the original — we should prove it!
 --
 --  Here is a first, deliberately explicit, proof, by induction on `a`. The
 --  interesting case is `Aexp.plus`: because `Aexp.optimize0plus` treats
---  `plus (num 0) e` specially, we case-split on the left operand `a₁` --
---  and, when it is a numeral, on whether that numeral is `0` -- to line
---  the proof up with the function's own branches. Once the constructors
---  are exposed, each case is discharged by essentially the same
---  incantation: unfold `Aexp.optimize0plus`, rewrite `Aexp.eval` by its
---  characterizing lemmas, then finish with the induction hypotheses.
---  Notice how repetitive that makes the proof.
+--  `plus (num 0) e` specially, we case-split on the left operand `a₁` —
+--  and, when it is a numeral, on whether that numeral is `0` — to line the
+--  proof up with the function's own branches. Once the constructors are
+--  exposed, each case is discharged by essentially the same incantation:
+--  unfold `Aexp.optimize0plus`, rewrite `Aexp.eval` by its characterizing
+--  lemmas, then finish with the induction hypotheses. Notice how
+--  repetitive that makes the proof.
 
 theorem optimize0plus_sound (a : Aexp) :
     a.optimize0plus.eval = a.eval := by
@@ -224,18 +240,17 @@ theorem optimize0plus_sound (a : Aexp) :
     simp only [optimize0plus, eval_mult]
     rw [ih₁, ih₂]
 
---  We can do much better. The case analysis we performed by hand --
---  peeling `plus` apart to reach the `plus (num 0) e` branch -- is exactly
---  the case analysis that `Aexp.optimize0plus` itself performs.
+--  We can do much better. The case analysis we performed by hand — peeling
+--  `plus` apart to reach the `plus (num 0) e` branch — is exactly the case
+--  analysis that `Aexp.optimize0plus` itself performs.
 --
 --  The `fun_induction` tactic inducts along a function's **own** recursion
---  structure: `fun_induction
---  Aexp.optimize0plus a` hands us one goal per
---  branch of `optimize0plus` -- the special `plus (num 0) e` branch
---  included -- so the nested `cases` disappear.
+--  structure: `fun_induction Aexp.optimize0plus a` hands us one goal per
+--  branch of `optimize0plus` — the special `plus (num 0) e` branch
+--  included — so the nested `cases` disappear.
 --
 --  Before applying `fun_induction` to a function as complex as
---  `Aexp.optimize0plus`, let's see how it works on somthing simpler.
+--  `Aexp.optimize0plus`, let's see how it works on something simpler.
 --  Recall the definition of `Nat.even` and `Nat.odd`:
 
 def Nat.even (n : Nat) :=
@@ -246,10 +261,10 @@ def Nat.even (n : Nat) :=
 
 def Nat.odd (n : Nat) := Nat.even (n + 1)
 
---  Normally, if we perform induction on `n`, we get two cases - `0` and
---  `n' + 1` - one for each of the cases in the inductive definition of
+--  Normally, if we perform induction on `n`, we get two cases — `0` and
+--  `n' + 1` — one for each of the cases in the inductive definition of
 --  natural numbers. Functional induction on `Nat.even`, however, gives us
---  three cases - `0`, `1`, and `n' + 2` - corresponding to each of the
+--  three cases — `0`, `1`, and `n' + 2` — corresponding to each of the
 --  cases of its definition.
 
 example (n : Nat) (h : Nat.even n = true) : Nat.odd n = false := by
@@ -263,8 +278,8 @@ example (n : Nat) (h : Nat.even n = true) : Nat.odd n = false := by
 --  this, every goal has the same shape, so we can attack them uniformly
 --  with the `<;>` combinator and a single tactic, `simp_all`, which
 --  rewrites `Aexp.eval` by the `@[simp]` characterizing lemmas and uses
---  the induction hypotheses -- which it picks up from the local context
---  automatically -- to close each goal. The whole proof collapses to two
+--  the induction hypotheses — which it picks up from the local context
+--  automatically — to close each goal. The whole proof collapses to two
 --  lines.
 
 theorem optimize0plus_sound' (a : Aexp) :
@@ -300,49 +315,57 @@ theorem Bexp.optimize0plus_test1 :
 theorem Bexp.optimize0plus_test2 :
     Bexp.optimize0plus
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
-      = (.and (.le (.num 4) (.num 5)) (.bool true)) := (by rfl)
+      = (.and (.le (.num 4) (.num 5)) (.bool true)) :=
+    (by rfl)
 
 theorem Bexp.optimize0plus_sound (b : Bexp) :
     b.optimize0plus.eval = b.eval := by
-  fun_induction Bexp.optimize0plus b <;> simp_all [Aexp.optimize0plus_sound]
+  fun_induction Bexp.optimize0plus b <;>
+    simp_all [Aexp.optimize0plus_sound]
 
 --  ### Exercise (4 stars): optimize (Optional) ⭐⭐⭐⭐
 
 --  The optimization implemented by our `Aexp.optimize0plus` is only one of
 --  many possible optimizations on arithmetic and boolean expressions.
 --  Write a more sophisticated optimizer and prove it correct. (You will
---  probably find it easiest to start small -- add just a single, simple
---  optimization and its correctness proof -- and build up incrementally to
+--  probably find it easiest to start small — add just a single, simple
+--  optimization and its correctness proof — and build up incrementally to
 --  something more interesting.)
 
 --  ## Evaluation as a Relation
 
 --  We have presented `Aexp.eval` and `Bexp.eval` as functions defined by
---  recursion. Another way to think about evaluation -- one that is often
---  more flexible -- is as a *relation* between expressions and their
+--  recursion. Another way to think about evaluation — one that is often
+--  more flexible — is as a *relation* between expressions and their
 --  values. This perspective leads to inductive definitions like the
 --  following.
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
-  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat}
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.plus a₁ a₂) (n₁ + n₂)
-  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat}
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.minus a₁ a₂) (n₁ - n₂)
-  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat}
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.mult a₁ a₂) (n₁ * n₂)
 
 --  One comment on the style of this definition. We could instead have
---  presented this relation with **positional** hypotheses -- no names for
+--  presented this relation with **positional** hypotheses — no names for
 --  the premises.
 
 namespace ArithUnnamed
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
-  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.plus a₁ a₂) (n₁ + n₂)
-  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.minus a₁ a₂) (n₁ - n₂)
-  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.mult a₁ a₂) (n₁ * n₂)
+  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :
+      EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.plus a₁ a₂) (n₁ + n₂)
+  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :
+      EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.minus a₁ a₂) (n₁ - n₂)
+  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :
+      EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.mult a₁ a₂) (n₁ * n₂)
 
 end ArithUnnamed
 
@@ -369,20 +392,20 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  of *inference rules*, where the premises above the line justify the
 --  conclusion below the line. For example, the constructor `plus` can be
 --  written like this as an inference rule:
-
---  a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------          (plus)
---                      plus a₁ a₂ ⇓ n₁ + n₂
-
+--
+--            a₁ ⇓ n₁
+--            a₂ ⇓ n₂
+--      --------------------   (plus)
+--      plus a₁ a₂ ⇓ n₁ + n₂
+--
 --  Notice the structural correspondence between this rule and our version
 --  of the inductive type with unnamed hypotheses:
-
---  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) :
+--
+--      | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) :
 --          EvalR a₁ n₁ →
 --          EvalR a₂ n₂ →
 --          EvalR (.plus a₁ a₂) (n₁ + n₂)
-
+--
 --  Formally, there is nothing deep about inference rules: they are just an
 --  informal notation for implications. You can read the rule name on the
 --  right as the name of the constructor and read each of the linebreaks
@@ -397,30 +420,32 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  this is sometimes indicated by saying something like "Let `Aexp.EvalR`
 --  be the smallest relation closed under the following rules...".
 --
---  To summarize: a group of inference rules corresponds to a single
---  inductive definition; each rule's name corresponds to a constructor
---  name; above the line are the premises, below the line the conclusion;
---  metavariables like `a₁` and `n₁` are implicitly universally quantified.
---  The whole collection of rules defines `⇓` as the smallest relation
---  closed under them:
-
---  ---------                (num)
---                          num n ⇓ n
+--  To summarize:
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------           (plus)
---                      plus a₁ a₂ ⇓ n₁ + n₂
+--  A group of inference rules corresponds to a single inductive
+--  definition; each rule's name corresponds to a constructor name; above
+--  the line are the premises, below the line the conclusion; metavariables
+--  like `a₁` and `n₁` are implicitly universally quantified. The whole
+--  collection of rules defines `⇓` as the smallest relation closed under
+--  them:
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                     -------------------           (minus)
---                     minus a₁ a₂ ⇓ n₁ - n₂
+--            ───────── (num)
+--            num n ⇓ n
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------           (mult)
---                      mult a₁ a₂ ⇓ n₁*n₂
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ──────────────────── (plus)
+--      plus a₁ a₂ ⇓ n₁ + n₂
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ───────────────────── (minus)
+--      minus a₁ a₂ ⇓ n₁ - n₂
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--       ──────────────────── (mult)
+--       mult a₁ a₂ ⇓ n₁ * n₂
 
 --   ----------------------------------------
 
@@ -443,7 +468,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --      About `Bexp.eval` below: We should discuss a way to recall
 --      definitions without having to write them out manually like this. I
 --      think a simple `#print` may work as an alternative, assuming there
---      are no namespace issues..
+--      are no namespace issues.
 
 --  ### Exercise (1 star): beval_rules (Optional, Manually graded) ⭐
 
@@ -464,37 +489,37 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  Answer (`⇓` is defined below):
 --
---                    -------------                (bool)
---                     bool bv ⇓ bv
+--      ──────────── (bool)
+--      bool bv ⇓ bv
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    ---------------------        (eq)
---                    eq a₁ a₂ ⇓ (n₁ == n₂)
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ───────────────────── (eq)
+--      eq a₁ a₂ ⇓ (n₁ == n₂)
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                  ---------------------          (neq)
---                   neq a₁ a₂ ⇓ n₁ != n₂
+--            a₁ ⇓ n₁
+--            a₂ ⇓ n₂
+--      ──────────────────── (neq)
+--      neq a₁ a₂ ⇓ n₁ != n₂
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    --------------------------   (le)
---                    le a₁ a₂ ⇓ (Nat.ble n₁ n₂)
+--               a₁ ⇓ n₁
+--               a₂ ⇓ n₂
+--      ────────────────────────── (le)
+--      le a₁ a₂ ⇓ (Nat.ble n₁ n₂)
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    ---------------------------  (gt)
---                    gt a₁ a₂ ⇓ !(Nat.ble n₁ n₂)
+--                a₁ ⇓ n₁
+--                a₂ ⇓ n₂
+--      ─────────────────────────── (gt)
+--      gt a₁ a₂ ⇓ !(Nat.ble n₁ n₂)
 --
---                           b ⇓ bv
---                       -----------               (not)
---                       not b ⇓ !bv
+--        b ⇓ bv
+--      ─────────── (not)
+--      not b ⇓ !bv
 --
---                          b₁ ⇓ bv₁
---                          b₂ ⇓ bv₂
---                   ----------------------        (and)
---                   and b₁ b₂ ⇓ bv₁ && bv₂
+--             b₁ ⇓ bv₁
+--             b₂ ⇓ bv₂
+--      ────────────────────── (and)
+--      and b₁ b₂ ⇓ bv₁ && bv₂
 
 --  ### Equivalence of the Definitions
 
@@ -530,22 +555,27 @@ theorem evalR_iff_eval' (a : Aexp) (n : Nat) :
 
 end Aexp
 
+namespace Bexp
+open scoped Aexp -- opens the ⇓ notation for Aexp.EvalR
+
 --  ### Exercise (3 stars): bevalR ⭐⭐⭐
 
 --  Write a relation `Bexp.EvalR` in the same style as `Aexp.EvalR`, and
 --  prove that it is equivalent to `Bexp.eval`.
 
-namespace Bexp
-open scoped Aexp -- opens the ⇓ notation for Aexp.EvalR
-
 inductive EvalR : Bexp → Bool → Prop where
   | bool (b : Bool) : EvalR (.bool b) b
-  | eq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.eq a₁ a₂) (n₁ == n₂)
-  | neq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.neq a₁ a₂) (n₁ != n₂)
-  | le {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.le a₁ a₂) (n₁ ≤ n₂)
-  | gt {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.gt a₁ a₂) (n₁ > n₂)
+  | eq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) :
+      EvalR (.eq a₁ a₂) (n₁ == n₂)
+  | neq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) :
+      EvalR (.neq a₁ a₂) (n₁ != n₂)
+  | le {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) :
+      EvalR (.le a₁ a₂) (n₁ ≤ n₂)
+  | gt {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) :
+      EvalR (.gt a₁ a₂) (n₁ > n₂)
   | not {b : Bexp} {bv : Bool} (h : EvalR b bv) : EvalR (.not b) (!bv)
-  | and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : EvalR b₁ bv₁) (h₂ : EvalR b₂ bv₂) :
+  | and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool}
+      (h₁ : EvalR b₁ bv₁) (h₂ : EvalR b₂ bv₂) :
       EvalR (.and b₁ b₂) (bv₁ && bv₂)
 
 scoped notation:55 e:56 " ⇓ " b:56 => EvalR e b
@@ -560,9 +590,10 @@ theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
 --  (End of exercise)
 
 end Bexp
+
 end Slang
 
---  ### Computational vs. Relational Definitions
+--  ### Functional vs. Relational Definitions
 
 --  For the definitions of evaluation for arithmetic and boolean
 --  expressions, the choice of whether to use functional or relational
@@ -603,14 +634,16 @@ def eval (a : Aexp) : Option Nat :=
                     | _, _ => none
   | div   a₁ a₂ =>  match a₁.eval, a₂.eval with
                     | _, some 0 => none
-                    | some n₁, some n₂ => if n₂ ∣ n₁ then some (n₁ / n₂) else none
+                    | some n₁, some n₂ =>
+                      if n₂ ∣ n₁ then some (n₁ / n₂) else none
                     | _, _ => none
 end Aexp
 
---  This definition is a lot wordier than the earlier version. There are
---  tools to reduce this overhead, namely monads, but we will not discuss
---  these in Software Foundations in Lean. Curious readers can learn more
---  about them from [Functional Programming in
+--  This definition is a lot wordier than the earlier version.
+--
+--  There are tools to reduce this overhead, namely monads, but we will not
+--  discuss these in Software Foundations in Lean. Curious readers can
+--  learn more about them from [Functional Programming in
 --  Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
 --
 --  By contrast, partiality is no problem for the relational version of the
@@ -618,14 +651,18 @@ end Aexp
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
-  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.plus a₁ a₂) (n₁ + n₂)
-  | minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.minus a₁ a₂) (n₁ - n₂)
-  | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.mult a₁ a₂) (n₁ * n₂)
   | div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat)             -- NEW
-      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) (hpos : n₂ > 0) (hdiv : n₂ * n₃ = n₁) :
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂)
+      (hpos : n₂ > 0) (hdiv : n₂ * n₃ = n₁) :
       EvalR (.div a₁ a₂) n₃
 
 --  Notice that there are some inputs (those with a divisor of 0) for which
@@ -638,7 +675,7 @@ namespace Slang.AevalRExtended
 --  As another example, suppose that we want to extend the arithmetic
 --  operations by a nondeterministic number generator `any` that, when
 --  evaluated, may yield any number. (This is not the same as making a
---  *probabilistic* choice among all numbers -- we only say which results
+--  *probabilistic* choice among all numbers — we only say which results
 --  are *possible*.)
 
 inductive Aexp where
@@ -655,11 +692,14 @@ inductive Aexp where
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | any (n : Nat) : EvalR .any n                   -- NEW
   | num (n : Nat) : EvalR (.num n) n
-  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.plus a₁ a₂) (n₁ + n₂)
-  | minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.minus a₁ a₂) (n₁ - n₂)
-  | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat)
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.mult a₁ a₂) (n₁ * n₂)
 
 end Slang.AevalRExtended
@@ -668,17 +708,17 @@ end Slang.AevalRExtended
 --  by default?
 --
 --  Where the thing being defined is not easy to express as a function,
---  definitions are often simpler. When both styles are workable,
---  relational definitions can be more elegant and easier to understand,
---  and Lean generates useful inversion and induction principles from them.
---  On the other hand, functional definitions are automatically
---  deterministic and total -- whereas, for a relation, we must *prove*
---  these if we need them -- and we can use Lean's computation mechanism to
---  simplify them during proofs.
+--  relational definitions are often simpler. When both styles are
+--  workable, relational definitions can be more elegant and easier to
+--  understand, and Lean generates useful inversion and induction
+--  principles from them. On the other hand, functional definitions are
+--  automatically deterministic and total — whereas, for a relation, we
+--  must *prove* these if we need them — and we can use Lean's computation
+--  mechanism to simplify them during proofs.
 --
 --  In large developments it is common to give a definition in *both*
 --  styles plus a lemma that the two coincide, allowing later proofs to
---  switch between points of view at will -- exactly what we did above in
+--  switch between points of view at will — exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

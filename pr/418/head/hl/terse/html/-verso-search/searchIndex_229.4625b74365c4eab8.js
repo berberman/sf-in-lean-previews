@@ -1,1 +1,0 @@
-window.docContents[229].resolve({"/Equiv/#Hoare-Logic--Equiv___-Program-Equivalence--Additional-Exercises":{"contents":"\n\n\n\n\n\n\n\n","context":"Hoare Logic\u0009Equiv: Program Equivalence","header":"4.7. Additional Exercises","id":"/Equiv/#Hoare-Logic--Equiv___-Program-Equivalence--Additional-Exercises"}});

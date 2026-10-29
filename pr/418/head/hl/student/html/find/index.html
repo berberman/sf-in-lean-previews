@@ -70,6 +70,10 @@
 .sf-display pre code {
   font-family: var(--verso-code-font-family, monospace);
   white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
 }
 </style><style>
 .namedocs {
@@ -976,6 +980,29 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
+/* +centered display: center the whole block as a rigid unit, so multi-line
+   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
+   text-align: center, which would center each line independently and
+   misalign the premises/bar/conclusion. */
+.sf-display-centered {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+.sf-display-centered pre {
+  margin: 0;
+  overflow-x: auto;
+  width: fit-content;
+}
+.sf-display-centered pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1832,305 +1859,6 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2138,7 +1866,7 @@ window.onload = async () => {
   {"imp-notations":
    [{"id": "imp-notations",
      "data":
-     {"title": "Notations",
+     {"title": "Notation",
       "shortTitle": null,
       "sectionNum": "3.1.3.",
       "searchPriority": 50,
@@ -2150,40 +1878,8 @@ window.onload = async () => {
        {"title": "Expressions With Variables",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Notations", "shortTitle": null, "number": "3"}]},
+       {"title": "Notation", "shortTitle": null, "number": "3"}]},
      "address": "/Imp/"}],
-   "imp-delaborators":
-   [{"id": "imp-delaborators",
-     "data":
-     {"title": "Delaborators",
-      "shortTitle": null,
-      "sectionNum": "3.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Expressions With Variables",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Delaborators", "shortTitle": null, "number": "4"}]},
-     "address": "/Imp/"}],
-   "assn-delaborators":
-   [{"id": "assn-delaborators",
-     "data":
-     {"title": "Printing Assertions",
-      "shortTitle": null,
-      "sectionNum": "5.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare: Hoare Logic, Part I",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Printing Assertions", "shortTitle": null, "number": "3"}]},
-     "address": "/Hoare/"}],
    "Slang":
    [{"id": "Slang",
      "data":
@@ -2197,6 +1893,17 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Slang/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Imp":
    [{"id": "Imp",
      "data":
@@ -2241,6 +1948,24 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
+   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions":
+   [{"id":
+     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions",
+     "data":
+     {"title": "Functional vs. Relational Definitions",
+      "shortTitle": null,
+      "sectionNum": "2.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Functional vs. Relational Definitions",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions",
@@ -2258,24 +1983,6 @@ window.onload = async () => {
        {"title": "Equivalence of the Definitions",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Slang/"}],
-   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions":
-   [{"id":
-     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions",
-     "data":
-     {"title": "Computational vs. Relational Definitions",
-      "shortTitle": null,
-      "sectionNum": "2.2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
-       {"title": "Computational vs. Relational Definitions",
-        "shortTitle": null,
-        "number": "3"}]},
      "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation":
    [{"id":
@@ -2312,6 +2019,24 @@ window.onload = async () => {
         "number": "1"},
        {"title": "Syntax", "shortTitle": null, "number": "1"}]},
      "address": "/Slang/"}],
+   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation":
+   [{"id":
+     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation",
+     "data":
+     {"title": "Semantics: Evaluation",
+      "shortTitle": null,
+      "sectionNum": "2.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Semantics: Evaluation", "shortTitle": null, "number": "2"}]},
+     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization",
@@ -2330,24 +2055,6 @@ window.onload = async () => {
         "number": "1"},
        {"title": "Optimization", "shortTitle": null, "number": "3"}]},
      "address": "/Slang/"}],
-   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation":
-   [{"id":
-     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation",
-     "data":
-     {"title": "Evaluation",
-      "shortTitle": null,
-      "sectionNum": "2.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Evaluation", "shortTitle": null, "number": "2"}]},
-     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions",
@@ -2365,45 +2072,99 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
-   "Hoare-Logic--Preface--Recommended-Citation-Format--Credits":
-   [{"id": "Hoare-Logic--Preface--Recommended-Citation-Format--Credits",
+   "Hoare-Logic--Preface--Welcome":
+   [{"id": "Hoare-Logic--Preface--Welcome",
      "data":
-     {"title": "Credits",
-      "shortTitle": null,
-      "sectionNum": "1.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Credits", "shortTitle": null, "number": "1"}]},
-     "address": "/Preface/"}],
-   "Hoare-Logic--Preface--Recommended-Citation-Format":
-   [{"id": "Hoare-Logic--Preface--Recommended-Citation-Format",
-     "data":
-     {"title": "Recommended Citation Format",
+     {"title": "Welcome",
       "shortTitle": null,
       "sectionNum": "1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "1"}]},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Hoare-Logic--Preface":
-   [{"id": "Hoare-Logic--Preface",
+   "Hoare-Logic--Preface--Practicalities--Citation-Format":
+   [{"id": "Hoare-Logic--Preface--Practicalities--Citation-Format",
      "data":
-     {"title": "Preface",
+     {"title": "Citation Format",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "1.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations":
+   [{"id":
+     "Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations",
+     "data":
+     {"title": "Building on Your Own Copy of Logical Foundations",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Building on Your Own Copy of Logical Foundations",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Practicalities":
+   [{"id": "Hoare-Logic--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Overview":
+   [{"id": "Hoare-Logic--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--For-Potential-Contributors--Credits":
+   [{"id": "Hoare-Logic--Preface--For-Potential-Contributors--Credits",
+     "data":
+     {"title": "Credits",
+      "shortTitle": null,
+      "sectionNum": "1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Credits", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--For-Potential-Contributors":
+   [{"id": "Hoare-Logic--Preface--For-Potential-Contributors",
+     "data":
+     {"title": "For Potential Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"}]},
      "address": "/Preface/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
@@ -2464,7 +2225,7 @@ window.onload = async () => {
      "data":
      {"title": "Evaluation",
       "shortTitle": null,
-      "sectionNum": "3.1.5.",
+      "sectionNum": "3.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -2474,7 +2235,7 @@ window.onload = async () => {
        {"title": "Expressions With Variables",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Evaluation", "shortTitle": null, "number": "5"}]},
+       {"title": "Evaluation", "shortTitle": null, "number": "4"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Expressions-With-Variables":
    [{"id":
@@ -2938,7 +2699,7 @@ window.onload = async () => {
      "data":
      {"title": "Assertion Implication",
       "shortTitle": null,
-      "sectionNum": "5.1.4.",
+      "sectionNum": "5.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -2946,7 +2707,7 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Assertion Implication", "shortTitle": null, "number": "4"}]},
+       {"title": "Assertion Implication", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions",
@@ -3008,11 +2769,11 @@ window.onload = async () => {
         "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions":
    [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions",
      "data":
-     {"title": "Weakest Preconditions (Optional)",
+     {"title": "Weakest Preconditions",
       "shortTitle": null,
       "sectionNum": "6.4.",
       "searchPriority": 50,
@@ -3021,9 +2782,7 @@ window.onload = async () => {
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
         "number": "6"},
-       {"title": "Weakest Preconditions (Optional)",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Weakest Preconditions", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
    [{"id":
@@ -3060,6 +2819,50 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "2"},
        {"title": "More Automation", "shortTitle": null, "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Verification-Condition-Generation":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Verification-Condition-Generation",
+     "data":
+     {"title": "Verification Condition Generation",
+      "shortTitle": null,
+      "sectionNum": "6.2.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Extracting Verification Conditions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Verification Condition Generation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Local-consistency":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Local-consistency",
+     "data":
+     {"title": "Local consistency",
+      "shortTitle": null,
+      "sectionNum": "6.2.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Extracting Verification Conditions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Local consistency", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions":
    [{"id":
@@ -3365,11 +3168,10 @@ window.onload = async () => {
         "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
-   [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
      "data":
-     {"title": "Soundness of (0 + n) Elimination, Redux",
+     {"title": "Proving Inequivalence",
       "shortTitle": null,
       "sectionNum": "4.4.",
       "searchPriority": 50,
@@ -3378,27 +3180,11 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Soundness of (0 + n) Elimination, Redux",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Proving Inequivalence", "shortTitle": null, "number": "4"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
-   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
-     "data":
-     {"title": "Proving Inequivalence",
-      "shortTitle": null,
-      "sectionNum": "4.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Equiv: Program Equivalence",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Proving Inequivalence", "shortTitle": null, "number": "5"}]},
-     "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
      "data":
      {"title": "Behavioral Equivalence is an Equivalence",
       "shortTitle": null,
@@ -3409,16 +3195,16 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is an Equivalence",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence",
      "data":
      {"title": "Behavioral Equivalence is a Congruence",
       "shortTitle": null,
@@ -3429,18 +3215,18 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is a Congruence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence",
      "data":
-     {"title": "Properties of Behavior Equivalence",
+     {"title": "Properties of Behavioral Equivalence",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "searchPriority": 50,
@@ -3449,7 +3235,7 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
@@ -3470,6 +3256,24 @@ window.onload = async () => {
        {"title": "The Constant-Folding Transformation",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+     "data":
+     {"title": "Soundness of (0 + n) Elimination, Redux",
+      "shortTitle": null,
+      "sectionNum": "4.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "Soundness of (0 + n) Elimination, Redux",
+        "shortTitle": null,
+        "number": "3"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding":
    [{"id":
@@ -3509,7 +3313,7 @@ window.onload = async () => {
      "data":
      {"title": "Extended Exercise: Nondeterministic Imp",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -3518,7 +3322,7 @@ window.onload = async () => {
         "number": "4"},
        {"title": "Extended Exercise: Nondeterministic Imp",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "5"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples":
    [{"id":
@@ -3571,14 +3375,14 @@ window.onload = async () => {
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "4.7.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
@@ -3620,7 +3424,23 @@ window.onload = async () => {
  {"title": "Verso.Genre.Manual.example",
   "description": null,
   "contents":
-  {"while_example":
+  {"zprop_preserving":
+   [{"id": "zprop_preserving",
+     "data":
+     {"/Equiv/#zprop_preserving":
+      {"display": "zprop_preserving",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "zprop":
+   [{"id": "zprop",
+     "data":
+     {"/Equiv/#zprop":
+      {"display": "zprop",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "while_example":
    [{"id": "while_example",
      "data":
      {"/Hoare/#while_example":
@@ -3640,7 +3460,8 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "verification_conditions_correct":
    [{"id": "verification_conditions_correct",
@@ -3651,7 +3472,8 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "validHoareTriple_def":
    [{"id": "validHoareTriple_def",
@@ -3662,6 +3484,68 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
+   "two_loops":
+   [{"id": "two_loops",
+     "data":
+     {"/Hoare2/#two_loops":
+      {"display": "two_loops",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Two Loops"]}},
+     "address": "/Hoare2/"}],
+   "twoLoopsDec":
+   [{"id": "twoLoopsDec",
+     "data":
+     {"/Hoare2/#twoLoopsDec":
+      {"display": "twoLoopsDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Two Loops"]}},
+     "address": "/Hoare2/"}],
+   "transSound_def":
+   [{"id": "transSound_def",
+     "data":
+     {"/Equiv/#transSound_def":
+      {"display": "transSound_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
+   "test_optimize0plus":
+   [{"id": "test_optimize0plus",
+     "data":
+     {"/Equiv/#test_optimize0plus":
+      {"display": "test_optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "swap_noninterfering_assignments":
+   [{"id": "swap_noninterfering_assignments",
+     "data":
+     {"/Equiv/#swap_noninterfering_assignments":
+      {"display": "swap_noninterfering_assignments",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "swap_exercise":
+   [{"id": "swap_exercise",
+     "data":
+     {"/Hoare/#swap_exercise":
+      {"display": "swap_exercise",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
      "address": "/Hoare/"}],
    "swap_correct":
    [{"id": "swap_correct",
@@ -3674,6 +3558,17 @@ window.onload = async () => {
         "Formal Decorated Programs",
         "More Automation"]}},
      "address": "/Hoare2/"}],
+   "swapProgram":
+   [{"id": "swapProgram",
+     "data":
+     {"/Hoare/#swapProgram":
+      {"display": "swapProgram",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
+     "address": "/Hoare/"}],
    "swapDec":
    [{"id": "swapDec",
      "data":
@@ -3748,6 +3643,50 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
      "address": "/Equiv/"}],
+   "sqrt_correct":
+   [{"id": "sqrt_correct",
+     "data":
+     {"/Hoare2/#sqrt_correct":
+      {"display": "sqrt_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Finding Square Roots"]}},
+     "address": "/Hoare2/"}],
+   "sqrtDec":
+   [{"id": "sqrtDec",
+     "data":
+     {"/Hoare2/#sqrtDec":
+      {"display": "sqrtDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Finding Square Roots"]}},
+     "address": "/Hoare2/"}],
+   "slow_assignment":
+   [{"id": "slow_assignment",
+     "data":
+     {"/Hoare2/#slow_assignment":
+      {"display": "slow_assignment",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Slow Assignment"]}},
+     "address": "/Hoare2/"}],
+   "slowAssignmentDec":
+   [{"id": "slowAssignmentDec",
+     "data":
+     {"/Hoare2/#slowAssignmentDec":
+      {"display": "slowAssignmentDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Slow Assignment"]}},
+     "address": "/Hoare2/"}],
    "reduce_to_zero_correct'''":
    [{"id": "reduce_to_zero_correct_________",
      "data":
@@ -3824,6 +3763,17 @@ window.onload = async () => {
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "quiz2_answer":
+   [{"id": "quiz2_answer",
+     "data":
+     {"/Imp/#quiz2_answer":
+      {"display": "quiz2_answer",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Determinism of Evaluation"]}},
+     "address": "/Imp/"}],
    "quiz1_answer":
    [{"id": "quiz1_answer",
      "data":
@@ -3835,11 +3785,44 @@ window.onload = async () => {
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "pup_to_2_ceval":
+   [{"id": "pup_to_2_ceval",
+     "data":
+     {"/Imp/#pup_to_2_ceval":
+      {"display": "pup_to_2_ceval",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Determinism of Evaluation"]}},
+     "address": "/Imp/"}],
+   "pupToN":
+   [{"id": "pupToN",
+     "data":
+     {"/Imp/#pupToN":
+      {"display": "pupToN",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Determinism of Evaluation"]}},
+     "address": "/Imp/"}],
    "pow2_add_one":
    [{"id": "pow2_add_one",
      "data":
      {"/Hoare2/#pow2_add_one":
       {"display": "pow2_add_one",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "pow2":
+   [{"id": "pow2",
+     "data":
+     {"/Hoare2/#pow2":
+      {"display": "pow2",
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
@@ -3889,6 +3872,50 @@ window.onload = async () => {
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "parity_outer_triple_valid":
+   [{"id": "parity_outer_triple_valid",
+     "data":
+     {"/Hoare2/#parity_outer_triple_valid":
+      {"display": "parity_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_lt_2":
+   [{"id": "parity_lt_2",
+     "data":
+     {"/Hoare2/#parity_lt_2":
+      {"display": "parity_lt_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_ge_2":
+   [{"id": "parity_ge_2",
+     "data":
+     {"/Hoare2/#parity_ge_2":
+      {"display": "parity_ge_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parityDec":
+   [{"id": "parityDec",
+     "data":
+     {"/Hoare2/#parityDec":
+      {"display": "parityDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "parity":
    [{"id": "parity",
      "data":
@@ -3908,6 +3935,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "optimizer":
@@ -3918,6 +3946,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "one_le_pow2":
@@ -3931,6 +3960,80 @@ window.onload = async () => {
         "Finding Loop Invariants",
         "Exercise: Power Series"]}},
      "address": "/Hoare2/"}],
+   "no_whiles_terminating":
+   [{"id": "no_whiles_terminating",
+     "data":
+     {"/Imp/#no_whiles_terminating":
+      {"display": "no_whiles_terminating",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "no_whiles_eqv":
+   [{"id": "no_whiles_eqv",
+     "data":
+     {"/Imp/#no_whiles_eqv":
+      {"display": "no_whiles_eqv",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "never_loop_hoare":
+   [{"id": "never_loop_hoare",
+     "data":
+     {"/Hoare/#never_loop_hoare":
+      {"display": "never_loop_hoare",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
+   "multXandYinZ":
+   [{"id": "multXandYinZ",
+     "data":
+     {"/Imp/#multXandYinZ":
+      {"display": "multXandYinZ",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Commands",
+        "More Examples"]}},
+     "address": "/Imp/"}],
+   "minimum_correct":
+   [{"id": "minimum_correct",
+     "data":
+     {"/Hoare2/#minimum_correct":
+      {"display": "minimum_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Minimum"]}},
+     "address": "/Hoare2/"}],
+   "minimumDec":
+   [{"id": "minimumDec",
+     "data":
+     {"/Hoare2/#minimumDec":
+      {"display": "minimumDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Minimum"]}},
+     "address": "/Hoare2/"}],
+   "loop_never_stops":
+   [{"id": "loop_never_stops",
+     "data":
+     {"/Imp/#loop_never_stops":
+      {"display": "loop_never_stops",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
    "loop_false":
    [{"id": "loop_false",
      "data":
@@ -3953,6 +4056,68 @@ window.onload = async () => {
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "is_wp_example":
+   [{"id": "is_wp_example",
+     "data":
+     {"/Hoare2/#is_wp_example":
+      {"display": "is_wp_example",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
+   "isWp_def":
+   [{"id": "isWp_def",
+     "data":
+     {"/Hoare2/#isWp_def":
+      {"display": "isWp_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
+   "invalid_triple":
+   [{"id": "invalid_triple",
+     "data":
+     {"/Hoare/#invalid_triple":
+      {"display": "invalid_triple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
+     "address": "/Hoare/"}],
+   "inequiv_exercise":
+   [{"id": "inequiv_exercise",
+     "data":
+     {"/Equiv/#inequiv_exercise":
+      {"display": "inequiv_exercise",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "if_minus_plus_correct":
+   [{"id": "if_minus_plus_correct",
+     "data":
+     {"/Hoare2/#if_minus_plus_correct":
+      {"display": "if_minus_plus_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "if_minus_plus":
+   [{"id": "if_minus_plus",
+     "data":
+     {"/Hoare/#if_minus_plus":
+      {"display": "if_minus_plus",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Example"]}},
+     "address": "/Hoare/"}],
    "if_example'":
    [{"id": "if_example___",
      "data":
@@ -3977,6 +4142,17 @@ window.onload = async () => {
         "Conditionals",
         "Example"]}},
      "address": "/Hoare/"}],
+   "ifMinusPlusDec":
+   [{"id": "ifMinusPlusDec",
+     "data":
+     {"/Hoare2/#ifMinusPlusDec":
+      {"display": "ifMinusPlusDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "hoare_while":
    [{"id": "hoare_while",
      "data":
@@ -4006,6 +4182,26 @@ window.onload = async () => {
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
         "Sequencing"]}},
+     "address": "/Hoare/"}],
+   "hoare_pre_false":
+   [{"id": "hoare_pre_false",
+     "data":
+     {"/Hoare/#hoare_pre_false":
+      {"display": "hoare_pre_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
+   "hoare_post_true":
+   [{"id": "hoare_post_true",
+     "data":
+     {"/Hoare/#hoare_post_true":
+      {"display": "hoare_post_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
    "hoare_if":
    [{"id": "hoare_if",
@@ -4084,6 +4280,82 @@ window.onload = async () => {
         "Proof Rules",
         "Consequence"]}},
      "address": "/Hoare/"}],
+   "hoare_asgn_wrong":
+   [{"id": "hoare_asgn_wrong",
+     "data":
+     {"/Hoare/#hoare_asgn_wrong":
+      {"display": "hoare_asgn_wrong",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "hoare_asgn_weakest":
+   [{"id": "hoare_asgn_weakest",
+     "data":
+     {"/Hoare2/#hoare_asgn_weakest":
+      {"display": "hoare_asgn_weakest",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
+   "hoare_asgn_fwd_exists":
+   [{"id": "hoare_asgn_fwd_exists",
+     "data":
+     {"/Hoare/#hoare_asgn_fwd_exists":
+      {"display": "hoare_asgn_fwd_exists",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "hoare_asgn_fwd":
+   [{"id": "hoare_asgn_fwd",
+     "data":
+     {"/Hoare/#hoare_asgn_fwd":
+      {"display": "hoare_asgn_fwd",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "hoare_asgn_examples2":
+   [{"id": "hoare_asgn_examples2",
+     "data":
+     {"/Hoare/#hoare_asgn_examples2":
+      {"display": "hoare_asgn_examples2",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "hoare_asgn_examples1":
+   [{"id": "hoare_asgn_examples1",
+     "data":
+     {"/Hoare/#hoare_asgn_examples1":
+      {"display": "hoare_asgn_examples1",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "hoare_asgn_example4":
+   [{"id": "hoare_asgn_example4",
+     "data":
+     {"/Hoare/#hoare_asgn_example4":
+      {"display": "hoare_asgn_example4",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
+     "address": "/Hoare/"}],
    "hoare_asgn_example3":
    [{"id": "hoare_asgn_example3",
      "data":
@@ -4128,6 +4400,17 @@ window.onload = async () => {
         "Proof Rules",
         "Automation"]}},
      "address": "/Hoare/"}],
+   "hoare_asgn_example1":
+   [{"id": "hoare_asgn_example1",
+     "data":
+     {"/Hoare/#hoare_asgn_example1":
+      {"display": "hoare_asgn_example1",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Consequence"]}},
+     "address": "/Hoare/"}],
    "hoare_asgn":
    [{"id": "hoare_asgn",
      "data":
@@ -4149,6 +4432,17 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Case Study (Optional)"]}},
      "address": "/Imp/"}],
+   "fib_eqn":
+   [{"id": "fib_eqn",
+     "data":
+     {"/Hoare2/#fib_eqn":
+      {"display": "fib_eqn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "fib":
    [{"id": "fib",
      "data":
@@ -4159,6 +4453,39 @@ window.onload = async () => {
         "Hoare2: Hoare Logic, Part II",
         "Finding Loop Invariants",
         "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "factorial_correct":
+   [{"id": "factorial_correct",
+     "data":
+     {"/Hoare2/#factorial_correct":
+      {"display": "factorial_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Factorial"]}},
+     "address": "/Hoare2/"}],
+   "factorialDec":
+   [{"id": "factorialDec",
+     "data":
+     {"/Hoare2/#factorialDec":
+      {"display": "factorialDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Factorial"]}},
+     "address": "/Hoare2/"}],
+   "fact_sub_one":
+   [{"id": "fact_sub_one",
+     "data":
+     {"/Hoare2/#fact_sub_one":
+      {"display": "fact_sub_one",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Factorial"]}},
      "address": "/Hoare2/"}],
    "fact_in_lean":
    [{"id": "fact_in_lean",
@@ -4239,6 +4566,72 @@ window.onload = async () => {
         "Finding Loop Invariants",
         "Exercise: Factorial"]}},
      "address": "/Hoare2/"}],
+   "dpow2_down_correct":
+   [{"id": "dpow2_down_correct",
+     "data":
+     {"/Hoare2/#dpow2_down_correct":
+      {"display": "dpow2_down_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "dpow2Dec":
+   [{"id": "dpow2Dec",
+     "data":
+     {"/Hoare2/#dpow2Dec":
+      {"display": "dpow2Dec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "div_mod_outer_triple_valid":
+   [{"id": "div_mod_outer_triple_valid",
+     "data":
+     {"/Hoare2/#div_mod_outer_triple_valid":
+      {"display": "div_mod_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "divModDec":
+   [{"id": "divModDec",
+     "data":
+     {"/Hoare2/#divModDec":
+      {"display": "divModDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "dfib_correct":
+   [{"id": "dfib_correct",
+     "data":
+     {"/Hoare2/#dfib_correct":
+      {"display": "dfib_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "dfib":
+   [{"id": "dfib",
+     "data":
+     {"/Hoare2/#dfib":
+      {"display": "dfib",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "dec_while_correct":
    [{"id": "dec_while_correct",
      "data":
@@ -4261,6 +4654,41 @@ window.onload = async () => {
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "c₄":
+   [{"id": "c___-next",
+     "data":
+     {"/Equiv/#c___-next":
+      {"display": "c₄",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "c₃_c₄_different":
+   [{"id": "c____c____different",
+     "data":
+     {"/Equiv/#c____c____different":
+      {"display": "c₃_c₄_different",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "c₃":
+   [{"id": "c___",
+     "data":
+     {"/Equiv/#c___":
+      {"display": "c₃",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "ceval_example₂":
+   [{"id": "ceval_example___",
+     "data":
+     {"/Imp/#ceval_example___":
+      {"display": "ceval_example₂",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Operational Semantics"]}},
+     "address": "/Imp/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
      "data":
@@ -4272,6 +4700,22 @@ window.onload = async () => {
         "Evaluating Commands",
         "Determinism of Evaluation"]}},
      "address": "/Imp/"}],
+   "cMin_minimal":
+   [{"id": "cMin_minimal",
+     "data":
+     {"/Equiv/#cMin_minimal":
+      {"display": "cMin_minimal",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "cMin":
+   [{"id": "cMin",
+     "data":
+     {"/Equiv/#cMin":
+      {"display": "cMin",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
    "b₂":
    [{"id": "b___-next",
      "data":
@@ -4281,7 +4725,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "b₁":
    [{"id": "b___",
@@ -4292,19 +4736,8 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
-   "bexp_eval_false":
-   [{"id": "bexp_eval_false",
-     "data":
-     {"/Hoare/#bexp_eval_false":
-      {"display": "bexp_eval_false",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals"]}},
-     "address": "/Hoare/"}],
    "a₂":
    [{"id": "a___-next",
      "data":
@@ -4314,7 +4747,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "a₁":
    [{"id": "a___",
@@ -4325,7 +4758,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "assertion_sub_example2''":
    [{"id": "assertion_sub_example2______",
@@ -4349,6 +4782,17 @@ window.onload = async () => {
         "Proof Rules",
         "Automation"]}},
      "address": "/Hoare/"}],
+   "assertion_sub_example2":
+   [{"id": "assertion_sub_example2",
+     "data":
+     {"/Hoare/#assertion_sub_example2":
+      {"display": "assertion_sub_example2",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Consequence"]}},
+     "address": "/Hoare/"}],
    "assertion_sub_example":
    [{"id": "assertion_sub_example",
      "data":
@@ -4359,6 +4803,28 @@ window.onload = async () => {
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
         "Assignment"]}},
+     "address": "/Hoare/"}],
+   "assertion_sub_ex2'":
+   [{"id": "assertion_sub_ex2___",
+     "data":
+     {"/Hoare/#assertion_sub_ex2___":
+      {"display": "assertion_sub_ex2'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Automation"]}},
+     "address": "/Hoare/"}],
+   "assertion_sub_ex1'":
+   [{"id": "assertion_sub_ex1___",
+     "data":
+     {"/Hoare/#assertion_sub_ex1___":
+      {"display": "assertion_sub_ex1'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Automation"]}},
      "address": "/Hoare/"}],
    "assertImplies_def":
    [{"id": "assertImplies_def",
@@ -4382,6 +4848,28 @@ window.onload = async () => {
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "always_loop_hoare''":
+   [{"id": "always_loop_hoare______",
+     "data":
+     {"/Hoare/#always_loop_hoare______":
+      {"display": "always_loop_hoare''",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
+   "always_loop_hoare'":
+   [{"id": "always_loop_hoare___",
+     "data":
+     {"/Hoare/#always_loop_hoare___":
+      {"display": "always_loop_hoare'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
    "always_loop_hoare":
    [{"id": "always_loop_hoare",
      "data":
@@ -4393,6 +4881,27 @@ window.onload = async () => {
         "Proof Rules",
         "While Loops"]}},
      "address": "/Hoare/"}],
+   "_private.HL.Imp.0.Imp.Throw.Delab.unexpandComTryCatch":
+   [{"id":
+     "_private___HL___Imp___0___Imp___Throw___Delab___unexpandComTryCatch",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Throw___Delab___unexpandComTryCatch":
+      {"display": "unexpandComTryCatch",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Throw.Delab.unexpandComThrow":
+   [{"id": "_private___HL___Imp___0___Imp___Throw___Delab___unexpandComThrow",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Throw___Delab___unexpandComThrow":
+      {"display": "unexpandComThrow",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNot":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNot",
      "data":
@@ -4402,7 +4911,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNeq":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNeq",
@@ -4413,7 +4922,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandLe":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandLe",
@@ -4424,7 +4933,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandGt":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandGt",
@@ -4435,7 +4944,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandEq":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandEq",
@@ -4446,7 +4955,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandAnd":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandAnd",
@@ -4457,7 +4966,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.BExp.delabBool":
    [{"id": "_private___HL___Imp___0___Imp___Delab___BExp___delabBool",
@@ -4468,7 +4977,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandPlus":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandPlus",
@@ -4479,7 +4988,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandNum":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandNum",
@@ -4490,7 +4999,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMult":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMult",
@@ -4501,7 +5010,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMinus":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMinus",
@@ -4512,7 +5021,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandId":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandId",
@@ -4523,7 +5032,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Break.Delab.unexpandComBrk":
    [{"id": "_private___HL___Imp___0___Imp___Break___Delab___unexpandComBrk",
@@ -4546,6 +5055,19 @@ window.onload = async () => {
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "_private.HL.Hoare.0.RepeatExercise.Delab.Com.unexpandRepeatUntil":
+   [{"id":
+     "_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil":
+      {"display": "Com.unexpandRepeatUntil",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "_private.HL.Hoare.0.If1.Delab.Com.unexpandIf1":
    [{"id": "_private___HL___Hoare___0___If1___Delab___Com___unexpandIf1",
      "data":
@@ -4558,6 +5080,42 @@ window.onload = async () => {
         "Conditionals",
         "Exercise: One-sided conditionals"]}},
      "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssume":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume":
+      {"display": "Com.unexpandAssume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssert":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert":
+      {"display": "Com.unexpandAssert",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HimpHoare.Delab.Com.unexpandHavoc":
+   [{"id":
+     "_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc":
+      {"display": "Com.unexpandHavoc",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
    "_private.HL.Hoare.0.Assertion.Delab.getAssn":
    [{"id": "_private___HL___Hoare___0___Assertion___Delab___getAssn",
      "data":
@@ -4567,7 +5125,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Z":
    [{"id": "Z",
@@ -4590,17 +5148,6 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Syntax"]}},
-     "address": "/Imp/"}],
-   "XtimesYinZ":
-   [{"id": "XtimesYinZ",
-     "data":
-     {"/Imp/#XtimesYinZ":
-      {"display": "XtimesYinZ",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Commands",
-        "More Examples"]}},
      "address": "/Imp/"}],
    "X":
    [{"id": "X",
@@ -4682,6 +5229,27 @@ window.onload = async () => {
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
+   "TransSound":
+   [{"id": "TransSound",
+     "data":
+     {"/Equiv/#TransSound":
+      {"display": "TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
+   "T":
+   [{"id": "T",
+     "data":
+     {"/Hoare2/#T":
+      {"display": "T",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "SubstEquivProperty":
    [{"id": "SubstEquivProperty",
      "data":
@@ -4700,6 +5268,86 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "States"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute2":
+   [{"id": "StackCompiler___sExecute2",
+     "data":
+     {"/Imp/#StackCompiler___sExecute2":
+      {"display": "sExecute2",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute1":
+   [{"id": "StackCompiler___sExecute1",
+     "data":
+     {"/Imp/#StackCompiler___sExecute1":
+      {"display": "sExecute1",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute":
+   [{"id": "StackCompiler___sExecute",
+     "data":
+     {"/Imp/#StackCompiler___sExecute":
+      {"display": "sExecute",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_correct_aux":
+   [{"id": "StackCompiler___sCompile_correct_aux",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_correct_aux":
+      {"display": "sCompile_correct_aux",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_correct":
+   [{"id": "StackCompiler___sCompile_correct",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_correct":
+      {"display": "sCompile_correct",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile1":
+   [{"id": "StackCompiler___sCompile1",
+     "data":
+     {"/Imp/#StackCompiler___sCompile1":
+      {"display": "sCompile1",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile":
+   [{"id": "StackCompiler___sCompile",
+     "data":
+     {"/Imp/#StackCompiler___sCompile":
+      {"display": "sCompile",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.execute_app":
+   [{"id": "StackCompiler___execute_app",
+     "data":
+     {"/Imp/#StackCompiler___execute_app":
+      {"display": "execute_app",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sPush":
    [{"id": "StackCompiler___Sinstr___sPush",
@@ -4761,6 +5409,60 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
+   "SsInvariant":
+   [{"id": "SsInvariant",
+     "data":
+     {"/Imp/#SsInvariant":
+      {"display": "SsInvariant",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Case Study (Optional)"]}},
+     "address": "/Imp/"}],
+   "Slang.Bexp.optimize0plus_test2":
+   [{"id": "Slang___Bexp___optimize0plus_test2",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plus_test2":
+      {"display": "Bexp.optimize0plus_test2",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.optimize0plus_test1":
+   [{"id": "Slang___Bexp___optimize0plus_test1",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plus_test1":
+      {"display": "Bexp.optimize0plus_test1",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.optimize0plus_sound":
+   [{"id": "Slang___Bexp___optimize0plus_sound",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plus_sound":
+      {"display": "Bexp.optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.optimize0plus":
+   [{"id": "Slang___Bexp___optimize0plus",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plus":
+      {"display": "Bexp.optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -4814,7 +5516,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_neq":
    [{"id": "Slang___Bexp___eval_neq",
@@ -4825,7 +5527,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_le":
    [{"id": "Slang___Bexp___eval_le",
@@ -4836,7 +5538,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_gt":
    [{"id": "Slang___Bexp___eval_gt",
@@ -4847,7 +5549,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_eq":
    [{"id": "Slang___Bexp___eval_eq",
@@ -4858,7 +5560,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_bool":
    [{"id": "Slang___Bexp___eval_bool",
@@ -4869,7 +5571,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_and":
    [{"id": "Slang___Bexp___eval_and",
@@ -4880,7 +5582,18 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.evalR_iff_eval":
+   [{"id": "Slang___Bexp___evalR_iff_eval",
+     "data":
+     {"/Slang/#Slang___Bexp___evalR_iff_eval":
+      {"display": "evalR_iff_eval",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval":
    [{"id": "Slang___Bexp___eval",
@@ -4891,7 +5604,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eq":
    [{"id": "Slang___Bexp___eq",
@@ -4925,6 +5638,17 @@ window.onload = async () => {
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR":
+   [{"id": "Slang___Bexp___EvalR",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR":
+      {"display": "EvalR",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Bexp":
    [{"id": "Slang___Bexp",
@@ -5073,7 +5797,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_num":
    [{"id": "Slang___Aexp___eval_num",
@@ -5084,7 +5808,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_mult":
    [{"id": "Slang___Aexp___eval_mult",
@@ -5095,7 +5819,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_minus":
    [{"id": "Slang___Aexp___eval_minus",
@@ -5106,7 +5830,18 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.evalR_iff_eval'":
+   [{"id": "Slang___Aexp___evalR_iff_eval___",
+     "data":
+     {"/Slang/#Slang___Aexp___evalR_iff_eval___":
+      {"display": "evalR_iff_eval'",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.evalR_iff_eval":
    [{"id": "Slang___Aexp___evalR_iff_eval",
@@ -5128,7 +5863,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.Nat.odd":
    [{"id": "Slang___Aexp___Nat___odd",
@@ -5222,7 +5957,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.num":
    [{"id": "Slang___AevalRExtended___Aexp___num",
@@ -5233,7 +5968,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.mult":
    [{"id": "Slang___AevalRExtended___Aexp___mult",
@@ -5244,7 +5979,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.minus":
    [{"id": "Slang___AevalRExtended___Aexp___minus",
@@ -5255,7 +5990,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.any":
    [{"id": "Slang___AevalRExtended___Aexp___any",
@@ -5266,7 +6001,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___plus",
@@ -5277,7 +6012,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.num":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___num",
@@ -5288,7 +6023,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___mult",
@@ -5299,7 +6034,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___minus",
@@ -5310,7 +6045,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.any":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___any",
@@ -5321,7 +6056,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR",
@@ -5332,7 +6067,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp":
    [{"id": "Slang___AevalRExtended___Aexp",
@@ -5343,7 +6078,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.plus":
    [{"id": "Slang___AevalRDivision___Aexp___plus",
@@ -5354,7 +6089,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.num":
    [{"id": "Slang___AevalRDivision___Aexp___num",
@@ -5365,7 +6100,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.mult":
    [{"id": "Slang___AevalRDivision___Aexp___mult",
@@ -5376,7 +6111,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.minus":
    [{"id": "Slang___AevalRDivision___Aexp___minus",
@@ -5387,7 +6122,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.eval":
    [{"id": "Slang___AevalRDivision___Aexp___eval",
@@ -5398,7 +6133,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.div":
    [{"id": "Slang___AevalRDivision___Aexp___div",
@@ -5409,7 +6144,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___plus",
@@ -5420,7 +6155,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.num":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___num",
@@ -5431,7 +6166,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___mult",
@@ -5442,7 +6177,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___minus",
@@ -5453,7 +6188,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.div":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___div",
@@ -5464,7 +6199,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR",
@@ -5475,7 +6210,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp":
    [{"id": "Slang___AevalRDivision___Aexp",
@@ -5486,13 +6221,37 @@ window.onload = async () => {
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "RepeatExercise.validHoareTriple_def":
    [{"id": "RepeatExercise___validHoareTriple_def",
      "data":
      {"/Hoare/#RepeatExercise___validHoareTriple_def":
       {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.ex1Repeat_works":
+   [{"id": "RepeatExercise___ex1Repeat_works",
+     "data":
+     {"/Hoare/#RepeatExercise___ex1Repeat_works":
+      {"display": "ex1Repeat_works",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.ex1Repeat":
+   [{"id": "RepeatExercise___ex1Repeat",
+     "data":
+     {"/Hoare/#RepeatExercise___ex1Repeat":
+      {"display": "ex1Repeat",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5560,6 +6319,18 @@ window.onload = async () => {
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
+   "RepeatExercise.Com.evalR_eq":
+   [{"id": "RepeatExercise___Com___evalR_eq",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___evalR_eq":
+      {"display": "Com.evalR_eq",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "RepeatExercise.Com.cond":
    [{"id": "RepeatExercise___Com___cond",
      "data":
@@ -5577,6 +6348,102 @@ window.onload = async () => {
      "data":
      {"/Hoare/#RepeatExercise___Com___asgn":
       {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.whileTrue":
+   [{"id": "RepeatExercise___Com___EvalR___whileTrue",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___whileTrue":
+      {"display": "whileTrue",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.whileFalse":
+   [{"id": "RepeatExercise___Com___EvalR___whileFalse",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___whileFalse":
+      {"display": "whileFalse",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.skip":
+   [{"id": "RepeatExercise___Com___EvalR___skip",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.seq":
+   [{"id": "RepeatExercise___Com___EvalR___seq",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.ifTrue":
+   [{"id": "RepeatExercise___Com___EvalR___ifTrue",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___ifTrue":
+      {"display": "ifTrue",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.ifFalse":
+   [{"id": "RepeatExercise___Com___EvalR___ifFalse",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___ifFalse":
+      {"display": "ifFalse",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR.asgn":
+   [{"id": "RepeatExercise___Com___EvalR___asgn",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.Com.EvalR":
+   [{"id": "RepeatExercise___Com___EvalR",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___EvalR":
+      {"display": "Com.EvalR",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5613,7 +6480,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Lean.Parser.Category.imp_aexp":
    [{"id": "Lean___Parser___Category___imp_aexp",
@@ -5624,7 +6491,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Lean.Parser.Category.dcom":
    [{"id": "Lean___Parser___Category___dcom",
@@ -5645,8 +6512,148 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
+   "Imp.Throw.ceval_deterministic_throw":
+   [{"id": "Imp___Throw___ceval_deterministic_throw",
+     "data":
+     {"/Imp/#Imp___Throw___ceval_deterministic_throw":
+      {"display": "ceval_deterministic_throw",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Status.sThrow":
+   [{"id": "Imp___Throw___Status___sThrow",
+     "data":
+     {"/Imp/#Imp___Throw___Status___sThrow":
+      {"display": "sThrow",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Status.sNormal":
+   [{"id": "Imp___Throw___Status___sNormal",
+     "data":
+     {"/Imp/#Imp___Throw___Status___sNormal":
+      {"display": "sNormal",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Status":
+   [{"id": "Imp___Throw___Status",
+     "data":
+     {"/Imp/#Imp___Throw___Status":
+      {"display": "Status",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.whileDo":
+   [{"id": "Imp___Throw___Com___whileDo",
+     "data":
+     {"/Imp/#Imp___Throw___Com___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.tryCatch":
+   [{"id": "Imp___Throw___Com___tryCatch",
+     "data":
+     {"/Imp/#Imp___Throw___Com___tryCatch":
+      {"display": "tryCatch",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.throw":
+   [{"id": "Imp___Throw___Com___throw",
+     "data":
+     {"/Imp/#Imp___Throw___Com___throw":
+      {"display": "throw",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.skip":
+   [{"id": "Imp___Throw___Com___skip",
+     "data":
+     {"/Imp/#Imp___Throw___Com___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.seq":
+   [{"id": "Imp___Throw___Com___seq",
+     "data":
+     {"/Imp/#Imp___Throw___Com___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.cond":
+   [{"id": "Imp___Throw___Com___cond",
+     "data":
+     {"/Imp/#Imp___Throw___Com___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.asgn":
+   [{"id": "Imp___Throw___Com___asgn",
+     "data":
+     {"/Imp/#Imp___Throw___Com___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.EvalR.skip":
+   [{"id": "Imp___Throw___Com___EvalR___skip",
+     "data":
+     {"/Imp/#Imp___Throw___Com___EvalR___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com.EvalR":
+   [{"id": "Imp___Throw___Com___EvalR",
+     "data":
+     {"/Imp/#Imp___Throw___Com___EvalR":
+      {"display": "Com.EvalR",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Throw.Com":
+   [{"id": "Imp___Throw___Com",
+     "data":
+     {"/Imp/#Imp___Throw___Com":
+      {"display": "Com",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "Imp.Elab.withSourceInfoOf":
    [{"id": "Imp___Elab___withSourceInfoOf",
      "data":
@@ -5656,7 +6663,84 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.mkObjectIdentFrom":
+   [{"id": "Imp___Elab___mkObjectIdentFrom",
+     "data":
+     {"/Imp/#Imp___Elab___mkObjectIdentFrom":
+      {"display": "mkObjectIdentFrom",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.isGreek":
+   [{"id": "Imp___Elab___isGreek",
+     "data":
+     {"/Imp/#Imp___Elab___isGreek":
+      {"display": "isGreek",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.elabMetavarOnlyIdent":
+   [{"id": "Imp___Elab___elabMetavarOnlyIdent",
+     "data":
+     {"/Imp/#Imp___Elab___elabMetavarOnlyIdent":
+      {"display": "elabMetavarOnlyIdent",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.classifyIdent?":
+   [{"id": "Imp___Elab___classifyIdent___",
+     "data":
+     {"/Imp/#Imp___Elab___classifyIdent___":
+      {"display": "classifyIdent?",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.object":
+   [{"id": "Imp___Elab___IdentKind___object",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___object":
+      {"display": "object",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.metavar":
+   [{"id": "Imp___Elab___IdentKind___metavar",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___metavar":
+      {"display": "metavar",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind":
+   [{"id": "Imp___Elab___IdentKind",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind":
+      {"display": "IdentKind",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.unexpandComWhileDo":
    [{"id": "Imp___Delab___unexpandComWhileDo",
@@ -5707,7 +6791,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_bexp.parenthesizer":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer",
@@ -5718,7 +6802,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_aexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_aexp___parenthesizer___wrapParens",
@@ -5729,7 +6813,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_aexp.parenthesizer":
    [{"id": "Imp___Delab___imp_aexp___parenthesizer",
@@ -5740,7 +6824,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.getImp":
    [{"id": "Imp___Delab___getImp",
@@ -5759,7 +6843,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.getAexp":
    [{"id": "Imp___Delab___getAexp",
@@ -5770,7 +6854,77 @@ window.onload = async () => {
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.while_stops_on_break":
+   [{"id": "Imp___Break___while_stops_on_break",
+     "data":
+     {"/Imp/#Imp___Break___while_stops_on_break":
+      {"display": "while_stops_on_break",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.while_continue":
+   [{"id": "Imp___Break___while_continue",
+     "data":
+     {"/Imp/#Imp___Break___while_continue":
+      {"display": "while_continue",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.while_break_true":
+   [{"id": "Imp___Break___while_break_true",
+     "data":
+     {"/Imp/#Imp___Break___while_break_true":
+      {"display": "while_break_true",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.seq_stops_on_break":
+   [{"id": "Imp___Break___seq_stops_on_break",
+     "data":
+     {"/Imp/#Imp___Break___seq_stops_on_break":
+      {"display": "seq_stops_on_break",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.seq_continue":
+   [{"id": "Imp___Break___seq_continue",
+     "data":
+     {"/Imp/#Imp___Break___seq_continue":
+      {"display": "seq_continue",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.ceval_deterministic":
+   [{"id": "Imp___Break___ceval_deterministic",
+     "data":
+     {"/Imp/#Imp___Break___ceval_deterministic":
+      {"display": "ceval_deterministic",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.break_ignore":
+   [{"id": "Imp___Break___break_ignore",
+     "data":
+     {"/Imp/#Imp___Break___break_ignore":
+      {"display": "break_ignore",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result.sContinue":
    [{"id": "Imp___Break___Result___sContinue",
@@ -5862,6 +7016,26 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
+   "Imp.Break.Com.EvalR.skip":
+   [{"id": "Imp___Break___Com___EvalR___skip",
+     "data":
+     {"/Imp/#Imp___Break___Com___EvalR___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.EvalR":
+   [{"id": "Imp___Break___Com___EvalR",
+     "data":
+     {"/Imp/#Imp___Break___Com___EvalR":
+      {"display": "Com.EvalR",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "Imp.Break.Com":
    [{"id": "Imp___Break___Com",
      "data":
@@ -5877,6 +7051,42 @@ window.onload = async () => {
      "data":
      {"/Hoare/#If1___validHoareTriple_def":
       {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.if1true_test":
+   [{"id": "If1___if1true_test",
+     "data":
+     {"/Hoare/#If1___if1true_test":
+      {"display": "if1true_test",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.if1false_test":
+   [{"id": "If1___if1false_test",
+     "data":
+     {"/Hoare/#If1___if1false_test":
+      {"display": "if1false_test",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.hoare_if1_good":
+   [{"id": "If1___hoare_if1_good",
+     "data":
+     {"/Hoare/#If1___hoare_if1_good":
+      {"display": "hoare_if1_good",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5968,6 +7178,18 @@ window.onload = async () => {
         "Conditionals",
         "Exercise: One-sided conditionals"]}},
      "address": "/Hoare/"}],
+   "If1.Com.evalR_eq":
+   [{"id": "If1___Com___evalR_eq",
+     "data":
+     {"/Hoare/#If1___Com___evalR_eq":
+      {"display": "Com.evalR_eq",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
    "If1.Com.cond":
    [{"id": "If1___Com___cond",
      "data":
@@ -5985,6 +7207,102 @@ window.onload = async () => {
      "data":
      {"/Hoare/#If1___Com___asgn":
       {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.whileTrue":
+   [{"id": "If1___Com___EvalR___whileTrue",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___whileTrue":
+      {"display": "whileTrue",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.whileFalse":
+   [{"id": "If1___Com___EvalR___whileFalse",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___whileFalse":
+      {"display": "whileFalse",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.skip":
+   [{"id": "If1___Com___EvalR___skip",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.seq":
+   [{"id": "If1___Com___EvalR___seq",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.ifTrue":
+   [{"id": "If1___Com___EvalR___ifTrue",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___ifTrue":
+      {"display": "ifTrue",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.ifFalse":
+   [{"id": "If1___Com___EvalR___ifFalse",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___ifFalse":
+      {"display": "ifFalse",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR.asgn":
+   [{"id": "If1___Com___EvalR___asgn",
+     "data":
+     {"/Hoare/#If1___Com___EvalR___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Com.EvalR":
+   [{"id": "If1___Com___EvalR",
+     "data":
+     {"/Hoare/#If1___Com___EvalR":
+      {"display": "Com.EvalR",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -6097,6 +7415,39 @@ window.onload = async () => {
      "data":
      {"/Hoare/#HoareAssertAssume___hoare_asgn":
       {"display": "hoare_asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.assert_implies_assume":
+   [{"id": "HoareAssertAssume___assert_implies_assume",
+     "data":
+     {"/Hoare/#HoareAssertAssume___assert_implies_assume":
+      {"display": "assert_implies_assume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.assert_assume_example":
+   [{"id": "HoareAssertAssume___assert_assume_example",
+     "data":
+     {"/Hoare/#HoareAssertAssume___assert_assume_example":
+      {"display": "assert_assume_example",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.assert_assume_differ":
+   [{"id": "HoareAssertAssume___assert_assume_differ",
+     "data":
+     {"/Hoare/#HoareAssertAssume___assert_assume_differ":
+      {"display": "assert_assume_differ",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -6389,6 +7740,26 @@ window.onload = async () => {
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HimpHoare2.validHoareTriple_def'":
+   [{"id": "HimpHoare2___validHoareTriple_def___",
+     "data":
+     {"/Hoare2/#HimpHoare2___validHoareTriple_def___":
+      {"display": "validHoareTriple_def'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
+   "HimpHoare2.hoare_havoc_weakest":
+   [{"id": "HimpHoare2___hoare_havoc_weakest",
+     "data":
+     {"/Hoare2/#HimpHoare2___hoare_havoc_weakest":
+      {"display": "hoare_havoc_weakest",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
    "HimpHoare.validHoareTriple_def":
    [{"id": "HimpHoare___validHoareTriple_def",
      "data":
@@ -6400,11 +7771,44 @@ window.onload = async () => {
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
+   "HimpHoare.hoare_havoc":
+   [{"id": "HimpHoare___hoare_havoc",
+     "data":
+     {"/Hoare/#HimpHoare___hoare_havoc":
+      {"display": "hoare_havoc",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
    "HimpHoare.hoare_consequence_pre":
    [{"id": "HimpHoare___hoare_consequence_pre",
      "data":
      {"/Hoare/#HimpHoare___hoare_consequence_pre":
       {"display": "hoare_consequence_pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
+   "HimpHoare.havoc_pre":
+   [{"id": "HimpHoare___havoc_pre",
+     "data":
+     {"/Hoare/#HimpHoare___havoc_pre":
+      {"display": "havoc_pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
+   "HimpHoare.havoc_post":
+   [{"id": "HimpHoare___havoc_post",
+     "data":
+     {"/Hoare/#HimpHoare___havoc_post":
+      {"display": "havoc_post",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -6619,6 +8023,16 @@ window.onload = async () => {
         "Equiv: Program Equivalence",
         "Extended Exercise: Nondeterministic Imp"]}},
      "address": "/Equiv/"}],
+   "Himp.p₅_p₆_equiv":
+   [{"id": "Himp___p____p____equiv-next",
+     "data":
+     {"/Equiv/#Himp___p____p____equiv-next":
+      {"display": "p₅_p₆_equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
    "Himp.p₅":
    [{"id": "Himp___p___-next-next-next-next",
      "data":
@@ -6639,11 +8053,31 @@ window.onload = async () => {
         "Equiv: Program Equivalence",
         "Extended Exercise: Nondeterministic Imp"]}},
      "address": "/Equiv/"}],
+   "Himp.p₃_p₄_inequiv":
+   [{"id": "Himp___p____p____inequiv",
+     "data":
+     {"/Equiv/#Himp___p____p____inequiv":
+      {"display": "p₃_p₄_inequiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
    "Himp.p₃":
    [{"id": "Himp___p___-next-next",
      "data":
      {"/Equiv/#Himp___p___-next-next":
       {"display": "p₃",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₂_may_diverge":
+   [{"id": "Himp___p____may_diverge-next",
+     "data":
+     {"/Equiv/#Himp___p____may_diverge-next":
+      {"display": "p₂_may_diverge",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -6659,11 +8093,41 @@ window.onload = async () => {
         "Equiv: Program Equivalence",
         "Extended Exercise: Nondeterministic Imp"]}},
      "address": "/Equiv/"}],
+   "Himp.p₁_p₂_equiv":
+   [{"id": "Himp___p____p____equiv",
+     "data":
+     {"/Equiv/#Himp___p____p____equiv":
+      {"display": "p₁_p₂_equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₁_may_diverge":
+   [{"id": "Himp___p____may_diverge",
+     "data":
+     {"/Equiv/#Himp___p____may_diverge":
+      {"display": "p₁_may_diverge",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
    "Himp.p₁":
    [{"id": "Himp___p___",
      "data":
      {"/Equiv/#Himp___p___":
       {"display": "p₁",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.ptwice_equiv_pcopy":
+   [{"id": "Himp___ptwice_equiv_pcopy",
+     "data":
+     {"/Equiv/#Himp___ptwice_equiv_pcopy":
+      {"display": "ptwice_equiv_pcopy",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -6694,6 +8158,16 @@ window.onload = async () => {
      "data":
      {"/Equiv/#Himp___pYX":
       {"display": "pYX",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.pXY_cequiv_pYX":
+   [{"id": "Himp___pXY_cequiv_pYX",
+     "data":
+     {"/Equiv/#Himp___pXY_cequiv_pYX":
+      {"display": "pXY_cequiv_pYX",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -6809,6 +8283,86 @@ window.onload = async () => {
         "Equiv: Program Equivalence",
         "Extended Exercise: Nondeterministic Imp"]}},
      "address": "/Equiv/"}],
+   "Himp.Com.EvalR.whileTrue":
+   [{"id": "Himp___Com___EvalR___whileTrue",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___whileTrue":
+      {"display": "whileTrue",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.whileFalse":
+   [{"id": "Himp___Com___EvalR___whileFalse",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___whileFalse":
+      {"display": "whileFalse",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.skip":
+   [{"id": "Himp___Com___EvalR___skip",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.seq":
+   [{"id": "Himp___Com___EvalR___seq",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.ifTrue":
+   [{"id": "Himp___Com___EvalR___ifTrue",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___ifTrue":
+      {"display": "ifTrue",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.ifFalse":
+   [{"id": "Himp___Com___EvalR___ifFalse",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___ifFalse":
+      {"display": "ifFalse",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR.asgn":
+   [{"id": "Himp___Com___EvalR___asgn",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.EvalR":
+   [{"id": "Himp___Com___EvalR",
+     "data":
+     {"/Equiv/#Himp___Com___EvalR":
+      {"display": "Com.EvalR",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
    "Himp.Com.Equiv":
    [{"id": "Himp___Com___Equiv",
      "data":
@@ -6881,6 +8435,16 @@ window.onload = async () => {
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "HasEval.Delab.delabEvalR":
+   [{"id": "HasEval___Delab___delabEvalR",
+     "data":
+     {"/Hoare/#HasEval___Delab___delabEvalR":
+      {"display": "delabEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
    "HasEval":
    [{"id": "HasEval",
      "data":
@@ -7115,7 +8679,8 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "Decorated.OuterTripleValid":
    [{"id": "Decorated___OuterTripleValid",
@@ -7126,7 +8691,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Syntax"]}},
+        "Extracting Verification Conditions"]}},
      "address": "/Hoare2/"}],
    "Decorated":
    [{"id": "Decorated",
@@ -7335,7 +8900,8 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "DCom.Delab.unexpandWhileDo":
    [{"id": "DCom___Delab___unexpandWhileDo",
@@ -7458,6 +9024,28 @@ window.onload = async () => {
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "Com.while_true_nonterm":
+   [{"id": "Com___while_true_nonterm",
+     "data":
+     {"/Equiv/#Com___while_true_nonterm":
+      {"display": "while_true_nonterm",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.while_true":
+   [{"id": "Com___while_true",
+     "data":
+     {"/Equiv/#Com___while_true":
+      {"display": "while_true",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.while_false":
    [{"id": "Com___while_false",
      "data":
@@ -7477,15 +9065,38 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Com.transSound_def":
-   [{"id": "Com___transSound_def",
+   "Com.swap_if_branches":
+   [{"id": "Com___swap_if_branches",
      "data":
-     {"/Equiv/#Com___transSound_def":
-      {"display": "Com.transSound_def",
+     {"/Equiv/#Com___swap_if_branches":
+      {"display": "swap_if_branches",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Program Transformation"]}},
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.skip_right":
+   [{"id": "Com___skip_right",
+     "data":
+     {"/Equiv/#Com___skip_right":
+      {"display": "skip_right",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.skip_left":
+   [{"id": "Com___skip_left",
+     "data":
+     {"/Equiv/#Com___skip_left":
+      {"display": "skip_left",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
      "address": "/Equiv/"}],
    "Com.skip":
    [{"id": "Com___skip",
@@ -7495,6 +9106,17 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.seq_assoc":
+   [{"id": "Com___seq_assoc",
+     "data":
+     {"/Equiv/#Com___seq_assoc":
+      {"display": "seq_assoc",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.seq":
    [{"id": "Com___seq",
      "data":
@@ -7602,6 +9224,49 @@ window.onload = async () => {
         "Behavioral Equivalence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
+   "Com.optimize0plus_sound":
+   [{"id": "Com___optimize0plus_sound",
+     "data":
+     {"/Equiv/#Com___optimize0plus_sound":
+      {"display": "Com.optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "Com.optimize0plus":
+   [{"id": "Com___optimize0plus",
+     "data":
+     {"/Equiv/#Com___optimize0plus":
+      {"display": "Com.optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "Com.no_whiles":
+   [{"id": "Com___no_whiles",
+     "data":
+     {"/Imp/#Com___no_whiles":
+      {"display": "Com.no_whiles",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "Com.loop_unrolling":
+   [{"id": "Com___loop_unrolling",
+     "data":
+     {"/Equiv/#Com___loop_unrolling":
+      {"display": "loop_unrolling",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.if_true_simple":
    [{"id": "Com___if_true_simple",
      "data":
@@ -7624,6 +9289,17 @@ window.onload = async () => {
         "Behavioral Equivalence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
+   "Com.if_false":
+   [{"id": "Com___if_false",
+     "data":
+     {"/Equiv/#Com___if_false":
+      {"display": "if_false",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.identity_assignment":
    [{"id": "Com___identity_assignment",
      "data":
@@ -7634,6 +9310,17 @@ window.onload = async () => {
         "Equiv: Program Equivalence",
         "Behavioral Equivalence",
         "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.foldConstants_sound":
+   [{"id": "Com___foldConstants_sound",
+     "data":
+     {"/Equiv/#Com___foldConstants_sound":
+      {"display": "Com.foldConstants_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of Constant Folding"]}},
      "address": "/Equiv/"}],
    "Com.foldConstants":
    [{"id": "Com___foldConstants",
@@ -7676,7 +9363,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_symm":
@@ -7687,7 +9374,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_refl":
@@ -7698,19 +9385,8 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Com.equiv_notation":
-   [{"id": "Com___equiv_notation",
-     "data":
-     {"/Equiv/#Com___equiv_notation":
-      {"display": "Com.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Com.equiv_equivalence":
    [{"id": "Com___equiv_equivalence",
@@ -7720,7 +9396,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_def":
@@ -7734,6 +9410,50 @@ window.onload = async () => {
         "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
+   "Com.equiv_classes":
+   [{"id": "Com___equiv_classes",
+     "data":
+     {"/Equiv/#Com___equiv_classes":
+      {"display": "equiv_classes",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.congruence_while":
+   [{"id": "Com___congruence_while",
+     "data":
+     {"/Equiv/#Com___congruence_while":
+      {"display": "Com.congruence_while",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "Com.congruence_seq":
+   [{"id": "Com___congruence_seq",
+     "data":
+     {"/Equiv/#Com___congruence_seq":
+      {"display": "Com.congruence_seq",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "Com.congruence_if":
+   [{"id": "Com___congruence_if",
+     "data":
+     {"/Equiv/#Com___congruence_if":
+      {"display": "Com.congruence_if",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
    "Com.congruence_asgn":
    [{"id": "Com___congruence_asgn",
      "data":
@@ -7742,7 +9462,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.cond":
@@ -7753,6 +9473,17 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.assign_equiv":
+   [{"id": "Com___assign_equiv",
+     "data":
+     {"/Equiv/#Com___assign_equiv":
+      {"display": "assign_equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.asgn":
    [{"id": "Com___asgn",
      "data":
@@ -7761,16 +9492,16 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Com.TransSound":
-   [{"id": "Com___TransSound",
+   "Com.NoWhilesR":
+   [{"id": "Com___NoWhilesR",
      "data":
-     {"/Equiv/#Com___TransSound":
-      {"display": "Com.TransSound",
+     {"/Imp/#Com___NoWhilesR":
+      {"display": "Com.NoWhilesR",
        "context":
        ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
    "Com.EvalR.whileTrue":
    [{"id": "Com___EvalR___whileTrue",
      "data":
@@ -7859,17 +9590,6 @@ window.onload = async () => {
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
-   "Com.Equiv":
-   [{"id": "Com___Equiv",
-     "data":
-     {"/Equiv/#Com___Equiv":
-      {"display": "Com.Equiv",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
    "Com":
    [{"id": "Com",
      "data":
@@ -7878,15 +9598,27 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Bexp.transSound_def":
-   [{"id": "Bexp___transSound_def",
+   "Bexp.optimize0plus_sound":
+   [{"id": "Bexp___optimize0plus_sound",
      "data":
-     {"/Equiv/#Bexp___transSound_def":
-      {"display": "Bexp.transSound_def",
+     {"/Equiv/#Bexp___optimize0plus_sound":
+      {"display": "Bexp.optimize0plus_sound",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Program Transformation"]}},
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "Bexp.optimize0plus":
+   [{"id": "Bexp___optimize0plus",
+     "data":
+     {"/Equiv/#Bexp___optimize0plus":
+      {"display": "Bexp.optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Bexp.not":
    [{"id": "Bexp___not",
@@ -7954,6 +9686,17 @@ window.onload = async () => {
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
+   "Bexp.foldConstants_sound":
+   [{"id": "Bexp___foldConstants_sound",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_sound":
+      {"display": "Bexp.foldConstants_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of Constant Folding"]}},
+     "address": "/Equiv/"}],
    "Bexp.foldConstants_false":
    [{"id": "Bexp___foldConstants_false",
      "data":
@@ -8020,6 +9763,28 @@ window.onload = async () => {
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_le_true":
+   [{"id": "Bexp___eval_le_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_true":
+      {"display": "Bexp.eval_le_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_le_false":
+   [{"id": "Bexp___eval_le_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_false":
+      {"display": "Bexp.eval_le_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_le":
    [{"id": "Bexp___eval_le",
      "data":
@@ -8031,6 +9796,28 @@ window.onload = async () => {
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_gt_true":
+   [{"id": "Bexp___eval_gt_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_true":
+      {"display": "Bexp.eval_gt_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_gt_false":
+   [{"id": "Bexp___eval_gt_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_false":
+      {"display": "Bexp.eval_gt_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_gt":
    [{"id": "Bexp___eval_gt",
      "data":
@@ -8041,6 +9828,16 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Evaluation"]}},
+     "address": "/Imp/"}],
+   "Bexp.eval_eq_evalSC":
+   [{"id": "Bexp___eval_eq_evalSC",
+     "data":
+     {"/Imp/#Bexp___eval_eq_evalSC":
+      {"display": "Bexp.eval_eq_evalSC",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.eval_eq":
    [{"id": "Bexp___eval_eq",
@@ -8075,6 +9872,16 @@ window.onload = async () => {
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.evalSC":
+   [{"id": "Bexp___evalSC",
+     "data":
+     {"/Imp/#Bexp___evalSC":
+      {"display": "Bexp.evalSC",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "Bexp.eval":
    [{"id": "Bexp___eval",
      "data":
@@ -8094,7 +9901,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_symm":
@@ -8105,7 +9912,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_refl":
@@ -8116,19 +9923,8 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Bexp.equiv_notation":
-   [{"id": "Bexp___equiv_notation",
-     "data":
-     {"/Equiv/#Bexp___equiv_notation":
-      {"display": "Bexp.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_def":
    [{"id": "Bexp___equiv_def",
@@ -8174,27 +9970,6 @@ window.onload = async () => {
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Bexp.TransSound":
-   [{"id": "Bexp___TransSound",
-     "data":
-     {"/Equiv/#Bexp___TransSound":
-      {"display": "Bexp.TransSound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
-   "Bexp.Equiv":
-   [{"id": "Bexp___Equiv",
-     "data":
-     {"/Equiv/#Bexp___Equiv":
-      {"display": "Bexp.Equiv",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
    "Bexp":
    [{"id": "Bexp",
      "data":
@@ -8232,7 +10007,7 @@ window.onload = async () => {
    [{"id": "Assertion___subst",
      "data":
      {"/Hoare/#Assertion___subst":
-      {"display": "Assertion.subst",
+      {"display": "subst",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -8250,6 +10025,17 @@ window.onload = async () => {
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
+   "Assertion.Delab.delabExistsState":
+   [{"id": "Assertion___Delab___delabExistsState",
+     "data":
+     {"/Hoare/#Assertion___Delab___delabExistsState":
+      {"display": "delabExistsState",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Notations for Assertions"]}},
+     "address": "/Hoare/"}],
    "Assertion.Delab.delabBody":
    [{"id": "Assertion___Delab___delabBody",
      "data":
@@ -8259,7 +10045,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssnArg":
    [{"id": "Assertion___Delab___delabAssnArg",
@@ -8270,7 +10056,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssn":
    [{"id": "Assertion___Delab___delabAssn",
@@ -8281,7 +10067,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertion":
    [{"id": "Assertion___Delab___delabAssertion",
@@ -8292,7 +10078,7 @@ window.onload = async () => {
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertImplies":
    [{"id": "Assertion___Delab___delabAssertImplies",
@@ -8334,6 +10120,17 @@ window.onload = async () => {
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "AssertIff":
+   [{"id": "AssertIff",
+     "data":
+     {"/Hoare/#AssertIff":
+      {"display": "AssertIff",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Assertion Implication"]}},
+     "address": "/Hoare/"}],
    "Approx":
    [{"id": "Approx",
      "data":
@@ -8341,16 +10138,6 @@ window.onload = async () => {
       {"display": "Approx",
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
-     "address": "/Equiv/"}],
-   "Aexp.transSound_def":
-   [{"id": "Aexp___transSound_def",
-     "data":
-     {"/Equiv/#Aexp___transSound_def":
-      {"display": "Aexp.transSound_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
      "address": "/Equiv/"}],
    "Aexp.subst":
    [{"id": "Aexp___subst",
@@ -8371,6 +10158,28 @@ window.onload = async () => {
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Aexp.optimize0plus_sound":
+   [{"id": "Aexp___optimize0plus_sound",
+     "data":
+     {"/Equiv/#Aexp___optimize0plus_sound":
+      {"display": "Aexp.optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "Aexp.optimize0plus":
+   [{"id": "Aexp___optimize0plus",
+     "data":
+     {"/Equiv/#Aexp___optimize0plus":
+      {"display": "Aexp.optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
    "Aexp.num":
    [{"id": "Aexp___num",
      "data":
@@ -8470,6 +10279,39 @@ window.onload = async () => {
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other_left":
+   [{"id": "Aexp___foldConstants_add_other_left",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other_left":
+      {"display": "Aexp.foldConstants_add_other_left",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other":
+   [{"id": "Aexp___foldConstants_add_other",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other":
+      {"display": "Aexp.foldConstants_add_other",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_num":
+   [{"id": "Aexp___foldConstants_add_num",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_num":
+      {"display": "Aexp.foldConstants_add_num",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.foldConstants":
    [{"id": "Aexp___foldConstants",
      "data":
@@ -8563,7 +10405,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_symm":
@@ -8574,7 +10416,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_refl":
@@ -8585,46 +10427,14 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Aexp.equiv_notation":
-   [{"id": "Aexp___equiv_notation",
-     "data":
-     {"/Equiv/#Aexp___equiv_notation":
-      {"display": "Aexp.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_def":
    [{"id": "Aexp___equiv_def",
      "data":
      {"/Equiv/#Aexp___equiv_def":
       {"display": "Aexp.equiv_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
-   "Aexp.TransSound":
-   [{"id": "Aexp___TransSound",
-     "data":
-     {"/Equiv/#Aexp___TransSound":
-      {"display": "Aexp.TransSound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
-   "Aexp.Equiv":
-   [{"id": "Aexp___Equiv",
-     "data":
-     {"/Equiv/#Aexp___Equiv":
-      {"display": "Aexp.Equiv",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -8694,6 +10504,46 @@ let paramName = params.get("name");
 
 let xref = /** @type {{xref: XRef}} */ (/** @type {unknown} */ (window)).xref;
 
+/**
+ * The replacements for characters that are not valid in slugs. This mirrors the mangling table in
+ * MultiVerso.Slug.
+ * @type {Record<string, string>}
+ */
+const slugReplacements = {
+    "<": "_LT_",
+    ">": "_GT_",
+    ";": "_SEMI_",
+    "‹": "_FLQ_",
+    "›": "_FRQ_",
+    "«": "_FLQQ_",
+    "»": "_FLQQ_",
+    "⟨": "_LANGLE_",
+    "⟩": "_RANGLE_",
+    "(": "_LPAR_",
+    ")": "_RPAR_",
+    "[": "_LSQ_",
+    "]": "_RSQ_",
+    "→": "_ARR_",
+    "↦": "_MAPSTO_",
+    "⊢": "_VDASH_",
+};
+
+/**
+ * Converts a string to a valid slug, mangling as appropriate. This mirrors the slug computation in
+ * MultiVerso.Slug, so names can be compared with links that were minted from their slugs.
+ * @param {string} s
+ * @returns {string}
+ */
+function sluggify(s) {
+    let out = "";
+    for (const c of s) {
+        if (/^[a-zA-Z0-9_-]$/.test(c)) out += c;
+        else if (c === " " || c === "\t" || c === "\r" || c === "\n") out += "-";
+        else out += slugReplacements[c] ?? "___";
+    }
+    return out;
+}
+
 if (paramName) {
     /**
      * @type (Item & {domain: string})[]
@@ -8718,6 +10568,27 @@ if (paramName) {
             if (opts["contents"].hasOwnProperty(paramName)) {
                 for (const i of opts["contents"][paramName]) {
                     options.push(Object.assign(i, { domain: dom }));
+                }
+            }
+        }
+    }
+
+    if (options.length == 0) {
+        // Permalinks from before a bug fix that separated sections' HTML IDs from their
+        // canonical names in the section domain were mangled as slugs. If we don't find
+        // any results, we try to recover by checking equality modulo sluggification.
+        // This workaround was introduced in August 2026 and should be removed when it
+        // seems unlikely for old permalinks to be a significant problem.
+        const nameSlug = sluggify(paramName);
+        const searchDomains = domains && domains.length > 0 ? domains : Object.keys(xref);
+        for (const domain of searchDomains) {
+            if (!xref.hasOwnProperty(domain)) continue;
+            const contents = xref[domain]["contents"];
+            for (const key of Object.keys(contents)) {
+                if (sluggify(key) === nameSlug) {
+                    for (const i of contents[key]) {
+                        options.push(Object.assign(i, { domain: domain }));
+                    }
                 }
             }
         }
@@ -8800,6 +10671,305 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -8826,7 +10996,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Equiv/#Equiv">Equiv: Program Equivalence</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Equiv/#Equiv">Equiv: Program Equivalence</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -8842,7 +11012,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC</div>
+            Source revision: 4432bd0, committed 2026-10-24 18:24 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

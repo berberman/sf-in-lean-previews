@@ -1,5 +1,6 @@
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
+import LF.CustomTactics
 import TS.Smallstep
 
 import SFLCompat
@@ -78,7 +79,7 @@ macro_rules
       | "iszero" => `(Tm.isZero <{ $e }>)
       | _ => Macro.throwErrorAt f s!"unknown operator `{f.getId}`"
   | `(<{ ($e) }>) => `(<{ $e }>)
-  | `(<{ ~$e }>)  => pure e
+  | `(<{ ~$e }>) => pure e
   | `(<{ if $c then $t else $e }>) => `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
@@ -119,8 +120,9 @@ partial def delabTmInner : DelabM (TSyntax `tm) := do
 open Lean PrettyPrinter Delaborator SubExpr in
 -- The keys are the constants' full names: `Tm` lives in namespace `TM`, and the
 -- `delab` attribute does not resolve its argument against the current namespace.
-@[delab app.TM.Tm.tru, delab app.TM.Tm.fls, delab app.TM.Tm.zero, delab app.TM.Tm.succ,
-  delab app.TM.Tm.pred, delab app.TM.Tm.isZero, delab app.TM.Tm.ite]
+@[delab app.TM.Tm.tru, delab app.TM.Tm.fls, delab app.TM.Tm.zero,
+  delab app.TM.Tm.succ, delab app.TM.Tm.pred, delab app.TM.Tm.isZero,
+  delab app.TM.Tm.ite]
 partial def delabTm : Delab := whenPPOption getPPNotation do
   guard <| match_expr ← getExpr with
     | Tm.tru => true | Tm.fls => true | Tm.zero => true
@@ -148,57 +150,61 @@ def Tm.IsValue (t : Tm) : Prop := Tm.IsBValue t ∨ Tm.IsNValue t
 
 --  ### Operational Semantics
 
---  -----------------------------                 (ifTrue)
---                     if true then t₁ else t₂ ⟶ t₁
+--               ----------------------------           (ifTrue)
+--               if true then t₁ else t₂ ⟶ t₁
 --
---                     ------------------------------                (ifFalse)
---                     if false then t₁ else t₂ ⟶ t₂
+--              -----------------------------           (ifFalse)
+--              if false then t₁ else t₂ ⟶ t₂
 --
---                                t₁ ⟶ t₁'
---              -----------------------------------------------      (ifStep)
---              if t₁ then t₂ else t₃ ⟶ if t₁' then t₂ else t₃
+--                         t₁ ⟶ t₁'
+--      ----------------------------------------------  (ifStep)
+--      if t₁ then t₂ else t₃ ⟶ if t₁' then t₂ else t₃
 --
---                                t₁ ⟶ t₁'
---                           -------------------                     (succStep)
---                           succ t₁ ⟶ succ t₁'
+--                         t₁ ⟶ t₁'
+--                    ------------------                (succStep)
+--                    succ t₁ ⟶ succ t₁'
 --
---                             -----------                           (predZero)
---                             pred 0 ⟶ 0
+--                        ----------                    (predZero)
+--                        pred 0 ⟶ 0
 --
---                              IsNValue v
---                          ------------------                       (predSucc)
---                          pred (succ v) ⟶ v
+--                       IsNValue v
+--                    -----------------                 (predSucc)
+--                    pred (succ v) ⟶ v
 --
---                                t₁ ⟶ t₁'
---                           -------------------                     (predStep)
---                           pred t₁ ⟶ pred t₁'
+--                         t₁ ⟶ t₁'
+--                    ------------------                (predStep)
+--                    pred t₁ ⟶ pred t₁'
 --
---                            ----------------                       (isZeroZero)
---                            iszero 0 ⟶ true
+--                     ---------------                  (isZeroZero)
+--                     iszero 0 ⟶ true
 --
---                               IsNValue v
---                        ------------------------                   (isZeroSucc)
---                        iszero (succ v) ⟶ false
+--                       IsNValue v
+--                 -----------------------              (isZeroSucc)
+--                 iszero (succ v) ⟶ false
 --
---                                t₁ ⟶ t₁'
---                         -----------------------                   (isZeroStep)
---                         iszero t₁ ⟶ iszero t₁'
+--                         t₁ ⟶ t₁'
+--                  ----------------------              (isZeroStep)
+--                  iszero t₁ ⟶ iszero t₁'
 
 section
 set_option hygiene false in
 local notation:40 t:41 " ⟶ " t':41 => Tm.Step t t'
 inductive Tm.Step : Tm → Tm → Prop where
-  | ifTrue (t₁ t₂ : Tm) : <{ if true then t₁ else t₂ }> ⟶ t₁
-  | ifFalse (t₁ t₂ : Tm) : <{ if false then t₁ else t₂ }> ⟶ t₂
-  | ifStep (c c' t₂ t₃ : Tm) (h : c ⟶ c') :
+  | ifTrue {t₁ t₂ : Tm} : <{ if true then t₁ else t₂ }> ⟶ t₁
+  | ifFalse {t₁ t₂ : Tm} : <{ if false then t₁ else t₂ }> ⟶ t₂
+  | ifStep {c c' t₂ t₃ : Tm} (h : c ⟶ c') :
       <{ if c then t₂ else t₃ }> ⟶ <{ if c' then t₂ else t₃ }>
-  | succStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : <{ succ t₁ }> ⟶ <{ succ t₁' }>
+  | succStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
+      <{ succ t₁ }> ⟶ <{ succ t₁' }>
   | predZero : <{ pred 0 }> ⟶ <{ 0 }>
-  | predSucc (v : Tm) (hv : Tm.IsNValue v) : <{ pred (succ v) }> ⟶ v
-  | predStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : <{ pred t₁ }> ⟶ <{ pred t₁' }>
+  | predSucc {v : Tm} (hv : Tm.IsNValue v) : <{ pred (succ v) }> ⟶ v
+  | predStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
+      <{ pred t₁ }> ⟶ <{ pred t₁' }>
   | isZeroZero : <{ iszero 0 }> ⟶ <{ true }>
-  | isZeroSucc (v : Tm) (hv : Tm.IsNValue v) : <{ iszero (succ v) }> ⟶ <{ false }>
-  | isZeroStep (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : <{ iszero t₁ }> ⟶ <{ iszero t₁' }>
+  | isZeroSucc {v : Tm} (hv : Tm.IsNValue v) :
+      <{ iszero (succ v) }> ⟶ <{ false }>
+  | isZeroStep {t₁ t₁' : Tm} (h : t₁ ⟶ t₁') :
+      <{ iszero t₁ }> ⟶ <{ iszero t₁' }>
 end
 
 scoped notation:40 t:41 " ⟶ " t':41 => Tm.Step t t'
@@ -218,13 +224,6 @@ def Tm.IsNormalForm (t : Tm) : Prop := _root_.IsNormalForm Tm.Step t
 
 def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 
---  ### Exercise (2 stars): some_term_is_stuck ⭐⭐
-
-theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
-  sorry
-
---  (End of exercise)
-
 --  However, although values and normal forms are *not* the
 --  same in this language, the set of values is a subset of
 --  the set of normal forms.
@@ -233,13 +232,14 @@ theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
 --  accidentally define things so that some value could
 --  still take a step.
 
-theorem nvalue_is_nf (t : Tm) (h : Tm.IsNValue t) : Tm.IsNormalForm t := by
+theorem nvalue_is_nf (t : Tm)
+    (h : Tm.IsNValue t) : Tm.IsNormalForm t := by
   induction h with
-  | zero => intro hc; obtain ⟨t', hstp⟩ := hc; cases hstp
+  | zero => intro hc; obtain ⟨t', hstp⟩ := hc; inversion hstp
   | succ t₀ hn₀ ih =>
       intro hc; obtain ⟨t', hstp⟩ := hc
-      cases hstp with
-      | succStep _ t₁' h => exact ih ⟨t₁', h⟩
+      inversion hstp with
+      | succStep t₁' h => exact ih ⟨t₁', h⟩
 
 --  ### Exercise (3 stars): value_is_nf ⭐⭐⭐
 
@@ -252,7 +252,8 @@ theorem nvalue_is_nf (t : Tm) (h : Tm.IsNValue t) : Tm.IsNormalForm t := by
 --  is quite a bit shorter than the other. For the sake of
 --  the exercise, try to complete the proof both ways.)
 
-theorem value_is_nf (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
+theorem value_is_nf (t : Tm)
+    (h : Tm.IsValue t) : Tm.IsNormalForm t := by
   sorry
 
 --  The "other way" mentioned in the hint proves the same
@@ -260,15 +261,8 @@ theorem value_is_nf (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
 --  evidence that it is a numeric value. It goes through,
 --  but is a bit longer than the `nvalue_is_nf` route above.
 
-theorem value_is_nf' (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
-  sorry
-
---  ### Exercise (3 stars): step_deterministic (Optional) ⭐⭐⭐
-
---  Use `value_is_nf` (here, `nvalue_is_nf`) to show that
---  the `Tm.Step` relation is also deterministic.
-
-theorem step_deterministic : Deterministic Tm.Step := by
+theorem value_is_nf' (t : Tm)
+    (h : Tm.IsValue t) : Tm.IsNormalForm t := by
   sorry
 
 --  (End of exercise)
@@ -333,17 +327,18 @@ section
 set_option hygiene false in
 local notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 inductive Tm.AltStep : Tm → Tm → Prop where
-  | ifTrue (t₁ t₂ : Tm) : <{ if true then t₁ else t₂ }> ⇢ t₁
-  | ifFalse (t₁ t₂ : Tm) : <{ if false then t₁ else t₂ }> ⇢ t₂
-  | ifStep (t₁ t₁' t₂ t₃ : Tm) : t₁ ⇢ t₁' →
+  | ifTrue {t₁ t₂ : Tm} : <{ if true then t₁ else t₂ }> ⇢ t₁
+  | ifFalse {t₁ t₂ : Tm} : <{ if false then t₁ else t₂ }> ⇢ t₂
+  | ifStep {t₁ t₁' t₂ t₃ : Tm} : t₁ ⇢ t₁' →
       <{ if t₁ then t₂ else t₃ }> ⇢ <{ if t₁' then t₂ else t₃ }>
-  | succStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' → <{ succ t₁ }> ⇢ <{ succ t₁' }>
+  | succStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' → <{ succ t₁ }> ⇢ <{ succ t₁' }>
   | predZero : <{ pred 0 }> ⇢ <{ 0 }>
-  | predSucc (t₁ : Tm) : <{ pred (succ t₁) }> ⇢ t₁
-  | predStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' → <{ pred t₁ }> ⇢ <{ pred t₁' }>
+  | predSucc {t₁ : Tm} : <{ pred (succ t₁) }> ⇢ t₁
+  | predStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' → <{ pred t₁ }> ⇢ <{ pred t₁' }>
   | isZeroZero : <{ iszero 0 }> ⇢ <{ true }>
-  | isZeroSucc (t₁ : Tm) : <{ iszero (succ t₁) }> ⇢ <{ false }>
-  | isZeroStep (t₁ t₁' : Tm) : t₁ ⇢ t₁' → <{ iszero t₁ }> ⇢ <{ iszero t₁' }>
+  | isZeroSucc {t₁ : Tm} : <{ iszero (succ t₁) }> ⇢ <{ false }>
+  | isZeroStep {t₁ t₁' : Tm} : t₁ ⇢ t₁' →
+      <{ iszero t₁ }> ⇢ <{ iszero t₁' }>
 end
 
 scoped notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
@@ -406,9 +401,14 @@ def alt_simplify_step (t : Tm) : Option Tm :=
 
 -- `pred (succ true)` steps under `⇢` (the dropped `IsNValue` premise) even
 -- though it is stuck under `Tm.Step`:
-example : alt_simplify_step <{ pred (succ true) }> = some <{ true }> := rfl
-example : alt_simplify_step <{ if true then 0 else succ 0 }> = some <{ 0 }> := rfl
-example : alt_simplify_step <{ 0 }> = none := rfl
+example :
+    alt_simplify_step <{ pred (succ true) }> = some <{ true }> := by
+  rfl
+example :
+    alt_simplify_step <{ if true then 0 else succ 0 }> =
+      some <{ 0 }> := by
+  rfl
+example : alt_simplify_step <{ 0 }> = none := by rfl
 
 --  ### Typing
 
@@ -449,13 +449,14 @@ local macro_rules
 inductive Tm.HasType : Tm → Ty → Prop where
   | tru : <{ ⊢ true ⦂ Bool }>
   | fls : <{ ⊢ false ⦂ Bool }>
-  | ite (t₁ t₂ t₃ : Tm) (τ : Ty)
-      (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ τ }>) (h₃ : <{ ⊢ t₃ ⦂ τ }>) :
+  | ite {t₁ t₂ t₃ : Tm} {τ : Ty}
+      (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ τ }>)
+      (h₃ : <{ ⊢ t₃ ⦂ τ }>) :
       <{ ⊢ if t₁ then t₂ else t₃ ⦂ τ }>
   | zero : <{ ⊢ 0 ⦂ Nat }>
-  | succ (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
-  | pred (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
-  | isZero (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
+  | succ {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
+  | pred {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
+  | isZero {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: typing relation)
 -- The same rules repeated with hygiene enabled, for use after the section.
@@ -485,8 +486,8 @@ def Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander
 end
 --  END DETAILS
 
-example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> :=
-  .ite _ _ _ _ .fls .zero (.succ _ .zero)
+example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> := by
+  exact .ite .fls .zero (.succ .zero)
 
 --  Typing is a *conservative* (or *static*) approximation
 --  to behavior.
@@ -495,16 +496,11 @@ example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> :=
 --  steps to something well typed.
 
 example : ¬ <{ ⊢ if false then 0 else true ⦂ Bool }> := by
-  intro hc; cases hc with | ite _ _ _ _ h₁ h₂ h₃ => cases h₂
+  intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
 example :
     ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> := by
-  intro hc; cases hc with | ite _ _ _ _ h₁ h₂ h₃ => cases h₂
-
---  ### Exercise (1 star): succ_hastype_nat__hastype_nat (Optional) ⭐
-
-example (t : Tm) (h : <{ ⊢ succ t ⦂ Nat }>) : <{ ⊢ t ⦂ Nat }> := by
-  sorry
+  intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
 --  ### Canonical forms
 
@@ -514,16 +510,18 @@ example (t : Tm) (h : <{ ⊢ succ t ⦂ Nat }>) : <{ ⊢ t ⦂ Nat }> := by
 --  `Bool` is a boolean value, and of type `Nat` a numeric
 --  value.
 
-theorem bool_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Bool }>) (hv : Tm.IsValue t) : Tm.IsBValue t := by
-  cases hv with
+theorem bool_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Bool }>)
+    (hv : Tm.IsValue t) : Tm.IsBValue t := by
+  inversion hv with
   | inl hb => exact hb
   | inr hn => cases hn with
-    | zero => cases hT
-    | succ t₀ h => cases hT
+    | zero => inversion hT
+    | succ t₀ h => inversion hT
 
-theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : Tm.IsNValue t := by
+theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>)
+    (hv : Tm.IsValue t) : Tm.IsNValue t := by
   cases hv with
-  | inl hb => cases hb <;> cases hT
+  | inl hb => inversion hb <;> inversion hT
   | inr hn => exact hn
 
 --  ### Progress
@@ -542,7 +540,8 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 --  informal proof in the following exercise before starting
 --  — this will save you a lot of time.)
 
-theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
+theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) :
+    Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
   sorry
 
 --  (End of exercise)
@@ -564,34 +563,6 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) : Tm.IsValue t ∨
 --  (D) No relationship
 --
 --  (E) Dunno
-
---   ----------------------------------------
-
---  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
-
---  Complete the corresponding informal proof.
-
---  *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or
---  else `t ⟶ t'` for some `t'`.
---
---  *Proof*: By induction on a derivation of `⊢ t ⦂ T`.
---  - If the last rule in the derivation is `ite`, then
---    `t = if t₁ then t₂
---        else t₃`, with `⊢ t₁ ⦂ Bool`,
---    `⊢ t₂ ⦂ T` and `⊢ t₃ ⦂ T`. By the IH, either `t₁` is a
---    value or else `t₁` can step to some `t₁'`.
---    - If `t₁` is a value, then by the canonical forms
---      lemmas and the fact that `⊢ t₁ ⦂ Bool` we have that
---      `t₁` is a boolean value (`Tm.IsBValue`) — i.e., it
---      is either `true` or `false`. If `t₁ = true`, then
---      `t` steps to `t₂` by `ifTrue`, while if
---      `t₁ = false`, then `t` steps to `t₃` by `ifFalse`.
---      Either way, `t` can step, which is what we wanted to
---      show.
---    - If `t₁` itself can take a step, then, by `ifStep`,
---      so can `t`.
-
---  (End of exercise)
 
 --   ----------------------------------------
 
@@ -646,47 +617,8 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) : Tm.IsValue t ∨
 --  property. (Again, make sure you understand the informal
 --  proof fragment in the following exercise first.)
 
-theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
-  sorry
-
---  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
-
---  Complete the following informal proof.
---
---  *Theorem*: If `⊢ t ⦂ T` and `t ⟶ t'`, then `⊢ t' ⦂ T`.
---
---  *Proof*: By induction on a derivation of `⊢ t ⦂ T`.
---  - If the last rule in the derivation is `ite`, then
---    `t = if t₁ then t₂
---        else t₃`, with `⊢ t₁ ⦂ Bool`,
---    `⊢ t₂ ⦂ T` and `⊢ t₃ ⦂ T`.
---
---    Inspecting the rules for the small-step reduction
---    relation and remembering that `t` has the form
---    `if ...`, we see that the only ones that could have
---    been used to prove `t ⟶ t'` are `ifTrue`, `ifFalse`,
---    or `ifStep`.
---    - If the last rule was `ifTrue`, then `t' = t₂`. But
---      we know that `⊢ t₂ ⦂ T`, so we are done.
---    - If the last rule was `ifFalse`, then `t' = t₃`. But
---      we know that `⊢ t₃ ⦂ T`, so we are done.
---    - If the last rule was `ifStep`, then
---      `t' = if t₁' then t₂ else t₃`, where `t₁ ⟶ t₁'`. We
---      know `⊢ t₁ ⦂ Bool` so, by the IH,
---      `⊢ t₁' ⦂
---            Bool`. The `ite` rule then gives us
---      `⊢ if t₁' then t₂ else t₃ ⦂ T`, as required.
-
---  ### Exercise (3 stars): preservation_alternate_proof ⭐⭐⭐
-
---  Now prove the same property again by induction on the
---  *evaluation* derivation instead of on the typing
---  derivation. Begin by carefully reading and thinking
---  about the first few lines of the above proofs to make
---  sure you understand what each one is doing. The set-up
---  for this proof is similar, but not exactly the same.
-
-theorem preservation' (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
+theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
+    (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
   sorry
 
 --  ### Type Soundness
@@ -698,7 +630,8 @@ def Tm.MultiStep (t₁ t₂ : Tm) : Prop := Multi Tm.Step t₁ t₂
 
 scoped notation:40 t₁:41 " ⟶* " t₂:41 => Tm.MultiStep t₁ t₂
 
-theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (hm : t ⟶* t') : ¬ Tm.IsStuck t' := by
+theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
+    (hm : t ⟶* t') : ¬ Tm.IsStuck t' := by
   induction hm generalizing τ with
   | refl a =>
       intro hst; obtain ⟨hnf, hnv⟩ := hst
@@ -742,122 +675,10 @@ theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (hm : t ⟶* t
 
 --  ## Additional Exercises
 
---  ### Exercise (3 stars): subject_expansion ⭐⭐⭐
-
---  Having seen the subject reduction property, one might
---  wonder whether the opposite property — subject
---  *expansion* — also holds. That is, is it always the case
---  that, if `t ⟶ t'` and `⊢ t' ⦂ T`, then `⊢ t ⦂ T`? If so,
---  prove it. If not, give a counter-example.
-
-theorem subject_expansion :
-    (∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ τ }> → <{ ⊢ t ⦂ τ }>)
-    ∨ ¬ (∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ τ }> → <{ ⊢ t ⦂ τ }>) := by
-  sorry
-
-end TM
-
---  (End of exercise)
-
 --  The following are *thought exercises*: for each
 --  modification, say which of determinism / progress /
 --  preservation still hold, with a counterexample if one
 --  breaks. (These are graded manually; there is no Lean
 --  code to complete.)
 
---  ### Exercise (2 stars): variation1 (Manually graded) ⭐⭐
-
---  Suppose that we add this new rule to the typing
---  relation:
-
---  succBool : ⊢ t ⦂ Bool → ⊢ succ t ⦂ Bool
-
---  Which of the following properties remain true in the
---  presence of this rule? For each one, write either
---  "remains true" or else "becomes false." If a property
---  becomes false, give a counterexample.
---  - Determinism of `Tm.Step`
---  - Progress
---  - Preservation
-
---  ### Exercise (2 stars): variation2 (Manually graded) ⭐⭐
-
---  Suppose, instead, that we add this new rule to the
---  `Tm.Step` relation:
-
---  funny1 : if true then t₂ else t₃ ⟶ t₃
-
---  Which of the above properties become false in the
---  presence of this rule? For each one that does, give a
---  counter-example.
-
---  ### Exercise (2 stars): variation3 (Optional) ⭐⭐
-
---  Suppose instead that we add this rule:
-
---  funny2 : t₂ ⟶ t₂' → if t₁ then t₂ else t₃ ⟶ if t₁ then t₂' else t₃
-
---  Which of the above properties become false in the
---  presence of this rule? For each one that does, give a
---  counter-example.
-
---  ### Exercise (2 stars): variation4 (Optional) ⭐⭐
-
---  Suppose instead that we add this rule:
-
---  funny3 : pred false ⟶ pred (pred false)
-
---  Which of the above properties become false in the
---  presence of this rule? For each one that does, give a
---  counter-example.
-
---  ### Exercise (2 stars): variation5 (Optional) ⭐⭐
-
---  Suppose instead that we add this rule:
-
---  funny4 : ⊢ 0 ⦂ Bool
-
---  Which of the above properties become false in the
---  presence of this rule? For each one that does, give a
---  counter-example.
-
---  ### Exercise (2 stars): variation6 (Optional) ⭐⭐
-
---  Suppose instead that we add this rule:
-
---  funny5 : ⊢ pred 0 ⦂ Bool
-
---  Which of the above properties become false in the
---  presence of this rule? For each one that does, give a
---  counter-example.
-
---  ### Exercise (3 stars): more_variations (Optional) ⭐⭐⭐
-
---  Make up some exercises of your own along the same lines
---  as the ones above. Try to find ways of selectively
---  breaking properties — i.e., ways of changing the
---  definitions that break just one of the properties and
---  leave the others alone.
-
---  ### Exercise (1 star): remove_pred0 (Manually graded) ⭐
-
---  The reduction rule `predZero` is a bit
---  counter-intuitive: we might feel that it makes more
---  sense for the predecessor of `0` to be undefined, rather
---  than being defined to be `0`. Can we achieve this simply
---  by removing the rule from the definition of `Tm.Step`?
---  Would doing so create any problems elsewhere?
-
---  ### Exercise (4 stars): prog_pres_bigstep (Advanced, Manually graded) ⭐⭐⭐⭐
-
---  Suppose our evaluation relation is defined in the
---  big-step style. State appropriate analogs of the
---  progress and preservation properties. (You do not need
---  to prove them.)
---
---  Can you see any limitations of either of your
---  properties? Do they allow for nonterminating programs?
---  Why might we prefer the small-step semantics for stating
---  preservation and progress?
-
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

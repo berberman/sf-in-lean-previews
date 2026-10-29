@@ -50,10 +50,11 @@ inductive Tm where
 --  #### Notation
 
 declare_syntax_cat tm
--- The keyword atoms (`true`/`false`/`succ`/`pred`/`iszero`) are parsed as bare
--- identifiers and dispatched in the macro below, rather than declared as
--- reserved symbols.  Reserving them would break ordinary Lean uses of
--- `true`/`false` and clash with the constructor/case names `succ`, `pred`.
+-- The keyword atoms (`true`/`false`/`succ`/`pred`/`iszero`) are
+-- parsed as bare identifiers and dispatched in the macro below,
+-- rather than declared as reserved symbols.  Reserving them would
+-- break ordinary Lean uses of `true`/`false` and clash with the
+-- constructor/case names `succ`, `pred`.
 syntax:max num : tm
 syntax:max ident : tm
 syntax:75 ident ppHardSpace tm:76 : tm
@@ -66,12 +67,14 @@ open Lean in
 macro_rules
   | `(<{ $n:num }>) =>
       if n.getNat == 0 then `(Tm.zero)
-      else Macro.throwErrorAt n "the only numeric literal in this language is 0"
+      else Macro.throwErrorAt n
+        "the only numeric literal in this language is 0"
   | `(<{ $x:ident }>) =>
       match x.getId.toString with
       | "true"  => `(Tm.tru)
       | "false" => `(Tm.fls)
-      | _ => `($x)   -- a bare identifier is a spliced Lean term (usually a variable)
+      -- a bare identifier is a spliced Lean term (usually a variable)
+      | _ => `($x)
   | `(<{ $f:ident $e:tm }>) =>
       match f.getId.toString with
       | "succ"   => `(Tm.succ <{ $e }>)
@@ -80,11 +83,13 @@ macro_rules
       | _ => Macro.throwErrorAt f s!"unknown operator `{f.getId}`"
   | `(<{ ($e) }>) => `(<{ $e }>)
   | `(<{ ~$e }>) => pure e
-  | `(<{ if $c then $t else $e }>) => `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
+  | `(<{ if $c then $t else $e }>) =>
+      `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
-/-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/
+/-- Re-inserts parentheses in `tm` output according to the grammar's
+precedences. -/
 @[category_parenthesizer tm]
 def tm.parenthesizer : CategoryParenthesizer | prec => do
   maybeParenthesize `tm true wrapParens prec <|
@@ -102,24 +107,29 @@ partial def delabTmInner : DelabM (TSyntax `tm) := do
     | Tm.tru => `(tm| $(mkIdent `true):ident)
     | Tm.fls => `(tm| $(mkIdent `false):ident)
     | Tm.zero => `(tm| 0)
-    | Tm.succ _ => do `(tm| $(mkIdent `succ):ident $(← withAppArg delabTmInner))
-    | Tm.pred _ => do `(tm| $(mkIdent `pred):ident $(← withAppArg delabTmInner))
-    | Tm.isZero _ => do `(tm| $(mkIdent `iszero):ident $(← withAppArg delabTmInner))
+    | Tm.succ _ => do
+        `(tm| $(mkIdent `succ):ident $(← withAppArg delabTmInner))
+    | Tm.pred _ => do
+        `(tm| $(mkIdent `pred):ident $(← withAppArg delabTmInner))
+    | Tm.isZero _ => do
+        `(tm| $(mkIdent `iszero):ident $(← withAppArg delabTmInner))
     | Tm.ite _ _ _ => do
         let c ← withAppFn <| withAppFn <| withAppArg delabTmInner
         let t ← withAppFn <| withAppArg delabTmInner
         let e ← withAppArg delabTmInner
         `(tm| if $c then $t else $e)
     | _ => do
-        -- A bare variable prints without the `~` escape; anything else keeps it.
+        -- A bare variable prints without the `~` escape; anything
+        -- else keeps it.
         match ← delab with
         | `($i:ident) => `(tm| $i:ident)
         | e => `(tm| ~$e)
   (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
 
 open Lean PrettyPrinter Delaborator SubExpr in
--- The keys are the constants' full names: `Tm` lives in namespace `TM`, and the
--- `delab` attribute does not resolve its argument against the current namespace.
+-- The keys are the constants' full names: `Tm` lives in namespace
+-- `TM`, and the `delab` attribute does not resolve its argument
+-- against the current namespace.
 @[delab app.TM.Tm.tru, delab app.TM.Tm.fls, delab app.TM.Tm.zero,
   delab app.TM.Tm.succ, delab app.TM.Tm.pred, delab app.TM.Tm.isZero,
   delab app.TM.Tm.ite]
@@ -239,33 +249,7 @@ theorem nvalue_is_nf (t : Tm)
   | succ t₀ hn₀ ih =>
       intro hc; obtain ⟨t', hstp⟩ := hc
       inversion hstp with
-      | succStep t₁' h => exact ih ⟨t₁', h⟩
-
---  ### Exercise (3 stars): value_is_nf ⭐⭐⭐
-
---  (Hint: You will reach a point in this proof where you
---  need to use an induction to reason about a term that is
---  known to be a numeric value. This induction can be
---  performed either over the term itself or over the
---  evidence that it is a numeric value. The proof goes
---  through in either case, but you will find that one way
---  is quite a bit shorter than the other. For the sake of
---  the exercise, try to complete the proof both ways.)
-
-theorem value_is_nf (t : Tm)
-    (h : Tm.IsValue t) : Tm.IsNormalForm t := by
-  sorry
-
---  The "other way" mentioned in the hint proves the same
---  fact by induction on the term itself rather than on the
---  evidence that it is a numeric value. It goes through,
---  but is a bit longer than the `nvalue_is_nf` route above.
-
-theorem value_is_nf' (t : Tm)
-    (h : Tm.IsValue t) : Tm.IsNormalForm t := by
-  sorry
-
---  (End of exercise)
+      | succStep t₁' h => apply ih; exists t₁'
 
 --   ----------------------------------------
 
@@ -345,22 +329,32 @@ scoped notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 
 --  Some questions about this relation (answers inline):
 --  - Is `⇢` deterministic
---    (`∀ t t' t'', t ⇢ t' → t ⇢ t'' → t' = t''`)? No:
---    `pred (succ (pred 0))` steps to both `pred 0` (by
+--    (`∀ t t' t'', t ⇢ t' → t ⇢ t'' → t' = t''`)?
+--
+--    No: `pred (succ (pred 0))` steps to both `pred 0` (by
 --    `predSucc`) and `pred (succ 0)` (by `predStep`, since
 --    `pred 0 ⇢ 0`).
+--
 --  - Is every `Tm.Step` normal form also a `⇢` normal form?
+--
 --    No: `pred (succ true)` is stuck for `Tm.Step` but
 --    steps under `⇢` (to `true`, by `predSucc`, now that
 --    the `Tm.IsNValue` premise is gone).
+--
 --  - Is every `⇢` normal form also a `Tm.Step` normal form?
+--
 --    Yes — `Tm.Step` is a subrelation of `⇢`, so anything
 --    stuck for `⇢` is stuck for `Tm.Step`.
+--
 --  - Is every value reachable by `Tm.Step` (in many steps)
---    also reachable by `⇢` (in many steps)? Yes, for the
---    same subrelation reason.
---  - Conversely? No: `iszero (succ true)` reaches the value
---    `false` under `⇢` but is stuck under `Tm.Step`.
+--    also reachable by `⇢` (in many steps)?
+--
+--    Yes, for the same subrelation reason.
+--
+--  - Conversely?
+--
+--    No: `iszero (succ true)` reaches the value `false`
+--    under `⇢` but is stuck under `Tm.Step`.
 --
 --  A *functional* version computes a single `⇢` step of a
 --  term, returning `none` when the term is a `⇢` normal
@@ -399,8 +393,8 @@ def alt_simplify_step (t : Tm) : Option Tm :=
         | _             => none
   | _ => none
 
--- `pred (succ true)` steps under `⇢` (the dropped `IsNValue` premise) even
--- though it is stuck under `Tm.Step`:
+-- `pred (succ true)` steps under `⇢` (the dropped `IsNValue` premise)
+-- even though it is stuck under `Tm.Step`:
 example :
     alt_simplify_step <{ pred (succ true) }> = some <{ true }> := by
   rfl
@@ -450,7 +444,8 @@ inductive Tm.HasType : Tm → Ty → Prop where
   | tru : <{ ⊢ true ⦂ Bool }>
   | fls : <{ ⊢ false ⦂ Bool }>
   | ite {t₁ t₂ t₃ : Tm} {τ : Ty}
-      (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ τ }>)
+      (h₁ : <{ ⊢ t₁ ⦂ Bool }>)
+      (h₂ : <{ ⊢ t₂ ⦂ τ }>)
       (h₃ : <{ ⊢ t₃ ⦂ τ }>) :
       <{ ⊢ if t₁ then t₂ else t₃ ⦂ τ }>
   | zero : <{ ⊢ 0 ⦂ Nat }>
@@ -459,7 +454,8 @@ inductive Tm.HasType : Tm → Ty → Prop where
   | isZero {t₁ : Tm} (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: typing relation)
--- The same rules repeated with hygiene enabled, for use after the section.
+-- The same rules repeated with hygiene enabled, for use after the
+-- section.
 macro_rules
   | `(<{ ⊢ $t ⦂ $T:ident }>) =>
       match T.getId.toString with
@@ -468,7 +464,8 @@ macro_rules
       | _      => `(Tm.HasType <{ $t }> $T)
   | `(<{ ⊢ $t ⦂ ~$T }>) => `(Tm.HasType <{ $t }> $T)
 
--- Print `Tm.HasType`/`Ty` values back as `<{ ⊢ … ⦂ … }>` notation: `delabTy`
+-- Print `Tm.HasType`/`Ty` values back as `<{ ⊢ … ⦂ … }>` notation:
+-- `delabTy`
 open Lean PrettyPrinter Delaborator SubExpr in
 @[delab app.TM.Ty.bool, delab app.TM.Ty.nat]
 def delabTy : Delab := whenPPOption getPPNotation do
@@ -499,10 +496,10 @@ example : ¬ <{ ⊢ if false then 0 else true ⦂ Bool }> := by
   intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
 example :
-    ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> := by
-  intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
+    ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> :=
+  by intro hc; inversion hc with | ite h₁ h₂ h₃ => inversion h₂
 
---  ### Canonical forms
+--  ### Canonical Forms
 
 --  The following two lemmas capture the fundamental fact
 --  that the definitions of boolean and numeric values agree
@@ -534,11 +531,6 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>)
 --  this *progress*.
 
 --  ### Exercise (3 stars): finish_progress ⭐⭐⭐
-
---  Complete the formal proof of the `progress` property.
---  (Make sure you understand the parts we've given of the
---  informal proof in the following exercise before starting
---  — this will save you a lot of time.)
 
 theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) :
     Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
@@ -613,10 +605,6 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) :
 
 --  ### Exercise (2 stars): finish_preservation ⭐⭐
 
---  Complete the formal proof of the `preservation`
---  property. (Again, make sure you understand the informal
---  proof fragment in the following exercise first.)
-
 theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
     (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
   sorry
@@ -673,12 +661,4 @@ theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
 
 --   ----------------------------------------
 
---  ## Additional Exercises
-
---  The following are *thought exercises*: for each
---  modification, say which of determinism / progress /
---  preservation still hold, with a counterexample if one
---  breaks. (These are graded manually; there is no Lean
---  code to complete.)
-
--- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC
+-- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC

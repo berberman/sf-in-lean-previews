@@ -238,30 +238,6 @@
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--TODO":
-   [{"id": "Logical-Foundations--Typeclasses--TODO",
-     "data":
-     {"title": "TODO",
-      "shortTitle": null,
-      "sectionNum": "11.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "TODO", "shortTitle": null, "number": "8"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Reflection":
-   [{"id": "Logical-Foundations--Typeclasses--Reflection",
-     "data":
-     {"title": "Reflection",
-      "shortTitle": null,
-      "sectionNum": "11.7.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Reflection", "shortTitle": null, "number": "7"}]},
-     "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
      "data":
@@ -282,13 +258,13 @@
      "data":
      {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "11.6.2.2.",
+      "sectionNum": "11.5.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
-       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "1"},
        {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements":
@@ -297,13 +273,13 @@
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "11.6.2.1.",
+      "sectionNum": "11.5.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
-       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "1"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Total-Maps":
@@ -311,25 +287,40 @@
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.2.",
+      "sectionNum": "11.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
-       {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "1"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Maps--Reasoning-About-Total-Maps":
+   [{"id": "Logical-Foundations--Typeclasses--Maps--Reasoning-About-Total-Maps",
+     "data":
+     {"title": "Reasoning About Total Maps",
+      "shortTitle": null,
+      "sectionNum": "11.5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Reasoning About Total Maps",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
    [{"id": "Logical-Foundations--Typeclasses--Maps--Partial-Maps",
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.4.",
+      "sectionNum": "11.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -337,40 +328,27 @@
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.3.",
+      "sectionNum": "11.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Maps--Key-and-Value-Types":
-   [{"id": "Logical-Foundations--Typeclasses--Maps--Key-and-Value-Types",
-     "data":
-     {"title": "Key and Value Types",
-      "shortTitle": null,
-      "sectionNum": "11.6.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
-       {"title": "Key and Value Types", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
    [{"id": "Logical-Foundations--Typeclasses--Maps",
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.",
+      "sectionNum": "11.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
@@ -386,17 +364,65 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--API-and-Encapsulation":
-   [{"id": "Logical-Foundations--Typeclasses--API-and-Encapsulation",
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Equality":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Equality",
      "data":
-     {"title": "API and Encapsulation",
+     {"title": "Decidable  and Equality",
       "shortTitle": null,
-      "sectionNum": "11.5.",
+      "sectionNum": "11.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "API and Encapsulation", "shortTitle": null, "number": "5"}]},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  and Equality",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Classical-Logic":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Classical-Logic",
+     "data":
+     {"title": "Decidable  and Classical Logic",
+      "shortTitle": null,
+      "sectionNum": "11.6.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  and Classical Logic",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--Beyond-Equality":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--Beyond-Equality",
+     "data":
+     {"title": "Decidable  Beyond Equality",
+      "shortTitle": null,
+      "sectionNum": "11.6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  Beyond Equality",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions":
+   [{"id": "Logical-Foundations--Typeclasses--Deciding-Propositions",
+     "data":
+     {"title": "Deciding Propositions",
+      "shortTitle": null,
+      "sectionNum": "11.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
    [{"id":
@@ -4290,6 +4316,17 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
+   "nat_eq":
+   [{"id": "nat_eq",
+     "data":
+     {"/Typeclasses/#nat_eq":
+      {"display": "nat_eq",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
+     "address": "/Typeclasses/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -4495,7 +4532,7 @@
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4512,7 +4549,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some",
+    {"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4693,6 +4730,13 @@
         "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "instNatbeq":
+   [{"id": "instNatbeq",
+     "data":
+     {"/Typeclasses/#instNatbeq":
+      {"display": "instNatbeq",
+       "context": ["Logical Foundations", "Typeclasses", "Using Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "instDefaultValueOption":
    [{"id": "instDefaultValueOption",
      "data":
@@ -5046,6 +5090,28 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "eq_dec":
+   [{"id": "eq_dec",
+     "data":
+     {"/Typeclasses/#eq_dec":
+      {"display": "eq_dec",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
+     "address": "/Typeclasses/"}],
+   "eq":
+   [{"id": "eq",
+     "data":
+     {"/Typeclasses/#eq":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
+     "address": "/Typeclasses/"}],
    "empty_relation_is_empty":
    [{"id": "empty_relation_is_empty",
      "data":
@@ -5146,7 +5212,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5167,7 +5233,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5892,8 +5958,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update_same":
    [{"id": "TotalMap___update_same",
@@ -5904,8 +5969,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update_permute":
    [{"id": "TotalMap___update_permute",
@@ -5916,8 +5980,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update_neq":
    [{"id": "TotalMap___update_neq",
@@ -5928,8 +5991,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
@@ -5940,20 +6002,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.update_def":
-   [{"id": "TotalMap___update_def",
-     "data":
-     {"/Typeclasses/#TotalMap___update_def":
-      {"display": "update_def",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update_apply":
    [{"id": "TotalMap___update_apply",
@@ -6020,8 +6069,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.getElem_def":
    [{"id": "TotalMap___getElem_def",
@@ -6056,8 +6104,7 @@
        ["Logical Foundations",
         "Typeclasses",
         "Maps",
-        "Total Maps",
-        "Updating Elements"]}},
+        "Reasoning About Total Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.exampleMap''":
    [{"id": "TotalMap___exampleMap______",
@@ -6780,101 +6827,137 @@
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
-   "Reflection.nat_eq":
-   [{"id": "Reflection___nat_eq",
+   "Reflection.odd":
+   [{"id": "Reflection___odd",
      "data":
-     {"/Typeclasses/#Reflection___nat_eq":
-      {"display": "nat_eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     {"/Typeclasses/#Reflection___odd":
+      {"display": "odd",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_zero":
+   [{"id": "Reflection___even_zero",
+     "data":
+     {"/Typeclasses/#Reflection___even_zero":
+      {"display": "even_zero",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_succ":
+   [{"id": "Reflection___even_succ",
+     "data":
+     {"/Typeclasses/#Reflection___even_succ":
+      {"display": "even_succ",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_iff_Even":
+   [{"id": "Reflection___even_iff_Even",
+     "data":
+     {"/Typeclasses/#Reflection___even_iff_Even":
+      {"display": "even_iff_Even",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double_exists":
+   [{"id": "Reflection___even_double_exists",
+     "data":
+     {"/Typeclasses/#Reflection___even_double_exists":
+      {"display": "even_double_exists",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double":
+   [{"id": "Reflection___even_double",
+     "data":
+     {"/Typeclasses/#Reflection___even_double":
+      {"display": "even_double",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even":
+   [{"id": "Reflection___even",
+     "data":
+     {"/Typeclasses/#Reflection___even":
+      {"display": "even",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
    [{"id": "Reflection___eq",
      "data":
-     {"/Typeclasses/#Reflection___eq-next":
+     {"/Typeclasses/#Reflection___eq":
       {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#Reflection___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
-     "data":
-     {"/Typeclasses/#Reflection___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#Reflection___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Classical Logic"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_zero":
-   [{"id": "Reflection___Nat___even_zero",
+   "Reflection.double_zero":
+   [{"id": "Reflection___double_zero",
      "data":
-     {"/Typeclasses/#Reflection___Nat___even_zero":
-      {"display": "even_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_succ":
-   [{"id": "Reflection___Nat___even_succ",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___even_succ":
-      {"display": "even_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_iff_Even":
-   [{"id": "Reflection___Nat___even_iff_Even",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___even_iff_Even":
-      {"display": "even_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_double_exists":
-   [{"id": "Reflection___Nat___even_double_exists",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___even_double_exists":
-      {"display": "even_double_exists",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_double":
-   [{"id": "Reflection___Nat___even_double",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.even":
-   [{"id": "Reflection___Nat___even",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___even":
-      {"display": "even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Nat.double_zero":
-   [{"id": "Reflection___Nat___double_zero",
-     "data":
-     {"/Typeclasses/#Reflection___Nat___double_zero":
+     {"/Typeclasses/#Reflection___double_zero":
       {"display": "double_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.double_succ":
-   [{"id": "Reflection___Nat___double_succ",
+   "Reflection.double_succ":
+   [{"id": "Reflection___double_succ",
      "data":
-     {"/Typeclasses/#Reflection___Nat___double_succ":
+     {"/Typeclasses/#Reflection___double_succ":
       {"display": "double_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.double":
-   [{"id": "Reflection___Nat___double",
+   "Reflection.double":
+   [{"id": "Reflection___double",
      "data":
-     {"/Typeclasses/#Reflection___Nat___double":
+     {"/Typeclasses/#Reflection___double":
       {"display": "double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.Even":
-   [{"id": "Reflection___Nat___Even",
+   "Reflection.Even":
+   [{"id": "Reflection___Even",
      "data":
-     {"/Typeclasses/#Reflection___Nat___Even":
+     {"/Typeclasses/#Reflection___Even":
       {"display": "Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "ReflTransGen.trans":
    [{"id": "ReflTransGen___trans",
@@ -8739,7 +8822,7 @@
         "More Exercises"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero-next",
+   [{"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8754,7 +8837,7 @@
         "Induction: Proof by Induction",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero",
+    {"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8983,6 +9066,30 @@
      "data":
      {"/Basics/#NatPlayground___Nat___blt_test3":
       {"display": "blt_test3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.blt_test2":
+   [{"id": "NatPlayground___Nat___blt_test2",
+     "data":
+     {"/Basics/#NatPlayground___Nat___blt_test2":
+      {"display": "blt_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.blt_test1":
+   [{"id": "NatPlayground___Nat___blt_test1",
+     "data":
+     {"/Basics/#NatPlayground___Nat___blt_test1":
+      {"display": "blt_test1",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -13693,6 +13800,16 @@
      "data":
      {"/Typeclasses/#DefaultValueScratch___natDefault":
       {"display": "natDefault",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "DefaultValueScratch.List.headOrEx":
+   [{"id": "DefaultValueScratch___List___headOrEx",
+     "data":
+     {"/Typeclasses/#DefaultValueScratch___List___headOrEx":
+      {"display": "List.headOrEx",
        "context":
        ["Logical Foundations",
         "Typeclasses",

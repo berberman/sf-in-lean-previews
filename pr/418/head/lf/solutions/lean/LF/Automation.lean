@@ -998,23 +998,31 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     | inl hin₁ => exact ih₁ hin₁
     | inr hin₂ => exact ih₂ hin₂
 
---  ### Exercise (1 star): reNotEmpty (Manually graded) ⭐
+--  ### Exercise (3 stars): reNotEmpty (Manually graded) ⭐⭐⭐
 
 --  Write a recursive function `reNotEmpty` that tests whether a regular
---  expression matches some string. Prove that your function is correct.
+--  expression matches some string.
+--
+--  Note that this is *not* asking you to implement full regular expression
+--  matching (which is a neat algorithm, but hard)! Rather, you should
+--  write `reNotEmpty` to return `true` when `re` there can *possibly
+--  exist* a string that it matches. (Hint: when can that not be true?)
+--
+--  Prove that your function is correct.
 
 def reNotEmpty {α : Type} (re : RegExp α) : Bool :=
-  match re with
+  
+  (match re with
   | EmptySet => false
   | EmptyStr => true
   | Char _ => true
   | App re₁ re₂ => reNotEmpty re₁ && reNotEmpty re₂
   | Union re₁ re₂ => reNotEmpty re₁ || reNotEmpty re₂
-  | Star _ => true
+  | Star _ => true)
 
 theorem reNotEmpty_correct {α : Type} (re : RegExp α) :
-    (∃ s, s =~ re) ↔ reNotEmpty re = true := by
-  induction re with (simp only [reNotEmpty])
+  (∃ s, s =~ re) ↔ reNotEmpty re = true := by
+  (induction re with (simp only [reNotEmpty])
   | EmptySet =>
     simp only [Bool.false_eq_true, iff_false, not_exists]
     intro s h; inversion h
@@ -1050,7 +1058,7 @@ theorem reNotEmpty_correct {α : Type} (re : RegExp α) :
       case inl => obtain ⟨s, hs⟩ := ih₁.mpr h₁; exists s; constructor; assumption
       case inr => obtain ⟨s, hs⟩ := ih₂.mpr h₂; exists s; apply mUnionR; assumption
   | Star re _ =>
-    simp only [iff_true]; exists []; constructor
+    simp only [iff_true]; exists []; constructor)
 
 --  ### The `generalize` Tactic
 
@@ -1360,7 +1368,7 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
       apply mUnionR
       assumption
 
---  ### Exercise (2 stars): weak_pumping_star_zero ⭐⭐
+--  ### Exercise (1 star): weak_pumping_star_zero ⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
     (h : (Star re).pumpingConstant ≤ @List.length α []) :
@@ -1368,11 +1376,9 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
       [ ] = s₁ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
-  simp only [List.length_nil] at h
-  inversion h with
-  | refl h h₁ =>
-    have h₂ := pumping_constant_ge_1 re
-    rw [← h₁] at h₂; inversion h₂
+  simp only [List.length_nil, Nat.le_zero] at h
+  apply pumping_constant_0_false at h
+  contradiction
 
 --  ### Exercise (5 stars): weak_pumping_star_app ⭐⭐⭐⭐⭐
 
@@ -1679,4 +1685,4 @@ theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal 
 
 end PalConv
 
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

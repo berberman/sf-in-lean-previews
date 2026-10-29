@@ -217,7 +217,7 @@ import SFLCompat
 --  ### System Requirements
 
 --  Lean runs on Linux, MacOS, and Windows. The files in this book have
---  been tested with Lean version `4.34.0-rc2`.
+--  been tested with Lean version `4.34.0`.
 
 --  ### Installation
 
@@ -407,4 +407,4 @@ import SFLCompat
 --  was supported, in part, by the National Science Foundation under the
 --  NSF Expeditions grant 1521523, *The Science of Deep Specification*.
 
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

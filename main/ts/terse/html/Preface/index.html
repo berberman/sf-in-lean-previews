@@ -2204,11 +2204,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Type-Systems--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="StlcProp/#StlcProp">StlcProp: Properties of STLC</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="MoreStlc/#MoreStlc">MoreStlc: More on the Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Sub/#Sub">Sub: Subtyping</a></td></tr></table></div>
+              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="StlcProp/#StlcProp">StlcProp: Properties of STLC</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="MoreStlc/#MoreStlc">MoreStlc: More on the Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Sub/#Sub">Sub: Subtyping</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="References/#References">References: Typing Mutable References</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Type-Systems--Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Type-Systems--Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Type-Systems--Preface">Preface</a></span></div>
-              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Type-Systems--Preface--Recommended-Citation-Format">Recommended Citation Format</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Preface">Preface</a></span></div>
+              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Type-Systems--Preface--Welcome">Welcome</a></td></tr><tr class="numbered"><td class="num">1.2.</td><td><a href="Preface/#Type-Systems--Preface--Overview">Overview</a></td></tr><tr class="numbered"><td class="num">1.3.</td><td><a href="Preface/#Type-Systems--Preface--Practicalities">Practicalities</a></td></tr><tr class="numbered"><td class="num">1.4.</td><td><a href="Preface/#Type-Systems--Preface--For-Potential-Contributors">For Potential Contributors</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -2219,19 +2219,99 @@ window.onload = async () => {
             <a class="local-button active" href="#" rel="prev" title=" Type Systems"><span class="arrow">←</span><span class="where"> Type Systems</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              1. Preface<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface" title="Permalink">🔗</a></span></h1>
-            <p>
-              This volume is a work in progress.  It will develop a Lean formalization
-of type systems, covering the simply typed lambda calculus, progress and
-preservation theorems, and extensions such as subtyping and polymorphism.
-Please check back later!</p>
+              1. Preface<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Preface" title="Permalink">🔗</a></span></h1>
             <section>
-              <h2 id="Type-Systems--Preface--Recommended-Citation-Format">
-                1.1. Recommended Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Recommended-Citation-Format" title="Permalink">🔗</a></span></h2>
+              <h2 id="Type-Systems--Preface--Welcome">
+                1.1. Welcome<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Welcome" title="Permalink">🔗</a></span></h2>
               <p>
-                If you want to refer to this volume in your own writing, please
+                This is Type Systems, volume 3 of <em>Software Foundations in
+Lean</em>.  It develops <em>type systems</em>: static checks for establishing that <em>all</em>
+programs in a given language are well behaved, in contrast to
+Hoare Logic, which develops techniques for reasoning about the
+behavior of a <em>specific</em> program. The two volumes can be read in either
+order, and both build on the material in Logical Foundations.</p>
+              </section>
+            <section>
+              <h2 id="Type-Systems--Preface--Overview">
+                1.2. Overview<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Overview" title="Permalink">🔗</a></span></h2>
+              <p>
+                To reason about a program, we represent it as a mathematical object
+together with a mathematical function or relation for describing its
+behavior. Our main approach to doing so is called <em>operational semantics</em>,
+and it amounts to defining a kind of <em>abstract interpreter</em> for
+the programs in a language. We present two styles of operational semantics:
+the <em>big-step</em> style specifies a program's behavior by relating it directly to its final
+value, while the <em>small-step</em> style specifies a program's behavior as
+a series of computational steps. The small-step approach is more involved,
+but also makes it possible to reason about a program's evaluation in a more
+fine-grained manner.</p>
+              <p>
+                After introducing operational semantics using a simple language of arithmetic
+and boolean expressions (Slang), we turn to <em>types</em>, the volume's
+central subject. A type is a static classification of what a program computes,
+and a <em>type system</em> is a static reasoning system that uses types to rule out
+whole categories of run-time errors before a program is ever run. Working with a
+small language of numbers and booleans, we define a type system for it and
+prove the two signature theorems of type-system metatheory — <em>progress</em> (a
+well-typed term is either a value or can take a step) and <em>preservation</em>
+(taking a step preserves well-typedness) — which together guarantee that a
+well-typed program can never "go wrong."</p>
+              <p>
+                Finally, we turn our attention to the <em>simply typed lambda-calculus</em> (STLC),
+a much richer language with a more interesting type system. We start from a
+small untyped core and extend it with numbers, pairs, sums, lists, and
+general recursion, proving progress and preservation anew for the extended
+language. We then study <em>subtyping</em>, a mechanism that lets a term of one
+type stand in for a term of another — motivated by the way record types
+behave in object-oriented languages — and prove progress and preservation
+once more for a language with subtyping. In so doing, we work our way up
+to a fairly full featured programming language.</p>
+              </section>
+            <section>
+              <h2 id="Type-Systems--Preface--Practicalities">
+                1.3. Practicalities<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Practicalities" title="Permalink">🔗</a></span></h2>
+              <p>
+                This volume assumes you already have Lean and VS Code set up as described in
+the Logical Foundations Preface, and that you are comfortable with the basic
+mechanics of working through an SFL chapter. The exercises here have the
+same "advanced"/"optional" markings, and star ratings.</p>
+              <p>
+                Briefly (see the Logical Foundations Preface for detail), to get started:</p>
+              <p>
+                If you are using this book as part of a class, your instructor will have
+created a "student" release for you; download and unzip it, open the
+resulting directory in VS Code, and open a <code>.lean</code> file (e.g., <code>TS/Slang.lean</code>)
+to get started.</p>
+              <p>
+                If you are reading on your own, clone the
+<a href="https://github.com/plclub/sf-in-lean">SF-in-Lean</a> repository and run <code>make
+ts-student</code> from the root directory to build the student version of this
+volume; it is written to <code>_out/ts/student/</code>, with an <code>html/</code> directory and a
+<code>lean/</code> directory, exactly as described for Logical Foundations. Run <code>make
+student</code> instead if you want all three volumes built together.</p>
+              <section>
+                <h3 id="Type-Systems--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations">
+                  1.3.1. Building on Your Own Copy of Logical Foundations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations" title="Permalink">🔗</a></span></h3>
+                <p>
+                  This project includes a copy of the Logical Foundations files that chapters
+in this volume depend on, in their own <code>LF/</code> directory, so you do not need a
+separate Logical Foundations download to build or read this volume. If you
+have already worked through Logical Foundations and would rather this volume
+build on your own work, copy the whole <code>LF/</code> directory from your
+Logical Foundations download over this project's <code>LF/</code> directory, then
+rebuild.</p>
+                <p>
+                  Exercises in this volume use the same star ratings, and the same
+"advanced"/"optional" markings, described in the Logical Foundations
+Preface.</p>
+                </section>
+              <section>
+                <h3 id="Type-Systems--Preface--Practicalities--Citation-Format">
+                  1.3.2. Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Practicalities--Citation-Format" title="Permalink">🔗</a></span></h3>
+                <p>
+                  If you want to refer to this volume in your own writing, please
 do so as follows:</p>
-              <pre>@book            {SFL:3,
+                <pre>@book            {SFL:3,
 author       =   {Mike Hicks and Benjamin C. Pierce and the SF-in-Lean team},
 title        =   "Type Systems",
 series       =   "Software Foundations in Lean",
@@ -2239,9 +2319,19 @@ volume       =   "3",
 year         =   "2026",
 publisher    =   "Electronic textbook",
 note         =   {Version 0.1.0, \URL&lt;https://github.com/plclub/sf-in-lean&gt;}
-}</pre><section>
-                <h3 id="Type-Systems--Preface--Recommended-Citation-Format--Credits">
-                  1.1.1. Credits<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--Recommended-Citation-Format--Credits" title="Permalink">🔗</a></span></h3>
+}</pre></section>
+              </section>
+            <section>
+              <h2 id="Type-Systems--Preface--For-Potential-Contributors">
+                1.4. For Potential Contributors<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--For-Potential-Contributors" title="Permalink">🔗</a></span></h2>
+              <p>
+                If you find things you'd like to help add or improve, your
+contributions are welcome!  To get started, clone the
+<a href="https://github.com/plclub/sf-in-lean">SF-in-Lean git repo</a> and
+have a look at <code>ALPHA-TESTERS.md</code>.</p>
+              <section>
+                <h3 id="Type-Systems--Preface--For-Potential-Contributors--Credits">
+                  1.4.1. Credits<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Preface--For-Potential-Contributors--Credits" title="Permalink">🔗</a></span></h3>
                 <p>
                   <strong>Leadership:</strong> Mike Hicks and Benjamin C. Pierce lead the SF-in-Lean project.</p>
                 <p>
@@ -2358,7 +2448,7 @@ part, by the National Science Foundation under the NSF Expeditions grant
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC</div>
+            Source revision: b6f36ae, committed 2026-10-28 17:05 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Type Systems"><span class="arrow">←</span><span class="where"> Type Systems</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           </div>

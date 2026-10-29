@@ -144,10 +144,10 @@ end SimpleArith1
 
 --  ## Relations
 
---  The step relation `⟶` is an example of a relation on
---  `Tm`.
+--  The step relation `⟶` is an example of a binary relation
+--  on `Tm`.
 
-def Relation (X : Type) := X → X → Prop
+def Relation (α : Type) := α → α → Prop
 
 --  One simple property a relation may have is being
 --  *deterministic*: like Slang's big-step evaluation, each
@@ -177,8 +177,8 @@ def Relation (X : Type) := X → X → Prop
 --
 --  Formally,
 
-def Deterministic {X : Type} (R : Relation X) : Prop :=
-  ∀ x y₁ y₂ : X, R x y₁ → R x y₂ → y₁ = y₂
+def Deterministic {α : Type} (R : Relation α) : Prop :=
+  ∀ x y₁ y₂ : α, R x y₁ → R x y₂ → y₁ = y₂
 
 namespace SimpleArith2
 
@@ -187,13 +187,16 @@ theorem step_deterministic : Deterministic SimpleArith1.Step := by
   induction h₁ generalizing y₂ with
   | plus n₁ n₂ =>
       intro h₂
-      cases h₂ <;> first | rfl | cases ‹SimpleArith1.Step (.c _) _›
+      cases h₂ <;> try contradiction
+      rfl
   | plusLeft t₁ t₁' t₂ hs ih =>
       intro h₂
-      cases h₂ <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t₁ _›]
+      cases h₂ <;> try contradiction
+      case plusLeft.plusLeft h => rw [ih _ h]
   | plusRight n₁ t₂ t₂' hs ih =>
       intro h₂
-      cases h₂ <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t₂ _›]
+      cases h₂ <;> try contradiction
+      case plusRight.plusRight h => rw [ih _ h]
 
 end SimpleArith2
 
@@ -224,7 +227,7 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 theorem strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t' := by
   induction t with
-  | c n => left; exact .const n
+  | c n => left; constructor
   | p t₁ t₂ ih₁ ih₂ =>
       right
       cases ih₁ with
@@ -234,15 +237,22 @@ theorem strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t' := by
               cases hv₁ with
               | const n₁ =>
                   cases hv₂ with
-                  | const n₂ => exact ⟨.c (n₁ + n₂), .plus n₁ n₂⟩
+                  | const n₂ =>
+                      exists .c (n₁ + n₂)
+                      apply Step.plus
           | inr h₂ =>
               obtain ⟨t₂', ht₂⟩ := h₂
-              exact ⟨.p t₁ t₂', .plusRight t₁ t₂ t₂' hv₁ ht₂⟩
+              exists .p t₁ t₂'
+              apply Step.plusRight
+              · exact hv₁
+              · exact ht₂
       | inr h₁ =>
           obtain ⟨t₁', ht₁⟩ := h₁
-          exact ⟨.p t₁' t₂, .plusLeft t₁ t₁' t₂ ht₁⟩
+          exists .p t₁' t₂
+          apply Step.plusLeft
+          exact ht₁
 
-def IsNormalForm {X : Type} (R : Relation X) (t : X) : Prop :=
+def IsNormalForm {α : Type} (R : Relation α) (t : α) : Prop :=
   ¬ ∃ t', R t t'
 
 --  We can use this terminology to generalize the
@@ -261,11 +271,13 @@ theorem nf_is_value (t : Tm)
     (h : IsNormalForm Step t) : IsValue t := by
   cases strong_progress t with
   | inl hv => exact hv
-  | inr hstep => exact absurd hstep h
+  | inr hstep => contradiction
 
 theorem nf_same_as_value (t : Tm) :
     IsNormalForm Step t ↔ IsValue t := by
-  exact ⟨nf_is_value t, value_is_nf t⟩
+  constructor
+  · apply nf_is_value
+  · apply value_is_nf
 
 --  Why is this interesting? Because `IsValue` is a
 --  *syntactic* concept — it is defined by looking at the
@@ -327,9 +339,10 @@ inductive Step : Tm → Tm → Prop where
 
 theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
-  apply Exists.intro (.p (.c 0) (.c 0))
-  apply And.intro (.funny _ 0)
-  sorry
+  exists .p (.c 0) (.c 0)
+  constructor
+  · apply IsValue.funny
+  · sorry
 
 --  (End of exercise)
 
@@ -371,9 +384,10 @@ inductive Step : Tm → Tm → Prop where
 
 theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
-  apply Exists.intro (.c 5)
-  apply And.intro (.const 5)
-  sorry
+  exists .c 5
+  constructor
+  · apply IsValue.const
+  · sorry
 
 end Temp2
 
@@ -412,8 +426,8 @@ inductive Step : Tm → Tm → Prop where
 
 theorem value_not_same_as_normal_form :
     ∃ t, ¬ IsValue t ∧ IsNormalForm Step t := by
-  apply Exists.intro (.p (.c 1) (.p (.c 1) (.c 2)))
-  apply And.intro
+  exists .p (.c 1) (.p (.c 1) (.c 2))
+  constructor
   · sorry
   · sorry
 
@@ -421,9 +435,9 @@ end Temp3
 
 --  ## Multi-Step Reduction
 
-inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
-  | refl (x : X) : Multi R x x
-  | step (x y z : X) (h₁ : R x y) (h₂ : Multi R y z) : Multi R x z
+inductive Multi {α : Type} (R : Relation α) : α → α → Prop where
+  | refl (x : α) : Multi R x x
+  | step (x y z : α) (h₁ : R x y) (h₂ : Multi R y z) : Multi R x z
 
 --  We write `⟶*` for the `Multi Step` relation on terms
 
@@ -440,15 +454,20 @@ example : (.p (.c 1) (.c 2)) ⟶* .c (1 + 2) := by
   · exact .plus 1 2
   · rfl
 
-theorem multi_single {X : Type} (R : Relation X) (x y : X)
+theorem multi_single {α : Type} (R : Relation α) (x y : α)
     (h : R x y) : Multi R x y := by
-  exact .step x y y h (.refl y)
+  apply Multi.step (y := y)
+  · exact h
+  · rfl
 
-theorem multi_trans {X : Type} (R : Relation X) (x y z : X)
+theorem multi_trans {α : Type} (R : Relation α) (x y z : α)
     (g : Multi R x y) (h : Multi R y z) : Multi R x z := by
   induction g with
   | refl a => exact h
-  | step a b c h₁ h₂ ih => exact .step a b z h₁ (ih h)
+  | step a b c h₁ h₂ ih =>
+      apply Multi.step (y := b)
+      · exact h₁
+      · exact ih h
 
 --   ----------------------------------------
 
@@ -468,10 +487,14 @@ example :
     (.p (.p (.c 0) (.c 3)) (.p (.c 2) (.c 4)))
       ⟶* .c ((0 + 3) + (2 + 4)) := by
   apply Multi.step (y := .p (.c (0 + 3)) (.p (.c 2) (.c 4)))
-  · exact .plusLeft _ _ _ (.plus 0 3)
+  · apply Step.plusLeft
+    apply Step.plus
   apply Multi.step (y := .p (.c (0 + 3)) (.c (2 + 4)))
-  · exact .plusRight _ _ _ (.const _) (.plus 2 4)
-  · exact multi_single _ _ _ (.plus (0 + 3) (2 + 4))
+  · apply Step.plusRight
+    · apply IsValue.const
+    · apply Step.plus
+  · apply multi_single
+    apply Step.plus
 
 --  ### Normal Forms Again
 
@@ -479,7 +502,7 @@ example :
 --  a normal form, we say that "`t'` is *a normal form of*
 --  `t`."
 
-def IsNormalFormOf {X : Type} (R : Relation X) (t t' : X) : Prop :=
+def IsNormalFormOf {α : Type} (R : Relation α) (t t' : α) : Prop :=
   Multi R t t' ∧ IsNormalForm R t'
 
 --  When `R` is deterministic (as for our language's
@@ -501,14 +524,18 @@ theorem normal_forms_unique :
 --  a normal form in a finite number of steps. Determinism
 --  guarantees that normal form is unique. unique.
 
-def Normalizing {X : Type} (R : Relation X) : Prop :=
+def Normalizing {α : Type} (R : Relation α) : Prop :=
   ∀ t, ∃ t', IsNormalFormOf R t t'
 
 theorem multistep_congr_1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶* t₁') :
     (.p t₁ t₂) ⟶* (.p t₁' t₂) := by
   induction h with
   | refl x => exact .refl _
-  | step x y z h₁ h₂ ih => exact .step _ (.p y t₂) _ (.plusLeft x y t₂ h₁) ih
+  | step x y z h₁ h₂ ih =>
+      apply Multi.step (y := .p y t₂)
+      · apply Step.plusLeft
+        exact h₁
+      · exact ih
 
 --  ### Exercise (2 stars): multistep_congr_2 ⭐⭐
 
@@ -522,17 +549,25 @@ theorem multistep_congr_2 (v₁ t₂ t₂' : Tm) (hv : IsValue v₁)
 theorem step_normalizing : Normalizing Step := by
   intro t
   induction t with
-  | c n => exact ⟨.c n, .refl _, (nf_same_as_value _).mpr (.const n)⟩
+  | c n =>
+      exists .c n
+      constructor
+      · apply Multi.refl
+      · apply (nf_same_as_value _).mpr
+        apply IsValue.const
   | p t₁ t₂ ih₁ ih₂ =>
       obtain ⟨t₁', hs₁, hnf₁⟩ := ih₁
       obtain ⟨t₂', hs₂, hnf₂⟩ := ih₂
       obtain ⟨n₁⟩ := (nf_same_as_value _).mp hnf₁
       obtain ⟨n₂⟩ := (nf_same_as_value _).mp hnf₂
-      apply Exists.intro (.c (n₁ + n₂))
-      apply And.intro _ ((nf_same_as_value _).mpr (.const _))
-      apply multi_trans _ _ _ _ (multistep_congr_1 t₁ (.c n₁) t₂ hs₁)
-      apply multi_trans _ _ _ _ (multistep_congr_2 (.c n₁) t₂ (.c n₂) (.const n₁) hs₂)
-      exact multi_single _ _ _ (.plus n₁ n₂)
+      exists .c (n₁ + n₂)
+      constructor
+      · apply multi_trans _ _ _ _ (multistep_congr_1 t₁ (.c n₁) t₂ hs₁)
+        apply multi_trans _ _ _ _ (multistep_congr_2 (.c n₁) t₂ (.c n₂) (.const n₁) hs₂)
+        apply multi_single
+        apply Step.plus
+      · apply (nf_same_as_value _).mpr
+        apply IsValue.const
 
 --  ### Equivalence of Big-Step and Small-Step
 
@@ -670,7 +705,9 @@ scoped notation:40 a:41 " ⟶a " a':41 => AStep a a'
 example :
     (Aexp.plus (.num 3) (.plus (.num 2) (.num 1)))
       ⟶a (.plus (.num 3) (.num 3)) := by
-  exact .plusRight (.num 3) (.plus 2 1)
+  apply AStep.plusRight
+  · apply IsAValue.num
+  · apply AStep.plus
 
 --  ### Boolean Expressions
 
@@ -734,7 +771,8 @@ scoped notation:40 b:41 " ⟶b " b':41 => BStep b b'
 example :
     (Bexp.le (.plus (.num 1) (.num 1)) (.num 3))
       ⟶b (.le (.num 2) (.num 3)) := by
-  exact .leLeft (.plus 1 1)
+  apply BStep.leLeft
+  apply AStep.plus
 
 --   ----------------------------------------
 
@@ -792,11 +830,11 @@ scoped notation:40 a:41 " ⟶n " a':41 => ANStep a a'
 theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
   intro hd
   have s₁ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
-      (.plus (.num 2) (.plus (.num 2) (.num 2))) :=
-    .plusLeft (.plus 1 1)
+      (.plus (.num 2) (.plus (.num 2) (.num 2))) := by
+    exact .plusLeft (.plus 1 1)
   have s₂ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
-      (.plus (.plus (.num 1) (.num 1)) (.num 4)) :=
-    .plusRight (.plus 2 2)
+      (.plus (.plus (.num 1) (.num 1)) (.num 4)) := by
+    exact .plusRight (.plus 2 2)
   have heq := hd _ _ _ s₁ s₂
   simp at heq
 
@@ -838,7 +876,11 @@ theorem multi_astep_imp_anstep (a a' : Aexp)
     (h : Multi AStep a a') : Multi ANStep a a' := by
   induction h with
   | refl x => exact .refl x
-  | step x y z h₁ _ ih => exact .step x y z (astep_imp_anstep x y h₁) ih
+  | step x y z h₁ _ ih =>
+      apply Multi.step (y := y)
+      · apply astep_imp_anstep
+        exact h₁
+      · exact ih
 
 --  ### A Small-Step Stack Machine
 
@@ -973,4 +1015,4 @@ macro_rules
 example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
   normalize using SimpleArith
 
--- Source revision: 2ca0e09, committed 2026-10-23 15:44 UTC
+-- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC

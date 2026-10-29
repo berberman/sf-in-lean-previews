@@ -5,7 +5,7 @@
   {"imp-notations":
    [{"id": "imp-notations",
      "data":
-     {"title": "Notations",
+     {"title": "Notation",
       "shortTitle": null,
       "sectionNum": "3.1.3.",
       "searchPriority": 50,
@@ -17,40 +17,8 @@
        {"title": "Expressions With Variables",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Notations", "shortTitle": null, "number": "3"}]},
+       {"title": "Notation", "shortTitle": null, "number": "3"}]},
      "address": "/Imp/"}],
-   "imp-delaborators":
-   [{"id": "imp-delaborators",
-     "data":
-     {"title": "Delaborators",
-      "shortTitle": null,
-      "sectionNum": "3.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Expressions With Variables",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Delaborators", "shortTitle": null, "number": "4"}]},
-     "address": "/Imp/"}],
-   "assn-delaborators":
-   [{"id": "assn-delaborators",
-     "data":
-     {"title": "Printing Assertions",
-      "shortTitle": null,
-      "sectionNum": "5.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare: Hoare Logic, Part I",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Printing Assertions", "shortTitle": null, "number": "3"}]},
-     "address": "/Hoare/"}],
    "Slang":
    [{"id": "Slang",
      "data":
@@ -64,6 +32,17 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Slang/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Imp":
    [{"id": "Imp",
      "data":
@@ -108,6 +87,24 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
+   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions":
+   [{"id":
+     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions",
+     "data":
+     {"title": "Functional vs. Relational Definitions",
+      "shortTitle": null,
+      "sectionNum": "2.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Functional vs. Relational Definitions",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions",
@@ -125,24 +122,6 @@
        {"title": "Equivalence of the Definitions",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Slang/"}],
-   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions":
-   [{"id":
-     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions",
-     "data":
-     {"title": "Computational vs. Relational Definitions",
-      "shortTitle": null,
-      "sectionNum": "2.2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
-       {"title": "Computational vs. Relational Definitions",
-        "shortTitle": null,
-        "number": "3"}]},
      "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation":
    [{"id":
@@ -179,6 +158,24 @@
         "number": "1"},
        {"title": "Syntax", "shortTitle": null, "number": "1"}]},
      "address": "/Slang/"}],
+   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation":
+   [{"id":
+     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation",
+     "data":
+     {"title": "Semantics: Evaluation",
+      "shortTitle": null,
+      "sectionNum": "2.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Semantics: Evaluation", "shortTitle": null, "number": "2"}]},
+     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization",
@@ -197,24 +194,6 @@
         "number": "1"},
        {"title": "Optimization", "shortTitle": null, "number": "3"}]},
      "address": "/Slang/"}],
-   "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation":
-   [{"id":
-     "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation",
-     "data":
-     {"title": "Evaluation",
-      "shortTitle": null,
-      "sectionNum": "2.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Evaluation", "shortTitle": null, "number": "2"}]},
-     "address": "/Slang/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions",
@@ -232,45 +211,99 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
-   "Hoare-Logic--Preface--Recommended-Citation-Format--Credits":
-   [{"id": "Hoare-Logic--Preface--Recommended-Citation-Format--Credits",
+   "Hoare-Logic--Preface--Welcome":
+   [{"id": "Hoare-Logic--Preface--Welcome",
      "data":
-     {"title": "Credits",
-      "shortTitle": null,
-      "sectionNum": "1.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Credits", "shortTitle": null, "number": "1"}]},
-     "address": "/Preface/"}],
-   "Hoare-Logic--Preface--Recommended-Citation-Format":
-   [{"id": "Hoare-Logic--Preface--Recommended-Citation-Format",
-     "data":
-     {"title": "Recommended Citation Format",
+     {"title": "Welcome",
       "shortTitle": null,
       "sectionNum": "1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "1"}]},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Hoare-Logic--Preface":
-   [{"id": "Hoare-Logic--Preface",
+   "Hoare-Logic--Preface--Practicalities--Citation-Format":
+   [{"id": "Hoare-Logic--Preface--Practicalities--Citation-Format",
      "data":
-     {"title": "Preface",
+     {"title": "Citation Format",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "1.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations":
+   [{"id":
+     "Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations",
+     "data":
+     {"title": "Building on Your Own Copy of Logical Foundations",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Building on Your Own Copy of Logical Foundations",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Practicalities":
+   [{"id": "Hoare-Logic--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--Overview":
+   [{"id": "Hoare-Logic--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--For-Potential-Contributors--Credits":
+   [{"id": "Hoare-Logic--Preface--For-Potential-Contributors--Credits",
+     "data":
+     {"title": "Credits",
+      "shortTitle": null,
+      "sectionNum": "1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Credits", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface--For-Potential-Contributors":
+   [{"id": "Hoare-Logic--Preface--For-Potential-Contributors",
+     "data":
+     {"title": "For Potential Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"}]},
      "address": "/Preface/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
@@ -331,7 +364,7 @@
      "data":
      {"title": "Evaluation",
       "shortTitle": null,
-      "sectionNum": "3.1.5.",
+      "sectionNum": "3.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -341,7 +374,7 @@
        {"title": "Expressions With Variables",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Evaluation", "shortTitle": null, "number": "5"}]},
+       {"title": "Evaluation", "shortTitle": null, "number": "4"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Expressions-With-Variables":
    [{"id":
@@ -805,7 +838,7 @@
      "data":
      {"title": "Assertion Implication",
       "shortTitle": null,
-      "sectionNum": "5.1.4.",
+      "sectionNum": "5.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -813,7 +846,7 @@
         "shortTitle": null,
         "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Assertion Implication", "shortTitle": null, "number": "4"}]},
+       {"title": "Assertion Implication", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions",
@@ -875,11 +908,11 @@
         "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions":
    [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions",
      "data":
-     {"title": "Weakest Preconditions (Optional)",
+     {"title": "Weakest Preconditions",
       "shortTitle": null,
       "sectionNum": "6.4.",
       "searchPriority": 50,
@@ -888,9 +921,7 @@
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
         "number": "6"},
-       {"title": "Weakest Preconditions (Optional)",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Weakest Preconditions", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
    [{"id":
@@ -927,6 +958,50 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "More Automation", "shortTitle": null, "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Verification-Condition-Generation":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Verification-Condition-Generation",
+     "data":
+     {"title": "Verification Condition Generation",
+      "shortTitle": null,
+      "sectionNum": "6.2.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Extracting Verification Conditions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Verification Condition Generation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Local-consistency":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions--Local-consistency",
+     "data":
+     {"title": "Local consistency",
+      "shortTitle": null,
+      "sectionNum": "6.2.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Extracting Verification Conditions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Local consistency", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions":
    [{"id":
@@ -1232,11 +1307,10 @@
         "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
-   [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
      "data":
-     {"title": "Soundness of (0 + n) Elimination, Redux",
+     {"title": "Proving Inequivalence",
       "shortTitle": null,
       "sectionNum": "4.4.",
       "searchPriority": 50,
@@ -1245,27 +1319,11 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Soundness of (0 + n) Elimination, Redux",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Proving Inequivalence", "shortTitle": null, "number": "4"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
-   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
-     "data":
-     {"title": "Proving Inequivalence",
-      "shortTitle": null,
-      "sectionNum": "4.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Equiv: Program Equivalence",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Proving Inequivalence", "shortTitle": null, "number": "5"}]},
-     "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
      "data":
      {"title": "Behavioral Equivalence is an Equivalence",
       "shortTitle": null,
@@ -1276,16 +1334,16 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is an Equivalence",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence",
      "data":
      {"title": "Behavioral Equivalence is a Congruence",
       "shortTitle": null,
@@ -1296,18 +1354,18 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is a Congruence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence",
      "data":
-     {"title": "Properties of Behavior Equivalence",
+     {"title": "Properties of Behavioral Equivalence",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "searchPriority": 50,
@@ -1316,7 +1374,7 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
@@ -1337,6 +1395,24 @@
        {"title": "The Constant-Folding Transformation",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+     "data":
+     {"title": "Soundness of (0 + n) Elimination, Redux",
+      "shortTitle": null,
+      "sectionNum": "4.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "Soundness of (0 + n) Elimination, Redux",
+        "shortTitle": null,
+        "number": "3"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding":
    [{"id":
@@ -1376,7 +1452,7 @@
      "data":
      {"title": "Extended Exercise: Nondeterministic Imp",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -1385,7 +1461,7 @@
         "number": "4"},
        {"title": "Extended Exercise: Nondeterministic Imp",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "5"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples":
    [{"id":
@@ -1438,14 +1514,14 @@
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "4.7.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
@@ -1523,7 +1599,8 @@
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "verification_conditions_correct":
    [{"id": "verification_conditions_correct",
@@ -1534,7 +1611,8 @@
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "validHoareTriple_def":
    [{"id": "validHoareTriple_def",
@@ -1568,17 +1646,27 @@
         "Finding Loop Invariants",
         "Exercise: Two Loops"]}},
      "address": "/Hoare2/"}],
-   "swap_program":
-   [{"id": "swap_program",
+   "transSound_def":
+   [{"id": "transSound_def",
      "data":
-     {"/Hoare/#swap_program":
-      {"display": "swap_program",
+     {"/Equiv/#transSound_def":
+      {"display": "transSound_def",
        "context":
        ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Sequencing + Assignment"]}},
-     "address": "/Hoare/"}],
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
+   "test_optimize0plus":
+   [{"id": "test_optimize0plus",
+     "data":
+     {"/Equiv/#test_optimize0plus":
+      {"display": "test_optimize0plus",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
    "swap_noninterfering_assignments":
    [{"id": "swap_noninterfering_assignments",
      "data":
@@ -1609,6 +1697,17 @@
         "Formal Decorated Programs",
         "More Automation"]}},
      "address": "/Hoare2/"}],
+   "swapProgram":
+   [{"id": "swapProgram",
+     "data":
+     {"/Hoare/#swapProgram":
+      {"display": "swapProgram",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
+     "address": "/Hoare/"}],
    "swapDec":
    [{"id": "swapDec",
      "data":
@@ -1841,6 +1940,17 @@
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "quiz2_answer":
+   [{"id": "quiz2_answer",
+     "data":
+     {"/Imp/#quiz2_answer":
+      {"display": "quiz2_answer",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Determinism of Evaluation"]}},
+     "address": "/Imp/"}],
    "quiz1_answer":
    [{"id": "quiz1_answer",
      "data":
@@ -1939,6 +2049,50 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "parity_outer_triple_valid":
+   [{"id": "parity_outer_triple_valid",
+     "data":
+     {"/Hoare2/#parity_outer_triple_valid":
+      {"display": "parity_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_lt_2":
+   [{"id": "parity_lt_2",
+     "data":
+     {"/Hoare2/#parity_lt_2":
+      {"display": "parity_lt_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_ge_2":
+   [{"id": "parity_ge_2",
+     "data":
+     {"/Hoare2/#parity_ge_2":
+      {"display": "parity_ge_2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "parity_correct":
+   [{"id": "parity_correct",
+     "data":
+     {"/Hoare2/#parity_correct":
+      {"display": "parity_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "parityDec":
    [{"id": "parityDec",
      "data":
@@ -1969,6 +2123,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "optimizer":
@@ -1979,6 +2134,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "one_le_pow2":
@@ -2021,6 +2177,58 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "never_loop_hoare":
+   [{"id": "never_loop_hoare",
+     "data":
+     {"/Hoare/#never_loop_hoare":
+      {"display": "never_loop_hoare",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
+   "multXandYinZ_spec₂":
+   [{"id": "multXandYinZ_spec___-next",
+     "data":
+     {"/Imp/#multXandYinZ_spec___-next":
+      {"display": "multXandYinZ_spec₂",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "multXandYinZ_spec₁":
+   [{"id": "multXandYinZ_spec___",
+     "data":
+     {"/Imp/#multXandYinZ_spec___":
+      {"display": "multXandYinZ_spec₁",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "multXandYinZ_spec":
+   [{"id": "multXandYinZ_spec",
+     "data":
+     {"/Imp/#multXandYinZ_spec":
+      {"display": "multXandYinZ_spec",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs"]}},
+     "address": "/Imp/"}],
+   "multXandYinZ":
+   [{"id": "multXandYinZ",
+     "data":
+     {"/Imp/#multXandYinZ":
+      {"display": "multXandYinZ",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Commands",
+        "More Examples"]}},
      "address": "/Imp/"}],
    "minimum_correct":
    [{"id": "minimum_correct",
@@ -2076,6 +2284,39 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "l3":
+   [{"id": "l3",
+     "data":
+     {"/Hoare2/#l3":
+      {"display": "l3",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "l2":
+   [{"id": "l2",
+     "data":
+     {"/Hoare2/#l2":
+      {"display": "l2",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "l1":
+   [{"id": "l1",
+     "data":
+     {"/Hoare2/#l1":
+      {"display": "l1",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "is_wp_example":
    [{"id": "is_wp_example",
      "data":
@@ -2084,7 +2325,17 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
+   "isWp_def":
+   [{"id": "isWp_def",
+     "data":
+     {"/Hoare2/#isWp_def":
+      {"display": "isWp_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "invalid_triple":
    [{"id": "invalid_triple",
@@ -2309,7 +2560,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "hoare_asgn_fwd_exists":
    [{"id": "hoare_asgn_fwd_exists",
@@ -2442,6 +2693,50 @@
         "Imp: Simple Imperative Programs",
         "Case Study (Optional)"]}},
      "address": "/Imp/"}],
+   "find_parity_correct'":
+   [{"id": "find_parity_correct___",
+     "data":
+     {"/Hoare2/#find_parity_correct___":
+      {"display": "find_parity_correct'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "find_parity_correct":
+   [{"id": "find_parity_correct",
+     "data":
+     {"/Hoare2/#find_parity_correct":
+      {"display": "find_parity_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "findParityDec'":
+   [{"id": "findParityDec___",
+     "data":
+     {"/Hoare2/#findParityDec___":
+      {"display": "findParityDec'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "findParityDec":
+   [{"id": "findParityDec",
+     "data":
+     {"/Hoare2/#findParityDec":
+      {"display": "findParityDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "fib_eqn":
    [{"id": "fib_eqn",
      "data":
@@ -2735,7 +3030,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "b₁":
    [{"id": "b___",
@@ -2746,19 +3041,8 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
-   "bexp_eval_false":
-   [{"id": "bexp_eval_false",
-     "data":
-     {"/Hoare/#bexp_eval_false":
-      {"display": "bexp_eval_false",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals"]}},
-     "address": "/Hoare/"}],
    "a₂":
    [{"id": "a___-next",
      "data":
@@ -2768,7 +3052,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "a₁":
    [{"id": "a___",
@@ -2779,7 +3063,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "assertion_sub_example2''":
    [{"id": "assertion_sub_example2______",
@@ -2869,6 +3153,28 @@
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "always_loop_hoare''":
+   [{"id": "always_loop_hoare______",
+     "data":
+     {"/Hoare/#always_loop_hoare______":
+      {"display": "always_loop_hoare''",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
+   "always_loop_hoare'":
+   [{"id": "always_loop_hoare___",
+     "data":
+     {"/Hoare/#always_loop_hoare___":
+      {"display": "always_loop_hoare'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
    "always_loop_hoare":
    [{"id": "always_loop_hoare",
      "data":
@@ -2880,14 +3186,6 @@
         "Proof Rules",
         "While Loops"]}},
      "address": "/Hoare/"}],
-   "aeval_subst":
-   [{"id": "aeval_subst",
-     "data":
-     {"/Equiv/#aeval_subst":
-      {"display": "aeval_subst",
-       "context":
-       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
-     "address": "/Equiv/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNot":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNot",
      "data":
@@ -2897,7 +3195,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNeq":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNeq",
@@ -2908,7 +3206,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandLe":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandLe",
@@ -2919,7 +3217,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandGt":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandGt",
@@ -2930,7 +3228,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandEq":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandEq",
@@ -2941,7 +3239,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandAnd":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandAnd",
@@ -2952,7 +3250,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.BExp.delabBool":
    [{"id": "_private___HL___Imp___0___Imp___Delab___BExp___delabBool",
@@ -2963,7 +3261,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandPlus":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandPlus",
@@ -2974,7 +3272,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandNum":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandNum",
@@ -2985,7 +3283,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMult":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMult",
@@ -2996,7 +3294,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMinus":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMinus",
@@ -3007,7 +3305,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandId":
    [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandId",
@@ -3018,7 +3316,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "_private.HL.Imp.0.Imp.Break.Delab.unexpandComBrk":
    [{"id": "_private___HL___Imp___0___Imp___Break___Delab___unexpandComBrk",
@@ -3030,6 +3328,18 @@
         "Imp: Simple Imperative Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
+   "_private.HL.Hoare2.0.SparseAnnotations.DCom.Delab.getDCom?":
+   [{"id":
+     "_private___HL___Hoare2___0___SparseAnnotations___DCom___Delab___getDCom___",
+     "data":
+     {"/Hoare2/#_private___HL___Hoare2___0___SparseAnnotations___DCom___Delab___getDCom___":
+      {"display": "getDCom?",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
    [{"id": "_private___HL___Hoare2___0___DCom___Delab___getDCom___",
      "data":
@@ -3041,6 +3351,19 @@
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "_private.HL.Hoare.0.RepeatExercise.Delab.Com.unexpandRepeatUntil":
+   [{"id":
+     "_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil":
+      {"display": "Com.unexpandRepeatUntil",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "_private.HL.Hoare.0.If1.Delab.Com.unexpandIf1":
    [{"id": "_private___HL___Hoare___0___If1___Delab___Com___unexpandIf1",
      "data":
@@ -3053,6 +3376,42 @@
         "Conditionals",
         "Exercise: One-sided conditionals"]}},
      "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssume":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume":
+      {"display": "Com.unexpandAssume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssert":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert":
+      {"display": "Com.unexpandAssert",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HimpHoare.Delab.Com.unexpandHavoc":
+   [{"id":
+     "_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc":
+      {"display": "Com.unexpandHavoc",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
    "_private.HL.Hoare.0.Assertion.Delab.getAssn":
    [{"id": "_private___HL___Hoare___0___Assertion___Delab___getAssn",
      "data":
@@ -3062,7 +3421,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Z":
    [{"id": "Z",
@@ -3086,47 +3445,6 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "XtimesYinZ_spec₂":
-   [{"id": "XtimesYinZ_spec___-next",
-     "data":
-     {"/Imp/#XtimesYinZ_spec___-next":
-      {"display": "XtimesYinZ_spec₂",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Reasoning About Imp Programs"]}},
-     "address": "/Imp/"}],
-   "XtimesYinZ_spec₁":
-   [{"id": "XtimesYinZ_spec___",
-     "data":
-     {"/Imp/#XtimesYinZ_spec___":
-      {"display": "XtimesYinZ_spec₁",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Reasoning About Imp Programs"]}},
-     "address": "/Imp/"}],
-   "XtimesYinZ_spec":
-   [{"id": "XtimesYinZ_spec",
-     "data":
-     {"/Imp/#XtimesYinZ_spec":
-      {"display": "XtimesYinZ_spec",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Reasoning About Imp Programs"]}},
-     "address": "/Imp/"}],
-   "XtimesYinZ":
-   [{"id": "XtimesYinZ",
-     "data":
-     {"/Imp/#XtimesYinZ":
-      {"display": "XtimesYinZ",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Commands",
-        "More Examples"]}},
-     "address": "/Imp/"}],
    "X":
    [{"id": "X",
      "data":
@@ -3138,6 +3456,61 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "WeirdRel.weird":
+   [{"id": "WeirdRel___weird",
+     "data":
+     {"/Equiv/#WeirdRel___weird":
+      {"display": "weird",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "WeirdRel.trans":
+   [{"id": "WeirdRel___trans",
+     "data":
+     {"/Equiv/#WeirdRel___trans":
+      {"display": "trans",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "WeirdRel.symm":
+   [{"id": "WeirdRel___symm",
+     "data":
+     {"/Equiv/#WeirdRel___symm":
+      {"display": "symm",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "WeirdRel.refl":
+   [{"id": "WeirdRel___refl",
+     "data":
+     {"/Equiv/#WeirdRel___refl":
+      {"display": "refl",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
+   "WeirdRel":
+   [{"id": "WeirdRel",
+     "data":
+     {"/Equiv/#WeirdRel":
+      {"display": "WeirdRel",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavioral Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
    "W":
    [{"id": "W",
      "data":
@@ -3207,6 +3580,16 @@
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
+   "TransSound":
+   [{"id": "TransSound",
+     "data":
+     {"/Equiv/#TransSound":
+      {"display": "TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "T":
    [{"id": "T",
      "data":
@@ -3527,6 +3910,656 @@
         "Imp: Simple Imperative Programs",
         "Case Study (Optional)"]}},
      "address": "/Imp/"}],
+   "SparseAnnotations.verification_correct":
+   [{"id": "SparseAnnotations___verification_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___verification_correct":
+      {"display": "verification_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.vc_correct":
+   [{"id": "SparseAnnotations___vc_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___vc_correct":
+      {"display": "vc_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.validHoareTriple_def'":
+   [{"id": "SparseAnnotations___validHoareTriple_def___",
+     "data":
+     {"/Hoare2/#SparseAnnotations___validHoareTriple_def___":
+      {"display": "validHoareTriple_def'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.two_loops_correct":
+   [{"id": "SparseAnnotations___two_loops_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___two_loops_correct":
+      {"display": "two_loops_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.twoLoopsDec":
+   [{"id": "SparseAnnotations___twoLoopsDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___twoLoopsDec":
+      {"display": "twoLoopsDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.swap_correct":
+   [{"id": "SparseAnnotations___swap_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___swap_correct":
+      {"display": "swap_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.swapDec":
+   [{"id": "SparseAnnotations___swapDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___swapDec":
+      {"display": "swapDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.subtract_slowly_correct":
+   [{"id": "SparseAnnotations___subtract_slowly_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___subtract_slowly_correct":
+      {"display": "subtract_slowly_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.subtractSlowlyDec":
+   [{"id": "SparseAnnotations___subtractSlowlyDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___subtractSlowlyDec":
+      {"display": "subtractSlowlyDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_simpler_outer_triple_valid":
+   [{"id": "SparseAnnotations___square_simpler_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_simpler_outer_triple_valid":
+      {"display": "square_simpler_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_outer_triple_valid":
+   [{"id": "SparseAnnotations___square_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_outer_triple_valid":
+      {"display": "square_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.square_dec'_correct":
+   [{"id": "SparseAnnotations___square_dec____correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___square_dec____correct":
+      {"display": "square_dec'_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareSimplerDec":
+   [{"id": "SparseAnnotations___squareSimplerDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareSimplerDec":
+      {"display": "squareSimplerDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareDec'":
+   [{"id": "SparseAnnotations___squareDec___",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareDec___":
+      {"display": "squareDec'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.squareDec":
+   [{"id": "SparseAnnotations___squareDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___squareDec":
+      {"display": "squareDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.sqrt_correct":
+   [{"id": "SparseAnnotations___sqrt_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___sqrt_correct":
+      {"display": "sqrt_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.sqrtDec":
+   [{"id": "SparseAnnotations___sqrtDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___sqrtDec":
+      {"display": "sqrtDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.parity_outer_triple_valid":
+   [{"id": "SparseAnnotations___parity_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___parity_outer_triple_valid":
+      {"display": "parity_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.parityDec":
+   [{"id": "SparseAnnotations___parityDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___parityDec":
+      {"display": "parityDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.if_minus_plus_correct":
+   [{"id": "SparseAnnotations___if_minus_plus_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___if_minus_plus_correct":
+      {"display": "if_minus_plus_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.if_minus_correct":
+   [{"id": "SparseAnnotations___if_minus_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___if_minus_correct":
+      {"display": "if_minus_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.ifMinusPlusDec":
+   [{"id": "SparseAnnotations___ifMinusPlusDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___ifMinusPlusDec":
+      {"display": "ifMinusPlusDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.ifMinusDec":
+   [{"id": "SparseAnnotations___ifMinusDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___ifMinusDec":
+      {"display": "ifMinusDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.factorial_outer_triple_valid":
+   [{"id": "SparseAnnotations___factorial_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___factorial_outer_triple_valid":
+      {"display": "factorial_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.factorialDec":
+   [{"id": "SparseAnnotations___factorialDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___factorialDec":
+      {"display": "factorialDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dpow2_down_correct":
+   [{"id": "SparseAnnotations___dpow2_down_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dpow2_down_correct":
+      {"display": "dpow2_down_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dpow2Down":
+   [{"id": "SparseAnnotations___dpow2Down",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dpow2Down":
+      {"display": "dpow2Down",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.div_mod_outer_triple_valid":
+   [{"id": "SparseAnnotations___div_mod_outer_triple_valid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___div_mod_outer_triple_valid":
+      {"display": "div_mod_outer_triple_valid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.divModDec":
+   [{"id": "SparseAnnotations___divModDec",
+     "data":
+     {"/Hoare2/#SparseAnnotations___divModDec":
+      {"display": "divModDec",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dfib_correct":
+   [{"id": "SparseAnnotations___dfib_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dfib_correct":
+      {"display": "dfib_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dfib":
+   [{"id": "SparseAnnotations___dfib",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dfib":
+      {"display": "dfib",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.dec_while_correct":
+   [{"id": "SparseAnnotations___dec_while_correct",
+     "data":
+     {"/Hoare2/#SparseAnnotations___dec_while_correct":
+      {"display": "dec_while_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.decWhile":
+   [{"id": "SparseAnnotations___decWhile",
+     "data":
+     {"/Hoare2/#SparseAnnotations___decWhile":
+      {"display": "decWhile",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.T":
+   [{"id": "SparseAnnotations___T",
+     "data":
+     {"/Hoare2/#SparseAnnotations___T":
+      {"display": "T",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.pre":
+   [{"id": "SparseAnnotations___Decorated___pre",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___pre":
+      {"display": "pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.post":
+   [{"id": "SparseAnnotations___Decorated___post",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___post":
+      {"display": "post",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.outerTripleValid_def":
+   [{"id": "SparseAnnotations___Decorated___outerTripleValid_def",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___outerTripleValid_def":
+      {"display": "Decorated.outerTripleValid_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.body":
+   [{"id": "SparseAnnotations___Decorated___body",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___body":
+      {"display": "body",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.VerificationConditions":
+   [{"id": "SparseAnnotations___Decorated___VerificationConditions",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___VerificationConditions":
+      {"display": "Decorated.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated.OuterTripleValid":
+   [{"id": "SparseAnnotations___Decorated___OuterTripleValid",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated___OuterTripleValid":
+      {"display": "Decorated.OuterTripleValid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.Decorated":
+   [{"id": "SparseAnnotations___Decorated",
+     "data":
+     {"/Hoare2/#SparseAnnotations___Decorated":
+      {"display": "Decorated",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.whileDo":
+   [{"id": "SparseAnnotations___DCom___whileDo",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.skip":
+   [{"id": "SparseAnnotations___DCom___skip",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.seq":
+   [{"id": "SparseAnnotations___DCom___seq",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.erase":
+   [{"id": "SparseAnnotations___DCom___erase",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___erase":
+      {"display": "DCom.erase",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.cond":
+   [{"id": "SparseAnnotations___DCom___cond",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.awp":
+   [{"id": "SparseAnnotations___DCom___awp",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___awp":
+      {"display": "DCom.awp",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.assert":
+   [{"id": "SparseAnnotations___DCom___assert",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___assert":
+      {"display": "assert",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.asgn":
+   [{"id": "SparseAnnotations___DCom___asgn",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.VerificationConditions":
+   [{"id": "SparseAnnotations___DCom___VerificationConditions",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___VerificationConditions":
+      {"display": "DCom.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandWhileDo":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandWhileDo",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandWhileDo":
+      {"display": "unexpandWhileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandSeq":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandSeq",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandSeq":
+      {"display": "unexpandSeq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandCond":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandCond",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandCond":
+      {"display": "unexpandCond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandAssert":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandAssert",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandAssert":
+      {"display": "unexpandAssert",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.unexpandAsgn":
+   [{"id": "SparseAnnotations___DCom___Delab___unexpandAsgn",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___unexpandAsgn":
+      {"display": "unexpandAsgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.sparse_dcom.parenthesizer.wrapParens":
+   [{"id":
+     "SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer___wrapParens",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer___wrapParens":
+      {"display": "wrapParens",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.sparse_dcom.parenthesizer":
+   [{"id": "SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___sparse_dcom___parenthesizer":
+      {"display": "sparse_dcom.parenthesizer",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom.Delab.delabSkip":
+   [{"id": "SparseAnnotations___DCom___Delab___delabSkip",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom___Delab___delabSkip":
+      {"display": "delabSkip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
+   "SparseAnnotations.DCom":
+   [{"id": "SparseAnnotations___DCom",
+     "data":
+     {"/Hoare2/#SparseAnnotations___DCom":
+      {"display": "DCom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "Slang.Bexp.optimize0plus_test2":
    [{"id": "Slang___Bexp___optimize0plus_test2",
      "data":
@@ -3624,7 +4657,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_neq":
    [{"id": "Slang___Bexp___eval_neq",
@@ -3635,7 +4668,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_le":
    [{"id": "Slang___Bexp___eval_le",
@@ -3646,7 +4679,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_gt":
    [{"id": "Slang___Bexp___eval_gt",
@@ -3657,7 +4690,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_eq":
    [{"id": "Slang___Bexp___eval_eq",
@@ -3668,7 +4701,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_bool":
    [{"id": "Slang___Bexp___eval_bool",
@@ -3679,7 +4712,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_and":
    [{"id": "Slang___Bexp___eval_and",
@@ -3690,7 +4723,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.evalR_iff_eval":
    [{"id": "Slang___Bexp___evalR_iff_eval",
@@ -3712,7 +4745,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eq":
    [{"id": "Slang___Bexp___eq",
@@ -3982,7 +5015,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_num":
    [{"id": "Slang___Aexp___eval_num",
@@ -3993,7 +5026,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_mult":
    [{"id": "Slang___Aexp___eval_mult",
@@ -4004,7 +5037,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_minus":
    [{"id": "Slang___Aexp___eval_minus",
@@ -4015,7 +5048,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.evalR_iff_eval'":
    [{"id": "Slang___Aexp___evalR_iff_eval___",
@@ -4048,7 +5081,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.Nat.odd":
    [{"id": "Slang___Aexp___Nat___odd",
@@ -4142,7 +5175,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.num":
    [{"id": "Slang___AevalRExtended___Aexp___num",
@@ -4153,7 +5186,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.mult":
    [{"id": "Slang___AevalRExtended___Aexp___mult",
@@ -4164,7 +5197,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.minus":
    [{"id": "Slang___AevalRExtended___Aexp___minus",
@@ -4175,7 +5208,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.any":
    [{"id": "Slang___AevalRExtended___Aexp___any",
@@ -4186,7 +5219,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___plus",
@@ -4197,7 +5230,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.num":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___num",
@@ -4208,7 +5241,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___mult",
@@ -4219,7 +5252,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___minus",
@@ -4230,7 +5263,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.any":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___any",
@@ -4241,7 +5274,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR",
@@ -4252,7 +5285,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp":
    [{"id": "Slang___AevalRExtended___Aexp",
@@ -4263,7 +5296,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.plus":
    [{"id": "Slang___AevalRDivision___Aexp___plus",
@@ -4274,7 +5307,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.num":
    [{"id": "Slang___AevalRDivision___Aexp___num",
@@ -4285,7 +5318,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.mult":
    [{"id": "Slang___AevalRDivision___Aexp___mult",
@@ -4296,7 +5329,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.minus":
    [{"id": "Slang___AevalRDivision___Aexp___minus",
@@ -4307,7 +5340,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.eval":
    [{"id": "Slang___AevalRDivision___Aexp___eval",
@@ -4318,7 +5351,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.div":
    [{"id": "Slang___AevalRDivision___Aexp___div",
@@ -4329,7 +5362,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___plus",
@@ -4340,7 +5373,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.num":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___num",
@@ -4351,7 +5384,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___mult",
@@ -4362,7 +5395,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___minus",
@@ -4373,7 +5406,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.div":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___div",
@@ -4384,7 +5417,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR",
@@ -4395,7 +5428,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp":
    [{"id": "Slang___AevalRDivision___Aexp",
@@ -4406,7 +5439,7 @@
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "RepeatExercise.validHoareTriple_def":
    [{"id": "RepeatExercise___validHoareTriple_def",
@@ -4420,11 +5453,11 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
-   "RepeatExercise.ex1_repeat_works":
-   [{"id": "RepeatExercise___ex1_repeat_works",
+   "RepeatExercise.hoare_repeat":
+   [{"id": "RepeatExercise___hoare_repeat",
      "data":
-     {"/Hoare/#RepeatExercise___ex1_repeat_works":
-      {"display": "ex1_repeat_works",
+     {"/Hoare/#RepeatExercise___hoare_repeat":
+      {"display": "hoare_repeat",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -4432,11 +5465,23 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
-   "RepeatExercise.ex1_repeat":
-   [{"id": "RepeatExercise___ex1_repeat",
+   "RepeatExercise.ex1Repeat_works":
+   [{"id": "RepeatExercise___ex1Repeat_works",
      "data":
-     {"/Hoare/#RepeatExercise___ex1_repeat":
-      {"display": "ex1_repeat",
+     {"/Hoare/#RepeatExercise___ex1Repeat_works":
+      {"display": "ex1Repeat_works",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.ex1Repeat":
+   [{"id": "RepeatExercise___ex1Repeat",
+     "data":
+     {"/Hoare/#RepeatExercise___ex1Repeat":
+      {"display": "ex1Repeat",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -4672,6 +5717,17 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
+   "Lean.Parser.Category.sparse_dcom":
+   [{"id": "Lean___Parser___Category___sparse_dcom",
+     "data":
+     {"/Hoare2/#Lean___Parser___Category___sparse_dcom":
+      {"display": "sparse_dcom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Exercise: Power Series"]}},
+     "address": "/Hoare2/"}],
    "Lean.Parser.Category.imp_com":
    [{"id": "Lean___Parser___Category___imp_com",
      "data":
@@ -4689,7 +5745,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Lean.Parser.Category.imp_aexp":
    [{"id": "Lean___Parser___Category___imp_aexp",
@@ -4700,7 +5756,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Lean.Parser.Category.dcom":
    [{"id": "Lean___Parser___Category___dcom",
@@ -4721,7 +5777,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "Imp.Elab.withSourceInfoOf":
    [{"id": "Imp___Elab___withSourceInfoOf",
@@ -4732,7 +5788,84 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Notations"]}},
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.mkObjectIdentFrom":
+   [{"id": "Imp___Elab___mkObjectIdentFrom",
+     "data":
+     {"/Imp/#Imp___Elab___mkObjectIdentFrom":
+      {"display": "mkObjectIdentFrom",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.isGreek":
+   [{"id": "Imp___Elab___isGreek",
+     "data":
+     {"/Imp/#Imp___Elab___isGreek":
+      {"display": "isGreek",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.elabMetavarOnlyIdent":
+   [{"id": "Imp___Elab___elabMetavarOnlyIdent",
+     "data":
+     {"/Imp/#Imp___Elab___elabMetavarOnlyIdent":
+      {"display": "elabMetavarOnlyIdent",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.classifyIdent?":
+   [{"id": "Imp___Elab___classifyIdent___",
+     "data":
+     {"/Imp/#Imp___Elab___classifyIdent___":
+      {"display": "classifyIdent?",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.object":
+   [{"id": "Imp___Elab___IdentKind___object",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___object":
+      {"display": "object",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.metavar":
+   [{"id": "Imp___Elab___IdentKind___metavar",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___metavar":
+      {"display": "metavar",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind":
+   [{"id": "Imp___Elab___IdentKind",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind":
+      {"display": "IdentKind",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.unexpandComWhileDo":
    [{"id": "Imp___Delab___unexpandComWhileDo",
@@ -4783,7 +5916,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_bexp.parenthesizer":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer",
@@ -4794,7 +5927,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_aexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_aexp___parenthesizer___wrapParens",
@@ -4805,7 +5938,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.imp_aexp.parenthesizer":
    [{"id": "Imp___Delab___imp_aexp___parenthesizer",
@@ -4816,7 +5949,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.getImp":
    [{"id": "Imp___Delab___getImp",
@@ -4835,7 +5968,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Delab.getAexp":
    [{"id": "Imp___Delab___getAexp",
@@ -4846,7 +5979,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
-        "Delaborators"]}},
+        "Notation"]}},
      "address": "/Imp/"}],
    "Imp.Break.while_stops_on_break":
    [{"id": "Imp___Break___while_stops_on_break",
@@ -5528,6 +6661,28 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HoareAssertAssume.hoare_assume":
+   [{"id": "HoareAssertAssume___hoare_assume",
+     "data":
+     {"/Hoare/#HoareAssertAssume___hoare_assume":
+      {"display": "hoare_assume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.hoare_assert":
+   [{"id": "HoareAssertAssume___hoare_assert",
+     "data":
+     {"/Hoare/#HoareAssertAssume___hoare_assert":
+      {"display": "hoare_assert",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
    "HoareAssertAssume.hoare_asgn":
    [{"id": "HoareAssertAssume___hoare_asgn",
      "data":
@@ -5858,6 +7013,16 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HimpHoare2.validHoareTriple_def'":
+   [{"id": "HimpHoare2___validHoareTriple_def___",
+     "data":
+     {"/Hoare2/#HimpHoare2___validHoareTriple_def___":
+      {"display": "validHoareTriple_def'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions"]}},
+     "address": "/Hoare2/"}],
    "HimpHoare2.hoare_havoc_weakest":
    [{"id": "HimpHoare2___hoare_havoc_weakest",
      "data":
@@ -5866,7 +7031,7 @@
        "context":
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
+        "Weakest Preconditions"]}},
      "address": "/Hoare2/"}],
    "HimpHoare.validHoareTriple_def":
    [{"id": "HimpHoare___validHoareTriple_def",
@@ -6573,6 +7738,16 @@
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "HasEval.Delab.delabEvalR":
+   [{"id": "HasEval___Delab___delabEvalR",
+     "data":
+     {"/Hoare/#HasEval___Delab___delabEvalR":
+      {"display": "delabEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
    "HasEval":
    [{"id": "HasEval",
      "data":
@@ -6721,6 +7896,61 @@
       {"display": "assertion1",
        "context": ["Hoare Logic", "Hoare: Hoare Logic, Part I", "Assertions"]}},
      "address": "/Hoare/"}],
+   "Even.zero":
+   [{"id": "Even___zero",
+     "data":
+     {"/Hoare2/#Even___zero":
+      {"display": "zero",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.sub_two_iff":
+   [{"id": "Even___sub_two_iff",
+     "data":
+     {"/Hoare2/#Even___sub_two_iff":
+      {"display": "Even.sub_two_iff",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.not_add_one":
+   [{"id": "Even___not_add_one",
+     "data":
+     {"/Hoare2/#Even___not_add_one":
+      {"display": "Even.not_add_one",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even.addTwo":
+   [{"id": "Even___addTwo",
+     "data":
+     {"/Hoare2/#Even___addTwo":
+      {"display": "addTwo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
+   "Even":
+   [{"id": "Even",
+     "data":
+     {"/Hoare2/#Even":
+      {"display": "Even",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Finding Loop Invariants",
+        "Example: Parity"]}},
+     "address": "/Hoare2/"}],
    "Equiv.equiv":
    [{"id": "Equiv___equiv",
      "data":
@@ -6807,7 +8037,8 @@
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "Decorated.OuterTripleValid":
    [{"id": "Decorated___OuterTripleValid",
@@ -6818,7 +8049,7 @@
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Syntax"]}},
+        "Extracting Verification Conditions"]}},
      "address": "/Hoare2/"}],
    "Decorated":
    [{"id": "Decorated",
@@ -7027,7 +8258,8 @@
        ["Hoare Logic",
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
+        "Extracting Verification Conditions",
+        "Verification Condition Generation"]}},
      "address": "/Hoare2/"}],
    "DCom.Delab.unexpandWhileDo":
    [{"id": "DCom___Delab___unexpandWhileDo",
@@ -7191,16 +8423,6 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Com.transSound_def":
-   [{"id": "Com___transSound_def",
-     "data":
-     {"/Equiv/#Com___transSound_def":
-      {"display": "Com.transSound_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
    "Com.swap_if_branches":
    [{"id": "Com___swap_if_branches",
      "data":
@@ -7368,6 +8590,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Com.optimize0plus":
@@ -7378,6 +8601,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Com.no_whiles":
@@ -7497,7 +8721,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_symm":
@@ -7508,7 +8732,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_refl":
@@ -7519,19 +8743,8 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Com.equiv_notation":
-   [{"id": "Com___equiv_notation",
-     "data":
-     {"/Equiv/#Com___equiv_notation":
-      {"display": "Com.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Com.equiv_equivalence":
    [{"id": "Com___equiv_equivalence",
@@ -7541,7 +8754,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_def":
@@ -7574,7 +8787,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.congruence_seq":
@@ -7585,7 +8798,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.congruence_if":
@@ -7596,7 +8809,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.congruence_asgn":
@@ -7607,7 +8820,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.cond":
@@ -7637,16 +8850,6 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Com.TransSound":
-   [{"id": "Com___TransSound",
-     "data":
-     {"/Equiv/#Com___TransSound":
-      {"display": "Com.TransSound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
    "Com.NoWhilesR.skip":
    [{"id": "Com___NoWhilesR___skip",
      "data":
@@ -7785,17 +8988,6 @@
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
-   "Com.Equiv":
-   [{"id": "Com___Equiv",
-     "data":
-     {"/Equiv/#Com___Equiv":
-      {"display": "Com.Equiv",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
    "Com":
    [{"id": "Com",
      "data":
@@ -7804,16 +8996,6 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Bexp.transSound_def":
-   [{"id": "Bexp___transSound_def",
-     "data":
-     {"/Equiv/#Bexp___transSound_def":
-      {"display": "Bexp.transSound_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
    "Bexp.optimize0plus_sound":
    [{"id": "Bexp___optimize0plus_sound",
      "data":
@@ -7822,6 +9004,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Bexp.optimize0plus":
@@ -7832,6 +9015,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Bexp.not":
@@ -7977,6 +9161,28 @@
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_le_true":
+   [{"id": "Bexp___eval_le_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_true":
+      {"display": "Bexp.eval_le_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_le_false":
+   [{"id": "Bexp___eval_le_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_le_false":
+      {"display": "Bexp.eval_le_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_le":
    [{"id": "Bexp___eval_le",
      "data":
@@ -7988,6 +9194,28 @@
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_gt_true":
+   [{"id": "Bexp___eval_gt_true",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_true":
+      {"display": "Bexp.eval_gt_true",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "Bexp.eval_gt_false":
+   [{"id": "Bexp___eval_gt_false",
+     "data":
+     {"/Hoare2/#Bexp___eval_gt_false":
+      {"display": "Bexp.eval_gt_false",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
    "Bexp.eval_gt":
    [{"id": "Bexp___eval_gt",
      "data":
@@ -8141,7 +9369,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_symm":
@@ -8152,7 +9380,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_refl":
@@ -8163,19 +9391,8 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Bexp.equiv_notation":
-   [{"id": "Bexp___equiv_notation",
-     "data":
-     {"/Equiv/#Bexp___equiv_notation":
-      {"display": "Bexp.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_def":
    [{"id": "Bexp___equiv_def",
@@ -8221,27 +9438,6 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Bexp.TransSound":
-   [{"id": "Bexp___TransSound",
-     "data":
-     {"/Equiv/#Bexp___TransSound":
-      {"display": "Bexp.TransSound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
-   "Bexp.Equiv":
-   [{"id": "Bexp___Equiv",
-     "data":
-     {"/Equiv/#Bexp___Equiv":
-      {"display": "Bexp.Equiv",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
    "Bexp":
    [{"id": "Bexp",
      "data":
@@ -8279,7 +9475,7 @@
    [{"id": "Assertion___subst",
      "data":
      {"/Hoare/#Assertion___subst":
-      {"display": "Assertion.subst",
+      {"display": "subst",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -8297,6 +9493,17 @@
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
+   "Assertion.Delab.delabExistsState":
+   [{"id": "Assertion___Delab___delabExistsState",
+     "data":
+     {"/Hoare/#Assertion___Delab___delabExistsState":
+      {"display": "delabExistsState",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Notations for Assertions"]}},
+     "address": "/Hoare/"}],
    "Assertion.Delab.delabBody":
    [{"id": "Assertion___Delab___delabBody",
      "data":
@@ -8306,7 +9513,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssnArg":
    [{"id": "Assertion___Delab___delabAssnArg",
@@ -8317,7 +9524,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssn":
    [{"id": "Assertion___Delab___delabAssn",
@@ -8328,7 +9535,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertion":
    [{"id": "Assertion___Delab___delabAssertion",
@@ -8339,7 +9546,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertImplies":
    [{"id": "Assertion___Delab___delabAssertImplies",
@@ -8381,6 +9588,17 @@
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "AssertIff":
+   [{"id": "AssertIff",
+     "data":
+     {"/Hoare/#AssertIff":
+      {"display": "AssertIff",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Assertion Implication"]}},
+     "address": "/Hoare/"}],
    "Approx":
    [{"id": "Approx",
      "data":
@@ -8388,16 +9606,6 @@
       {"display": "Approx",
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
-     "address": "/Equiv/"}],
-   "Aexp.transSound_def":
-   [{"id": "Aexp___transSound_def",
-     "data":
-     {"/Equiv/#Aexp___transSound_def":
-      {"display": "Aexp.transSound_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
      "address": "/Equiv/"}],
    "Aexp.subst":
    [{"id": "Aexp___subst",
@@ -8426,6 +9634,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Aexp.optimize0plus":
@@ -8436,6 +9645,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "Aexp.num":
@@ -8537,6 +9747,39 @@
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other_left":
+   [{"id": "Aexp___foldConstants_add_other_left",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other_left":
+      {"display": "Aexp.foldConstants_add_other_left",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other":
+   [{"id": "Aexp___foldConstants_add_other",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other":
+      {"display": "Aexp.foldConstants_add_other",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_num":
+   [{"id": "Aexp___foldConstants_add_num",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_num":
+      {"display": "Aexp.foldConstants_add_num",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.foldConstants":
    [{"id": "Aexp___foldConstants",
      "data":
@@ -8553,6 +9796,14 @@
      "data":
      {"/Equiv/#Aexp___eval_weakening":
       {"display": "Aexp.eval_weakening",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "Aexp.eval_subst":
+   [{"id": "Aexp___eval_subst",
+     "data":
+     {"/Equiv/#Aexp___eval_subst":
+      {"display": "Aexp.eval_subst",
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
      "address": "/Equiv/"}],
@@ -8630,7 +9881,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_symm":
@@ -8641,7 +9892,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_refl":
@@ -8652,46 +9903,14 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
-     "address": "/Equiv/"}],
-   "Aexp.equiv_notation":
-   [{"id": "Aexp___equiv_notation",
-     "data":
-     {"/Equiv/#Aexp___equiv_notation":
-      {"display": "Aexp.equiv_notation",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_def":
    [{"id": "Aexp___equiv_def",
      "data":
      {"/Equiv/#Aexp___equiv_def":
       {"display": "Aexp.equiv_def",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Behavioral Equivalence",
-        "Definitions"]}},
-     "address": "/Equiv/"}],
-   "Aexp.TransSound":
-   [{"id": "Aexp___TransSound",
-     "data":
-     {"/Equiv/#Aexp___TransSound":
-      {"display": "Aexp.TransSound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Program Transformation"]}},
-     "address": "/Equiv/"}],
-   "Aexp.Equiv":
-   [{"id": "Aexp___Equiv",
-     "data":
-     {"/Equiv/#Aexp___Equiv":
-      {"display": "Aexp.Equiv",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",

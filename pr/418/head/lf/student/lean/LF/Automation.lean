@@ -832,10 +832,24 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     | inl hin₁ => exact ih₁ hin₁
     | inr hin₂ => exact ih₂ hin₂
 
---  ### Exercise (1 star): reNotEmpty (Manually graded) ⭐
+--  ### Exercise (3 stars): reNotEmpty (Manually graded) ⭐⭐⭐
 
 --  Write a recursive function `reNotEmpty` that tests whether a regular
---  expression matches some string. Prove that your function is correct.
+--  expression matches some string.
+--
+--  Note that this is *not* asking you to implement full regular expression
+--  matching (which is a neat algorithm, but hard)! Rather, you should
+--  write `reNotEmpty` to return `true` when `re` there can *possibly
+--  exist* a string that it matches. (Hint: when can that not be true?)
+--
+--  Prove that your function is correct.
+
+def reNotEmpty {α : Type} (re : RegExp α) : Bool :=
+  sorry
+
+theorem reNotEmpty_correct {α : Type} (re : RegExp α) :
+  (∃ s, s =~ re) ↔ reNotEmpty re = true := by
+  sorry
 
 --  ### The `generalize` Tactic
 
@@ -1086,7 +1100,7 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
    sorry
   sorry
 
---  ### Exercise (2 stars): weak_pumping_star_zero ⭐⭐
+--  ### Exercise (1 star): weak_pumping_star_zero ⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
     (h : (Star re).pumpingConstant ≤ @List.length α []) :
@@ -1178,4 +1192,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

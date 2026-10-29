@@ -12,11 +12,11 @@ import SFLCompat
 --  If you want to refer to this volume in your own writing, please do so
 --  as follows:
 
---  @book            {SFL:2,
+--  @book            {SFL:3,
 --  author       =   {Mike Hicks and Benjamin C. Pierce and the SF-in-Lean team},
 --  title        =   "Type Systems",
 --  series       =   "Software Foundations in Lean",
---  volume       =   "2",
+--  volume       =   "3",
 --  year         =   "2026",
 --  publisher    =   "Electronic textbook",
 --  note         =   {Version 0.1.0, \URL<https://github.com/plclub/sf-in-lean>}
@@ -72,4 +72,4 @@ import SFLCompat
 --  Note to developers (Benjamin Pierce @bcpierce00):
 --      Other funding should be acknowledged here...
 
--- Source revision: 9e5dba0, committed 2026-09-25 03:12 UTC
+-- Source revision: 4432bd0, committed 2026-10-24 18:24 UTC

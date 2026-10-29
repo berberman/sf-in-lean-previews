@@ -1,8 +1,8 @@
 {
-  "main_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
+  "main_sha": "b6f36ae30553c7dd88c0a70cb2684d3f73ad4af3",
   "prs": {
     "418": {
-      "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
+      "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -41,9 +41,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "b0626dd2f40aab0f14a3c32a7835d35cf621fb08",
+      "head_sha": "feb4462da90fac7a5f5ff4a2eddb863851f94aba",
       "preview_path": "pr/418/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36089409579",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/40120521124",
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
@@ -141,6 +141,100 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
+    },
+    "468": {
+      "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "cf3f01618b10f2fad37267d2cc9fb6c12750104d",
+      "preview_path": "pr/468/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/40545087007",
+      "status": "published",
+      "title": "Largely to completely eliminated use of `rfl` as a term.",
+      "url": "https://github.com/plclub/sf-in-lean/pull/468"
+    },
+    "480": {
+      "base_sha": "b6f36ae30553c7dd88c0a70cb2684d3f73ad4af3",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "02036cc6955d123f19e1335464f9f3d79df24071",
+      "preview_path": "pr/480/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/40958500277",
+      "status": "published",
+      "title": "TS/Types: Hiding notation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/480"
     }
   },
   "schema": 3
