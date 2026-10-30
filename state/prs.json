@@ -188,53 +188,6 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
-    },
-    "480": {
-      "base_sha": "b6f36ae30553c7dd88c0a70cb2684d3f73ad4af3",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "02036cc6955d123f19e1335464f9f3d79df24071",
-      "preview_path": "pr/480/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/40958500277",
-      "status": "published",
-      "title": "TS/Types: Hiding notation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/480"
     }
   },
   "schema": 3

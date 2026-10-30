@@ -1,1 +1,0 @@
-window.docContents[188].resolve({"/References/#Type-Systems--References___-Typing-Mutable-References--Additional-Exercises":{"contents":"\n\n\n\nend STLCRef\n\n\n","context":"Type Systems\u0009References: Typing Mutable References","header":"9.7. Additional Exercises","id":"/References/#Type-Systems--References___-Typing-Mutable-References--Additional-Exercises"}});
