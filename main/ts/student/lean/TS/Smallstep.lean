@@ -1489,4 +1489,4 @@ theorem normalize_ex :
     exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsValue e' := by
   sorry
 
--- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC
+-- Source revision: 547aa60, committed 2026-10-30 14:20 UTC

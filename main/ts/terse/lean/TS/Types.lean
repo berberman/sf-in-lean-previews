@@ -49,6 +49,19 @@ inductive Tm where
 
 --  #### Notation
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
+--  Every object language in this volume is given its syntax
+--  the same way; here is the pattern:
+--  - `declare_syntax_cat` adds a new non-terminal to Lean's
+--    grammar — here `tm`, the terms of this chapter's
+--    language.
+--  - Each `syntax` directive declares one production of
+--    that non-terminal, with annotations fixing precedence,
+--    and the last one declares the `<{ … }>` brackets that
+--    let a `tm` appear where Lean expects a term.
+--  - `macro_rules` then translates the resulting syntax
+--    forms into the corresponding constructors of `Tm`.
+
 declare_syntax_cat tm
 -- The keyword atoms (`true`/`false`/`succ`/`pred`/`iszero`) are
 -- parsed as bare identifiers and dispatched in the macro below,
@@ -86,7 +99,13 @@ macro_rules
   | `(<{ if $c then $t else $e }>) =>
       `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
+--  A *delaborator* closes the loop: it walks a `Tm` value
+--  and rebuilds the concrete syntax, so that terms
+--  appearing in goals, `#check`, and `#eval` output print
+--  as `<{ … }>` rather than as a pile of constructors.
+--  (Setting `pp.notation false` turns it off, revealing the
+--  raw constructors.) A `Ty` prints as `Bool` or `Nat`.
+
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's
 precedences. -/
@@ -661,4 +680,4 @@ theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
 
 --   ----------------------------------------
 
--- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC
+-- Source revision: 547aa60, committed 2026-10-30 14:20 UTC

@@ -62,9 +62,11 @@ inductive Tm where
 --  is written just `t`); `~e` escapes an arbitrary Lean expression, and
 --  `( … )` groups.
 --
---  You do not need to understand exactly how the declarations below work;
---  every object language in this book is given its syntax the same way, so
---  it is worth seeing the pattern once:
+--  You do not need to understand exactly how the declarations below work.
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
+--  Every object language in this volume is given its syntax the same way;
+--  here is the pattern:
 --  - `declare_syntax_cat` adds a new non-terminal to Lean's grammar — here
 --    `tm`, the terms of this chapter's language.
 --  - Each `syntax` directive declares one production of that non-terminal,
@@ -116,7 +118,6 @@ macro_rules
 --  constructors. (Setting `pp.notation false` turns it off, revealing the
 --  raw constructors.) A `Ty` prints as `Bool` or `Nat`.
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's
 precedences. -/
@@ -980,4 +981,4 @@ end TM
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
--- Source revision: b6f36ae, committed 2026-10-28 17:05 UTC
+-- Source revision: 547aa60, committed 2026-10-30 14:20 UTC
