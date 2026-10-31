@@ -191,11 +191,48 @@
     },
     "481": {
       "base_sha": "547aa60296fa532b4bbe9930917b82eafbbddc79",
-      "changed_variants": [],
-      "head_sha": "c08d6d4ce3bc13d7162cbda26195e320561ec4d2",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2fdcf21686c761702ff976d5767f7979e8e5d539",
       "preview_path": "pr/481/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41151982697",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41162275283",
+      "status": "published",
       "title": "TS/Stlc: Proofread, slight proof fixup",
       "url": "https://github.com/plclub/sf-in-lean/pull/481"
     }
