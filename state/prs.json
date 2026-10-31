@@ -194,8 +194,8 @@
       "changed_variants": [],
       "head_sha": "c08d6d4ce3bc13d7162cbda26195e320561ec4d2",
       "preview_path": "pr/481/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41151982697",
+      "status": "ci-failed",
       "title": "TS/Stlc: Proofread, slight proof fixup",
       "url": "https://github.com/plclub/sf-in-lean/pull/481"
     }
