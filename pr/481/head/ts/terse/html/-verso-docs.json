@@ -323,71 +323,71 @@
  "768": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X Y ⦂ τ₁✝ }&gt;</code>",
  "767": "<code>&lt;{ X ↦ Bool ; ∅ ⊢ λ Y : Bool . X Y ⦂ τ₁✝ }&gt;</code>",
  "766": "<code>&lt;{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }&gt;</code>",
- "765": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
- "764":
+ "765":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
- "763":
+ "764":
  "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
- "762":
+ "763":
  "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
- "761":
+ "762":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ Γ ⊢ ~(Stlc.Tm.var x) ⦂ τ₁ }&gt;</code>",
- "760":
+ "761":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "760": "<code>StlcCommon.Delab.unexpandHasType : Unexpander</code>",
  "76": "<code>(b₁.mult b₂).optimize0plus.eval = (b₁.mult b₂).eval</code>",
- "759": "<code>StlcCommon.Delab.unexpandHasType : Unexpander</code>",
- "758": "<code>Stlc.HasType.unexpand : Unexpander</code>",
- "757": "<code>HasType Γ t₃ τ₁</code>",
- "756": "<code>HasType Γ t₂ τ₁</code>",
- "755": "<code>HasType Γ t₁ (&lt;{ Bool }&gt;)</code>",
- "754":
+ "759": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "758": "<code>HasType Γ t₃ τ₁</code>",
+ "757": "<code>HasType Γ t₂ τ₁</code>",
+ "756": "<code>HasType Γ t₁ (&lt;{ Bool }&gt;)</code>",
+ "755":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ₁ : Ty) (h₁ : HasType Γ t₁ (&lt;{ Bool }&gt;)) (h₂ : HasType Γ t₂ τ₁)\n  (h₃ : HasType Γ t₃ τ₁) : HasType Γ (&lt;{ if t₁ then t₂ else t₃ }&gt;) τ₁</code>",
- "753":
+ "754":
  "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ (&lt;{ false }&gt;) (&lt;{ Bool }&gt;)</code>",
- "752":
+ "753":
  "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ (&lt;{ true }&gt;) (&lt;{ Bool }&gt;)</code>",
- "751": "<code>HasType Γ t₂ τ₂</code>",
- "750": "<code>HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "752": "<code>HasType Γ t₂ τ₂</code>",
+ "751": "<code>HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "750":
+ "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
  "75":
  "<code>(b₁.optimize0plus.minus b₂.optimize0plus).eval = (b₁.minus b₂).eval</code>",
- "749":
- "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
- "748": "<code>HasType (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
- "747":
+ "749": "<code>HasType (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
+ "748":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
- "746": "<code>Γ[x] = some τ₁</code>",
- "745": "<code>Context</code>",
- "744":
+ "747": "<code>Γ[x] = some τ₁</code>",
+ "746": "<code>Context</code>",
+ "745":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : HasType Γ (Stlc.Tm.var x) τ₁</code>",
- "743": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
- "742": "<code>PartialMap (α β : Type) : Type</code>",
- "741": "<code>Stlc.Context : Type</code>",
- "740":
+ "744": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
+ "743": "<code>PartialMap (α β : Type) : Type</code>",
+ "742": "<code>Stlc.Context : Type</code>",
+ "741":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
+ "740":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
  "74": "<code>(b₁.minus b₂).optimize0plus.eval = (b₁.minus b₂).eval</code>",
  "739":
- "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
- "738":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "737": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
- "736":
+ "738": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "737":
  "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : τ . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
- "735":
+ "736":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step (&lt;{ if t₁ then t₂ else t₃ }&gt;) (&lt;{ if t₁' then t₂ else t₃ }&gt;)</code>",
- "734":
+ "735":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step (&lt;{ if false then t₁ else t₂ }&gt;) t₂</code>",
- "733":
+ "734":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step (&lt;{ if true then t₁ else t₂ }&gt;) t₁</code>",
- "732": "<code>v₁.IsValue</code>",
- "731":
+ "733": "<code>v₁.IsValue</code>",
+ "732":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step (&lt;{ v₁ t₂ }&gt;) (&lt;{ v₁ t₂' }&gt;)</code>",
- "730":
+ "731":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (&lt;{ t₁ t₂ }&gt;) (&lt;{ t₁' t₂ }&gt;)</code>",
+ "730": "<code>v.IsValue</code>",
  "73": "<code>(b₁.plus b₂).optimize0plus.eval = b₁.eval + b₂.eval</code>",
- "729": "<code>v.IsValue</code>",
- "728":
+ "729":
  "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : Step (&lt;{ (λ ~x : τ . t) v }&gt;) (&lt;{ [~x := v] t }&gt;)</code>",
- "727": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "728": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "727": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
  "726":
  "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
  "725":

@@ -406,7 +406,13 @@ inductive Tm.IsValue : Tm → Prop where
   | tru : IsValue <{ true }>
   | fls : IsValue <{ false }>
 
+-- for later use with `normalize`
 attribute [StlcEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
+
+--  Here `..` tells Lean to fill in the constructor's
+--  remaining explicit arguments (the abstraction's
+--  parameter name, type, and body) with underscores, to be
+--  found by unifying against the goal.
 
 theorem idB_value : Tm.IsValue idB := by exact .abs ..
 theorem idBB_value : Tm.IsValue idBB := by exact .abs ..
@@ -418,10 +424,10 @@ theorem notB_value : Tm.IsValue notB := by exact .abs ..
 --  program.
 --
 --  Intuitively, a "complete program" must not refer to any
---  undefined variables. We'll see shortly how to define the
---  *free* variables in an STLC term. A complete program,
---  then, is one that is *closed* — that is, that contains
---  no free variables.
+--  undefined variables. (We'll formally define the *free*
+--  variables of an STLC term in the StlcProp chapter.) A
+--  complete program, then, is one that is *closed* — that
+--  is, that contains no free variables.
 --
 --  (Conversely, a term that may contain free variables is
 --  often called an *open term*.)
@@ -537,6 +543,15 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty)
 @[simp] theorem subst_ite :
     <{ [x := s] (if t₁ then t₂ else t₃) }> =
       <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }> := by rfl
+
+--  As a sanity check, here are formal versions of two of
+--  the substitution examples given above:
+
+example : <{ [X := true] (if X then true else false) }> =
+    <{ if true then true else false }> := by rfl
+
+example : <{ [X := true] (λ Y : Bool . if Y then X else false) }> =
+    <{ λ Y : Bool . if Y then true else false }> := by rfl
 
 --   ----------------------------------------
 
@@ -656,8 +671,8 @@ end
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
--- for later use with `normalize`
-attribute [StlcEval] Step.appAbs Step.app1 Step.app2 Step.ifTrue Step.ifFalse Step.ifStep
+attribute [StlcEval] Step.appAbs Step.app1 Step.app2
+attribute [StlcEval] Step.ifTrue Step.ifFalse Step.ifStep
 
 --   ----------------------------------------
 
@@ -787,7 +802,8 @@ example : <{ idBB notB true }> ⟶* <{ false }> := by
   · exact .app1 <{ idBB notB }> notB <{ true }>
       (.appAbs "X" <{ Bool → Bool }> <{ X }> notB notB_value)
   apply Multi.step (y := <{ if true then false else true }>)
-  · exact .appAbs "X" <{ Bool }> <{ if X then false else true }> <{ true }> .tru
+  · exact .appAbs "X" <{ Bool }> <{ if X then false else true }>
+      <{ true }> .tru
   apply Multi.step (y := <{ false }>)
   · exact .ifTrue <{ false }> <{ true }>
   · rfl
@@ -851,6 +867,11 @@ example : <{ idBB (notB true) }> ⟶* <{ false }> := by
 
 --  ### Contexts
 
+--  Even though whole programs are closed, typechecking an
+--  abstraction `λx:T. t` means typechecking its body `t`
+--  with the binder `λx` stripped off — so `t` itself may be
+--  open.
+--
 --  *Question*: What is the type of the term "`X Y`"?
 --
 --  *Answer*: It depends on the types of `X` and `Y`!
@@ -926,7 +947,9 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ Γ ⊢ t₃ ⦂ τ₁ }>) :
       <{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁ }>
 
-attribute [StlcTyping] HasType.var HasType.abs HasType.app HasType.tru HasType.fls HasType.ite
+-- for later use with apply_rules
+attribute [StlcTyping] HasType.var HasType.abs HasType.app
+attribute [StlcTyping] HasType.tru HasType.fls HasType.ite
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
 open Lean PrettyPrinter in
@@ -994,8 +1017,9 @@ example :
 example :
     ¬ ∃ τ, <{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }> := by
   intro ⟨τ, hc⟩
-  -- Each `inversion` peels off one rule of the derivation, naming the premise
-  -- it leaves behind; the context stays small because the old hypothesis goes away.
+  -- Each `inversion` peels off one rule of the derivation,
+  -- naming the premise it leaves behind; the context stays
+  -- small because the old hypothesis goes away.
   inversion hc with
   | abs h₁ =>
     inversion h₁ with
@@ -1004,8 +1028,8 @@ example :
       | app _ hf =>
         inversion hf with
         | var hx =>
-          -- `X` is bound to `Bool` in the context, but the application rule
-          -- needs it to have an arrow type.
+          -- `X` is bound to `Bool` in the context, but the
+          -- application rule needs it to have an arrow type.
           exact Ty.noConfusion (Option.some.inj hx)
 
 --  Another nonexample:
@@ -1045,4 +1069,4 @@ example :
 
 end Stlc
 
--- Source revision: 6a0faaa, committed 2026-10-31 02:57 UTC
+-- Source revision: 9ead3f3, committed 2026-11-02 14:33 UTC

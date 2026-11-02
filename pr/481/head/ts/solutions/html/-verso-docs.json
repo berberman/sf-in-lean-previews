@@ -3972,119 +3972,119 @@
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
  "1169":
  "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
- "1168": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
- "1167":
+ "1168":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
- "1166":
+ "1167":
  "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
- "1165":
+ "1166":
  "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
- "1164":
+ "1165":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ Γ ⊢ ~(Stlc.Tm.var x) ⦂ τ₁ }&gt;</code>",
- "1163":
+ "1164":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "1162": "<code>StlcCommon.Delab.unexpandHasType : Unexpander</code>",
- "1161": "<code>Stlc.HasType.unexpand : Unexpander</code>",
- "1160": "<code>HasType Γ t₃ τ₁</code>",
+ "1163": "<code>StlcCommon.Delab.unexpandHasType : Unexpander</code>",
+ "1162": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "1161": "<code>HasType Γ t₃ τ₁</code>",
+ "1160": "<code>HasType Γ t₂ τ₁</code>",
  "116":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
- "1159": "<code>HasType Γ t₂ τ₁</code>",
- "1158": "<code>HasType Γ t₁ (&lt;{ Bool }&gt;)</code>",
- "1157":
+ "1159": "<code>HasType Γ t₁ (&lt;{ Bool }&gt;)</code>",
+ "1158":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ₁ : Ty) (h₁ : HasType Γ t₁ (&lt;{ Bool }&gt;)) (h₂ : HasType Γ t₂ τ₁)\n  (h₃ : HasType Γ t₃ τ₁) : HasType Γ (&lt;{ if t₁ then t₂ else t₃ }&gt;) τ₁</code>",
- "1156":
+ "1157":
  "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ (&lt;{ false }&gt;) (&lt;{ Bool }&gt;)</code>",
- "1155":
+ "1156":
  "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ (&lt;{ true }&gt;) (&lt;{ Bool }&gt;)</code>",
- "1154": "<code>HasType Γ t₂ τ₂</code>",
- "1153": "<code>HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
- "1152":
+ "1155": "<code>HasType Γ t₂ τ₂</code>",
+ "1154": "<code>HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "1153":
  "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
- "1151": "<code>HasType (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
- "1150":
+ "1152": "<code>HasType (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
+ "1151":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "1150": "<code>Γ[x] = some τ₁</code>",
  "115": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1149": "<code>Γ[x] = some τ₁</code>",
- "1148": "<code>Context</code>",
- "1147":
+ "1149": "<code>Context</code>",
+ "1148":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : HasType Γ (Stlc.Tm.var x) τ₁</code>",
- "1146": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
- "1145": "<code>PartialMap (α β : Type) : Type</code>",
- "1144": "<code>Stlc.Context : Type</code>",
- "1143": "<code>Stlc.stepExample5' : &lt;{ idBBBB idBB idB }&gt; ⟶* idB</code>",
- "1142": "<code>Stlc.stepExample5 : &lt;{ idBBBB idBB idB }&gt; ⟶* idB</code>",
- "1141":
+ "1147": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
+ "1146": "<code>PartialMap (α β : Type) : Type</code>",
+ "1145": "<code>Stlc.Context : Type</code>",
+ "1144": "<code>Stlc.stepExample5' : &lt;{ idBBBB idBB idB }&gt; ⟶* idB</code>",
+ "1143": "<code>Stlc.stepExample5 : &lt;{ idBBBB idBB idB }&gt; ⟶* idB</code>",
+ "1142":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
- "1140":
+ "1141":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
+ "1140":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
  "114":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
- "1139":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "1138": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
- "1137":
+ "1139": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "1138":
  "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : τ . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
- "1136":
+ "1137":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step (&lt;{ if t₁ then t₂ else t₃ }&gt;) (&lt;{ if t₁' then t₂ else t₃ }&gt;)</code>",
- "1135":
+ "1136":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step (&lt;{ if false then t₁ else t₂ }&gt;) t₂</code>",
- "1134":
+ "1135":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step (&lt;{ if true then t₁ else t₂ }&gt;) t₁</code>",
- "1133": "<code>v₁.IsValue</code>",
- "1132":
+ "1134": "<code>v₁.IsValue</code>",
+ "1133":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step (&lt;{ v₁ t₂ }&gt;) (&lt;{ v₁ t₂' }&gt;)</code>",
- "1131":
+ "1132":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (&lt;{ t₁ t₂ }&gt;) (&lt;{ t₁' t₂ }&gt;)</code>",
- "1130": "<code>v.IsValue</code>",
+ "1131": "<code>v.IsValue</code>",
+ "1130":
+ "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : Step (&lt;{ (λ ~x : τ . t) v }&gt;) (&lt;{ [~x := v] t }&gt;)</code>",
  "113":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1129":
- "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : Step (&lt;{ (λ ~x : τ . t) v }&gt;) (&lt;{ [~x := v] t }&gt;)</code>",
- "1128": "<code>Stlc.Step : Tm → Tm → Prop</code>",
- "1127": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
- "1126": "<code>Substi s x t₃✝ t₃'✝</code>",
- "1125": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
- "1124": "<code>Substi s x t₂✝ t₂'✝</code>",
- "1123": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
- "1122": "<code>Substi s x t₁✝ t₁'✝</code>",
- "1121": "<code>x ≠ x'✝</code>",
- "1120": "<code>Substi s x t t'</code>",
+ "1129": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "1128": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
+ "1127": "<code>Substi s x t₃✝ t₃'✝</code>",
+ "1126": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
+ "1125": "<code>Substi s x t₂✝ t₂'✝</code>",
+ "1124": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
+ "1123": "<code>Substi s x t₁✝ t₁'✝</code>",
+ "1122": "<code>x ≠ x'✝</code>",
+ "1121": "<code>Substi s x t t'</code>",
+ "1120": "<code>Substi s x t₃ (&lt;{ [~x := s] t₃ }&gt;)</code>",
  "112": "<code>EvalR a₂ n₂</code>",
- "1119": "<code>Substi s x t₃ (&lt;{ [~x := s] t₃ }&gt;)</code>",
- "1118": "<code>Substi s x t₂ (&lt;{ [~x := s] t₂ }&gt;)</code>",
- "1117": "<code>Substi s x t₁ (&lt;{ [~x := s] t₁ }&gt;)</code>",
- "1116": "<code>¬x = y</code>",
- "1115": "<code>x = y</code>",
- "1114":
+ "1119": "<code>Substi s x t₂ (&lt;{ [~x := s] t₂ }&gt;)</code>",
+ "1118": "<code>Substi s x t₁ (&lt;{ [~x := s] t₁ }&gt;)</code>",
+ "1117": "<code>¬x = y</code>",
+ "1116": "<code>x = y</code>",
+ "1115":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1113": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
- "1112":
+ "1114": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
+ "1113":
  "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
- "1111": "<code>Substi s x t₃ t₃'</code>",
- "1110":
+ "1112": "<code>Substi s x t₃ t₃'</code>",
+ "1111":
  "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x (&lt;{ if t₁ then t₂ else t₃ }&gt;) (&lt;{ if t₁' then t₂' else t₃' }&gt;)</code>",
+ "1110":
+ "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x (&lt;{ false }&gt;) (&lt;{ false }&gt;)</code>",
  "111": "<code>EvalR a₁ n₁</code>",
  "1109":
- "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x (&lt;{ false }&gt;) (&lt;{ false }&gt;)</code>",
- "1108":
  "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x (&lt;{ true }&gt;) (&lt;{ true }&gt;)</code>",
- "1107": "<code>Substi s x t₂ t₂'</code>",
- "1106":
+ "1108": "<code>Substi s x t₂ t₂'</code>",
+ "1107":
  "<code>Stlc.Substi.app {s : Tm} {x : String} (t₁ t₂ t₁' t₂' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :\n  Substi s x (&lt;{ t₁ t₂ }&gt;) (&lt;{ t₁' t₂' }&gt;)</code>",
- "1105": "<code>Substi s x t₁ t₁'</code>",
- "1104":
+ "1106": "<code>Substi s x t₁ t₁'</code>",
+ "1105":
  "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (τ₁ : Ty) (t₁ t₁' : Tm) (hx : x ≠ x') (h : Substi s x t₁ t₁') :\n  Substi s x (&lt;{ λ ~x' : τ₁ . t₁ }&gt;) (&lt;{ λ ~x' : τ₁ . t₁' }&gt;)</code>",
- "1103":
+ "1104":
  "<code>Stlc.Substi.abs1 {s : Tm} {x : String} (τ₂ : Ty) (t₁ : Tm) : Substi s x (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ λ ~x : τ₂ . t₁ }&gt;)</code>",
- "1102": "<code>x ≠ x'</code>",
- "1101":
+ "1103": "<code>x ≠ x'</code>",
+ "1102":
  "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') : Substi s x (Stlc.Tm.var x') (Stlc.Tm.var x')</code>",
- "1100":
+ "1101":
  "<code>Stlc.Substi.var1 {s : Tm} {x : String} : Substi s x (Stlc.Tm.var x) s</code>",
+ "1100": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
  "110":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "11": "<code>Slang.Bexp : Type</code>",
- "1099": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
+ "1099": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
  "1098":
  "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
  "1097":
