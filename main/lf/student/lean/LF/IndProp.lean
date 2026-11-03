@@ -1568,4 +1568,4 @@ theorem pigeonhole_principle {α : Type} {l₁ l₂ : List α}
     Repeats l₁ := by
   sorry
 
--- Source revision: 20571ca, committed 2026-11-03 22:07 UTC
+-- Source revision: 0cc44a1, committed 2026-11-03 22:25 UTC

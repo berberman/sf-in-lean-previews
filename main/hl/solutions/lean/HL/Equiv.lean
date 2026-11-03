@@ -2321,4 +2321,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
   obtain ⟨st', h⟩ := hc
   apply ha at h; exists st'
 
--- Source revision: 20571ca, committed 2026-11-03 22:07 UTC
+-- Source revision: 0cc44a1, committed 2026-11-03 22:25 UTC
