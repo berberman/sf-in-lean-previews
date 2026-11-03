@@ -188,6 +188,16 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
+    },
+    "485": {
+      "base_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
+      "changed_variants": [],
+      "head_sha": "4b546d83812d7564b12a387523d54fe2ca96db8c",
+      "preview_path": "pr/485/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41691111699",
+      "status": "ci-failed",
+      "title": "TS/Stlc: Last pass before class",
+      "url": "https://github.com/plclub/sf-in-lean/pull/485"
     }
   },
   "schema": 3
