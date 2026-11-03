@@ -188,141 +188,140 @@
  "859":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
  "858": "<code>(x →ₚ τ' ; Γ)[y] = some τ</code>",
- "857": "<code>Γ✝[x✝] = some τ₁✝</code>",
- "856": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ τ }&gt;</code>",
- "855": "<code>&lt;{ ∅ ⊢ v ⦂ τ' }&gt;</code>",
- "854": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;</code>",
- "853":
+ "857": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ τ }&gt;</code>",
+ "856": "<code>&lt;{ ∅ ⊢ v ⦂ τ' }&gt;</code>",
+ "855": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;</code>",
+ "854":
  "<code>Stlc.substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty) (t v : Tm) (τ : Ty)\n  (hτ : &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ' }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "852": "<code>∅[x] = some b</code>",
- "851":
+ "853": "<code>∅[x] = some b</code>",
+ "852":
  "<code class=\"docstring\">`intros` repeatedly applies `intro` to introduce zero or more hypotheses\nuntil the goal is no longer a *binding expression*\n(i.e., a universal quantifier, function type, implication, or `have`/`let`),\nwithout performing any definitional reductions (no unfolding, beta, eta, etc.).\nThe introduced hypotheses receive inaccessible (hygienic) names.\n\n`intros x y z` is equivalent to `intro x y z` and exists only for historical reasons.\nThe `intro` tactic should be preferred in this case.\n\n## Properties and relations\n\n- `intros` succeeds even when it introduces no hypotheses.\n\n- `repeat intro` is like `intros`, but it performs definitional reductions\n  to expose binders, and as such it may introduce more hypotheses than `intros`.\n\n- `intros` is equivalent to `intro _ _ … _`,\n  with the fewest trailing `_` placeholders needed so that the goal is no longer a binding expression.\n  The trailing introductions do not perform any definitional reductions.\n\n## Examples\n\nImplications:\n```lean\nexample (p q : Prop) : p → q → p := by\n  intros\n  /- Tactic state\n     a✝¹ : p\n     a✝ : q\n     ⊢ p      -/\n  assumption\n```\n\nLet-bindings:\n```lean\nexample : let n := 1; let k := 2; n + k = 3 := by\n  intros\n  /- n✝ : Nat := 1\n     k✝ : Nat := 2\n     ⊢ n✝ + k✝ = 3 -/\n  rfl\n```\n\nDoes not unfold definitions:\n```lean\ndef AllEven (f : Nat → Nat) := ∀ n, f n % 2 = 0\n\nexample : ∀ (f : Nat → Nat), AllEven f → AllEven (fun k =&gt; f (k + 1)) := by\n  intros\n  /- Tactic state\n     f✝ : Nat → Nat\n     a✝ : AllEven f✝\n     ⊢ AllEven fun k =&gt; f✝ (k + 1) -/\n  sorry\n```\n</code>",
- "850":
+ "851":
  "<code>Stlc.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
+ "850":
+ "<code>Stlc.weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
  "85":
  "<code>Slang.Aexp.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
- "849":
- "<code>Stlc.weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "848": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
- "847": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
- "846": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "845": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
- "844": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
- "843": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "842": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "841": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "840": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "849": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
+ "848": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
+ "847": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
+ "846": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
+ "845": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
+ "844": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ Bool }&gt;</code>",
+ "843": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "842": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "841":
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "840":
+ "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
  "84":
  "<code class=\"docstring\">The `sorry` tactic is a temporary placeholder for an incomplete tactic proof,\nclosing the main goal using `exact sorry`.\n\nThis is intended for stubbing-out incomplete parts of a proof while still having a syntactically correct proof skeleton.\nLean will give a warning whenever a proof uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a theorem depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n</code>",
- "839":
- "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "839": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "838":
- "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
- "837": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "836":
  "<code>∀ {Γ' : Context}, x →ₚ τ₂✝ ; Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "835": "<code>Γ✝ ⊆ Γ'</code>",
- "834": "<code>Γ✝[x] = some τ₁✝</code>",
- "833":
+ "837": "<code>Γ✝ ⊆ Γ'</code>",
+ "836": "<code>Γ✝[x] = some τ₁✝</code>",
+ "835":
  "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
- "832": "<code>Γ ⊆ Γ'</code>",
- "831":
+ "834": "<code>Γ ⊆ Γ'</code>",
+ "833":
  "<code>Stlc.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "830": "<code>&lt;{ false }&gt;.IsValue</code>",
- "83": "<code>Nat.even n = true</code>",
- "829":
+ "832": "<code>&lt;{ false }&gt;.IsValue</code>",
+ "831":
  "<code>∅ = ∅ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "828": "<code>t₁ = &lt;{ false }&gt;</code>",
- "827": "<code>&lt;{ true }&gt;.IsValue</code>",
- "826":
+ "830": "<code>t₁ = &lt;{ false }&gt;</code>",
+ "83": "<code>Nat.even n = true</code>",
+ "829": "<code>&lt;{ true }&gt;.IsValue</code>",
+ "828":
  "<code>∅ = ∅ → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "825": "<code>t₁ = &lt;{ true }&gt;</code>",
- "824": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "823": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "822": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
- "821": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
- "820": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "827": "<code>t₁ = &lt;{ true }&gt;</code>",
+ "826": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "825": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
+ "824": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "823": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "822": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "821": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
+ "820": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
  "82": "<code>Slang.Aexp.Nat.odd (n : Nat) : Bool</code>",
- "819": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "818": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
- "817": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
- "816":
+ "819": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "818":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ₁ : Ty) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;)\n  (h₃ : &lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁ }&gt;</code>",
- "815":
+ "817":
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
- "814": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
- "813":
+ "816": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
+ "815":
  "<code>∅ = ∅ → &lt;{ λ ~x : τ₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : τ₂ . u }&gt; ⟶ t'</code>",
- "812": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
- "811": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
- "810": "<code>t₂.IsValue</code>",
+ "814": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
+ "813": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
+ "812": "<code>t₂.IsValue</code>",
+ "811": "<code>t₁.IsValue</code>",
+ "810": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
  "81":
  "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
- "809": "<code>t₁.IsValue</code>",
- "808":
- "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
- "807": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "806": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "805": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "804": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "803": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "802": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "801": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "800": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "809": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "808": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "807": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "806": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "805": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "804": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "803": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "802":
+ "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ Γ ⊢ false ⦂ Bool }&gt;</code>",
+ "801":
+ "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ Γ ⊢ true ⦂ Bool }&gt;</code>",
+ "800": "<code>∅ = Γ✝</code>",
  "80":
  "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
  "8": "<code>Aexp</code>",
- "799":
- "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
- "798":
- "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ Γ ⊢ false ⦂ Bool }&gt;</code>",
+ "799": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
+ "798": "<code>none = some τ₁</code>",
  "797":
- "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ Γ ⊢ true ⦂ Bool }&gt;</code>",
- "796": "<code>∅ = Γ✝</code>",
- "795": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
- "794": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "793": "<code>none = some τ₁</code>",
- "792":
  "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
- "791": "<code>∅[x] = some τ₁</code>",
- "790": "<code>&lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
- "79": "<code>Slang.Aexp.Nat.even (n : Nat) : Bool</code>",
- "789":
+ "796": "<code>∅[x] = some τ₁</code>",
+ "795": "<code>&lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
+ "794":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "788": "<code>∅ = Γ</code>",
- "787":
+ "793": "<code>∅ = Γ</code>",
+ "792":
  "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
- "786": "<code>&lt;{ ∅ ⊢ t ⦂ τ }&gt;</code>",
- "785":
+ "791": "<code>&lt;{ ∅ ⊢ t ⦂ τ }&gt;</code>",
+ "790":
  "<code>Stlc.progress (t : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "784": "<code>&lt;{ ∅ ⊢ false ⦂ τ₁ → τ₂ }&gt;</code>",
- "783": "<code>&lt;{ ∅ ⊢ true ⦂ τ₁ → τ₂ }&gt;</code>",
- "782": "<code>&lt;{ ~(x →ₚ τ₁) ⊢ t₁ ⦂ τ₂ }&gt;</code>",
- "781": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ τ₁ → τ₂ }&gt;</code>",
- "780": "<code>&lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
+ "79": "<code>Slang.Aexp.Nat.even (n : Nat) : Bool</code>",
+ "789": "<code>&lt;{ ∅ ⊢ false ⦂ τ₁ → τ₂ }&gt;</code>",
+ "788": "<code>&lt;{ ∅ ⊢ true ⦂ τ₁ → τ₂ }&gt;</code>",
+ "787": "<code>&lt;{ ~(x →ₚ τ₁) ⊢ t₁ ⦂ τ₂ }&gt;</code>",
+ "786": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ τ₁ → τ₂ }&gt;</code>",
+ "785": "<code>&lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
+ "784":
+ "<code>Stlc.canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
+ "783": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
+ "782": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
+ "781": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ Bool }&gt;</code>",
+ "780": "<code>&lt;{ ∅ ⊢ t ⦂ Bool }&gt;</code>",
  "78":
  "<code class=\"docstring\">The `fun_induction` tactic is a convenience wrapper around the `induction` tactic to use the\nfunctional induction principle.\n\nThe tactic invocation\n```\nfun_induction f x₁ ... xₙ y₁ ... yₘ\n```\nwhere `f` is a function defined by non-mutual structural or well-founded recursion, is equivalent to\n```\ninduction y₁, ... yₘ using f.induct_unfolding x₁ ... xₙ\n```\nwhere the arguments of `f` are used as arguments to `f.induct_unfolding` or targets of the\ninduction, as appropriate.\n\nThe form\n```\nfun_induction f\n```\n(with no arguments to `f`) searches the goal for a unique eligible application of `f`, and uses\nthese arguments. An application of `f` is eligible if it is saturated and the arguments that will\nbecome targets are free variables.\n\nThe forms `fun_induction f x y generalizing z₁ ... zₙ` and\n`fun_induction f x y with | case1 =&gt; tac₁ | case2 x' ih =&gt; tac₂` work like with `induction.`\n\nUnder `set_option tactic.fun_induction.unfolding true` (the default), `fun_induction` uses the\n`f.induct_unfolding` induction principle, which will try to automatically unfold the call to `f` in\nthe goal. With `set_option tactic.fun_induction.unfolding false`, it uses `f.induct` instead.\n</code>",
  "779":
- "<code>Stlc.canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
- "778": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
- "777": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
- "776": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ Bool }&gt;</code>",
- "775": "<code>&lt;{ ∅ ⊢ t ⦂ Bool }&gt;</code>",
- "774":
  "<code>Stlc.canonical_forms_bool (t : Tm) (hτ : &lt;{ ∅ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) : t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
- "773":
+ "778":
  "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "772":
+ "777":
  "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
- "771":
+ "776":
  "<code>(\"Y\" →ₚ &lt;{ Bool }&gt; ; \"X\" →ₚ &lt;{ Bool }&gt;)[\"X\"] = some (&lt;{ τ₂✝ → τ₁✝ }&gt;)</code>",
- "770": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ Y ⦂ τ₂✝ }&gt;</code>",
+ "775": "<code>Γ✝[x✝] = some τ₁✝</code>",
+ "774": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "773": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ Y ⦂ τ₂✝ }&gt;</code>",
+ "772": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "771":
+ "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
+ "770": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X Y ⦂ τ₁✝ }&gt;</code>",
  "77":
  "<code>(b₁.optimize0plus.mult b₂.optimize0plus).eval = (b₁.mult b₂).eval</code>",
- "769": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "768": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X Y ⦂ τ₁✝ }&gt;</code>",
- "767": "<code>&lt;{ X ↦ Bool ; ∅ ⊢ λ Y : Bool . X Y ⦂ τ₁✝ }&gt;</code>",
- "766": "<code>&lt;{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }&gt;</code>",
+ "769": "<code>&lt;{ X ↦ Bool ; ∅ ⊢ λ Y : Bool . X Y ⦂ τ₁✝ }&gt;</code>",
+ "768": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "767": "<code>&lt;{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }&gt;</code>",
+ "766": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
  "765":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
  "764":
@@ -387,13 +386,14 @@
  "729":
  "<code>Stlc.Step.appAbs (x : String) (τ : Ty) (t v : Tm) (hv : v.IsValue) : Step (&lt;{ (λ ~x : τ . t) v }&gt;) (&lt;{ [~x := v] t }&gt;)</code>",
  "728": "<code>Stlc.Step : Tm → Tm → Prop</code>",
- "727": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
- "726":
+ "727":
  "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
- "725":
+ "726":
  "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
- "724":
+ "725":
  "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
+ "724":
+ "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
  "723":
  "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
  "722":

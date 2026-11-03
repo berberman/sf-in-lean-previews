@@ -133,7 +133,7 @@ import SFLCompat
 --  Note that *all* functions are anonymous.
 --
 --  We'll see how to add named function declarations as
---  "syntactic sugar" in the MoreStlc chapter.
+--  "syntactic sugar" in the `MoreStlc` chapter.
 
 --   ----------------------------------------
 
@@ -401,22 +401,15 @@ abbrev notB := <{ λ X : Bool . if X then false else true }>
 --  We also make the second choice here.
 
 inductive Tm.IsValue : Tm → Prop where
-  | abs (x : String) (τ₂ : Ty) (t₁ : Tm) :
-      IsValue <{ λ x : τ₂ . t₁ }>
+  | abs (x : String) (τ₂ : Ty) (t₁ : Tm) : IsValue <{ λ x : τ₂ . t₁ }>
   | tru : IsValue <{ true }>
   | fls : IsValue <{ false }>
 
--- for later use with `normalize`
 attribute [StlcEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
 
---  Here `..` tells Lean to fill in the constructor's
---  remaining explicit arguments (the abstraction's
---  parameter name, type, and body) with underscores, to be
---  found by unifying against the goal.
-
-theorem idB_value : Tm.IsValue idB := by exact .abs ..
-theorem idBB_value : Tm.IsValue idBB := by exact .abs ..
-theorem notB_value : Tm.IsValue notB := by exact .abs ..
+theorem idB_value : Tm.IsValue idB := .abs ..
+theorem idBB_value : Tm.IsValue idBB := .abs ..
+theorem notB_value : Tm.IsValue notB := .abs ..
 
 --  ### STLC Programs
 
@@ -424,10 +417,10 @@ theorem notB_value : Tm.IsValue notB := by exact .abs ..
 --  program.
 --
 --  Intuitively, a "complete program" must not refer to any
---  undefined variables. (We'll formally define the *free*
---  variables of an STLC term in the StlcProp chapter.) A
---  complete program, then, is one that is *closed* — that
---  is, that contains no free variables.
+--  undefined variables. We'll see shortly how to define the
+--  *free* variables in a STLC term. A complete program,
+--  then, is one that is *closed* — that is, that contains
+--  no free variables.
 --
 --  (Conversely, a term that may contain free variables is
 --  often called an *open term*.)
@@ -521,12 +514,10 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty)
 @[simp] theorem subst_var_eq : <{ [x := s] ~(Tm.var x) }> = s := by
   simp [subst]
 
-@[simp] theorem subst_var_ne (h : x ≠ y) :
-    <{ [x := s] ~(Tm.var y) }> = .var y := by
+@[simp] theorem subst_var_ne (h : x ≠ y) : <{ [x := s] ~(Tm.var y) }> = .var y := by
   simp [subst, h]
 
-@[simp] theorem subst_abs_eq :
-    <{ [x := s] (λ x : τ . t) }> = <{ λ x : τ . t }> := by
+@[simp] theorem subst_abs_eq : <{ [x := s] (λ x : τ . t) }> = <{ λ x : τ . t }> := by
   simp [subst]
 
 @[simp] theorem subst_abs_ne (h : x ≠ y) :
@@ -534,24 +525,15 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty)
   simp [subst, h]
 
 @[simp] theorem subst_app :
-    <{ [x := s] (t₁ t₂) }> = <{ ([x := s] t₁) ([x := s] t₂) }> := by rfl
+    <{ [x := s] (t₁ t₂) }> = <{ ([x := s] t₁) ([x := s] t₂) }> := rfl
 
-@[simp] theorem subst_tru : <{ [x := s] true }> = <{ true }> := by rfl
+@[simp] theorem subst_tru : <{ [x := s] true }> = <{ true }> := rfl
 
-@[simp] theorem subst_fls : <{ [x := s] false }> = <{ false }> := by rfl
+@[simp] theorem subst_fls : <{ [x := s] false }> = <{ false }> := rfl
 
 @[simp] theorem subst_ite :
     <{ [x := s] (if t₁ then t₂ else t₃) }> =
-      <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }> := by rfl
-
---  As a sanity check, here are formal versions of two of
---  the substitution examples given above:
-
-example : <{ [X := true] (if X then true else false) }> =
-    <{ if true then true else false }> := by rfl
-
-example : <{ [X := true] (λ Y : Bool . if Y then X else false) }> =
-    <{ λ Y : Bool . if Y then true else false }> := by rfl
+      <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }> := rfl
 
 --   ----------------------------------------
 
@@ -605,7 +587,7 @@ example : <{ [X := true] (λ Y : Bool . if Y then X else false) }> =
 --
 --      λW:Bool. λX:Bool. R
 --
---  which does not behave the same as the substitution in
+--  which does not behave the same as the substituting in
 --  the original `t`:
 --
 --      [Z:=s]t = λR:Bool. λX:Bool. R
@@ -625,19 +607,19 @@ example : <{ [X := true] (λ Y : Bool . if Y then X else false) }> =
 
 --  ### Reduction
 
---            v.IsValue
---      ---------------------- (appAbs)
---      (λx:T. t) v ⟶ [x:=v]t
+--  v.IsValue
+--                         -----------------------      (appAbs)
+--                          (λx:T. t) v ⟶ [x:=v]t
 --
---               t₁ ⟶ t₁'
---      ---------------------  (app1)
---            t₁ t₂ ⟶ t₁' t₂
+--                                t₁ ⟶ t₁'
+--                            ----------------          (app1)
+--                             t₁ t₂ ⟶ t₁' t₂
 --
---           v.IsValue
---               t₂ ⟶ t₂'
---      ---------------------  (app2)
---            v₁ t₂ ⟶ v₁ t₂'
---
+--                                v.IsValue
+--                                t₂ ⟶ t₂'
+--                            ----------------          (app2)
+--                             v₁ t₂ ⟶ v₁ t₂'
+
 --  (plus the usual rules for conditionals).
 --
 --  The `appAbs` rule is often called *beta-reduction*.
@@ -671,8 +653,8 @@ end
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
-attribute [StlcEval] Step.appAbs Step.app1 Step.app2
-attribute [StlcEval] Step.ifTrue Step.ifFalse Step.ifStep
+-- for later use with `normalize`
+attribute [StlcEval] Step.appAbs Step.app1 Step.app2 Step.ifTrue Step.ifFalse Step.ifStep
 
 --   ----------------------------------------
 
@@ -717,7 +699,7 @@ attribute [StlcEval] Step.ifTrue Step.ifFalse Step.ifStep
 
 --  What does the following term *normalize* to?
 --
---      (λX:Bool → Bool. X) notB true ⟶* ???
+--      (λX:Bool → Bool. X) notB true  ⟶* ???
 --
 --  where `notB` abbreviates
 --  `λX:Bool. if X then false else true`
@@ -802,8 +784,7 @@ example : <{ idBB notB true }> ⟶* <{ false }> := by
   · exact .app1 <{ idBB notB }> notB <{ true }>
       (.appAbs "X" <{ Bool → Bool }> <{ X }> notB notB_value)
   apply Multi.step (y := <{ if true then false else true }>)
-  · exact .appAbs "X" <{ Bool }> <{ if X then false else true }>
-      <{ true }> .tru
+  · exact .appAbs "X" <{ Bool }> <{ if X then false else true }> <{ true }> .tru
   apply Multi.step (y := <{ false }>)
   · exact .ifTrue <{ false }> <{ true }>
   · rfl
@@ -867,11 +848,6 @@ example : <{ idBB (notB true) }> ⟶* <{ false }> := by
 
 --  ### Contexts
 
---  Even though whole programs are closed, typechecking an
---  abstraction `λx:T. t` means typechecking its body `t`
---  with the binder `λx` stripped off — so `t` itself may be
---  open.
---
 --  *Question*: What is the type of the term "`X Y`"?
 --
 --  *Answer*: It depends on the types of `X` and `Y`!
@@ -887,38 +863,36 @@ example : <{ idBB (notB true) }> ⟶* <{ false }> := by
 abbrev Context := PartialMap String Ty
 
 --  Following the usual notation for partial maps, we write
---  `x ↦ T ; Γ` for "update the partial function `Γ` so that
---  it maps `x` to `T`."
+--  `(x ↦ T, Γ)` for "update the partial function `Γ` so
+--  that it maps `x` to `T`."
 
 --  ### Typing Relation
 
---                 Γ x = τ₁
---                ----------           (var)
---                Γ ⊢ x ⦂ τ₁
+--  Γ x = τ₁
+--                              ------------                       (var)
+--                               Γ ⊢ x ⦂ τ₁
 --
---           x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁
---         -----------------------      (abs)
---         Γ ⊢ λx:τ₂. t₁ ⦂ τ₂ → τ₁
+--                          x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁
+--                        -------------------------                (abs)
+--                         Γ ⊢ λx:τ₂. t₁ ⦂ τ₂ → τ₁
 --
---             Γ ⊢ t₁ ⦂ τ₂ → τ₁
---               Γ ⊢ t₂ ⦂ τ₂
---             ----------------         (app)
---              Γ ⊢ t₁ t₂ ⦂ τ₁
+--                            Γ ⊢ t₁ ⦂ τ₂ → τ₁
+--                              Γ ⊢ t₂ ⦂ τ₂
+--                           ------------------                    (app)
+--                             Γ ⊢ t₁ t₂ ⦂ τ₁
 --
---             ---------------          (tru)
---             Γ ⊢ true ⦂ Bool
+--                            -----------------                    (tru)
+--                             Γ ⊢ true ⦂ Bool
 --
---             ----------------         (fls)
---             Γ ⊢ false ⦂ Bool
+--                           ------------------                    (fls)
+--                            Γ ⊢ false ⦂ Bool
 --
---              Γ ⊢ t₁ ⦂ Bool
---               Γ ⊢ t₂ ⦂ τ₁
---               Γ ⊢ t₃ ⦂ τ₁
---      ------------------------------  (ite)
---      Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁
---
+--               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ τ₁    Γ ⊢ t₃ ⦂ τ₁
+--              ---------------------------------------------      (ite)
+--                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁
+
 --  We can read the three-place relation `Γ ⊢ t ⦂ T` as:
---  "under the assumptions in `Γ`, the term `t` has the type
+--  "under the assumptions in Γ, the term `t` has the type
 --  `T`."
 --
 --  In the formal development, we write this judgment inside
@@ -947,9 +921,8 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ Γ ⊢ t₃ ⦂ τ₁ }>) :
       <{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁ }>
 
--- for later use with apply_rules
-attribute [StlcTyping] HasType.var HasType.abs HasType.app
-attribute [StlcTyping] HasType.tru HasType.fls HasType.ite
+
+attribute [StlcTyping] HasType.var HasType.abs HasType.app HasType.tru HasType.fls HasType.ite
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
 open Lean PrettyPrinter in
@@ -969,22 +942,13 @@ example : <{ ∅ ⊢ λ X : Bool . X ⦂ Bool → Bool }> := by
 --  maps `X` to `Bool` — holds by computation, hence `rfl`.
 
 --  Much like reduction sequences, long derivations of
---  typing rules can grow quite tedious to prove by hand. In
---  the proof we just gave, every step just applies one rule
---  of `HasType`, eventually ending with `rfl`. Lean can
---  discover such straight-line derivations using another
---  tactic: `apply_rules`. Like `normalize`, it takes a
---  `using` argument naming the set of constructors to draw
---  from, and repeatedly applies whichever of them fits the
---  goal. Unlike `normalize`, however, it is more efficient
---  and will make progress even if it cannot solve the goal
---  outright.
-
-example : <{ ∅ ⊢ λ X : Bool . X ⦂ Bool → Bool }> := by
-  apply_rules using StlcTyping
-
---  Of course, it scales to much bigger derivations than
---  this example.
+--  typing rules can grow quite tedious to prove. Luckily,
+--  we can have Lean automate proofs of this sort, using
+--  another tactic: `apply_rules`. This tactic works much
+--  like `normalize`, but is more efficient and will make
+--  progress even if it cannot solve the goal outright. Like
+--  `normalize`, `apply_rules` also takes a `using` argument
+--  which tells Lean which set of constructors to draw from.
 --
 --      ∅ ⊢ λX:Bool. λY:Bool → Bool. Y (Y X)
 --            ⦂ Bool → (Bool → Bool) → Bool.
@@ -995,13 +959,13 @@ example :
   apply_rules using StlcTyping
 
 --  It's worth noting that `apply_rules` relies on an
---  important property of our typing rules — namely, that
---  they are *syntax directed*. A syntax-directed judgment
+--  important property of our typing rules - namely, that
+--  they are *syntax directed*. A syntax directed judgment
 --  is one where the syntax of a term completely determines
 --  which rule can be applied at any given time; only one
 --  rule can be applied to each term. This is important
 --  because `apply_rules` just applies the first rule in its
---  set of constructors or lemmas that it can — it doesn't
+--  set of constructors or lemmas that it can - it doesn't
 --  backtrack if that rule isn't correct. So, making sure
 --  that only one rule can apply to any given term is
 --  important to ensure that `apply_rules` always discovers
@@ -1014,22 +978,20 @@ example :
 --
 --      ¬ ∃ τ, ∅ ⊢ λX:Bool. λY:Bool. X Y ⦂ τ
 
-example :
-    ¬ ∃ τ, <{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }> := by
+example : ¬ ∃ τ, <{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }> := by
   intro ⟨τ, hc⟩
-  -- Each `inversion` peels off one rule of the derivation,
-  -- naming the premise it leaves behind; the context stays
-  -- small because the old hypothesis goes away.
-  inversion hc with
-  | abs h₁ =>
-    inversion h₁ with
-    | abs h₂ =>
-      inversion h₂ with
-      | app _ hf =>
-        inversion hf with
-        | var hx =>
-          -- `X` is bound to `Bool` in the context, but the
-          -- application rule needs it to have an arrow type.
+  -- Each `cases` peels off one rule of the derivation, naming the premise it
+  -- leaves behind; the context stays small because the old hypothesis goes away.
+  cases hc with
+  | abs _ _ _ _ _ h₁ =>
+    cases h₁ with
+    | abs _ _ _ _ _ h₂ =>
+      cases h₂ with
+      | app _ _ _ _ _ hf _ =>
+        cases hf with
+        | var _ _ _ hx =>
+          -- `X` is bound to `Bool` in the context, but the application rule
+          -- needs it to have an arrow type.
           exact Ty.noConfusion (Option.some.inj hx)
 
 --  Another nonexample:
@@ -1069,4 +1031,4 @@ example :
 
 end Stlc
 
--- Source revision: 13e9425, committed 2026-11-02 15:56 UTC
+-- Source revision: 547aa60, committed 2026-10-30 14:20 UTC

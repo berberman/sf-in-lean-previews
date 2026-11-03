@@ -3801,177 +3801,176 @@
  "1288": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
  "1287": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
  "1286": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "1285": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "1284": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1283": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "1282":
+ "1285": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1284":
  "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1281":
+ "1283":
  "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
- "1280": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "128": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
- "1279":
+ "1282": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1281":
  "<code>∀ {Γ' : Context}, x →ₚ τ₂✝ ; Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1278": "<code>Γ✝ ⊆ Γ'</code>",
- "1277": "<code>Γ✝[x] = some τ₁✝</code>",
- "1276":
+ "1280": "<code>Γ✝ ⊆ Γ'</code>",
+ "128": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
+ "1279": "<code>Γ✝[x] = some τ₁✝</code>",
+ "1278":
  "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
- "1275": "<code>Γ ⊆ Γ'</code>",
- "1274":
+ "1277": "<code>Γ ⊆ Γ'</code>",
+ "1276":
  "<code>Stlc.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "1273":
+ "1275":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "1272":
+ "1274":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : &lt;{ if false then t₁ else t₂ }&gt; ⟶ t₂</code>",
- "1271":
+ "1273":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ false ⦂ τ }&gt; → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "1270":
+ "1272":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ true ⦂ τ }&gt; → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
+ "1271": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ }&gt;</code>",
+ "1270": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ }&gt;</code>",
  "127": "<code>a ⇓ n</code>",
- "1269": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ }&gt;</code>",
- "1268": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ }&gt;</code>",
- "1267": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
- "1266": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
- "1265": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "1264": "<code>&lt;{ ∅ ⊢ if t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
- "1263":
+ "1269": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
+ "1268": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
+ "1267": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
+ "1266": "<code>&lt;{ ∅ ⊢ if t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
+ "1265":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ t₃ ⦂ τ }&gt; → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1262": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ }&gt;</code>",
- "1261":
+ "1264": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ }&gt;</code>",
+ "1263":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ }&gt; → &lt;{ λ ~x : τ₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : τ₂ . u }&gt; ⟶ t'</code>",
- "1260": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ }&gt;</code>",
+ "1262": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ }&gt;</code>",
+ "1261": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂ }&gt;</code>",
+ "1260": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂ → τ₁✝ }&gt;</code>",
  "126":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
- "1259": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂ }&gt;</code>",
- "1258": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂ → τ₁✝ }&gt;</code>",
- "1257": "<code>&lt;{ ∅ ⊢ t₁ t₂ ⦂ τ }&gt;</code>",
- "1256":
+ "1259": "<code>&lt;{ ∅ ⊢ t₁ t₂ ⦂ τ }&gt;</code>",
+ "1258":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ t₂ ⦂ τ }&gt; → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1255": "<code>&lt;{ ∅ ⊢ false ⦂ τ }&gt;</code>",
- "1254": "<code>&lt;{ ∅ ⊢ true ⦂ τ }&gt;</code>",
- "1253": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . t₁ ⦂ τ }&gt;</code>",
- "1252":
+ "1257": "<code>&lt;{ ∅ ⊢ false ⦂ τ }&gt;</code>",
+ "1256": "<code>&lt;{ ∅ ⊢ true ⦂ τ }&gt;</code>",
+ "1255": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . t₁ ⦂ τ }&gt;</code>",
+ "1254":
  "<code>∀ (τ : Ty), &lt;{ ∅ ⊢ t₁ ⦂ τ }&gt; → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1251": "<code>none = some τ</code>",
- "1250": "<code>∅[x] = some τ</code>",
+ "1253": "<code>none = some τ</code>",
+ "1252": "<code>∅[x] = some τ</code>",
+ "1251": "<code>&lt;{ ∅ ⊢ ~(Stlc.Tm.var x) ⦂ τ }&gt;</code>",
+ "1250":
+ "<code>Stlc.progress' (t : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "125":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
- "1249": "<code>Γ✝[x✝] = some τ₁✝</code>",
- "1248": "<code>&lt;{ ∅ ⊢ ~(Stlc.Tm.var x) ⦂ τ }&gt;</code>",
- "1247":
- "<code>Stlc.progress' (t : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1246":
+ "1249":
  "<code>∅ = ∅ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "1245": "<code>t₁ = &lt;{ false }&gt;</code>",
- "1244":
+ "1248": "<code>t₁ = &lt;{ false }&gt;</code>",
+ "1247":
  "<code>∅ = ∅ → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "1243": "<code>t₁ = &lt;{ true }&gt;</code>",
- "1242": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1241": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "1240": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "1246": "<code>t₁ = &lt;{ true }&gt;</code>",
+ "1245": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1244": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
+ "1243": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "1242": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "1241": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1240": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
  "124":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1239": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
- "1238": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1237": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "1236": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
- "1235": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
- "1234":
+ "1239": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "1238": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "1237":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ₁ : Ty) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;)\n  (h₃ : &lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁ }&gt;</code>",
- "1233": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
- "1232":
+ "1236": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
+ "1235":
  "<code>∅ = ∅ → &lt;{ λ ~x : τ₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : τ₂ . u }&gt; ⟶ t'</code>",
- "1231": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
- "1230": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
+ "1234": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1233": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
+ "1232": "<code>t₂.IsValue</code>",
+ "1231": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1230": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
  "123":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "1229": "<code>t₂.IsValue</code>",
- "1228":
- "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
- "1227": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1226": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1225": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "1224": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "1223": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1222": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1221": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "1220": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "122": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
- "1219":
+ "1229": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "1228": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1227": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1226": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "1225": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "1224": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1223":
  "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ Γ ⊢ false ⦂ Bool }&gt;</code>",
- "1218":
+ "1222":
  "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ Γ ⊢ true ⦂ Bool }&gt;</code>",
- "1217": "<code>∅ = Γ✝</code>",
- "1216": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
- "1215": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1214": "<code>none = some τ₁</code>",
- "1213":
+ "1221": "<code>∅ = Γ✝</code>",
+ "1220": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
+ "122": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "1219": "<code>none = some τ₁</code>",
+ "1218":
  "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
- "1212": "<code>∅[x] = some τ₁</code>",
- "1211": "<code>&lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
- "1210":
+ "1217": "<code>∅[x] = some τ₁</code>",
+ "1216": "<code>&lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
+ "1215":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "121": "<code>Lean.TSyntax `term</code>",
- "1209": "<code>∅ = Γ</code>",
- "1208":
+ "1214": "<code>∅ = Γ</code>",
+ "1213":
  "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
- "1207": "<code>&lt;{ ∅ ⊢ t ⦂ τ }&gt;</code>",
- "1206":
+ "1212": "<code>&lt;{ ∅ ⊢ t ⦂ τ }&gt;</code>",
+ "1211":
  "<code>Stlc.progress (t : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1205": "<code>&lt;{ ∅ ⊢ false ⦂ τ₁ → τ₂ }&gt;</code>",
- "1204": "<code>&lt;{ ∅ ⊢ true ⦂ τ₁ → τ₂ }&gt;</code>",
- "1203": "<code>&lt;{ ~(x →ₚ τ₁) ⊢ t₁ ⦂ τ₂ }&gt;</code>",
- "1202": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ τ₁ → τ₂ }&gt;</code>",
- "1201": "<code>&lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
- "1200":
+ "1210": "<code>&lt;{ ∅ ⊢ false ⦂ τ₁ → τ₂ }&gt;</code>",
+ "121": "<code>Lean.TSyntax `term</code>",
+ "1209": "<code>&lt;{ ∅ ⊢ true ⦂ τ₁ → τ₂ }&gt;</code>",
+ "1208": "<code>&lt;{ ~(x →ₚ τ₁) ⊢ t₁ ⦂ τ₂ }&gt;</code>",
+ "1207": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ τ₁ → τ₂ }&gt;</code>",
+ "1206": "<code>&lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
+ "1205":
  "<code>Stlc.canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
+ "1204": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
+ "1203": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
+ "1202": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ Bool }&gt;</code>",
+ "1201": "<code>&lt;{ ∅ ⊢ t ⦂ Bool }&gt;</code>",
+ "1200":
+ "<code>Stlc.canonical_forms_bool (t : Tm) (hτ : &lt;{ ∅ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) : t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
  "120": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
  "12": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
- "1199": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
- "1198": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
- "1197": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ Bool }&gt;</code>",
- "1196": "<code>&lt;{ ∅ ⊢ t ⦂ Bool }&gt;</code>",
- "1195":
- "<code>Stlc.canonical_forms_bool (t : Tm) (hτ : &lt;{ ∅ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) : t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
- "1194":
+ "1199":
  "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1193":
+ "1198":
  "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1192": "<code>(\"X\" →ₚ τ)[\"X\"] = some τ₂✝</code>",
- "1191": "<code>(\"X\" →ₚ τ)[\"X\"] = some (&lt;{ τ₂✝ → τ₁✝ }&gt;)</code>",
- "1190": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1197": "<code>(\"X\" →ₚ τ)[\"X\"] = some τ₂✝</code>",
+ "1196": "<code>(\"X\" →ₚ τ)[\"X\"] = some (&lt;{ τ₂✝ → τ₁✝ }&gt;)</code>",
+ "1195": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1194": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X ⦂ τ₂✝ }&gt;</code>",
+ "1193": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1192": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X X ⦂ τ₁✝ }&gt;</code>",
+ "1191": "<code>&lt;{ ∅ ⊢ λ X : τ . X X ⦂ σ }&gt;</code>",
+ "1190": "<code>B = τ₂</code>",
  "119":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
- "1189": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X ⦂ τ₂✝ }&gt;</code>",
- "1188": "<code>&lt;{ X ↦ τ ; ∅ ⊢ X X ⦂ τ₁✝ }&gt;</code>",
- "1187": "<code>&lt;{ ∅ ⊢ λ X : τ . X X ⦂ σ }&gt;</code>",
- "1186": "<code>B = τ₂</code>",
- "1185": "<code>A = &lt;{ ~A → ~B }&gt;</code>",
- "1184":
+ "1189": "<code>A = &lt;{ ~A → ~B }&gt;</code>",
+ "1188":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "1183": "<code>&lt;{ ~A → ~B }&gt; = &lt;{ (~A → ~B) → τ₂ }&gt;</code>",
- "1182": "<code>∀ (τ₂ : Ty), B ≠ &lt;{ ~B → τ₂ }&gt;</code>",
- "1181": "<code>∀ (τ₂ : Ty), A ≠ &lt;{ ~A → τ₂ }&gt;</code>",
- "1180": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → τ₂ }&gt;</code>",
+ "1187": "<code>&lt;{ ~A → ~B }&gt; = &lt;{ (~A → ~B) → τ₂ }&gt;</code>",
+ "1186": "<code>∀ (τ₂ : Ty), B ≠ &lt;{ ~B → τ₂ }&gt;</code>",
+ "1185": "<code>∀ (τ₂ : Ty), A ≠ &lt;{ ~A → τ₂ }&gt;</code>",
+ "1184": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → τ₂ }&gt;</code>",
+ "1183": "<code>∀ (τ₁ τ₂ : Ty), τ₁ ≠ &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "1182":
+ "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
+ "1181":
+ "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "1180":
+ "<code>(\"Y\" →ₚ &lt;{ Bool }&gt; ; \"X\" →ₚ &lt;{ Bool }&gt;)[\"X\"] = some (&lt;{ τ₂✝ → τ₁✝ }&gt;)</code>",
  "118":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
- "1179": "<code>∀ (τ₁ τ₂ : Ty), τ₁ ≠ &lt;{ τ₁ → τ₂ }&gt;</code>",
- "1178":
- "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "1177":
- "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
- "1176":
- "<code>(\"Y\" →ₚ &lt;{ Bool }&gt; ; \"X\" →ₚ &lt;{ Bool }&gt;)[\"X\"] = some (&lt;{ τ₂✝ → τ₁✝ }&gt;)</code>",
- "1175": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ Y ⦂ τ₂✝ }&gt;</code>",
- "1174": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1173": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X Y ⦂ τ₁✝ }&gt;</code>",
- "1172": "<code>&lt;{ X ↦ Bool ; ∅ ⊢ λ Y : Bool . X Y ⦂ τ₁✝ }&gt;</code>",
- "1171": "<code>&lt;{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }&gt;</code>",
- "1170": "<code><span class=\"literal string\">\"Z\"</span> : String</code>",
+ "1179": "<code>Γ✝[x✝] = some τ₁✝</code>",
+ "1178": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1177": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ Y ⦂ τ₂✝ }&gt;</code>",
+ "1176": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1175": "<code>&lt;{ Y ↦ Bool ; X ↦ Bool ; ∅ ⊢ X Y ⦂ τ₁✝ }&gt;</code>",
+ "1174": "<code>&lt;{ X ↦ Bool ; ∅ ⊢ λ Y : Bool . X Y ⦂ τ₁✝ }&gt;</code>",
+ "1173": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1172": "<code>&lt;{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }&gt;</code>",
+ "1171": "<code><span class=\"literal string\">\"Z\"</span> : String</code>",
+ "1170":
+ "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
  "117":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
- "1169":
- "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
+ "1169": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
  "1168":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
  "1167":
@@ -4084,13 +4083,14 @@
  "110":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "11": "<code>Slang.Bexp : Type</code>",
- "1099": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
- "1098":
+ "1099":
  "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
- "1097":
+ "1098":
  "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
- "1096":
+ "1097":
  "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
+ "1096":
+ "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
  "1095":
  "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
  "1094":
