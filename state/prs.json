@@ -192,10 +192,10 @@
     "485": {
       "base_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
       "changed_variants": [],
-      "head_sha": "ada72f8bd490684f97c3da34b9f4bb8c292fbda6",
+      "head_sha": "4456122abdaccf0b159b35291d86fb68d07c9817",
       "preview_path": "pr/485/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41696445056",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "TS/Stlc: Last pass before class",
       "url": "https://github.com/plclub/sf-in-lean/pull/485"
     },
