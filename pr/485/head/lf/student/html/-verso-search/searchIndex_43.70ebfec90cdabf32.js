@@ -1,1 +1,0 @@
-window.docContents[43].resolve({"/Basics/#Basics":{"contents":"\n\nThis chapter introduces some of Lean's most essential features for writing functional programs\nand proving things about how they behave.\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"2. Basics: Functional Programming in Lean","id":"/Basics/#Basics"}});

@@ -1,5 +1,5 @@
 {
-  "main_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
+  "main_sha": "20571cadd125603bd8c8f377e72e3a0e2c7cdfcd",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -188,100 +188,6 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
-    },
-    "485": {
-      "base_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4456122abdaccf0b159b35291d86fb68d07c9817",
-      "preview_path": "pr/485/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41717891405",
-      "status": "published",
-      "title": "TS/Stlc: Last pass before class",
-      "url": "https://github.com/plclub/sf-in-lean/pull/485"
-    },
-    "486": {
-      "base_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "844f87f52598998c48b94fa3b62b7d29a460caa5",
-      "preview_path": "pr/486/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41700718468",
-      "status": "published",
-      "title": "Smallstep: normalize_ex is worth 1 point",
-      "url": "https://github.com/plclub/sf-in-lean/pull/486"
     }
   },
   "schema": 3

@@ -436,6 +436,18 @@ abbrev notB := <{ λ X : Bool . if X then false else true }>
 --
 --  We also make the second choice here.
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (`#reduce` vs. `#eval` -- same but different)
+--  Both `#reduce` and `#eval` compute the same thing, but `#reduce` can be
+--  used in some circumstances that `#eval` cannot. This is because `#eval`
+--  compiles and executes the code that it is given, which requires a
+--  printable representation of the final result. However, the typeclasses
+--  `#eval` tries to use to get this representation — `ToExpr`, `Repr`, and
+--  `ToString` — are not defined for function types like `Bool → Nat`. The
+--  `#reduce` directive simplifies its argument using the Lean kernel,
+--  which then prints it like it does any `Expr`, so no special typeclasses
+--  are needed.
+--  END DETAILS
+
 inductive Tm.IsValue : Tm → Prop where
   | abs (x : String) (τ₂ : Ty) (t₁ : Tm) :
       IsValue <{ λ x : τ₂ . t₁ }>
@@ -557,6 +569,7 @@ def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 --  each need two lemmas, since substitution treats a bound name
 --  differently depending on whether it is the name being substituted for.
 
+section
 variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty)
 
 @[simp] theorem subst_var_eq : <{ [x := s] ~(Tm.var x) }> = s := by
@@ -584,6 +597,7 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty)
 @[simp] theorem subst_ite :
     <{ [x := s] (if t₁ then t₂ else t₃) }> =
       <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }> := by rfl
+end
 
 --  As a sanity check, here are formal versions of two of the substitution
 --  examples given above:
@@ -816,8 +830,7 @@ attribute [StlcEval] Step.ifTrue Step.ifFalse Step.ifStep
 --  What does the following term step to?
 --
 --      (λX:Bool → Bool. X)
---          ((λX:Bool → Bool. X) (λX:Bool. X))
---      ⟶ ???
+--          ((λX:Bool → Bool. X) (λX:Bool. X)) ⟶ ???
 --
 --  (A) `λX:Bool. X`
 --
@@ -1164,7 +1177,7 @@ example :
 --  Prove the same result, applying one rule at a time and naming the
 --  argument type of each application explicitly.
 
-example :
+theorem typing_example_2_full :
     <{ ∅ ⊢ λ X : Bool . λ Y : Bool → Bool . Y (Y X) ⦂
        Bool → (Bool → Bool) → Bool }> := by
   apply HasType.abs
@@ -1184,7 +1197,7 @@ example :
 --                     Y (X Z)
 --               ⦂ τ
 
-example :
+theorem typing_example_3 :
     ∃ τ,
       <{ ∅ ⊢ λ X : Bool → Bool . λ Y : Bool → Bool . λ Z : Bool .
               Y (X Z)
@@ -1216,13 +1229,16 @@ example :
         | var hx =>
           -- `X` is bound to `Bool` in the context, but the
           -- application rule needs it to have an arrow type.
-          exact Ty.noConfusion (Option.some.inj hx)
+          injections
 
---  Another nonexample:
+--  ### Exercise (3 stars): typing_nonexample_3 (Optional) ⭐⭐⭐
+
+--  Another nonexample: formally prove that the following term is not
+--  typable.
 --
 --      ¬ ∃ σ τ, ∅ ⊢ λX:σ. X X ⦂ τ
 
-example : ¬ ∃ τ σ, <{ ∅ ⊢ λ X : τ . X X ⦂ σ }> := by
+theorem typing_nonexample_3 : ¬ ∃ τ σ, <{ ∅ ⊢ λ X : τ . X X ⦂ σ }> := by
   have arrow_ne : ∀ (τ₁ τ₂ : Ty), τ₁ ≠ Ty.arrow τ₁ τ₂ := by
     intro τ₁
     induction τ₁ with
@@ -1238,6 +1254,8 @@ example : ¬ ∃ τ σ, <{ ∅ ⊢ λ X : τ . X X ⦂ σ }> := by
         inversion ha with
         | var hy =>
           exact arrow_ne _ _ ((Option.some.inj hy).symm.trans (Option.some.inj hx))
+
+--  (End of exercise)
 
 --   ----------------------------------------
 
@@ -1271,4 +1289,4 @@ example : ¬ ∃ τ σ, <{ ∅ ⊢ λ X : τ . X X ⦂ σ }> := by
 
 end Stlc
 
--- Source revision: 13e9425, committed 2026-11-02 15:56 UTC
+-- Source revision: 20571ca, committed 2026-11-03 22:07 UTC

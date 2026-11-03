@@ -1,1 +1,0 @@
-window.docContents[215].resolve({"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Type-Soundness":{"contents":"\n\n\n\n","context":"Type Systems\u0009StlcProp: Properties of STLC","header":"6.4. Type Soundness","id":"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Type-Soundness"}});

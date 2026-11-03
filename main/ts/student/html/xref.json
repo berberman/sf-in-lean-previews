@@ -7500,6 +7500,39 @@
         "Operational Semantics",
         "Substitution"]}},
      "address": "/Stlc/"}],
+   "Stlc.typing_nonexample_3":
+   [{"id": "Stlc___typing_nonexample_3",
+     "data":
+     {"/Stlc/#Stlc___typing_nonexample_3":
+      {"display": "typing_nonexample_3",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Examples"]}},
+     "address": "/Stlc/"}],
+   "Stlc.typing_example_3":
+   [{"id": "Stlc___typing_example_3",
+     "data":
+     {"/Stlc/#Stlc___typing_example_3":
+      {"display": "typing_example_3",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Examples"]}},
+     "address": "/Stlc/"}],
+   "Stlc.typing_example_2_full":
+   [{"id": "Stlc___typing_example_2_full",
+     "data":
+     {"/Stlc/#Stlc___typing_example_2_full":
+      {"display": "typing_example_2_full",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Examples"]}},
+     "address": "/Stlc/"}],
    "Stlc.type_soundness":
    [{"id": "Stlc___type_soundness",
      "data":

@@ -680,4 +680,4 @@ theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>)
 
 --   ----------------------------------------
 
--- Source revision: 13e9425, committed 2026-11-02 15:56 UTC
+-- Source revision: 20571ca, committed 2026-11-03 22:07 UTC
