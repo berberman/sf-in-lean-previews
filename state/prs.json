@@ -191,11 +191,48 @@
     },
     "485": {
       "base_sha": "13e9425b4647402a09316c1d39fa555e9bc3c257",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "4456122abdaccf0b159b35291d86fb68d07c9817",
       "preview_path": "pr/485/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/41717891405",
+      "status": "published",
       "title": "TS/Stlc: Last pass before class",
       "url": "https://github.com/plclub/sf-in-lean/pull/485"
     },

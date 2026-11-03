@@ -1,0 +1,1 @@
+window.docContents[246].resolve({"/References/#Type-Systems--References___-Typing-Mutable-References--Pragmatics":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Type Systems\u0009References: Typing Mutable References","header":"9.2. Pragmatics","id":"/References/#Type-Systems--References___-Typing-Mutable-References--Pragmatics"}});
