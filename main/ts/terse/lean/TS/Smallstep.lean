@@ -1015,4 +1015,4 @@ macro_rules
 example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
   normalize using SimpleArith
 
--- Source revision: 0cc44a1, committed 2026-11-03 22:25 UTC
+-- Source revision: 52e1744, committed 2026-11-07 14:00 UTC

@@ -569,7 +569,7 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  list of pairs and returns a pair of lists.
 --
 --  Fill in the definition of `unzip` below and write simplification rules
---  that characterize it. Make sure it that passes the given unit test.
+--  that characterize it. Make sure that it passes the given unit test.
 --  Prove `unzip_test_fst` and `unzip_test_snd` by rewriting with your
 --  simplification lemmas instead of using `rfl` directly. Remember that
 --  you can use `dsimp only` to simplify expressions accessing the `fst` or
@@ -1399,4 +1399,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 
--- Source revision: 0cc44a1, committed 2026-11-03 22:25 UTC
+-- Source revision: 52e1744, committed 2026-11-07 14:00 UTC
