@@ -188,6 +188,16 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
+    },
+    "487": {
+      "base_sha": "0cc44a12b7f3b5c7a1d4e78e50d4c5f6f9885dee",
+      "changed_variants": [],
+      "head_sha": "9c3160f8e8c46cadbce2587214d2fe705bd4f729",
+      "preview_path": "pr/487/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42337999746",
+      "status": "ci-failed",
+      "title": "Fix a simple grammar mistake in Poly.lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/487"
     }
   },
   "schema": 3
