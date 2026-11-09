@@ -188,6 +188,53 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
+    },
+    "490": {
+      "base_sha": "52e1744c39f1c1f8d09c30b963eef19e0526e033",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8947602491b08a908259a6f6f53edada05410b2a",
+      "preview_path": "pr/490/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42719512550",
+      "status": "published",
+      "title": "Tactics.lean grammar fix",
+      "url": "https://github.com/plclub/sf-in-lean/pull/490"
     }
   },
   "schema": 3
