@@ -30,116 +30,107 @@ import SFLCompat
 --  repetition and often increases readability.
 --
 --  Syntax:
---
---        t ::=                   Terms
---            | ...                 (other terms same as before)
---            | let x = t₁ in t₂    let-binding
---
+
+--  t ::= ...
+--      | let x = t in t    (let-binding)
+
 --  Reduction:
 --
---                                       t₁ ⟶ t₁'
---                           -------------------------------------        (let₁)
---                           let x = t₁ in t₂ ⟶ let x = t₁' in t₂
+--                    t₁ ⟶ t₁'
+--      ------------------------------------  (let₁)
+--      let x = t₁ in t₂ ⟶ let x = t₁' in t₂
 --
---                              ---------------------------------         (letValue)
---                              let x = v₁ in t₂ ⟶ [x := v₁] t₂
+--      -------------------------------       (letValue)
+--      let x = v₁ in t₂ ⟶ [x := v₁] t₂
 --
 --  Typing:
 --
---                   Γ ⊢ t₁ ⦂ τ₁      x ↦ τ₁ ; Γ ⊢ t₂ ⦂ τ₂
---                   -------------------------------------------      (let)
---                           Γ ⊢ let x = t₁ in t₂ ⦂ τ₂
+--             Γ ⊢ t₁ ⦂ τ₁
+--        x ↦ τ₁ ; Γ ⊢ t₂ ⦂ τ₂
+--      -------------------------  (let)
+--      Γ ⊢ let x = t₁ in t₂ ⦂ τ₂
 
 --  ### Pairs
 
 --  In Lean, there are two ways of extracting the components
 --  of a pair: *pattern matching* and the projection
---  operators `fst` and `snd`. Just for fun, let's do our
---  pairs the latter way. For example, here's how we'd write
---  a function that takes a pair of numbers and returns the
---  pair of their sum and difference:
+--  operators `fst` and `snd`. We'll do our pairs the latter
+--  way. For example, here's how we'd write a function that
+--  takes a pair of numbers and returns the pair of their
+--  sum and difference:
 --
---             λX : Nat × Nat.
---                let Sum = fst X + snd X in
---                let Diff = fst X - snd X in
---                (Sum, Diff)
+--      λX : Nat × Nat.
+--         let Sum = fst X + snd X in
+--         let Diff = fst X - snd X in
+--         (Sum, Diff)
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | (t₁, t₂)         pair
---                 | fst t            first projection
---                 | snd t            second projection
---
---             v ::=                Values
---                 | ...
---                 | (v₁, v₂)         pair value
---
---             τ ::=                Types
---                 | ...
---                 | τ₁ × τ₂          product type
---
+
+--  t ::= ...
+--      | ( t , t )    (pair)
+--      | fst t        (first projection)
+--      | snd t        (second projection)
+--  v ::= ...
+--      | ( v , v )    (pair value)
+--  τ ::= ...
+--      | τ × τ        (product type)
+
 --  Reduction...
 --
---                                    t₁ ⟶ t₁'
---                               --------------------                        (pair₁)
---                               (t₁,t₂) ⟶ (t₁',t₂)
+--           t₁ ⟶ t₁'
+--      ------------------  (pair₁)
+--      (t₁,t₂) ⟶ (t₁',t₂)
 --
---                                    t₂ ⟶ t₂'
---                               --------------------                        (pair₂)
---                               (v₁,t₂) ⟶ (v₁,t₂')
+--           t₂ ⟶ t₂'
+--      ------------------  (pair₂)
+--      (v₁,t₂) ⟶ (v₁,t₂')
 --
---                                     t ⟶ t'
---                                 ------------------                        (fst₁)
---                                 fst t ⟶ fst t'
+--            t ⟶ t'
+--        --------------    (fst₁)
+--        fst t ⟶ fst t'
 --
---                                ------------------                       (fstPair)
---                                 fst (v₁,v₂) ⟶ v₁
+--       ----------------   (fstPair)
+--       fst (v₁,v₂) ⟶ v₁
 --
---                                     t ⟶ t'
---                                 ------------------                      (snd₁)
---                                 snd t ⟶ snd t'
+--            t ⟶ t'
+--        --------------    (snd₁)
+--        snd t ⟶ snd t'
 --
---                                ------------------                       (sndPair)
---                                snd (v₁,v₂) ⟶ v₂
+--       ----------------   (sndPair)
+--       snd (v₁,v₂) ⟶ v₂
 --
 --  Typing:
 --
---                           Γ ⊢ t₁ ⦂ τ₁     Γ t₂ ⦂ τ₂
---                          ------------------------------              (pair)
---                            Γ ⊢(t₁, t₂) ⦂ τ₁ × τ₂
+--           Γ ⊢ t₁ ⦂ τ₁
+--           Γ ⊢ t₂ ⦂ τ₂
+--      ----------------------  (pair)
+--      Γ ⊢ (t₁, t₂) ⦂ τ₁ × τ₂
 --
---                                 Γ ⊢ t ⦂ τ₁ × τ₂
---                              -----------------------                  (fst)
---                                  Γ ⊢ fst t ⦂ τ₁
+--         Γ ⊢ t ⦂ τ₁ × τ₂
+--         ---------------      (fst)
+--         Γ ⊢ fst t ⦂ τ₁
 --
---                                  Γ ⊢ t ⦂ τ₁ × τ₂
---                              -----------------------                   (snd)
---                                   Γ ⊢ snd t ⦂ τ₂
+--         Γ ⊢ t ⦂ τ₁ × τ₂
+--         ---------------      (snd)
+--         Γ ⊢ snd t ⦂ τ₂
 
 --  ### Unit
 
 --  Another handy base type is the singleton type `Unit`.
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...               (other terms same as before)
---                 | unit              unit
---
---             v ::=                Values
---                 | ...
---                 | unit              unit value
---
---             τ ::=                Types
---                 | ...
---                 | Unit              unit type
---
+
+--  t ::= ...
+--      | unit    (unit)
+--  v ::= ...
+--      | unit    (unit value)
+--  τ ::= ...
+--      | Unit    (unit type)
+
 --  Typing:
 --
---                               ----------------                       (unit)
---                               Γ ⊢ unit ⦂ Unit
+--      ---------------  (unit)
+--      Γ ⊢ unit ⦂ Unit
 
 --   ----------------------------------------
 
@@ -165,14 +156,14 @@ import SFLCompat
 --  (sometimes called a *disjoint union*), which describes a
 --  set of values drawn from one of two given types, e.g.:
 --
---             Nat + Bool
+--      Nat + Bool
 --
 --  We create elements of these types by tagging elements of
 --  the component types, telling on which side of the sum we
 --  are putting them. E.g.,
 --
---         inl 42   ⦂ Nat + Bool
---         inr true ⦂ Nat + Bool
+--      inl 42   ⦂ Nat + Bool
+--      inr true ⦂ Nat + Bool
 --
 --  In general, the elements of a type `τ₁ + τ₂` consist of
 --  the elements of `τ₁` tagged with the token `inl`, plus
@@ -181,84 +172,75 @@ import SFLCompat
 --  (As we've seen in Lean programming, one important use of
 --  sums is signaling errors:
 --
---            Div ⦂ Nat → Nat → (Nat + Unit)
---            Div =
---              λX:Nat. λY:Nat,
---                if iszero Y then
---                  inr unit
---                else
---                  inl ...
+--      Div ⦂ Nat → Nat → (Nat + Unit)
+--      Div =
+--        λX:Nat. λY:Nat,
+--          if iszero Y then
+--            inr unit
+--          else
+--            inl ...
 --
 --  Values of sum type are "destructed" by case analysis:
 --
---          GetNat ⦂ Nat + Bool → Nat
---          GetNat =
---            λX:Nat + Bool,
---              case X of
---                inl N => N
---              | inr B => if B then 1 else 0
+--      GetNat ⦂ Nat + Bool → Nat
+--      GetNat =
+--        λX:Nat + Bool,
+--          case X of
+--            inl N => N
+--          | inr B => if B then 1 else 0
 --
 --  More formally...
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...               (other terms same as before)
---                 | inl τ₂ t₁         tagging (left)
---                 | inr τ₁ t₂         tagging (right)
---                 | case t of         case analysis
---                     inl x₁ => t₁
---                   | inr x₂ => t₂
---
---             v ::=                Values
---                 | ...
---                 | inl τ₂ v₁         tagged value (left)
---                 | inr τ₁ v₂         tagged value (right)
---
---             τ ::=                Types
---                 | ...
---                 | τ₁ + τ₂           sum type
---
+
+--  t ::= ...
+--      | inl τ t                              (tagging (left))
+--      | inr τ t                              (tagging (right))
+--      | case t of inl x => t | inr x => t    (case analysis)
+--  v ::= ...
+--      | inl τ v                              (tagged value (left))
+--      | inr τ v                              (tagged value (right))
+--  τ ::= ...
+--      | τ + τ                                (sum type)
+
 --  Reduction:
 --
---                                     t₁ ⟶ t₁'
---                              ------------------------                       (inl)
---                              inl τ₂ t₁ ⟶ inl τ₂ t₁'
+--                          t₁ ⟶ t₁'
+--                   ----------------------                (inl)
+--                   inl τ₂ t₁ ⟶ inl τ₂ t₁'
 --
---                                     t₂ ⟶ t₂'
---                              ------------------------                       (inr)
---                              inr τ₁ t₂ ⟶ inr τ₁ t₂'
+--                          t₂ ⟶ t₂'
+--                   ----------------------                (inr)
+--                   inr τ₁ t₂ ⟶ inr τ₁ t₂'
 --
---                                     t ⟶ t'
---                     -------------------------------------------            (case)
---                      case t of inl x₁ => t₁ | inr x₂ => t₂ ⟶
---                     case t' of inl x₁ => t₁ | inr x₂ => t₂
+--                           t ⟶ t'
+--           ---------------------------------------       (case)
+--           case t of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--           case t' of inl x₁ => t₁ | inr x₂ => t₂
 --
---                  -----------------------------------------------        (caseInl)
---                  case (inl τ₂ v₁) of inl x₁ => t₁ | inr x₂ => t₂
---                                 ⟶  [x₁ := v₁]t₁
+--      -------------------------------------------------  (caseInl)
+--      case (inl τ₂ v₁) of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--                        [x₁ := v₁]t₁
 --
---                  -----------------------------------------------        (caseInr)
---                  case (inr τ₁ v₂) of inl x₁ => t₁ | inr x₂ => t₂
---                                 ⟶  [x₂ := v₂]t₂
+--      -------------------------------------------------  (caseInr)
+--      case (inr τ₁ v₂) of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--                        [x₂ := v₂]t₂
 --
 --  Typing:
 --
---                                  Γ ⊢ t₁ ⦂ τ₁
---                         ----------------------------                      (inl)
---                             Γ ⊢ inl τ₂ t₁ ⦂ τ₁ + τ₂
+--                       Γ ⊢ t₁ ⦂ τ₁
+--                 -----------------------              (inl)
+--                 Γ ⊢ inl τ₂ t₁ ⦂ τ₁ + τ₂
 --
+--                       Γ ⊢ t₂ ⦂ τ₂
+--                 -----------------------              (inr)
+--                 Γ ⊢ inr τ₁ t₂ ⦂ τ₁ + τ₂
 --
---                                Γ ⊢ t₂ ⦂ τ₂
---                         ---------------------------                       (inr)
---                           Γ ⊢ inr τ₁ t₂ ⦂ τ₁ + τ₂
---
---
---                              Γ ⊢ t ⦂ τ₁ + τ₂
---                           x₁ ↦ τ₁; Γ ⊢ t₁ ⦂ τ₃
---                           x₂ ↦ τ₂; Γ ⊢ t₂ ⦂ τ₃
---               ----------------------------------------------------        (case)
---                   Γ ⊢ case t of inl x₁ => t₁ | inr x₂ => t₂ ⦂ τ₃
+--                     Γ ⊢ t ⦂ τ₁ + τ₂
+--                   x₁ ↦ τ₁; Γ ⊢ t₁ ⦂ τ₃
+--                   x₂ ↦ τ₂; Γ ⊢ t₂ ⦂ τ₃
+--      ----------------------------------------------  (case)
+--      Γ ⊢ case t of inl x₁ => t₁ | inr x₂ => t₂ ⦂ τ₃
 --
 --  We use the type annotations on `inl` and `inr` to make
 --  the typing relation deterministic (each term has at most
@@ -273,13 +255,13 @@ import SFLCompat
 --            let F = λX : Nat + Bool.
 --               case X of
 --                 inl N => N + 3
---                 | inr B => 0 in
+--               | inr B => 0 in
 --            F (inl Bool 4)
 --
 --          (A)  (λX : Nat + Bool.
 --                  case X of
 --                    inl N => N + 3
---                    | inr B => 0
+--                  | inr B => 0
 --               ) (inl Bool 4)
 --
 --          (B) 7
@@ -298,7 +280,7 @@ import SFLCompat
 --
 --        (λX : Nat + Bool.
 --           case X of
---           inl N => N + 3
+--             inl N => N + 3
 --           | inr B => 0
 --        ) (inl Bool 4)
 --
@@ -317,7 +299,7 @@ import SFLCompat
 --  What about this one?
 --
 --             case inl Bool 4 of
---               inl N => N + 3
+--                 inl N => N + 3
 --               | inr B => 0
 --
 --         (A)  4 + 3
@@ -331,61 +313,54 @@ import SFLCompat
 --  ### Lists
 
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | nil τ             ∅ list
---                 | t₁ :: t₂          cons
---                 | case t₁ of        case analysis
---                     nil      => t₂
---                     | xh::xt => t₃
---
---             v ::=                Values
---                 | ...
---                 | nil τ             nil value
---                 | v₁ :: v₂          cons value
---
---             τ ::=                Types
---                 | ...
---                 | List τ            list of τs
---
+
+--  t ::= ...
+--      | nil τ                               (empty list)
+--      | t :: t                              (cons)
+--      | case t of nil => t | x :: x => t    (case analysis)
+--  v ::= ...
+--      | nil τ                               (nil value)
+--      | v :: v                              (cons value)
+--  τ ::= ...
+--      | List τ                              (list of τs)
+
 --  Reduction:
 --
---                                      t₁ ⟶ t₁'
---                             --------------------------                    (cons₁)
---                               t₁ :: t₂ ⟶ t₁' :: t₂
+--                          t₁ ⟶ t₁'
+--                    --------------------                 (cons₁)
+--                    t₁ :: t₂ ⟶ t₁' :: t₂
 --
---                                      t₂ ⟶ t₂'
---                             --------------------------                    (cons₂)
---                               v₁ :: t₂ ⟶ v₁ :: t₂'
+--                          t₂ ⟶ t₂'
+--                    --------------------                 (cons₂)
+--                    v₁ :: t₂ ⟶ v₁ :: t₂'
 --
---                                    t₁ ⟶ t₁'
---                      -------------------------------------------         (listCase₁)
---                       (case t₁ of nil => t₂ | xh :: xt => t₃) ⟶
---                      (case t₁' of nil => t₂ | xh :: xt => t₃)
+--                          t₁ ⟶ t₁'
+--          -----------------------------------------      (listCase₁)
+--          (case t₁ of nil => t₂ | xh :: xt => t₃) ⟶
+--          (case t₁' of nil => t₂ | xh :: xt => t₃)
 --
---                     ------------------------------------------          (listCaseNil)
---                     (case nil τ₁ of nil => t₂ | xh :: xt => t₃)
---                                      ⟶ t₂
+--      ------------------------------------------------   (listCaseNil)
+--      (case nil τ₁ of nil => t₂ | xh :: xt => t₃) ⟶ t₂
 --
---                    -------------------------------------------         (listCaseCons)
---                    (case (vh :: vt) of nil => t₂ | xh :: xt => t₃)
---                                ⟶ [xh:=vh][xt:=vt] t₃
+--      -------------------------------------------------  (listCaseCons)
+--      (case (vh :: vt) of nil => t₂ | xh :: xt => t₃) ⟶
+--                     [xh:=vh][xt:=vt] t₃
 --
 --  Typing:
 --
---                              ----------------------------                    (nil)
---                              Γ ⊢ nil τ₁ ⦂ List τ₁
+--                    --------------------                (nil)
+--                    Γ ⊢ nil τ₁ ⦂ List τ₁
 --
---                           Γ ⊢ t₁ ⦂ τ₁      Γ ⊢ t₂ ⦂ List τ₁
---                  -------------------------------------------------           (cons)
---                               Γ ⊢ t₁ :: t₂ ⦂ List τ₁
+--                        Γ ⊢ t₁ ⦂ τ₁
+--                      Γ ⊢ t₂ ⦂ List τ₁
+--                   ----------------------               (cons)
+--                   Γ ⊢ t₁ :: t₂ ⦂ List τ₁
 --
---                              Γ ⊢ t₁ ⦂ List τ₁
---                              Γ ⊢ t₂ ⦂ τ₂
---                        (xh ↦ τ₁; xt ↦ List τ₁; Γ) ⊢ t₃ ⦂ τ₂
---                ----------------------------------------------------         (listCase)
---                   Γ ⊢ (case t₁ of nil => t₂ | xh :: xt => t₃) ⦂ τ₂
+--                      Γ ⊢ t₁ ⦂ List τ₁
+--                        Γ ⊢ t₂ ⦂ τ₂
+--            (xh ↦ τ₁; xt ↦ List τ₁; Γ) ⊢ t₃ ⦂ τ₂
+--      ------------------------------------------------  (listCase)
+--      Γ ⊢ (case t₁ of nil => t₂ | xh :: xt => t₃) ⦂ τ₂
 
 --  ### General Recursion
 
@@ -394,12 +369,12 @@ import SFLCompat
 --  functions. For example, we would like to be able to
 --  define and use the factorial function like this:
 --
---            let Fact = λX:Nat.
---                         if X=0 then 1 else X * (Fact (pred X))) in
---            Fact 3.
+--      let Fact = λX:Nat.
+--                   if X=0 then 1 else X * (Fact (pred X))) in
+--      Fact 3.
 --
 --  Note that the right-hand side of this binder mentions
---  `Fact`, the variable being bound - something that is not
+--  `Fact`, the variable being bound — something that is not
 --  allowed according to the way we defined `let` above.
 --
 --  Extending our formalization of `let`s to handle
@@ -416,42 +391,41 @@ import SFLCompat
 --
 --  For example, instead of
 --
---            Fact = λX:Nat.
---                      if X=0 then 1 else X * (Fact (pred X)))
+--      Fact = λX:Nat.
+--                if X=0 then 1 else X * (Fact (pred X)))
 --
 --  we will write:
-
---  Fact =
---            fix
---              (λF:Nat → Nat.
---                 λX:Nat.
---                    if X=0 then 1 else X * (F (pred X)))
-
+--
+--      Fact =
+--          fix
+--            (λF:Nat → Nat.
+--               λX:Nat.
+--                  if X=0 then 1 else X * (F (pred X)))
+--
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | fix t₁            fixed-point operator
---
+
+--  t ::= ...
+--      | fix t    (fixed-point operator)
+
 --  Reduction:
 --
---                                      t₁ ⟶ t₁'
---                                  ------------------                   (fix₁)
---                                  fix t₁ ⟶ fix t₁'
+--                   t₁ ⟶ t₁'
+--      -------------------------                   (fix₁)
+--               fix t₁ ⟶ fix t₁'
 --
---                     --------------------------------------------      (fixAbs)
---                     fix (λxf:τ₁.t₁) ⟶ [xf:=fix (λxf:τ₁.t₁)] t₁
+--      ------------------------------------------  (fixAbs)
+--      fix (λxf:τ₁.t₁) ⟶ [xf:=fix (λxf:τ₁.t₁)] t₁
 --
 --  Typing:
 --
---                                 Γ ⊢ t₁ ⦂ τ₁ → τ₁
---                                 ------------------                    (fix)
---                                 Γ ⊢ fix t₁ ⦂ τ₁
+--      Γ ⊢ t₁ ⦂ τ₁ → τ₁
+--      ----------------  (fix)
+--      Γ ⊢ fix t₁ ⦂ τ₁
 
 --  Let's see how `fixAbs` works by reducing
 --  `Fact 3 = fix F 3`, where
 --
---          F = (λF. λX. if X=0 then 1 else X * (F (pred X)))
+--      F = (λF. λX. if X=0 then 1 else X * (F (pred X)))
 --
 --  (type annotations are omitted for brevity).
 --
@@ -581,20 +555,15 @@ import SFLCompat
 --  - they are accessed by *label* (rather than position).
 
 --  Syntax:
---
---             t ::=                          Terms
---                 | ...
---                 | {i₁=t₁, ..., iₙ=tₙ}        record
---                 | t.i                        projection
---
---             v ::=                          Values
---                 | ...
---                 | {i₁=v₁, ..., iₙ=vₙ}        record value
---
---             τ ::=                          Types
---                 | ...
---                 | {i₁:τ₁, ..., iₙ:τₙ}        record type
---
+
+--  t ::= ...
+--      | { i = t , ... , i = t }    (record)
+--      | t . i                      (projection)
+--  v ::= ...
+--      | { i = v , ... , i = v }    (record value)
+--  τ ::= ...
+--      | { i : τ , ... , i : τ }    (record type)
+
 --  Note that this is a quite informal definition compared
 --  to previous ones:
 --  - it uses "`...`" in the syntax for records
@@ -603,17 +572,17 @@ import SFLCompat
 --
 --  Reduction:
 --
---                                    ti ⟶ ti'
---                       ------------------------------------                  (rcd)
---                           {i₁=v₁, ..., im=vm, in=ti , ...}
---                       ⟶ {i₁=v₁, ..., im=vm, in=ti', ...}
+--                  ti ⟶ ti'
+--      ---------------------------------  (rcd)
+--      {i₁=v₁, ..., im=vm, in=ti, ...} ⟶
+--      {i₁=v₁, ..., im=vm, in=ti', ...}
 --
---                                    t ⟶ t'
---                                  --------------                           (proj₁)
---                                  t.i ⟶ t'.i
+--                   t ⟶ t'
+--                 ----------              (proj₁)
+--                 t.i ⟶ t'.i
 --
---                            -------------------------                    (projRcd)
---                            {..., i=vi, ...}.i ⟶ vi
+--           -----------------------       (projRcd)
+--           {..., i=vi, ...}.i ⟶ vi
 --
 --  - In the first rule, `ti` must be the leftmost field
 --    that is not a value;
@@ -623,14 +592,13 @@ import SFLCompat
 --
 --  The typing rules are also simple:
 --
---                     Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tₙ ⦂ τₙ
---                -----------------------------------------------------        (rcd)
---                Γ ⊢ {i₁=t₁, ..., iₙ=tₙ} ⦂ {i₁:τ₁, ..., iₙ:τₙ}
+--           Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tₙ ⦂ τₙ
+--      ---------------------------------------------  (rcd)
+--      Γ ⊢ {i₁=t₁, ..., iₙ=tₙ} ⦂ {i₁:τ₁, ..., iₙ:τₙ}
 --
---
---                            Γ ⊢ t ⦂ {..., i:τᵢ, ...}
---                          ---------------------------------                  (proj)
---                                Γ ⊢ t.i ⦂ τᵢ
+--                Γ ⊢ t ⦂ {..., i:τᵢ, ...}
+--                ------------------------             (proj)
+--                      Γ ⊢ t.i ⦂ τᵢ
 --
 --  Formalizing all this would take some work.
 
@@ -690,11 +658,11 @@ inductive Tm : Type where
 --  instead provided a single `if0` form combining a zero
 --  test and a conditional. That is, instead of writing
 --
---             if x = 0 then ... else ...
+--      if x = 0 then ... else ...
 --
 --  we'll write this:
 --
---             if0 x then ... else ...
+--      if0 x then ... else ...
 --
 --  As in Stlc, terms, types, contexts, and typing judgments
 --  use `<{ … }>` brackets. Capital Latin identifiers are
@@ -709,12 +677,13 @@ scoped syntax:51 " [ " stlcTy:50  " ] " : stlcTy
 
 scoped syntax:max num : stlcTm
 scoped syntax:60 stlcTm:60 " * " stlcTm:61 : stlcTm
-scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
+scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50
+  " else " stlcTm:50 : stlcTm
 
 scoped syntax:60 " inr " stlcTy:60 ppSpace stlcTm:60 : stlcTm
 scoped syntax:60 " inl " stlcTy:60 ppSpace stlcTm:60 : stlcTm
-scoped syntax:50 "case " stlcTm:50 " of " "inl" stlcVar " => " stlcTm:50 " | "
-  "inr" stlcVar " => " stlcTm:50 : stlcTm
+scoped syntax:50 "case " stlcTm:50 " of " "inl" stlcVar
+  " => " stlcTm:50 " | " "inr" stlcVar " => " stlcTm:50 : stlcTm
 
 scoped syntax:60 " nil " stlcTy:60 : stlcTm
 scoped syntax:60 stlcTm:61 " :: " stlcTm:60 : stlcTm
@@ -723,7 +692,8 @@ scoped syntax:50 "case " stlcTm:50 " of " "nil" " => " stlcTm:50 " | "
 
 scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
 
-scoped syntax:50 "let " stlcVar " = " stlcTm:50 " in " stlcTm:50 : stlcTm
+scoped syntax:50 "let " stlcVar " = " stlcTm:50
+  " in " stlcTm:50 : stlcTm
 
 namespace Elab
 
@@ -820,7 +790,8 @@ def extendedTmHandler : TmElabHandler :=
         let (x₂, Γ₂) ← elabStlcBinder language Γ x₂
         let (t₂, free) ← recur Γ₂ free t₂
 
-        return (mkAppN (mkConst ``Tm.sumCase) #[t, x₁, t₁, x₂, t₂], free)
+        return (mkAppN (mkConst ``Tm.sumCase)
+          #[t, x₁, t₁, x₂, t₂], free)
 
     | `(stlcTm| nil $T:stlcTy) => do
         let T ← elabTy T
@@ -847,7 +818,8 @@ def extendedTmHandler : TmElabHandler :=
 
         let (t₃, free) ← recur Γ free t₃
 
-        return (mkAppN (mkConst ``Tm.listCase) #[t₁, t₂, x, xs, t₃], free)
+        return (mkAppN (mkConst ``Tm.listCase)
+          #[t₁, t₂, x, xs, t₃], free)
 
     | `(stlcTm| Unit) => do
         throwError "`Unit` is not a valid term."
@@ -890,7 +862,6 @@ def extendedTmHandler : TmElabHandler :=
 
 def tmHandlers : TmElabHandler :=
   extendedTmHandler.orElse (commonTmHandler language elabTy)
-
 
 partial def elabTm : TmElab :=
   tmHandlers elabTm unsupportedTm
@@ -938,7 +909,6 @@ private def Ty.unexpandSum : Unexpander
       `(<{ $T₁':stlcTy + $T₂':stlcTy }>)
   | _ => throw ()
 
-
 @[app_unexpander Ty.list]
 private def Ty.unexpandList : Unexpander
   | `($_ $T) => do
@@ -962,16 +932,14 @@ private def reservedNames : String → Bool
   | _ => false
 
 @[app_unexpander Tm.var]
-private def Tm.unexpandVar : Unexpander := Delab.unexpandVar reservedNames ``Tm.var
-
+private def Tm.unexpandVar : Unexpander :=
+  Delab.unexpandVar reservedNames ``Tm.var
 
 @[app_delab Tm.var]
 private def Tm.delabVar : Delab := Delab.delabVar ``Tm.var
 
-
 @[app_unexpander Tm.app]
 private def Tm.unexpandApp : Unexpander := Delab.unexpandApp
-
 
 @[app_unexpander Tm.abs]
 private def Tm.unexpandAbs : Unexpander := Delab.unexpandAbs
@@ -1046,7 +1014,6 @@ private def Tm.unexpandSumCase : Unexpander
       }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.listNil]
 private def Tm.unexpandListNil : Unexpander
   | `($_ $T) => do
@@ -1100,7 +1067,6 @@ private def Tm.unexpandFst : Unexpander
       `(<{ $fst:ident $t':stlcTm }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.snd]
 private def Tm.unexpandSnd : Unexpander
   | stx@`($_ $t) => do
@@ -1124,7 +1090,6 @@ private def Tm.unexpandLetIn : Unexpander
       }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.fix]
 private def Tm.unexpandFix : Unexpander
   | stx@`($_ $t) => do
@@ -1135,6 +1100,49 @@ private def Tm.unexpandFix : Unexpander
 
 end Delab
 --  END DETAILS
+
+--  Here are a few example terms and types written in this
+--  notation:
+
+/-- info: <{ unit }> : Tm -/
+#guard_msgs in
+#check <{ unit }>
+
+/-- info: <{ λ X : Nat . X }> : Tm -/
+#guard_msgs in
+#check <{ λ X : Nat . X }>
+
+/-- info: <{ fix (λ X : Nat → Nat . X) }> : Tm -/
+#guard_msgs in
+#check <{ fix (λ X : Nat → Nat . X) }>
+
+/-- info: <{ let X = 1 in ( X , unit ) }> : Tm -/
+#guard_msgs in
+#check <{ let X = 1 in (X, unit) }>
+
+/-- info: <{ ( X , Y ) }> : Tm -/
+#guard_msgs in
+#check <{ (X , Y) }>
+
+/-- info: <{ fst  ( X , Y ) }> : Tm -/
+#guard_msgs in
+#check <{ fst (X , Y) }>
+
+/-- info: <{ inr Nat (λ X : Unit . X) }> : Tm -/
+#guard_msgs in
+#check <{ inr Nat (λ X : Unit . X) }>
+
+/-- info: <{ nil Nat }> : Tm -/
+#guard_msgs in
+#check <{ nil Nat }>
+
+/-- info: <{ 3 :: nil Nat }> : Tm -/
+#guard_msgs in
+#check <{ 3 :: nil Nat }>
+
+/-- info: <{ ( [ Nat ] → Nat × Unit) → Nat + Unit }> : Ty -/
+#guard_msgs in
+#check <{ ([Nat] -> Nat × Unit) -> Nat + Unit }>
 
 --  Next we define the values of our language.
 
@@ -1164,8 +1172,9 @@ inductive Tm.IsValue : Tm → Prop where
       IsValue v₂ →
       IsValue <{(v₁, v₂)}>
 
-attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsValue.sumInr
-    Tm.IsValue.listNil Tm.IsValue.listCons Tm.IsValue.unit Tm.IsValue.pair
+attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl
+    Tm.IsValue.sumInr Tm.IsValue.listNil Tm.IsValue.listCons
+    Tm.IsValue.unit Tm.IsValue.pair
 
 --  The proofs of progress and preservation for this
 --  enriched system are essentially the same (though of
@@ -1173,4 +1182,4 @@ attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsVal
 
 end StlcExtended
 
--- Source revision: 2e7c7c0, committed 2026-11-10 13:14 UTC
+-- Source revision: 83ba750, committed 2026-11-10 14:47 UTC

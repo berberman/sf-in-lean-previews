@@ -142,36 +142,6 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
-table.bnf {
-  margin: 1em auto;
-  border-collapse: collapse;
-  font-family: var(--verso-code-font-family, monospace);
-}
-table.bnf td {
-  padding: 0.15em 0.5em;
-  vertical-align: baseline;
-}
-table.bnf td.bnf-lhs { text-align: right; }
-table.bnf td.bnf-sep { text-align: center; }
-table.bnf td.bnf-alt { text-align: left; }
-table.bnf .bnf-nt  { font-style: italic; }
-table.bnf .bnf-mv  {
-  font-style: italic;
-  text-decoration: underline;
-  text-decoration-thickness: 0.5px;
-  text-underline-offset: 0.18em;
-}
-table.bnf .bnf-kw  { font-weight: 600; font-family: var(--verso-code-font-family, monospace); }
-/* The gloss column: set in the body font, muted, and pushed away from the
-   grammar so it reads as an annotation rather than as part of the syntax. */
-table.bnf td.bnf-note {
-  padding-left: 2.5em;
-  text-align: left;
-  font-family: inherit;
-  font-style: italic;
-  opacity: 0.65;
-}
-</style><style>
 .marginalia .note {
   position: relative;
   padding: 0.5rem;
@@ -1151,6 +1121,39 @@ blockquote {
 .exercise {
   background: var(--sf-surface);
   border-left: 3px solid var(--sf-accent);
+}
+</style><style>
+table.bnf {
+  margin: 1em auto;
+  border-collapse: collapse;
+  font-family: var(--verso-code-font-family, monospace);
+}
+table.bnf td {
+  padding: 0.15em 0.5em;
+  vertical-align: baseline;
+}
+table.bnf td.bnf-lhs { text-align: right; }
+table.bnf td.bnf-sep { text-align: center; }
+table.bnf td.bnf-alt { text-align: left; }
+table.bnf .bnf-nt  { font-style: italic; }
+table.bnf .bnf-mv  {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 0.18em;
+}
+table.bnf .bnf-kw  { font-weight: 600; font-family: var(--verso-code-font-family, monospace); }
+/* Neither italic (nonterminal) nor bold (terminal): an elision reads as punctuation,
+   not as a piece of the grammar proper. */
+table.bnf .bnf-ellipsis { opacity: 0.65; }
+/* The gloss column: set in the body font, muted, and pushed away from the
+   grammar so it reads as an annotation rather than as part of the syntax. */
+table.bnf td.bnf-note {
+  padding-left: 2.5em;
+  text-align: left;
+  font-family: inherit;
+  font-style: italic;
+  opacity: 0.65;
 }
 </style><style>
 /* +centered display: center the whole block as a rigid unit, so multi-line
@@ -3915,7 +3918,7 @@ term <code>e'</code> yourself.</p>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 2e7c7c0, committed 2026-11-10 13:14 UTC</div>
+            Source revision: 83ba750, committed 2026-11-10 14:47 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Slang/#Slang" rel="prev" title="2. Slang: Arithmetic and Boolean Expressions"><span class="arrow">←</span><span class="where">2. Slang: Arithmetic and Boolean Expressions</span></a><a class="local-button active" href="Types/#Types" rel="next" title="4. Types: Type Systems"><span class="where">4. Types: Type Systems</span><span class="arrow">→</span></a></nav>
           </div>
