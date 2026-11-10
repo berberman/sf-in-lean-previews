@@ -191,11 +191,48 @@
     },
     "491": {
       "base_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
-      "changed_variants": [],
-      "head_sha": "132ab5031516126f2b2374523557f9e96b86b94b",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "cadb7cacbe44a0bfc0aa66fad006f2e204b4cae3",
       "preview_path": "pr/491/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42735502862",
+      "status": "published",
       "title": "Proofread TS/StlcProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/491"
     }

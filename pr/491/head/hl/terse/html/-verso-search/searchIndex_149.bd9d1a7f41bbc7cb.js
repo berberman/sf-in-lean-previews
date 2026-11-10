@@ -1,0 +1,1 @@
+window.docContents[149].resolve({"/Equiv/#Equiv":{"contents":"open scoped HasEval MyGetElem Com\n\n\nThis chapter develops a notion of behavioral equivalence for Imp's\nexpressions and commands.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Hoare Logic","header":"4. Equiv: Program Equivalence","id":"/Equiv/#Equiv"}});

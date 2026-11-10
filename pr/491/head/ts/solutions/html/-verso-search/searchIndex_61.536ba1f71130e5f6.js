@@ -1,0 +1,1 @@
+window.docContents[61].resolve({"/References/#Type-Systems--References___-Typing-Mutable-References--Operational-Semantics":{"contents":"\n\n\n\n\n\n","context":"Type Systems\u0009References: Typing Mutable References","header":"9.3. Operational Semantics","id":"/References/#Type-Systems--References___-Typing-Mutable-References--Operational-Semantics"}});
