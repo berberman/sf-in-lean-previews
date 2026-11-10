@@ -235,53 +235,6 @@
       "status": "published",
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
-    },
-    "496": {
-      "base_sha": "2e7c7c075ab2cc806edddd84ab7e0bea5d8eb224",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "d1005c7b60ddfb32c91963acec91d064afc982c0",
-      "preview_path": "pr/496/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42820497169",
-      "status": "published",
-      "title": "Proofread MoreStlc (and more)",
-      "url": "https://github.com/plclub/sf-in-lean/pull/496"
     }
   },
   "schema": 3
