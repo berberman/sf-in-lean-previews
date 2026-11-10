@@ -242,7 +242,7 @@
  "835": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ τ₁ → τ₂ }&gt;</code>",
  "834": "<code>&lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
  "833":
- "<code>Stlc.canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
+ "<code>Stlc.canonical_forms_fun (t : Tm) {τ₁ τ₂ : Ty} (hτ : &lt;{ ∅ ⊢ t ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
  "832": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
  "831": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
  "830": "<code>&lt;{ ∅ ⊢ λ ~x : τ . t₁ ⦂ Bool }&gt;</code>",

@@ -1,5 +1,5 @@
 {
-  "main_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
+  "main_sha": "210f22ff37ccb7df07c4412bbb8d330fa6383f8e",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -189,100 +189,6 @@
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
     },
-    "491": {
-      "base_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "cadb7cacbe44a0bfc0aa66fad006f2e204b4cae3",
-      "preview_path": "pr/491/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42735502862",
-      "status": "published",
-      "title": "Proofread TS/StlcProp.lean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/491"
-    },
-    "494": {
-      "base_sha": "cadb7cacbe44a0bfc0aa66fad006f2e204b4cae3",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8ccc0d99971801fb79b0122c3676e1cfb7148a04",
-      "preview_path": "pr/494/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42737990565",
-      "status": "published",
-      "title": "TS/StlcProp: Reorder informal/formal proofs",
-      "url": "https://github.com/plclub/sf-in-lean/pull/494"
-    },
     "495": {
       "base_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
       "changed_variants": [
@@ -329,6 +235,53 @@
       "status": "published",
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
+    },
+    "496": {
+      "base_sha": "2e7c7c075ab2cc806edddd84ab7e0bea5d8eb224",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d1005c7b60ddfb32c91963acec91d064afc982c0",
+      "preview_path": "pr/496/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42820497169",
+      "status": "published",
+      "title": "Proofread MoreStlc (and more)",
+      "url": "https://github.com/plclub/sf-in-lean/pull/496"
     }
   },
   "schema": 3
