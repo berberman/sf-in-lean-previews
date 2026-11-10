@@ -236,7 +236,7 @@
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
     },
-    "498": {
+    "499": {
       "base_sha": "83ba75093bca1c6f387552ec1f2d9b74b505e443",
       "changed_variants": [
         {
@@ -276,12 +276,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "97b778b2dc3f30c48a20e6f6d3ba206bc919c7d6",
-      "preview_path": "pr/498/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42892399975",
+      "head_sha": "84dfdecd3fb38b70b563c3e035d832b38cb651e4",
+      "preview_path": "pr/499/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42898747377",
       "status": "published",
-      "title": "Stlc: autograde",
-      "url": "https://github.com/plclub/sf-in-lean/pull/498"
+      "title": "TS/StlcProp: Small simplifications",
+      "url": "https://github.com/plclub/sf-in-lean/pull/499"
     }
   },
   "schema": 3
