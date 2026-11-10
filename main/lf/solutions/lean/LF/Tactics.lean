@@ -342,7 +342,7 @@ example {α β : Type} (f : α → β) (x y : α)
 --  There is a tactic named `congr` that can prove such goals directly.
 --  Given a goal of the form `f a₁ ... aₙ = g b₁ ... bₙ`, writing `congr`
 --  will produce subgoals of the form `f = g`, `a₁ = b₁`, ..., `aₙ = bₙ`.
---  If any of these subgoals that are simple enough to be discharged
+--  If any of these subgoals are simple enough to be discharged
 --  automatically (e.g., immediately provable by `rfl`), they will
 --  disappear.
 
@@ -1573,4 +1573,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Source revision: 52e1744, committed 2026-11-07 14:00 UTC
+-- Source revision: 86b6f46, committed 2026-11-10 00:19 UTC
