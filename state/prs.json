@@ -235,6 +235,53 @@
       "status": "published",
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
+    },
+    "498": {
+      "base_sha": "83ba75093bca1c6f387552ec1f2d9b74b505e443",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "97b778b2dc3f30c48a20e6f6d3ba206bc919c7d6",
+      "preview_path": "pr/498/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42892399975",
+      "status": "published",
+      "title": "Stlc: autograde",
+      "url": "https://github.com/plclub/sf-in-lean/pull/498"
     }
   },
   "schema": 3
