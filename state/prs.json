@@ -235,6 +235,53 @@
       "status": "published",
       "title": "Proofread TS/StlcProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/491"
+    },
+    "494": {
+      "base_sha": "cadb7cacbe44a0bfc0aa66fad006f2e204b4cae3",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8ccc0d99971801fb79b0122c3676e1cfb7148a04",
+      "preview_path": "pr/494/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42737990565",
+      "status": "published",
+      "title": "TS/StlcProp: Reorder informal/formal proofs",
+      "url": "https://github.com/plclub/sf-in-lean/pull/494"
     }
   },
   "schema": 3
