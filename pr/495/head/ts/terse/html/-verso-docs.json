@@ -1,291 +1,291 @@
-{"999": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
- "998": "<code><span class=\"literal string\">\"inl\"</span> : String</code>",
- "997": "<code><span class=\"literal string\">\" of \"</span> : String</code>",
- "996": "<code><span class=\"literal string\">\"case \"</span> : String</code>",
- "995": "<code><span class=\"literal string\">\" inl \"</span> : String</code>",
- "994":
+{"999": "<code><span class=\"literal string\">\"inr\"</span> : String</code>",
+ "998": "<code><span class=\"literal string\">\" | \"</span> : String</code>",
+ "997":
+ "<code><span class=\"literal string\">\" =&gt; \"</span> : String</code>",
+ "996": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
+ "995": "<code><span class=\"literal string\">\"inl\"</span> : String</code>",
+ "994": "<code><span class=\"literal string\">\" of \"</span> : String</code>",
+ "993": "<code><span class=\"literal string\">\"case \"</span> : String</code>",
+ "992": "<code><span class=\"literal string\">\" inl \"</span> : String</code>",
+ "991":
  "<code>Lean.Parser.ppSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a space/soft line break. </code>",
- "993": "<code><span class=\"literal string\">\" inr \"</span> : String</code>",
- "992": "<code><span class=\"literal string\">\" ] \"</span> : String</code>",
- "991": "<code><span class=\"literal string\">\" [ \"</span> : String</code>",
- "990": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "990": "<code><span class=\"literal string\">\" inr \"</span> : String</code>",
  "99":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
- "989": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
- "988": "<code><span class=\"literal string\">\" × \"</span> : String</code>",
- "987": "<code>StlcExtended.Tm.fix : Tm → Tm</code>",
- "986": "<code>StlcExtended.Tm.letIn : String → Tm → Tm → Tm</code>",
- "985": "<code>StlcExtended.Tm.snd : Tm → Tm</code>",
- "984": "<code>StlcExtended.Tm.fst : Tm → Tm</code>",
- "983": "<code>StlcExtended.Tm.pair : Tm → Tm → Tm</code>",
- "982": "<code>StlcExtended.Tm.unit : Tm</code>",
- "981":
- "<code>StlcExtended.Tm.listCase : Tm → Tm → String → String → Tm → Tm</code>",
- "980": "<code>StlcExtended.Tm.listCons : Tm → Tm → Tm</code>",
+ "989": "<code><span class=\"literal string\">\" ] \"</span> : String</code>",
+ "988": "<code><span class=\"literal string\">\" [ \"</span> : String</code>",
+ "987": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "986": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
+ "985": "<code><span class=\"literal string\">\" × \"</span> : String</code>",
+ "984": "<code>StlcExtended.Tm.fix : Tm → Tm</code>",
+ "983": "<code>StlcExtended.Tm.letIn : String → Tm → Tm → Tm</code>",
+ "982": "<code>StlcExtended.Tm.snd : Tm → Tm</code>",
+ "981": "<code>StlcExtended.Tm.fst : Tm → Tm</code>",
+ "980": "<code>StlcExtended.Tm.pair : Tm → Tm → Tm</code>",
  "98": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "979": "<code>StlcExtended.Tm.listNil : Ty → Tm</code>",
+ "979": "<code>StlcExtended.Tm.unit : Tm</code>",
  "978":
+ "<code>StlcExtended.Tm.listCase : Tm → Tm → String → String → Tm → Tm</code>",
+ "977": "<code>StlcExtended.Tm.listCons : Tm → Tm → Tm</code>",
+ "976": "<code>StlcExtended.Tm.listNil : Ty → Tm</code>",
+ "975":
  "<code>StlcExtended.Tm.sumCase : Tm → String → Tm → String → Tm → Tm</code>",
- "977": "<code>StlcExtended.Tm.sumInr : Ty → Tm → Tm</code>",
- "976": "<code>StlcExtended.Tm.sumInl : Ty → Tm → Tm</code>",
- "975": "<code>StlcExtended.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
- "974": "<code>StlcExtended.Tm.mult : Tm → Tm → Tm</code>",
- "973": "<code>StlcExtended.Tm.pred : Tm → Tm</code>",
- "972": "<code>StlcExtended.Tm.succ : Tm → Tm</code>",
- "971": "<code>StlcExtended.Tm.const : Nat → Tm</code>",
- "970": "<code>StlcExtended.Tm.abs : String → Ty → Tm → Tm</code>",
+ "974": "<code>StlcExtended.Tm.sumInr : Ty → Tm → Tm</code>",
+ "973": "<code>StlcExtended.Tm.sumInl : Ty → Tm → Tm</code>",
+ "972": "<code>StlcExtended.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
+ "971": "<code>StlcExtended.Tm.mult : Tm → Tm → Tm</code>",
+ "970": "<code>StlcExtended.Tm.pred : Tm → Tm</code>",
  "97":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
- "969": "<code>StlcExtended.Tm.app : Tm → Tm → Tm</code>",
- "968": "<code>StlcExtended.Tm.var : String → Tm</code>",
- "967": "<code>StlcExtended.Tm : Type</code>",
- "966": "<code>StlcExtended.Ty.prod : Ty → Ty → Ty</code>",
- "965": "<code>StlcExtended.Ty.unit : Ty</code>",
- "964": "<code>StlcExtended.Ty.list : Ty → Ty</code>",
- "963": "<code>StlcExtended.Ty.sum : Ty → Ty → Ty</code>",
- "962": "<code>StlcExtended.Ty.nat : Ty</code>",
- "961": "<code>StlcExtended.Ty.arrow : Ty → Ty → Ty</code>",
- "960": "<code>StlcExtended.Ty : Type</code>",
+ "969": "<code>StlcExtended.Tm.succ : Tm → Tm</code>",
+ "968": "<code>StlcExtended.Tm.const : Nat → Tm</code>",
+ "967": "<code>StlcExtended.Tm.abs : String → Ty → Tm → Tm</code>",
+ "966": "<code>StlcExtended.Tm.app : Tm → Tm → Tm</code>",
+ "965": "<code>StlcExtended.Tm.var : String → Tm</code>",
+ "964": "<code>StlcExtended.Tm : Type</code>",
+ "963": "<code>StlcExtended.Ty.prod : Ty → Ty → Ty</code>",
+ "962": "<code>StlcExtended.Ty.unit : Ty</code>",
+ "961": "<code>StlcExtended.Ty.list : Ty → Ty</code>",
+ "960": "<code>StlcExtended.Ty.sum : Ty → Ty → Ty</code>",
  "96":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "959": "<code>StlcArith.Delab.Tm.unexpandMult : Unexpander</code>",
- "958": "<code>StlcArith.Delab.Tm.unexpandPred : Unexpander</code>",
- "957":
+ "959": "<code>StlcExtended.Ty.nat : Ty</code>",
+ "958": "<code>StlcExtended.Ty.arrow : Ty → Ty → Ty</code>",
+ "957": "<code>StlcExtended.Ty : Type</code>",
+ "956": "<code>StlcArith.Delab.Tm.unexpandMult : Unexpander</code>",
+ "955": "<code>StlcArith.Delab.Tm.unexpandPred : Unexpander</code>",
+ "954":
  "<code>StlcCommon.Elab.mkObjectIdentFrom (ref : Syntax) (name : String) : Ident</code>",
- "956": "<code>Ident</code>",
- "955": "<code>StlcArith.Delab.Tm.unexpandSucc : Unexpander</code>",
- "954": "<code>StlcArith.Delab.Tm.unexpandConst : Unexpander</code>",
- "953": "<code>StlcArith.Delab.Tm.unexpandIte : Unexpander</code>",
- "952": "<code>StlcArith.Delab.Tm.unexpandAbs : Unexpander</code>",
- "951": "<code>StlcArith.Delab.Tm.unexpandApp : Unexpander</code>",
- "950": "<code>StlcArith.Delab.Tm.delabVar : Delab</code>",
+ "953": "<code>Ident</code>",
+ "952": "<code>StlcArith.Delab.Tm.unexpandSucc : Unexpander</code>",
+ "951": "<code>StlcArith.Delab.Tm.unexpandConst : Unexpander</code>",
+ "950": "<code>StlcArith.Delab.Tm.unexpandIte : Unexpander</code>",
  "95": "<code>EvalR a₂ n₂</code>",
- "949": "<code>StlcArith.Delab.Tm.unexpandVar : Unexpander</code>",
- "948": "<code><span class=\"literal string\">\"if0\"</span> : String</code>",
- "947": "<code>StlcArith.Delab.reservedNames : String → Bool</code>",
- "946": "<code>StlcArith.Delab.Ty.unexpandArrow : Unexpander</code>",
- "945":
+ "949": "<code>StlcArith.Delab.Tm.unexpandAbs : Unexpander</code>",
+ "948": "<code>StlcArith.Delab.Tm.unexpandApp : Unexpander</code>",
+ "947": "<code>StlcArith.Delab.Tm.delabVar : Delab</code>",
+ "946": "<code>StlcArith.Delab.Tm.unexpandVar : Unexpander</code>",
+ "945": "<code><span class=\"literal string\">\"if0\"</span> : String</code>",
+ "944": "<code>StlcArith.Delab.reservedNames : String → Bool</code>",
+ "943": "<code>StlcArith.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "942":
  "<code>Lean.mkIdentFrom (src : Syntax) (val : Name) (canonical : Bool := false) : Ident</code><span class=\"sep\"></span><code class=\"docstring\">Creates an identifier with its position copied from `src`.\n\nTo refer to a specific constant without a risk of variable capture, use `mkCIdentFrom` instead.\n</code>",
- "944": "<code>StlcArith.Delab.Ty.unexpandNat : Unexpander</code>",
- "943": "<code>StlcArith.Elab.elabBracket : TermElab</code>",
- "942": "<code>StlcArith.Elab.elabCtx : CtxElab</code>",
- "941": "<code>StlcArith.Elab.elabTm : TmElab</code>",
- "940": "<code>StlcArith.Elab.tmHandlers : TmElabHandler</code>",
+ "941": "<code>StlcArith.Delab.Ty.unexpandNat : Unexpander</code>",
+ "940": "<code>StlcArith.Elab.elabBracket : TermElab</code>",
  "94": "<code>EvalR a₁ n₁</code>",
- "939": "<code>Lean.mkApp2 (f a b : Expr) : Expr</code>",
- "938":
+ "939": "<code>StlcArith.Elab.elabCtx : CtxElab</code>",
+ "938": "<code>StlcArith.Elab.elabTm : TmElab</code>",
+ "937": "<code>StlcArith.Elab.tmHandlers : TmElabHandler</code>",
+ "936": "<code>Lean.mkApp2 (f a b : Expr) : Expr</code>",
+ "935":
  "<code>Lean.mkNatLit (n : Nat) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">Returns a natural number literal used in the frontend. It is a `OfNat.ofNat` application.\nRecall that all theorems and definitions containing numeric literals are encoded using\n`OfNat.ofNat` applications in the frontend.\n</code>",
- "937":
+ "934":
  "<code>Lean.mkApp (f a : Expr) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">`.app f a` is now the preferred form.\n</code>",
- "936": "<code>StlcArith.Elab.arithTmHandler : TmElabHandler</code>",
- "935": "<code>StlcArith.Elab.elabTy : TyElab</code>",
- "934": "<code>StlcArith.Elab.tyHandlers : TyElabHandler</code>",
- "933": "<code>StlcArith.Elab.natTyHandler : TyElabHandler</code>",
- "932": "<code>StlcArith.Elab.language : Language</code>",
- "931": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
- "930": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
+ "933": "<code>StlcArith.Elab.arithTmHandler : TmElabHandler</code>",
+ "932": "<code>StlcArith.Elab.elabTy : TyElab</code>",
+ "931": "<code>StlcArith.Elab.tyHandlers : TyElabHandler</code>",
+ "930": "<code>StlcArith.Elab.natTyHandler : TyElabHandler</code>",
  "93":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "929": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
- "928": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
- "927": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
- "926": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
- "925": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
- "924": "<code>StlcArith.Tm.abs (x : String) (τ : Ty) (t : Tm) : Tm</code>",
- "923": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
- "922": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
- "921": "<code>StlcArith.Tm : Type</code>",
- "920": "<code>StlcArith.Ty.nat : Ty</code>",
+ "929": "<code>StlcArith.Elab.language : Language</code>",
+ "928": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
+ "927": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
+ "926": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
+ "925": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
+ "924": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
+ "923": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
+ "922": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
+ "921": "<code>StlcArith.Tm.abs (x : String) (τ : Ty) (t : Tm) : Tm</code>",
+ "920": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
  "92": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "919": "<code>StlcArith.Ty.arrow (τ₁ τ₂ : Ty) : Ty</code>",
- "918": "<code>StlcArith.Ty : Type</code>",
- "917":
- "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "916":
- "<code>∀ (t' : Tm), &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "915":
- "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : &lt;{ if false then t₁ else t₂ }&gt; ⟶ t₂</code>",
+ "919": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
+ "918": "<code>StlcArith.Tm : Type</code>",
+ "917": "<code>StlcArith.Ty.nat : Ty</code>",
+ "916": "<code>StlcArith.Ty.arrow (τ₁ τ₂ : Ty) : Ty</code>",
+ "915": "<code>StlcArith.Ty : Type</code>",
  "914":
+ "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
+ "913":
+ "<code>∀ (t' : Tm), &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
+ "912":
+ "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : &lt;{ if false then t₁ else t₂ }&gt; ⟶ t₂</code>",
+ "911":
  "<code>∀ (t' : Tm), &lt;{ true }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "913": "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "912": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "911": "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "910": "<code>&lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "910": "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
  "91": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "909": "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "908": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "907": "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ Bool }&gt;</code>",
- "906": "<code>t₂✝ ⟶ t₂'</code>",
- "905": "<code>t₁✝ ⟶ t₁'</code>",
- "904": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t✝ ⦂ τ₁ }&gt;</code>",
- "903":
+ "909": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "908": "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
+ "907": "<code>&lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "906": "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "905": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "904": "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ Bool }&gt;</code>",
+ "903": "<code>t₂✝ ⟶ t₂'</code>",
+ "902": "<code>t₁✝ ⟶ t₁'</code>",
+ "901": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t✝ ⦂ τ₁ }&gt;</code>",
+ "900":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ₂ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
- "902":
- "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ✝ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
- "901": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ✝ . t✝ ⦂ τ₂ → τ₁ }&gt;</code>",
- "900": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ }&gt;</code>",
  "90":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
  "9": "<code>Slang.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
  "899":
- "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
- "898": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
- "897": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂ }&gt;</code>",
+ "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ✝ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
+ "898": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ✝ . t✝ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "897": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ }&gt;</code>",
  "896":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
+ "895": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
+ "894": "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂ }&gt;</code>",
+ "893":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂ → τ₁ }&gt;</code>",
- "895": "<code>&lt;{ false }&gt; ⟶ t'</code>",
- "894": "<code>&lt;{ true }&gt; ⟶ t'</code>",
- "893": "<code>&lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; ⟶ t'</code>",
- "892":
- "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = x✝ →ₚ τ₂✝ ; Γ✝ → &lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t' ⦂ τ₁✝ }&gt;</code>",
- "891": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
- "890":
- "<code>Stlc.preservation (t t' : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "892": "<code>&lt;{ false }&gt; ⟶ t'</code>",
+ "891": "<code>&lt;{ true }&gt; ⟶ t'</code>",
+ "890": "<code>&lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; ⟶ t'</code>",
  "89": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
- "889": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ e ⦂ τ }&gt;</code>",
- "888": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ c ⦂ Bool }&gt;</code>",
- "887": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ if c then t else e ⦂ τ }&gt;</code>",
- "886":
+ "889":
+ "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = x✝ →ₚ τ₂✝ ; Γ✝ → &lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t' ⦂ τ₁✝ }&gt;</code>",
+ "888": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
+ "887":
+ "<code>Stlc.preservation (t t' : Tm) (τ : Ty) (hτ : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "886": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ e ⦂ τ }&gt;</code>",
+ "885": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ c ⦂ Bool }&gt;</code>",
+ "884": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ if c then t else e ⦂ τ }&gt;</code>",
+ "883":
  "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ e ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] e ⦂ τ }&gt;</code>",
- "885":
+ "882":
  "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "884":
+ "881":
  "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ c ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] c ⦂ τ }&gt;</code>",
- "883": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ false ⦂ τ }&gt;</code>",
- "882": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ true ⦂ τ }&gt;</code>",
- "881": "<code>&lt;{ ~(x →ₚ τ' ; y →ₚ σ ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
- "880": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
+ "880": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ false ⦂ τ }&gt;</code>",
  "88":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "879":
+ "879": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ true ⦂ τ }&gt;</code>",
+ "878": "<code>&lt;{ ~(x →ₚ τ' ; y →ₚ σ ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
+ "877": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
+ "876":
  "<code>PartialMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} {b₁ b₂ : β}\n  (h : a₁ ≠ a₂) : a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m = a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m</code>",
- "878": "<code>&lt;{ ~(x →ₚ σ ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
- "877":
+ "875": "<code>&lt;{ ~(x →ₚ σ ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
+ "874":
  "<code>PartialMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : PartialMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₚ b₂ ; a →ₚ b₁ ; m = a →ₚ b₂ ; m</code>",
- "876": "<code>&lt;{ ~(x →ₚ σ ; x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
- "875": "<code>&lt;{ ~(y →ₚ σ ; x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
- "874": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ λ ~y : σ . t₁ ⦂ τ }&gt;</code>",
- "873": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₂✝ → τ }&gt;</code>",
- "872": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
- "871": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ t₂ ⦂ τ }&gt;</code>",
- "870":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₂ ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] t₂ ⦂ τ }&gt;</code>",
+ "873": "<code>&lt;{ ~(x →ₚ σ ; x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
+ "872": "<code>&lt;{ ~(y →ₚ σ ; x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₁✝ }&gt;</code>",
+ "871": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ λ ~y : σ . t₁ ⦂ τ }&gt;</code>",
+ "870": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ₂✝ → τ }&gt;</code>",
  "87": "<code>e₁✝ = num 0 → False</code>",
- "869":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] t₁ ⦂ τ }&gt;</code>",
- "868": "<code>Γ[y] = some τ</code>",
+ "869": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
+ "868": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ t₂ ⦂ τ }&gt;</code>",
  "867":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₂ ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] t₂ ⦂ τ }&gt;</code>",
+ "866":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t₁ ⦂ τ }&gt; → &lt;{ Γ ⊢ [~x := v] t₁ ⦂ τ }&gt;</code>",
+ "865": "<code>Γ[y] = some τ</code>",
+ "864":
  "<code>PartialMap.update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :\n  (a₁ →ₚ b ; m)[a₂] = m[a₂]</code>",
- "866": "<code>some τ' = some τ'</code>",
- "865":
- "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "864": "<code>τ' = τ</code>",
- "863": "<code>some τ' = some τ</code>",
+ "863": "<code>τ' = τ</code>",
  "862":
+ "<code>Option.some.injEq.{u} {α : Type u} (val val✝ : α) : (some val = some val✝) = (val = val✝)</code>",
+ "861": "<code>some τ' = some τ</code>",
+ "860":
  "<code>PartialMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b</code>",
- "861": "<code>(x →ₚ τ' ; Γ)[x] = some τ</code>",
- "860": "<code>¬x = y</code>",
  "86": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
- "859": "<code>x = y</code>",
- "858":
+ "859": "<code>(x →ₚ τ' ; Γ)[x] = some τ</code>",
+ "858": "<code>¬x = y</code>",
+ "857": "<code>x = y</code>",
+ "856":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "857": "<code>(x →ₚ τ' ; Γ)[y] = some τ</code>",
- "856": "<code>Γ✝[x✝] = some τ₁✝</code>",
- "855": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ τ }&gt;</code>",
- "854": "<code>&lt;{ ∅ ⊢ v ⦂ τ' }&gt;</code>",
- "853": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;</code>",
- "852":
- "<code>Stlc.substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty) (t v : Tm) (τ : Ty)\n  (hτ : &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ' }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "851": "<code>∅[x] = some b</code>",
+ "855": "<code>(x →ₚ τ' ; Γ)[y] = some τ</code>",
+ "854": "<code>Γ✝[x✝] = some τ₁✝</code>",
+ "853": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ τ }&gt;</code>",
+ "852": "<code>&lt;{ ∅ ⊢ v ⦂ τ' }&gt;</code>",
+ "851": "<code>&lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;</code>",
  "850":
- "<code class=\"docstring\">`intros` repeatedly applies `intro` to introduce zero or more hypotheses\nuntil the goal is no longer a *binding expression*\n(i.e., a universal quantifier, function type, implication, or `have`/`let`),\nwithout performing any definitional reductions (no unfolding, beta, eta, etc.).\nThe introduced hypotheses receive inaccessible (hygienic) names.\n\n`intros x y z` is equivalent to `intro x y z` and exists only for historical reasons.\nThe `intro` tactic should be preferred in this case.\n\n## Properties and relations\n\n- `intros` succeeds even when it introduces no hypotheses.\n\n- `repeat intro` is like `intros`, but it performs definitional reductions\n  to expose binders, and as such it may introduce more hypotheses than `intros`.\n\n- `intros` is equivalent to `intro _ _ … _`,\n  with the fewest trailing `_` placeholders needed so that the goal is no longer a binding expression.\n  The trailing introductions do not perform any definitional reductions.\n\n## Examples\n\nImplications:\n```lean\nexample (p q : Prop) : p → q → p := by\n  intros\n  /- Tactic state\n     a✝¹ : p\n     a✝ : q\n     ⊢ p      -/\n  assumption\n```\n\nLet-bindings:\n```lean\nexample : let n := 1; let k := 2; n + k = 3 := by\n  intros\n  /- n✝ : Nat := 1\n     k✝ : Nat := 2\n     ⊢ n✝ + k✝ = 3 -/\n  rfl\n```\n\nDoes not unfold definitions:\n```lean\ndef AllEven (f : Nat → Nat) := ∀ n, f n % 2 = 0\n\nexample : ∀ (f : Nat → Nat), AllEven f → AllEven (fun k =&gt; f (k + 1)) := by\n  intros\n  /- Tactic state\n     f✝ : Nat → Nat\n     a✝ : AllEven f✝\n     ⊢ AllEven fun k =&gt; f✝ (k + 1) -/\n  sorry\n```\n</code>",
+ "<code>Stlc.substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty) (t v : Tm) (τ : Ty)\n  (hτ : &lt;{ ~(x →ₚ τ' ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ' }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
  "85":
  "<code>Slang.Aexp.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
- "849":
- "<code>Stlc.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
+ "849": "<code>∅[x] = some b</code>",
  "848":
+ "<code class=\"docstring\">`intros` repeatedly applies `intro` to introduce zero or more hypotheses\nuntil the goal is no longer a *binding expression*\n(i.e., a universal quantifier, function type, implication, or `have`/`let`),\nwithout performing any definitional reductions (no unfolding, beta, eta, etc.).\nThe introduced hypotheses receive inaccessible (hygienic) names.\n\n`intros x y z` is equivalent to `intro x y z` and exists only for historical reasons.\nThe `intro` tactic should be preferred in this case.\n\n## Properties and relations\n\n- `intros` succeeds even when it introduces no hypotheses.\n\n- `repeat intro` is like `intros`, but it performs definitional reductions\n  to expose binders, and as such it may introduce more hypotheses than `intros`.\n\n- `intros` is equivalent to `intro _ _ … _`,\n  with the fewest trailing `_` placeholders needed so that the goal is no longer a binding expression.\n  The trailing introductions do not perform any definitional reductions.\n\n## Examples\n\nImplications:\n```lean\nexample (p q : Prop) : p → q → p := by\n  intros\n  /- Tactic state\n     a✝¹ : p\n     a✝ : q\n     ⊢ p      -/\n  assumption\n```\n\nLet-bindings:\n```lean\nexample : let n := 1; let k := 2; n + k = 3 := by\n  intros\n  /- n✝ : Nat := 1\n     k✝ : Nat := 2\n     ⊢ n✝ + k✝ = 3 -/\n  rfl\n```\n\nDoes not unfold definitions:\n```lean\ndef AllEven (f : Nat → Nat) := ∀ n, f n % 2 = 0\n\nexample : ∀ (f : Nat → Nat), AllEven f → AllEven (fun k =&gt; f (k + 1)) := by\n  intros\n  /- Tactic state\n     f✝ : Nat → Nat\n     a✝ : AllEven f✝\n     ⊢ AllEven fun k =&gt; f✝ (k + 1) -/\n  sorry\n```\n</code>",
+ "847":
+ "<code>Stlc.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
+ "846":
  "<code>Stlc.weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "847": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
- "846": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
- "845": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "844": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
- "843": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
- "842": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ Bool }&gt;</code>",
- "841": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "840": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "845": "<code>&lt;{ Γ✝ ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
+ "844": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
+ "843": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
+ "842": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₃✝ ⦂ τ₁✝ }&gt;</code>",
+ "841": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₁✝ }&gt;</code>",
+ "840": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ Bool }&gt;</code>",
  "84":
  "<code class=\"docstring\">The `sorry` tactic is a temporary placeholder for an incomplete tactic proof,\nclosing the main goal using `exact sorry`.\n\nThis is intended for stubbing-out incomplete parts of a proof while still having a syntactically correct proof skeleton.\nLean will give a warning whenever a proof uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a theorem depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n</code>",
- "839": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "838":
+ "839": "<code>&lt;{ Γ✝ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "838": "<code>&lt;{ Γ✝ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "837": "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "836":
  "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "837":
- "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
- "836": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "835":
+ "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
+ "834": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "833":
  "<code>∀ {Γ' : Context}, x →ₚ τ₂✝ ; Γ✝ ⊆ Γ' → &lt;{ Γ' ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "834": "<code>Γ✝ ⊆ Γ'</code>",
- "833": "<code>Γ✝[x] = some τ₁✝</code>",
- "832":
- "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
- "831": "<code>Γ ⊆ Γ'</code>",
+ "832": "<code>Γ✝ ⊆ Γ'</code>",
+ "831": "<code>Γ✝[x] = some τ₁✝</code>",
  "830":
- "<code>Stlc.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
+ "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
  "83": "<code>Nat.even n = true</code>",
- "829": "<code>&lt;{ false }&gt;.IsValue</code>",
+ "829": "<code>Γ ⊆ Γ'</code>",
  "828":
+ "<code>Stlc.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
+ "827": "<code>&lt;{ false }&gt;.IsValue</code>",
+ "826":
  "<code>∅ = ∅ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "827": "<code>t₁ = &lt;{ false }&gt;</code>",
- "826": "<code>&lt;{ true }&gt;.IsValue</code>",
- "825":
+ "825": "<code>t₁ = &lt;{ false }&gt;</code>",
+ "824": "<code>&lt;{ true }&gt;.IsValue</code>",
+ "823":
  "<code>∅ = ∅ → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "824": "<code>t₁ = &lt;{ true }&gt;</code>",
- "823": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "822": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "821": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
- "820": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "822": "<code>t₁ = &lt;{ true }&gt;</code>",
+ "821": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "820": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
  "82": "<code>Slang.Aexp.Nat.odd (n : Nat) : Bool</code>",
- "819": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "818": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
- "817": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
- "816": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
- "815":
+ "819": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "818": "<code>&lt;{ ∅ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "817": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "816": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;</code>",
+ "815": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "814": "<code>&lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;</code>",
+ "813":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ₁ : Ty) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₁ }&gt;)\n  (h₃ : &lt;{ Γ ⊢ t₃ ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁ }&gt;</code>",
- "814":
- "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
- "813": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
  "812":
+ "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
+ "811": "<code>&lt;{ λ ~x : τ₂ . u }&gt;.IsValue</code>",
+ "810":
  "<code>∅ = ∅ → &lt;{ λ ~x : τ₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : τ₂ . u }&gt; ⟶ t'</code>",
- "811": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
- "810": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
  "81":
  "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
- "809": "<code>t₂.IsValue</code>",
- "808": "<code>t₁.IsValue</code>",
- "807":
+ "809": "<code>&lt;{ ∅ ⊢ λ ~x : τ₂ . u ⦂ τ₂ → τ₁ }&gt;</code>",
+ "808": "<code>t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
+ "807": "<code>t₂.IsValue</code>",
+ "806": "<code>t₁.IsValue</code>",
+ "805":
  "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
- "806": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "805": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "804": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "803": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "802": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "801": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "800": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "804": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "803": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "802": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "801": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "800": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
  "80":
  "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
  "8": "<code>Aexp</code>",
- "799": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
- "798":
- "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
- "797":
- "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ Γ ⊢ false ⦂ Bool }&gt;</code>",
+ "799": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "798": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;</code>",
+ "797": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
  "796":
+ "<code>Stlc.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
+ "795":
+ "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ Γ ⊢ false ⦂ Bool }&gt;</code>",
+ "794":
  "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ Γ ⊢ true ⦂ Bool }&gt;</code>",
- "795": "<code>∅ = Γ✝</code>",
- "794": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
- "793": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "792": "<code>none = some τ₁</code>",
- "791":
- "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
+ "793": "<code>∅ = Γ✝</code>",
+ "792": "<code>∅ = x✝ →ₚ τ₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
+ "791": "<code>&lt;{ ~(x✝ →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "790": "<code>∅[x] = some τ₁</code>",
  "79": "<code>Slang.Aexp.Nat.even (n : Nat) : Bool</code>",
  "789": "<code>&lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
@@ -1287,1049 +1287,1047 @@
  "171": "<code><span class=\"literal string\">\" ⟶ \"</span> : String</code>",
  "170": "<code>Step t₂ t₂'</code>",
  "17": "<code>Slang.Bexp.le (a₁ a₂ : Aexp) : Bexp</code>",
- "1694":
- "<code>STLCRef.RefsAndNontermination.loop_fun_step_self :\n  &lt;{ (!(loc 0)) unit }&gt; / [&lt;{ [R := loc 0] loop_fun }&gt;] ⟶+ &lt;{ (!(loc 0)) unit }&gt; / [&lt;{ [R := loc 0] loop_fun }&gt;]</code>",
- "1693": "<code><span class=\"literal string\">\"R\"</span> : String</code>",
  "1692":
+ "<code>STLCRef.RefsAndNontermination.loop_fun_step_self :\n  &lt;{ (!(loc 0)) unit }&gt; / [&lt;{ [R := loc 0] loop_fun }&gt;] ⟶+ &lt;{ (!(loc 0)) unit }&gt; / [&lt;{ [R := loc 0] loop_fun }&gt;]</code>",
+ "1691": "<code><span class=\"literal string\">\"R\"</span> : String</code>",
+ "1690":
  "<code>STLCRef.RefsAndNontermination.loop_steps_to_loop_fun :\n  loop / [] ⟶* &lt;{ (!(loc 0)) unit }&gt; / [&lt;{ [R := loc 0] loop_fun }&gt;]</code>",
- "1691":
- "<code><span class=\"literal string\">\"reduce\"</span> : String</code>",
- "1690": "<code><span class=\"literal string\">\" ⟶+ \"</span> : String</code>",
  "169":
  "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : Step t₂ t₂') : Step ((Tm.c n₁).p t₂) ((Tm.c n₁).p t₂')</code>",
- "1689": "<code>StepClosure R y z</code>",
- "1688":
- "<code>STLCRef.RefsAndNontermination.StepClosure.step {X : Type} {R : Relation X} {x y z : X} (h₁ : R x y)\n  (h₂ : StepClosure R y z) : StepClosure R x z</code>",
- "1687": "<code>X</code>",
+ "1689":
+ "<code><span class=\"literal string\">\"reduce\"</span> : String</code>",
+ "1688": "<code><span class=\"literal string\">\" ⟶+ \"</span> : String</code>",
+ "1687": "<code>StepClosure R y z</code>",
  "1686":
- "<code>STLCRef.RefsAndNontermination.StepClosure.one {X : Type} {R : Relation X} {x y : X} (h₁ : R x y) : StepClosure R x y</code>",
- "1685": "<code>Relation X</code>",
+ "<code>STLCRef.RefsAndNontermination.StepClosure.step {X : Type} {R : Relation X} {x y z : X} (h₁ : R x y)\n  (h₂ : StepClosure R y z) : StepClosure R x z</code>",
+ "1685": "<code>X</code>",
  "1684":
+ "<code>STLCRef.RefsAndNontermination.StepClosure.one {X : Type} {R : Relation X} {x y : X} (h₁ : R x y) : StepClosure R x y</code>",
+ "1683": "<code>Relation X</code>",
+ "1682":
  "<code>STLCRef.RefsAndNontermination.StepClosure {X : Type} (R : Relation X) : X → X → Prop</code>",
- "1683":
+ "1681":
  "<code>STLCRef.RefsAndNontermination.loop_typeable : ∃ τ, &lt;{ ∅ / [] ⊢ loop ⦂ τ }&gt;</code>",
- "1682": "<code>STLCRef.RefsAndNontermination.loop : Tm</code>",
- "1681": "<code>STLCRef.RefsAndNontermination.loop_fun : Tm</code>",
- "1680": "<code>t₂ / ρ ⟶ w✝¹ / w✝</code>",
+ "1680": "<code>STLCRef.RefsAndNontermination.loop : Tm</code>",
  "168": "<code>Step t₁ t₁'</code>",
- "1679": "<code>∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
- "1678":
+ "1679": "<code>STLCRef.RefsAndNontermination.loop_fun : Tm</code>",
+ "1678": "<code>t₂ / ρ ⟶ w✝¹ / w✝</code>",
+ "1677": "<code>∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1676":
  "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  &lt;{ ~(Tm.loc l) := v }&gt; / ρ ⟶ &lt;{ unit }&gt; / List.set ρ l v</code>",
- "1677": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ ~δ[l] }&gt;</code>",
- "1676": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₂✝ }&gt;</code>",
- "1675": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
- "1674": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
- "1673": "<code>∅ = Γ✝ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
- "1672":
+ "1675": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ ~δ[l] }&gt;</code>",
+ "1674": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₂✝ }&gt;</code>",
+ "1673": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1672": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
+ "1671": "<code>∅ = Γ✝ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1670":
  "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : &lt;{ !~(Tm.loc l) }&gt; / ρ ⟶ ρ[l] / ρ</code>",
- "1671":
- "<code>∅ = ∅ → (Tm.loc l).IsValue ∨ ∃ t' ρ', Tm.loc l / ρ ⟶ t' / ρ'</code>",
- "1670": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₁✝ }&gt;</code>",
  "167":
  "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
- "1669": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1668":
- "<code>∅ = ∅ → (Tm.const (n✝ + 1)).IsValue ∨ ∃ t' ρ', Tm.const (n✝ + 1) / ρ ⟶ t' / ρ'</code>",
- "1667":
- "<code>∅ = ∅ → &lt;{ 0 }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ 0 }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1669":
+ "<code>∅ = ∅ → (Tm.loc l).IsValue ∨ ∃ t' ρ', Tm.loc l / ρ ⟶ t' / ρ'</code>",
+ "1668": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₁✝ }&gt;</code>",
+ "1667": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "1666":
+ "<code>∅ = ∅ → (Tm.const (n✝ + 1)).IsValue ∨ ∃ t' ρ', Tm.const (n✝ + 1) / ρ ⟶ t' / ρ'</code>",
+ "1665":
+ "<code>∅ = ∅ → &lt;{ 0 }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ 0 }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1664":
  "<code>∅ = ∅ → (Tm.const n).IsValue ∨ ∃ t' ρ', Tm.const n / ρ ⟶ t' / ρ'</code>",
- "1665": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n) ⦂ Nat }&gt;</code>",
- "1664": "<code>∅ = ∅ → t₃✝.IsValue ∨ ∃ t' ρ', t₃✝ / ρ ⟶ t' / ρ'</code>",
- "1663":
+ "1663": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n) ⦂ Nat }&gt;</code>",
+ "1662": "<code>∅ = ∅ → t₃✝.IsValue ∨ ∃ t' ρ', t₃✝ / ρ ⟶ t' / ρ'</code>",
+ "1661":
  "<code>∅ = ∅ → (Tm.const n✝¹).IsValue ∨ ∃ t' ρ', Tm.const n✝¹ / ρ ⟶ t' / ρ'</code>",
- "1662": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝¹) ⦂ Nat }&gt;</code>",
- "1661": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Nat }&gt;</code>",
- "1660": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ Nat }&gt;</code>",
+ "1660": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝¹) ⦂ Nat }&gt;</code>",
  "166":
  "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
- "1659": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
- "1658": "<code>t₁✝ / ρ ⟶ t₁' / ρ'</code>",
- "1657": "<code>∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
- "1656": "<code>t₂✝ / ρ ⟶ t₂' / ρ'</code>",
- "1655": "<code>∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
- "1654":
+ "1659": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Nat }&gt;</code>",
+ "1658": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ Nat }&gt;</code>",
+ "1657": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
+ "1656": "<code>t₁✝ / ρ ⟶ t₁' / ρ'</code>",
+ "1655": "<code>∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1654": "<code>t₂✝ / ρ ⟶ t₂' / ρ'</code>",
+ "1653": "<code>∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "1652":
  "<code>Exists.intro.{u} {α : Sort u} {p : α → Prop} (w : α) (h : p w) : Exists p</code><span class=\"sep\"></span><code class=\"docstring\">Existential introduction. If `a : α` and `h : p a`,\nthen `⟨a, h⟩` is a proof that `∃ x : α, p x`. </code>",
- "1653":
- "<code>∅ = ∅ → (Tm.loc l✝).IsValue ∨ ∃ t' ρ', Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
- "1652": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "1651":
- "<code>∅ = ∅ → &lt;{ unit }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ unit }&gt; / ρ ⟶ t' / ρ'</code>",
- "1650": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "<code>∅ = ∅ → (Tm.loc l✝).IsValue ∨ ∃ t' ρ', Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
+ "1650": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "165": "<code>SimpleArith1.Step : Tm → Tm → Prop</code>",
  "1649":
- "<code>∅ = ∅ → (Tm.const n✝).IsValue ∨ ∃ t' ρ', Tm.const n✝ / ρ ⟶ t' / ρ'</code>",
- "1648": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "<code>∅ = ∅ → &lt;{ unit }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ unit }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1648": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "1647":
+ "<code>∅ = ∅ → (Tm.const n✝).IsValue ∨ ∃ t' ρ', Tm.const n✝ / ρ ⟶ t' / ρ'</code>",
+ "1646": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1645":
  "<code>∅ = ∅ → &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1646": "<code>∅ = ∅ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
- "1645": "<code>∅ = ∅ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
- "1644": "<code>∅ = Γ✝ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
- "1643": "<code>∅ = Γ✝ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
- "1642":
- "<code>STLCRef.progress (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ) :\n  t.IsValue ∨ ∃ t' ρ', t / ρ ⟶ t' / ρ'</code>",
- "1641": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1644": "<code>∅ = ∅ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "1643": "<code>∅ = ∅ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1642": "<code>∅ = Γ✝ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "1641": "<code>∅ = Γ✝ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
  "1640":
- "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "<code>STLCRef.progress (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ) :\n  t.IsValue ∨ ∃ t' ρ', t / ρ ⟶ t' / ρ'</code>",
  "164": "<code>Eval t₂ n₂</code>",
- "1639":
- "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1638": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ ~δ[l✝] }&gt;</code>",
+ "1639": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1638":
+ "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
  "1637":
+ "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "1636": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ ~δ[l✝] }&gt;</code>",
+ "1635":
  "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1636":
- "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1635": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₂✝ }&gt;</code>",
  "1634":
+ "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "1633": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₂✝ }&gt;</code>",
+ "1632":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1633": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
- "1632": "<code>&lt;{ t₁✝ := t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1631":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1630": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1631": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1630": "<code>&lt;{ t₁✝ := t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "163": "<code>Eval t₁ n₁</code>",
  "1629":
- "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₂ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ := t₂ ⦂ Unit }&gt;</code>",
- "1628": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1628": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
  "1627":
+ "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₂ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ := t₂ ⦂ Unit }&gt;</code>",
+ "1626": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "1625":
  "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ ρ</code>",
- "1626":
+ "1624":
  "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1625": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₁✝ }&gt;</code>",
- "1624": "<code>l✝ &lt; List.length ρ</code>",
- "1623":
+ "1623": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₁✝ }&gt;</code>",
+ "1622": "<code>l✝ &lt; List.length ρ</code>",
+ "1621":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1622": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
- "1621": "<code>&lt;{ !t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1620":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1620": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
  "162":
  "<code>Eval.plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : Eval t₁ n₁) (h₂ : Eval t₂ n₂) : Eval (t₁.p t₂) (n₁ + n₂)</code>",
- "1619": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "1619": "<code>&lt;{ !t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1618":
- "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ !t₁ ⦂ τ₁ }&gt;</code>",
- "1617": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₁ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1617": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
  "1616":
- "<code>List.length δ = List.length ρ ∧ ∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
- "1615":
- "<code>&lt;{ Ref τ₁ }&gt; = &lt;{ Ref ~(List.concat δ τ₁)[List.length ρ] }&gt;</code>",
+ "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ !t₁ ⦂ τ₁ }&gt;</code>",
+ "1615": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₁ }&gt;</code>",
  "1614":
- "<code>∀ {t' : Tm},\n  t₁✝ / ρ ⟶ t' / List.concat ρ t₁✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ List.concat ρ t₁✝</code>",
+ "<code>List.length δ = List.length ρ ∧ ∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
  "1613":
+ "<code>&lt;{ Ref τ₁ }&gt; = &lt;{ Ref ~(List.concat δ τ₁)[List.length ρ] }&gt;</code>",
+ "1612":
+ "<code>∀ {t' : Tm},\n  t₁✝ / ρ ⟶ t' / List.concat ρ t₁✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ List.concat ρ t₁✝</code>",
+ "1611":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1612": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
- "1611": "<code>&lt;{ ref t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1610":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1610": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
  "161": "<code>Eval.const (n : Nat) : Eval (Tm.c n) n</code>",
- "1609": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
+ "1609": "<code>&lt;{ ref t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1608":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1607": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
+ "1606":
  "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ ref t₁ ⦂ Ref τ₁ }&gt;</code>",
- "1607":
- "<code>∀ {t' : Tm}, Tm.const (n✝ + 1) / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1606": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
  "1605":
- "<code>∀ {t' : Tm}, &lt;{ 0 }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1604":
- "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "<code>∀ {t' : Tm}, Tm.const (n✝ + 1) / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1604": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
  "1603":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1602": "<code>&lt;{ ∅ / δ ⊢ 0 ⦂ Nat }&gt;</code>",
+ "<code>∀ {t' : Tm}, &lt;{ 0 }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1602":
+ "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
  "1601":
- "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1600":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1600": "<code>&lt;{ ∅ / δ ⊢ 0 ⦂ Nat }&gt;</code>",
  "160": "<code>Eval : Tm → Nat → Prop</code>",
  "16": "<code>Slang.Bexp.neq (a₁ a₂ : Aexp) : Bexp</code>",
- "1599": "<code>&lt;{ ∅ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
- "1598": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
- "1597": "<code>&lt;{ if0 t₁✝ then t₂✝ else t₃✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1596": "<code>&lt;{ Γ✝ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
- "1595": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
- "1594":
- "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ }&gt;) (h₃ : &lt;{ Γ / δ ⊢ t₃ ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ if0 t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
- "1593": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ Nat }&gt;</code>",
+ "1599":
+ "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1598":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1597": "<code>&lt;{ ∅ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
+ "1596": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
+ "1595": "<code>&lt;{ if0 t₁✝ then t₂✝ else t₃✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1594": "<code>&lt;{ Γ✝ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
+ "1593": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
  "1592":
+ "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ }&gt;) (h₃ : &lt;{ Γ / δ ⊢ t₃ ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ if0 t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
+ "1591": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ Nat }&gt;</code>",
+ "1590":
  "<code>∀ {t' : Tm}, Tm.const n₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1591":
- "<code>∀ {t' : Tm}, Tm.const n₁✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1590": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₂✝) ⦂ Nat }&gt;</code>",
  "159": "<code>evalF (t : Tm) : Nat</code>",
- "1589": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₁✝) ⦂ Nat }&gt;</code>",
- "1588":
+ "1589":
+ "<code>∀ {t' : Tm}, Tm.const n₁✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1588": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₂✝) ⦂ Nat }&gt;</code>",
+ "1587": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₁✝) ⦂ Nat }&gt;</code>",
+ "1586":
  "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1587": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
- "1586": "<code>&lt;{ t₁✝ * t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1585":
+ "1585": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
+ "1584": "<code>&lt;{ t₁✝ * t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1583":
  "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1584": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
- "1583": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
- "1582":
- "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
- "1581": "<code>&lt;{ pred t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1582": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
+ "1581": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
  "1580":
- "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ pred t₁ ⦂ Nat }&gt;</code>",
+ "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
  "158": "<code>Tm</code>",
- "1579": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Nat }&gt;</code>",
+ "1579": "<code>&lt;{ pred t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1578":
- "<code>∀ {t' : Tm}, Tm.const n✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1577": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ Nat }&gt;</code>",
+ "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ pred t₁ ⦂ Nat }&gt;</code>",
+ "1577": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Nat }&gt;</code>",
  "1576":
+ "<code>∀ {t' : Tm}, Tm.const n✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1575": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ Nat }&gt;</code>",
+ "1574":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1575": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
- "1574": "<code>&lt;{ succ t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1573":
+ "1573": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
+ "1572": "<code>&lt;{ succ t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1571":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1572":
+ "1570":
  "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ succ t₁ ⦂ Nat }&gt;</code>",
- "1571": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ τ₂✝ }&gt;</code>",
- "1570": "<code>t₁✝.IsValue</code>",
  "157": "<code>Tm.p (t₁ t₂ : Tm) : Tm</code>",
- "1569": "<code>t₂✝ / ρ ⟶ t₂'✝ / ρ'</code>",
- "1568": "<code>δ' ⊢ ρ'</code>",
- "1567": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1566": "<code>t₁✝ / ρ ⟶ t₁'✝ / ρ'</code>",
- "1565":
+ "1569": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ τ₂✝ }&gt;</code>",
+ "1568": "<code>t₁✝.IsValue</code>",
+ "1567": "<code>t₂✝ / ρ ⟶ t₂'✝ / ρ'</code>",
+ "1566": "<code>δ' ⊢ ρ'</code>",
+ "1565": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1564": "<code>t₁✝ / ρ ⟶ t₁'✝ / ρ'</code>",
+ "1563":
  "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1564":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1563": "<code>&lt;{ ~(x✝ →ₚ τ₂✝) / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "1562":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1561": "<code>&lt;{ ~(x✝ →ₚ τ₂✝) / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1560":
  "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1561":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ }&gt; ∧ δ' ⊢ ρ</code>",
- "1560": "<code>t₂✝.IsValue</code>",
  "156": "<code>Tm.c (n : Nat) : Tm</code>",
- "1559": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ τ₂✝¹ → τ₁✝ }&gt;</code>",
- "1558": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝¹ }&gt;</code>",
- "1557":
+ "1559":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1558": "<code>t₂✝.IsValue</code>",
+ "1557": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ τ₂✝¹ → τ₁✝ }&gt;</code>",
+ "1556": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝¹ }&gt;</code>",
+ "1555":
  "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1556":
+ "1554":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1555": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "1554": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1553":
+ "1553": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1552": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1551":
  "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1552":
+ "1550":
  "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1551": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "1550": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "155": "<code>Tm : Type</code>",
- "1549":
+ "1549": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1548": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1547":
  "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
- "1548": "<code>&lt;{ t₁✝ t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1547": "<code>Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
- "1546":
- "<code>STLCRef.preservation {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ)\n  (hEval : t / ρ ⟶ t' / ρ') : ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1545":
- "<code>List.getElem?_append_left.{u_1} {α : Type u_1} {l₁ l₂ : List α} {i : Nat} (hn : i &lt; l₁.length) : (l₁ ++ l₂)[i]? = l₁[i]?</code>",
+ "1546": "<code>&lt;{ t₁✝ t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1545": "<code>Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
  "1544":
+ "<code>STLCRef.preservation {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ)\n  (hEval : t / ρ ⟶ t' / ρ') : ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1543":
+ "<code>List.getElem?_append_left.{u_1} {α : Type u_1} {l₁ l₂ : List α} {i : Nat} (hn : i &lt; l₁.length) : (l₁ ++ l₂)[i]? = l₁[i]?</code>",
+ "1542":
  "<code>Nat.le (n : Nat) : Nat → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict, or weak, inequality of natural numbers, usually accessed via the `≤` operator.\n</code>",
- "1543": "<code>l.succ.le (List.length ρ)</code>",
- "1542": "<code>l &lt; List.length ρ + 1</code>",
- "1541": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
- "1540":
- "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
+ "1541": "<code>l.succ.le (List.length ρ)</code>",
+ "1540": "<code>l &lt; List.length ρ + 1</code>",
  "154":
  "<code>Slang.AevalRExtended.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
- "1539":
- "<code>List.concat_eq_append.{u} {α : Type u} {as : List α} {a : α} : as.concat a = as ++ [a]</code>",
- "1538": "<code>&lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "1539": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
+ "1538":
+ "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
  "1537":
- "<code>STLCRef.store_well_typed_app {δ : StoreTy} {ρ : Store} {t₁ : Tm} {τ₁ : Ty} (hStoreTy : δ ⊢ ρ)\n  (hTy : &lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;) : List.concat δ τ₁ ⊢ List.concat ρ t₁</code>",
- "1536": "<code>l✝ &lt; List.length δ</code>",
+ "<code>List.concat_eq_append.{u} {α : Type u} {as : List α} {a : α} : as.concat a = as ++ [a]</code>",
+ "1536": "<code>&lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
  "1535":
+ "<code>STLCRef.store_well_typed_app {δ : StoreTy} {ρ : Store} {t₁ : Tm} {τ₁ : Ty} (hStoreTy : δ ⊢ ρ)\n  (hTy : &lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;) : List.concat δ τ₁ ⊢ List.concat ρ t₁</code>",
+ "1534": "<code>l✝ &lt; List.length δ</code>",
+ "1533":
  "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  &lt;{ Γ / δ ⊢ ~(Tm.loc l) ⦂ Ref ~δ[l] }&gt;</code>",
- "1534":
+ "1532":
  "<code>STLCRef.store_weakening {Γ : Context} {δ δ' : StoreTy} {t : Tm} {τ : Ty} (hExt : Extends δ' δ)\n  (hTy : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ' ⊢ t ⦂ τ }&gt;</code>",
- "1533": "<code>l' &lt; (List.set ρ l' t).length</code>",
- "1532": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l'] }&gt;</code>",
- "1531": "<code>l' &lt; List.length ρ</code>",
- "1530": "<code>¬l' = l</code>",
+ "1531": "<code>l' &lt; (List.set ρ l' t).length</code>",
+ "1530": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l'] }&gt;</code>",
  "153":
  "<code>Slang.AevalRExtended.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1529": "<code>l' = l</code>",
- "1528": "<code>l' &lt; (List.set ρ l t).length</code>",
- "1527":
+ "1529": "<code>l' &lt; List.length ρ</code>",
+ "1528": "<code>¬l' = l</code>",
+ "1527": "<code>l' = l</code>",
+ "1526": "<code>l' &lt; (List.set ρ l t).length</code>",
+ "1525":
  "<code>List.length_set.{u} {α : Type u} {as : List α} {i : Nat} {a : α} : (as.set i a).length = as.length</code>",
- "1526":
+ "1524":
  "<code>∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
- "1525": "<code>List.length δ = List.length ρ</code>",
- "1524": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;</code>",
- "1523":
+ "1523": "<code>List.length δ = List.length ρ</code>",
+ "1522": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;</code>",
+ "1521":
  "<code>STLCRef.assign_pres_store_typing {δ : StoreTy} {ρ : Store} {l : Nat} {t : Tm} (hLen : l &lt; List.length ρ)\n  (hStoreTy : δ ⊢ ρ) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;) : δ ⊢ List.set ρ l t</code>",
- "1522": "<code>&lt;{ ~(x →ₚ τ₁ ; y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
- "1521": "<code>&lt;{ ~(y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
- "1520":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(y →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~y := v] a✝ ⦂ τ }&gt;</code>",
+ "1520": "<code>&lt;{ ~(x →ₚ τ₁ ; y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
  "152":
  "<code>Slang.AevalRExtended.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1519": "<code>&lt;{ ~(y →ₚ a✝¹ ; x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
- "1518": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ λ ~y : a✝¹ . a✝ ⦂ τ }&gt;</code>",
- "1517": "<code>&lt;{ ~?Γ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1516": "<code>τ₁ = τ</code>",
- "1515": "<code>(x →ₚ τ₁ ; Γ)[x] = some τ</code>",
- "1514": "<code>(x →ₚ τ₁ ; Γ)[y] = some τ</code>",
- "1513": "<code>a✝ &lt; List.length δ</code>",
- "1512": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(Tm.loc a✝) ⦂ τ }&gt;</code>",
- "1511": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ := a✝ ⦂ τ }&gt;</code>",
- "1510":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝ ⦂ τ }&gt;</code>",
+ "1519": "<code>&lt;{ ~(y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1518":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(y →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~y := v] a✝ ⦂ τ }&gt;</code>",
+ "1517": "<code>&lt;{ ~(y →ₚ a✝¹ ; x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1516": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ λ ~y : a✝¹ . a✝ ⦂ τ }&gt;</code>",
+ "1515": "<code>&lt;{ ~?Γ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1514": "<code>τ₁ = τ</code>",
+ "1513": "<code>(x →ₚ τ₁ ; Γ)[x] = some τ</code>",
+ "1512": "<code>(x →ₚ τ₁ ; Γ)[y] = some τ</code>",
+ "1511": "<code>a✝ &lt; List.length δ</code>",
+ "1510": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(Tm.loc a✝) ⦂ τ }&gt;</code>",
  "151":
  "<code>Slang.AevalRExtended.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "1509":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝¹ ⦂ τ }&gt;</code>",
+ "1509": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ := a✝ ⦂ τ }&gt;</code>",
  "1508":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝ ⦂ τ }&gt;</code>",
+ "1507":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝¹ ⦂ τ }&gt;</code>",
+ "1506":
  "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(STLCRef.Tm.var y) ⦂ τ }&gt;</code>",
- "1507": "<code>&lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1506": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;</code>",
- "1505":
+ "1505": "<code>&lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1504": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1503":
  "<code>STLCRef.substitution_preserves_typing (Γ : Context) (δ : StoreTy) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ / δ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "1504":
- "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1503": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
  "1502":
+ "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1501": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1500":
  "<code>STLCRef.weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) :\n  &lt;{ Γ' / δ ⊢ t ⦂ τ }&gt;</code>",
- "1501": "<code>t / ρ ⟶ t' / ρ'</code>",
- "1500": "<code>δ ⊢ ρ</code>",
  "150":
  "<code>Slang.AevalRExtended.Aexp.EvalR.any (n : Nat) : any.EvalR n</code>",
  "15": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
- "1499": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1498":
+ "1499": "<code>t / ρ ⟶ t' / ρ'</code>",
+ "1498": "<code>δ ⊢ ρ</code>",
+ "1497": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1496":
  "<code>STLCRef.preservation_theorem {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} : Prop</code>",
- "1497": "<code>Extends tail✝ tail✝</code>",
- "1496": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
- "1495": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
- "1494":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
- "1493":
- "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
+ "1495": "<code>Extends tail✝ tail✝</code>",
+ "1494": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
+ "1493": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
  "1492":
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
+ "1491":
+ "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
+ "1490":
  "<code>Nat.succ_lt_succ {n m : Nat} : n &lt; m → n.succ &lt; m.succ</code>",
- "1491": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
- "1490": "<code>0 &lt; (τ :: δ✝).length</code>",
  "149": "<code>Slang.AevalRExtended.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1489":
- "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
- "1488": "<code>l &lt; (τ :: δ✝).length</code>",
+ "1489": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
+ "1488": "<code>0 &lt; (τ :: δ✝).length</code>",
  "1487":
- "<code>∀ {l : Nat}, l &lt; List.length δ✝ → l &lt; List.length δ'✝</code>",
- "1486": "<code>Extends δ'✝ δ✝</code>",
+ "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
+ "1486": "<code>l &lt; (τ :: δ✝).length</code>",
  "1485":
+ "<code>∀ {l : Nat}, l &lt; List.length δ✝ → l &lt; List.length δ'✝</code>",
+ "1484": "<code>Extends δ'✝ δ✝</code>",
+ "1483":
  "<code>STLCRef.length_extends {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : l &lt; List.length δ'</code>",
- "1484": "<code>l + 1 &lt; (hd :: tl).length</code>",
- "1483": "<code>Extends tl' tl</code>",
- "1482": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
- "1481": "<code>Extends [] (hd :: tl)</code>",
- "1480": "<code>Extends δ' (hd :: tl)</code>",
+ "1482": "<code>l + 1 &lt; (hd :: tl).length</code>",
+ "1481": "<code>Extends tl' tl</code>",
+ "1480": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
  "148": "<code>Slang.AevalRExtended.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "1479":
+ "1479": "<code>Extends [] (hd :: tl)</code>",
+ "1478": "<code>Extends δ' (hd :: tl)</code>",
+ "1477":
  "<code>∀ {l : Nat} {δ' : StoreTy}, l &lt; tl.length → Extends δ' tl → δ'[l] = tl[l]</code>",
- "1478": "<code>List Ty</code>",
- "1477": "<code>Extends δ' []</code>",
- "1476":
- "<code>STLCRef.extends_lookup {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : δ'[l] = δ[l]</code>",
- "1475": "<code>Extends δ' δ</code>",
+ "1476": "<code>List Ty</code>",
+ "1475": "<code>Extends δ' []</code>",
  "1474":
+ "<code>STLCRef.extends_lookup {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : δ'[l] = δ[l]</code>",
+ "1473": "<code>Extends δ' δ</code>",
+ "1472":
  "<code>STLCRef.Extends.cons (τ : Ty) {δ' δ : StoreTy} (h : Extends δ' δ) : Extends (τ :: δ') (τ :: δ)</code>",
- "1473": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
- "1472": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
- "1471":
- "<code>STLCRef.preservation_less_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
- "1470": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
+ "1471": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
+ "1470": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
  "147": "<code>Slang.AevalRExtended.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
  "1469":
+ "<code>STLCRef.preservation_less_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
+ "1468": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
+ "1467":
  "<code>STLCRef.preservation_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
- "1468":
+ "1466":
  "<code>StlcCommon.Delab.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code>",
- "1467": "<code>STLCRef.HasType.unexpand : Unexpander</code>",
- "1466": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;)</code>",
- "1465":
- "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ := t₂ }&gt;) (&lt;{ Unit }&gt;)</code>",
- "1464": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)</code>",
+ "1465": "<code>STLCRef.HasType.unexpand : Unexpander</code>",
+ "1464": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;)</code>",
  "1463":
- "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)) :\n  HasType δ Γ (&lt;{ !t₁ }&gt;) τ₁</code>",
- "1462": "<code>HasType δ Γ t₁ τ₁</code>",
+ "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ := t₂ }&gt;) (&lt;{ Unit }&gt;)</code>",
+ "1462": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)</code>",
  "1461":
- "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ τ₁) :\n  HasType δ Γ (&lt;{ ref t₁ }&gt;) (&lt;{ Ref τ₁ }&gt;)</code>",
- "1460": "<code>l &lt; List.length δ</code>",
+ "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)) :\n  HasType δ Γ (&lt;{ !t₁ }&gt;) τ₁</code>",
+ "1460": "<code>HasType δ Γ t₁ τ₁</code>",
  "146": "<code>Slang.AevalRExtended.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
  "1459":
+ "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ τ₁) :\n  HasType δ Γ (&lt;{ ref t₁ }&gt;) (&lt;{ Ref τ₁ }&gt;)</code>",
+ "1458": "<code>l &lt; List.length δ</code>",
+ "1457":
  "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  HasType δ Γ (Tm.loc l) (&lt;{ Ref ~δ[l] }&gt;)</code>",
- "1458":
+ "1456":
  "<code>STLCRef.HasType.unit {δ : StoreTy} {Γ : Context} : HasType δ Γ (&lt;{ unit }&gt;) (&lt;{ Unit }&gt;)</code>",
- "1457": "<code>HasType δ Γ t₃ τ</code>",
- "1456": "<code>HasType δ Γ t₂ τ</code>",
- "1455":
- "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ τ) (h₃ : HasType δ Γ t₃ τ) : HasType δ Γ (&lt;{ if0 t₁ then t₂ else t₃ }&gt;) τ</code>",
- "1454": "<code>HasType δ Γ t₂ (&lt;{ Nat }&gt;)</code>",
+ "1455": "<code>HasType δ Γ t₃ τ</code>",
+ "1454": "<code>HasType δ Γ t₂ τ</code>",
  "1453":
+ "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ τ) (h₃ : HasType δ Γ t₃ τ) : HasType δ Γ (&lt;{ if0 t₁ then t₂ else t₃ }&gt;) τ</code>",
+ "1452": "<code>HasType δ Γ t₂ (&lt;{ Nat }&gt;)</code>",
+ "1451":
  "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ (&lt;{ Nat }&gt;)) : HasType δ Γ (&lt;{ t₁ * t₂ }&gt;) (&lt;{ Nat }&gt;)</code>",
- "1452":
- "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ pred t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
- "1451": "<code>HasType δ Γ t₁ (&lt;{ Nat }&gt;)</code>",
  "1450":
- "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ succ t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ pred t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
  "145": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
- "1449":
+ "1449": "<code>HasType δ Γ t₁ (&lt;{ Nat }&gt;)</code>",
+ "1448":
+ "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ succ t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "1447":
  "<code>STLCRef.HasType.const {δ : StoreTy} {Γ : Context} {n : Nat} : HasType δ Γ (Tm.const n) (&lt;{ Nat }&gt;)</code>",
- "1448": "<code>HasType δ Γ t₂ τ₂</code>",
- "1447": "<code>HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
- "1446":
- "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
- "1445": "<code>HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
+ "1446": "<code>HasType δ Γ t₂ τ₂</code>",
+ "1445": "<code>HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
  "1444":
- "<code>STLCRef.HasType.abs {δ : StoreTy} {Γ : Context} {x : String} {τ₁ τ₂ : Ty} {t₁ : Tm}\n  (h : HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁) : HasType δ Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
- "1443":
- "<code>STLCRef.HasType.var {δ : StoreTy} {Γ : Context} {x : String} {τ₁ : Ty} (h : Γ[x] = some τ₁) :\n  HasType δ Γ (STLCRef.Tm.var x) τ₁</code>",
+ "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
+ "1443": "<code>HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
  "1442":
- "<code>STLCRef.HasType (δ : StoreTy) : Context → Tm → Ty → Prop</code>",
+ "<code>STLCRef.HasType.abs {δ : StoreTy} {Γ : Context} {x : String} {τ₁ τ₂ : Ty} {t₁ : Tm}\n  (h : HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁) : HasType δ Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
  "1441":
- "<code>STLCRef.StoreTy_get_zero_hd (hd : Ty) (tl : StoreTy) : (hd :: tl)[0] = hd</code>",
+ "<code>STLCRef.HasType.var {δ : StoreTy} {Γ : Context} {x : String} {τ₁ : Ty} (h : Γ[x] = some τ₁) :\n  HasType δ Γ (STLCRef.Tm.var x) τ₁</code>",
  "1440":
- "<code>STLCRef.StoreTy_get_succ_tl (hd : Ty) (tl : StoreTy) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
+ "<code>STLCRef.HasType (δ : StoreTy) : Context → Tm → Ty → Prop</code>",
  "144": "<code>Slang.AevalRExtended.Aexp.any : Aexp</code>",
- "1439": "<code>StoreTy</code>",
- "1438": "<code>StoreTy → Nat → Ty</code>",
- "1437": "<code>STLCRef.StoreTy : Type</code>",
- "1436": "<code>STLCRef.Context : Type</code>",
- "1435":
- "<code>STLCRef.Step.assign₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ := t₂ }&gt;, ρ) (&lt;{ v₁ := t₂' }&gt;, ρ')</code>",
- "1434":
- "<code>STLCRef.Step.assign₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ := t₂ }&gt;, ρ) (&lt;{ t₁' := t₂ }&gt;, ρ')</code>",
+ "1439":
+ "<code>STLCRef.StoreTy_get_zero_hd (hd : Ty) (tl : StoreTy) : (hd :: tl)[0] = hd</code>",
+ "1438":
+ "<code>STLCRef.StoreTy_get_succ_tl (hd : Ty) (tl : StoreTy) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
+ "1437": "<code>StoreTy</code>",
+ "1436": "<code>StoreTy → Nat → Ty</code>",
+ "1435": "<code>STLCRef.StoreTy : Type</code>",
+ "1434": "<code>STLCRef.Context : Type</code>",
  "1433":
- "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  Step (&lt;{ ~(Tm.loc l) := v }&gt;, ρ) (&lt;{ unit }&gt;, List.set ρ l v)</code>",
+ "<code>STLCRef.Step.assign₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ := t₂ }&gt;, ρ) (&lt;{ v₁ := t₂' }&gt;, ρ')</code>",
  "1432":
- "<code>STLCRef.Step.deref {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ !t₁ }&gt;, ρ) (&lt;{ !t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.assign₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ := t₂ }&gt;, ρ) (&lt;{ t₁' := t₂ }&gt;, ρ')</code>",
  "1431":
- "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : Step (&lt;{ !~(Tm.loc l) }&gt;, ρ) (ρ[l], ρ)</code>",
+ "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  Step (&lt;{ ~(Tm.loc l) := v }&gt;, ρ) (&lt;{ unit }&gt;, List.set ρ l v)</code>",
  "1430":
- "<code>STLCRef.Step.ref_ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ ref t₁ }&gt;, ρ) (&lt;{ ref t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.deref {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ !t₁ }&gt;, ρ) (&lt;{ !t₁' }&gt;, ρ')</code>",
  "143": "<code>Slang.AevalRExtended.Aexp : Type</code>",
  "1429":
- "<code>List.concat.{u} {α : Type u} : List α → α → List α</code><span class=\"sep\"></span><code class=\"docstring\">Adds an element to the *end* of a list.\n\nThe added element is the last element of the resulting list.\n\nExamples:\n* `List.concat [\"red\", \"yellow\"] \"green\" = [\"red\", \"yellow\", \"green\"]`\n* `List.concat [1, 2, 3] 4 = [1, 2, 3, 4]`\n* `List.concat [] () = [()]`\n</code>",
+ "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : Step (&lt;{ !~(Tm.loc l) }&gt;, ρ) (ρ[l], ρ)</code>",
  "1428":
- "<code>STLCRef.Step.refValue {v : Tm} {ρ : Store} (h : v.IsValue) :\n  Step (&lt;{ ref v }&gt;, ρ) (Tm.loc (List.length ρ), List.concat ρ v)</code>",
+ "<code>STLCRef.Step.ref_ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ ref t₁ }&gt;, ρ) (&lt;{ ref t₁' }&gt;, ρ')</code>",
  "1427":
- "<code>STLCRef.Step.if0Nonzero {n : Nat} {t₂ t₃ : Tm} {ρ : Store} :\n  Step (&lt;{ if0 ~(Tm.const (n + 1)) then t₂ else t₃ }&gt;, ρ) (t₃, ρ)</code>",
+ "<code>List.concat.{u} {α : Type u} : List α → α → List α</code><span class=\"sep\"></span><code class=\"docstring\">Adds an element to the *end* of a list.\n\nThe added element is the last element of the resulting list.\n\nExamples:\n* `List.concat [\"red\", \"yellow\"] \"green\" = [\"red\", \"yellow\", \"green\"]`\n* `List.concat [1, 2, 3] 4 = [1, 2, 3, 4]`\n* `List.concat [] () = [()]`\n</code>",
  "1426":
- "<code>STLCRef.Step.if0Zero {t₂ t₃ : Tm} {ρ : Store} : Step (&lt;{ if0 0 then t₂ else t₃ }&gt;, ρ) (t₂, ρ)</code>",
+ "<code>STLCRef.Step.refValue {v : Tm} {ρ : Store} (h : v.IsValue) :\n  Step (&lt;{ ref v }&gt;, ρ) (Tm.loc (List.length ρ), List.concat ρ v)</code>",
  "1425":
- "<code>STLCRef.Step.if0Step {t₁ t₁' t₂ t₃ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ if0 t₁ then t₂ else t₃ }&gt;, ρ) (&lt;{ if0 t₁' then t₂ else t₃ }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.if0Nonzero {n : Nat} {t₂ t₃ : Tm} {ρ : Store} :\n  Step (&lt;{ if0 ~(Tm.const (n + 1)) then t₂ else t₃ }&gt;, ρ) (t₃, ρ)</code>",
  "1424":
- "<code>STLCRef.Step.mult₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ * t₂ }&gt;, ρ) (&lt;{ v₁ * t₂' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.if0Zero {t₂ t₃ : Tm} {ρ : Store} : Step (&lt;{ if0 0 then t₂ else t₃ }&gt;, ρ) (t₂, ρ)</code>",
  "1423":
- "<code>STLCRef.Step.mult₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ * t₂ }&gt;, ρ) (&lt;{ t₁' * t₂ }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.if0Step {t₁ t₁' t₂ t₃ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ if0 t₁ then t₂ else t₃ }&gt;, ρ) (&lt;{ if0 t₁' then t₂ else t₃ }&gt;, ρ')</code>",
  "1422":
- "<code>STLCRef.Step.multConst {n₁ n₂ : Nat} {ρ : Store} :\n  Step (&lt;{ ~(Tm.const n₁) * ~(Tm.const n₂) }&gt;, ρ) (Tm.const (n₁ * n₂), ρ)</code>",
+ "<code>STLCRef.Step.mult₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ * t₂ }&gt;, ρ) (&lt;{ v₁ * t₂' }&gt;, ρ')</code>",
  "1421":
- "<code>STLCRef.Step.pred {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ pred t₁ }&gt;, ρ) (&lt;{ pred t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.mult₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ * t₂ }&gt;, ρ) (&lt;{ t₁' * t₂ }&gt;, ρ')</code>",
  "1420":
- "<code>STLCRef.Step.predConst {n : Nat} {ρ : Store} : Step (&lt;{ pred ~(Tm.const n) }&gt;, ρ) (Tm.const (n - 1), ρ)</code>",
+ "<code>STLCRef.Step.multConst {n₁ n₂ : Nat} {ρ : Store} :\n  Step (&lt;{ ~(Tm.const n₁) * ~(Tm.const n₂) }&gt;, ρ) (Tm.const (n₁ * n₂), ρ)</code>",
  "142": "<code>n₂ * n₃ = n₁</code>",
  "1419":
- "<code>STLCRef.Step.succ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ succ t₁ }&gt;, ρ) (&lt;{ succ t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.pred {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ pred t₁ }&gt;, ρ) (&lt;{ pred t₁' }&gt;, ρ')</code>",
  "1418":
- "<code>STLCRef.Step.succNat {n : Nat} {ρ : Store} : Step (&lt;{ succ ~(Tm.const n) }&gt;, ρ) (Tm.const (n + 1), ρ)</code>",
- "1417": "<code>Step (t₂, ρ) (t₂', ρ')</code>",
+ "<code>STLCRef.Step.predConst {n : Nat} {ρ : Store} : Step (&lt;{ pred ~(Tm.const n) }&gt;, ρ) (Tm.const (n - 1), ρ)</code>",
+ "1417":
+ "<code>STLCRef.Step.succ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ succ t₁ }&gt;, ρ) (&lt;{ succ t₁' }&gt;, ρ')</code>",
  "1416":
- "<code>STLCRef.Step.app₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ t₂ }&gt;, ρ) (&lt;{ v₁ t₂' }&gt;, ρ')</code>",
- "1415": "<code>Step (t₁, ρ) (t₁', ρ')</code>",
+ "<code>STLCRef.Step.succNat {n : Nat} {ρ : Store} : Step (&lt;{ succ ~(Tm.const n) }&gt;, ρ) (Tm.const (n + 1), ρ)</code>",
+ "1415": "<code>Step (t₂, ρ) (t₂', ρ')</code>",
  "1414":
- "<code>STLCRef.Step.app₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ t₂ }&gt;, ρ) (&lt;{ t₁' t₂ }&gt;, ρ')</code>",
- "1413": "<code>v₂.IsValue</code>",
+ "<code>STLCRef.Step.app₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ t₂ }&gt;, ρ) (&lt;{ v₁ t₂' }&gt;, ρ')</code>",
+ "1413": "<code>Step (t₁, ρ) (t₁', ρ')</code>",
  "1412":
+ "<code>STLCRef.Step.app₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ t₂ }&gt;, ρ) (&lt;{ t₁' t₂ }&gt;, ρ')</code>",
+ "1411": "<code>v₂.IsValue</code>",
+ "1410":
  "<code>STLCRef.Step.appAbs {x : String} {τ₂ : Ty} {t₁ v₂ : Tm} {ρ : Store} (h : v₂.IsValue) :\n  Step (&lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt;, ρ) (&lt;{ [~x := v₂] t₁ }&gt;, ρ)</code>",
- "1411": "<code>STLCRef.Step : Tm × Store → Tm × Store → Prop</code>",
- "1410": "<code>∀ (l₁ l₂ : Nat), l₁ ≠ l₂ → (tl.set l₂ t)[l₁] = tl[l₁]</code>",
  "141": "<code>n₂ &gt; 0</code>",
- "1409":
+ "1409": "<code>STLCRef.Step : Tm × Store → Tm × Store → Prop</code>",
+ "1408": "<code>∀ (l₁ l₂ : Nat), l₁ ≠ l₂ → (tl.set l₂ t)[l₁] = tl[l₁]</code>",
+ "1407":
  "<code>STLCRef.Store_get_set_neq (l₁ l₂ : Nat) (t : Tm) (ρ : Store) : l₁ ≠ l₂ → (List.set ρ l₂ t)[l₁] = ρ[l₁]</code>",
- "1408": "<code>n✝ + 1 &lt; (hd :: tl).length</code>",
- "1407": "<code>0 &lt; (hd :: tl).length</code>",
- "1406": "<code>l &lt; (hd :: tl).length</code>",
- "1405": "<code>∀ (l : Nat), l &lt; tl.length → (tl.set l x)[l] = x</code>",
- "1404": "<code>List Tm</code>",
- "1403": "<code>l &lt; [].length</code>",
- "1402":
- "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
- "1401":
- "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
+ "1406": "<code>n✝ + 1 &lt; (hd :: tl).length</code>",
+ "1405": "<code>0 &lt; (hd :: tl).length</code>",
+ "1404": "<code>l &lt; (hd :: tl).length</code>",
+ "1403": "<code>∀ (l : Nat), l &lt; tl.length → (tl.set l x)[l] = x</code>",
+ "1402": "<code>List Tm</code>",
+ "1401": "<code>l &lt; [].length</code>",
  "1400":
- "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
+ "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
  "140":
  "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n₃ = n₁) : (a₁.div a₂).EvalR n₃</code>",
  "14":
  "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
- "1399": "<code>l &lt; List.length ρ</code>",
+ "1399":
+ "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
  "1398":
- "<code>STLCRef.Store_get_set_eq (ρ : Store) (l : Nat) (x : Tm) (h : l &lt; List.length ρ) : (List.set ρ l x)[l] = x</code>",
- "1397":
- "<code>List.set.{u_1} {α : Type u_1} (l : List α) (n : Nat) (a : α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Replaces the value at (zero-based) index `n` in `l` with `a`. If the index is out of bounds, then\nthe list is returned unmodified.\n\nExamples:\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 1 \"tea\" = [\"water\", \"tea\", \"soda\", \"juice\"]`\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 4 \"tea\" = [\"water\", \"coffee\", \"soda\", \"juice\"]`\n</code>",
+ "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
+ "1397": "<code>l &lt; List.length ρ</code>",
  "1396":
- "<code>STLCRef.Store_get_zero_hd (hd : Tm) (tl : Store) : (hd :: tl)[0] = hd</code>",
+ "<code>STLCRef.Store_get_set_eq (ρ : Store) (l : Nat) (x : Tm) (h : l &lt; List.length ρ) : (List.set ρ l x)[l] = x</code>",
  "1395":
- "<code>STLCRef.Store_get_succ_tl (hd : Tm) (tl : Store) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
+ "<code>List.set.{u_1} {α : Type u_1} (l : List α) (n : Nat) (a : α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Replaces the value at (zero-based) index `n` in `l` with `a`. If the index is out of bounds, then\nthe list is returned unmodified.\n\nExamples:\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 1 \"tea\" = [\"water\", \"tea\", \"soda\", \"juice\"]`\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 4 \"tea\" = [\"water\", \"coffee\", \"soda\", \"juice\"]`\n</code>",
  "1394":
+ "<code>STLCRef.Store_get_zero_hd (hd : Tm) (tl : Store) : (hd :: tl)[0] = hd</code>",
+ "1393":
+ "<code>STLCRef.Store_get_succ_tl (hd : Tm) (tl : Store) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
+ "1392":
  "<code>List.getD.{u_1} {α : Type u_1} (as : List α) (i : Nat) (fallback : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the element at the provided index, counting from `0`. Returns `fallback` if the index is out\nof bounds.\n\nTo return an `Option` depending on whether the index is in bounds, use `as[i]?`. To panic if the\nindex is out of bounds, use `as[i]!`.\n\nExamples:\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 2 \"never\" = \"fall\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 0 \"never\" = \"spring\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 4 \"never\" = \"never\"`\n</code>",
- "1393": "<code>Store</code>",
- "1392": "<code>Store → Nat → Tm</code>",
- "1391":
- "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
- "1390": "<code>STLCRef.Store : Type</code>",
+ "1391": "<code>Store</code>",
+ "1390": "<code>Store → Nat → Tm</code>",
  "139":
  "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
- "1389": "<code>STLCRef.unexpandSubst : Unexpander</code>",
- "1388": "<code>STLCRef.subst (x : String) (s t : Tm) : Tm</code>",
- "1387": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : (Tm.loc l).IsValue</code>",
- "1386": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
- "1385": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : («loc» l).IsValue</code>",
- "1384": "<code>STLCRef.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
- "1383": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
- "1382":
+ "1389":
+ "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
+ "1388": "<code>STLCRef.Store : Type</code>",
+ "1387": "<code>STLCRef.unexpandSubst : Unexpander</code>",
+ "1386": "<code>STLCRef.subst (x : String) (s t : Tm) : Tm</code>",
+ "1385": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : (Tm.loc l).IsValue</code>",
+ "1384": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
+ "1383": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : («loc» l).IsValue</code>",
+ "1382": "<code>STLCRef.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1381": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
+ "1380":
  "<code>STLCRef.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
- "1381": "<code>STLCRef.Tm.IsValue : Tm → Prop</code>",
- "1380": "<code>STLCRef.Delab.Tm.unexpandLoc : Unexpander</code>",
  "138":
  "<code>Slang.AevalRDivision.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1379": "<code>STLCRef.Delab.Tm.unexpandDeref : Unexpander</code>",
- "1378": "<code>STLCRef.Delab.Tm.unexpandRef : Unexpander</code>",
- "1377": "<code>STLCRef.Delab.Tm.unexpandAssign : Unexpander</code>",
- "1376": "<code>STLCRef.Delab.Tm.unexpandUnit : Unexpander</code>",
- "1375": "<code>STLCRef.Delab.Tm.unexpandIte0 : Unexpander</code>",
- "1374": "<code>STLCRef.Delab.Tm.unexpandTseq : Unexpander</code>",
- "1373": "<code>STLCRef.Delab.Tm.unexpandMult : Unexpander</code>",
- "1372": "<code>STLCRef.Delab.Tm.unexpandPred : Unexpander</code>",
- "1371": "<code>STLCRef.Delab.Tm.unexpandSucc : Unexpander</code>",
- "1370": "<code>STLCRef.Delab.Tm.unexpandConst : Unexpander</code>",
+ "1379": "<code>STLCRef.Tm.IsValue : Tm → Prop</code>",
+ "1378": "<code>STLCRef.Delab.Tm.unexpandLoc : Unexpander</code>",
+ "1377": "<code>STLCRef.Delab.Tm.unexpandDeref : Unexpander</code>",
+ "1376": "<code>STLCRef.Delab.Tm.unexpandRef : Unexpander</code>",
+ "1375": "<code>STLCRef.Delab.Tm.unexpandAssign : Unexpander</code>",
+ "1374": "<code>STLCRef.Delab.Tm.unexpandUnit : Unexpander</code>",
+ "1373": "<code>STLCRef.Delab.Tm.unexpandIte0 : Unexpander</code>",
+ "1372": "<code>STLCRef.Delab.Tm.unexpandTseq : Unexpander</code>",
+ "1371": "<code>STLCRef.Delab.Tm.unexpandMult : Unexpander</code>",
+ "1370": "<code>STLCRef.Delab.Tm.unexpandPred : Unexpander</code>",
  "137":
  "<code>Slang.AevalRDivision.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1369": "<code>STLCRef.Delab.Tm.unexpandAbs : Unexpander</code>",
- "1368": "<code>STLCRef.Delab.Tm.unexpandApp : Unexpander</code>",
- "1367": "<code>STLCRef.Delab.Tm.delabVar : Delab</code>",
- "1366": "<code>STLCRef.Delab.Tm.unexpandVar : Unexpander</code>",
- "1365": "<code><span class=\"literal string\">\"Ref\"</span> : String</code>",
- "1364": "<code><span class=\"literal string\">\"loc\"</span> : String</code>",
- "1363": "<code><span class=\"literal string\">\"ref\"</span> : String</code>",
- "1362": "<code>STLCRef.Delab.reservedNames : String → Bool</code>",
- "1361": "<code>STLCRef.Delab.Ty.unexpandRef : Unexpander</code>",
- "1360": "<code>STLCRef.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "1369": "<code>STLCRef.Delab.Tm.unexpandSucc : Unexpander</code>",
+ "1368": "<code>STLCRef.Delab.Tm.unexpandConst : Unexpander</code>",
+ "1367": "<code>STLCRef.Delab.Tm.unexpandAbs : Unexpander</code>",
+ "1366": "<code>STLCRef.Delab.Tm.unexpandApp : Unexpander</code>",
+ "1365": "<code>STLCRef.Delab.Tm.delabVar : Delab</code>",
+ "1364": "<code>STLCRef.Delab.Tm.unexpandVar : Unexpander</code>",
+ "1363": "<code><span class=\"literal string\">\"Ref\"</span> : String</code>",
+ "1362": "<code><span class=\"literal string\">\"loc\"</span> : String</code>",
+ "1361": "<code><span class=\"literal string\">\"ref\"</span> : String</code>",
+ "1360": "<code>STLCRef.Delab.reservedNames : String → Bool</code>",
  "136":
  "<code>Slang.AevalRDivision.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "1359": "<code>STLCRef.Delab.Ty.unexpandUnit : Unexpander</code>",
- "1358":
+ "1359": "<code>STLCRef.Delab.Ty.unexpandRef : Unexpander</code>",
+ "1358": "<code>STLCRef.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "1357": "<code>STLCRef.Delab.Ty.unexpandUnit : Unexpander</code>",
+ "1356":
  "<code>StlcCommon.Elab.mkObjectIdentFrom («ref» : Syntax) (name : String) : Ident</code>",
- "1357": "<code>STLCRef.Delab.Ty.unexpandNat : Unexpander</code>",
- "1356": "<code>Lean.Level.zero : Level</code>",
- "1355": "<code>Lean.levelZero : Level</code>",
- "1354":
+ "1355": "<code>STLCRef.Delab.Ty.unexpandNat : Unexpander</code>",
+ "1354": "<code>Lean.Level.zero : Level</code>",
+ "1353": "<code>Lean.levelZero : Level</code>",
+ "1352":
  "<code>Lean.Elab.Term.elabTermEnsuringType (stx : Syntax) (expectedType? : Option Expr)\n  (catchExPostpone implicitLambda : Bool := true) (errorMsgHeader? : Option String := none) : TermElabM Expr</code><span class=\"sep\"></span><code class=\"docstring\">Similar to `Lean.Elab.Term.elabTerm`, but ensures that the type of the elaborated term is `expectedType?`\nby inserting coercions if necessary.\n\nIf `errToSorry` is true, then if coercion insertion fails, this function returns `sorry` and logs the error.\nOtherwise, it throws the error.\n</code>",
- "1353": "<code>TSyntax `stlcCtx</code>",
- "1352": "<code>STLCRef.Elab.elabBracket : TermElab</code>",
- "1351": "<code>Lean.mkApp4 (f a b c d : Expr) : Expr</code>",
- "1350":
- "<code>StlcCommon.Elab.Language.hasType (self : Language) : Name</code>",
+ "1351": "<code>TSyntax `stlcCtx</code>",
+ "1350": "<code>STLCRef.Elab.elabBracket : TermElab</code>",
  "135": "<code>Slang.AevalRDivision.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1349":
- "<code>Lean.Elab.Term.resolveId? (stx : Syntax) (kind : String := \"term\") (withInfo : Bool := false) : TermElabM (Option Expr)</code>",
- "1348": "<code>Lean.Elab.Term.TermElabM (α : Type) : Type</code>",
+ "1349": "<code>Lean.mkApp4 (f a b c d : Expr) : Expr</code>",
+ "1348":
+ "<code>StlcCommon.Elab.Language.hasType (self : Language) : Name</code>",
  "1347":
+ "<code>Lean.Elab.Term.resolveId? (stx : Syntax) (kind : String := \"term\") (withInfo : Bool := false) : TermElabM (Option Expr)</code>",
+ "1346": "<code>Lean.Elab.Term.TermElabM (α : Type) : Type</code>",
+ "1345":
  "<code>Lean.Expr : Type</code><span class=\"sep\"></span><code class=\"docstring\">Lean expressions. This data structure is used in the kernel and\nelaborator. However, expressions sent to the kernel should not\ncontain metavariables.\n\nRemark: we use the `E` suffix (short for `Expr`) to avoid collision with keywords.\nWe considered using «...», but it is too inconvenient to use.\n</code>",
- "1346":
+ "1344":
  "<code>STLCRef.Elab.mkHasType (δ Γ t T : Expr) : TermElabM Expr</code>",
- "1345": "<code>STLCRef.Elab.elabCtx : CtxElab</code>",
- "1344": "<code>STLCRef.Elab.elabTm : TmElab</code>",
- "1343": "<code>STLCRef.Elab.tmHandlers : TmElabHandler</code>",
- "1342": "<code>STLCRef.Elab.extendedTmHandler : TmElabHandler</code>",
- "1341": "<code>STLCRef.Elab.elabTy : TyElab</code>",
- "1340": "<code>STLCRef.Elab.tyHandlers : TyElabHandler</code>",
+ "1343": "<code>STLCRef.Elab.elabCtx : CtxElab</code>",
+ "1342": "<code>STLCRef.Elab.elabTm : TmElab</code>",
+ "1341": "<code>STLCRef.Elab.tmHandlers : TmElabHandler</code>",
+ "1340": "<code>STLCRef.Elab.extendedTmHandler : TmElabHandler</code>",
  "134":
  "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "1339": "<code>STLCRef.Elab.extendedTyHandler : TyElabHandler</code>",
- "1338": "<code>STLCRef.Elab.language : Language</code>",
- "1337": "<code>STLCRef.Tm.tseq (t₁ t₂ : Tm) : Tm</code>",
- "1336": "<code>Lean.Parser.Category.stlcQuoted : Lean.Parser.Category</code>",
- "1335": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "1334": "<code><span class=\"literal string\">\" / \"</span> : String</code>",
- "1333": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1332": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
- "1331": "<code><span class=\"literal string\">\"!\"</span> : String</code>",
- "1330": "<code><span class=\"literal string\">\"loc \"</span> : String</code>",
+ "1339": "<code>STLCRef.Elab.elabTy : TyElab</code>",
+ "1338": "<code>STLCRef.Elab.tyHandlers : TyElabHandler</code>",
+ "1337": "<code>STLCRef.Elab.extendedTyHandler : TyElabHandler</code>",
+ "1336": "<code>STLCRef.Elab.language : Language</code>",
+ "1335": "<code>STLCRef.Tm.tseq (t₁ t₂ : Tm) : Tm</code>",
+ "1334": "<code>Lean.Parser.Category.stlcQuoted : Lean.Parser.Category</code>",
+ "1333": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
+ "1332": "<code><span class=\"literal string\">\" / \"</span> : String</code>",
+ "1331": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
+ "1330": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
  "133":
  "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
- "1329": "<code><span class=\"literal string\">\"ref \"</span> : String</code>",
- "1328": "<code><span class=\"literal string\">\"Ref \"</span> : String</code>",
- "1327": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
- "1326": "<code>STLCRef.Tm.loc : Nat → Tm</code>",
- "1325": "<code>STLCRef.Tm.assign : Tm → Tm → Tm</code>",
- "1324": "<code>STLCRef.Tm.deref : Tm → Tm</code>",
- "1323": "<code>STLCRef.Tm.ref : Tm → Tm</code>",
- "1322": "<code>STLCRef.Tm.unit : Tm</code>",
- "1321": "<code>STLCRef.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
- "1320": "<code>STLCRef.Tm.mult : Tm → Tm → Tm</code>",
+ "1329": "<code><span class=\"literal string\">\"!\"</span> : String</code>",
+ "1328": "<code><span class=\"literal string\">\"loc \"</span> : String</code>",
+ "1327": "<code><span class=\"literal string\">\"ref \"</span> : String</code>",
+ "1326": "<code><span class=\"literal string\">\"Ref \"</span> : String</code>",
+ "1325": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "1324": "<code>STLCRef.Tm.loc : Nat → Tm</code>",
+ "1323": "<code>STLCRef.Tm.assign : Tm → Tm → Tm</code>",
+ "1322": "<code>STLCRef.Tm.deref : Tm → Tm</code>",
+ "1321": "<code>STLCRef.Tm.ref : Tm → Tm</code>",
+ "1320": "<code>STLCRef.Tm.unit : Tm</code>",
  "132":
  "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
- "1319": "<code>STLCRef.Tm.pred : Tm → Tm</code>",
- "1318": "<code>STLCRef.Tm.succ : Tm → Tm</code>",
- "1317": "<code>STLCRef.Tm.const : Nat → Tm</code>",
- "1316": "<code>STLCRef.Tm.abs : String → Ty → Tm → Tm</code>",
- "1315": "<code>STLCRef.Tm.app : Tm → Tm → Tm</code>",
- "1314": "<code>STLCRef.Tm.var : String → Tm</code>",
- "1313": "<code>STLCRef.Tm : Type</code>",
- "1312": "<code>STLCRef.Ty.ref : Ty → Ty</code>",
- "1311": "<code>STLCRef.Ty.arrow : Ty → Ty → Ty</code>",
- "1310": "<code>STLCRef.Ty.unit : Ty</code>",
+ "1319": "<code>STLCRef.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
+ "1318": "<code>STLCRef.Tm.mult : Tm → Tm → Tm</code>",
+ "1317": "<code>STLCRef.Tm.pred : Tm → Tm</code>",
+ "1316": "<code>STLCRef.Tm.succ : Tm → Tm</code>",
+ "1315": "<code>STLCRef.Tm.const : Nat → Tm</code>",
+ "1314": "<code>STLCRef.Tm.abs : String → Ty → Tm → Tm</code>",
+ "1313": "<code>STLCRef.Tm.app : Tm → Tm → Tm</code>",
+ "1312": "<code>STLCRef.Tm.var : String → Tm</code>",
+ "1311": "<code>STLCRef.Tm : Type</code>",
+ "1310": "<code>STLCRef.Ty.ref : Ty → Ty</code>",
  "131":
  "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
- "1309": "<code>STLCRef.Ty.nat : Ty</code>",
- "1308": "<code>STLCRef.Ty : Type</code>",
- "1307": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "1306": "<code>t₁ ⟶ t'</code>",
- "1305": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "1304":
+ "1309": "<code>STLCRef.Ty.arrow : Ty → Ty → Ty</code>",
+ "1308": "<code>STLCRef.Ty.unit : Ty</code>",
+ "1307": "<code>STLCRef.Ty.nat : Ty</code>",
+ "1306": "<code>STLCRef.Ty : Type</code>",
+ "1305": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "1304": "<code>t₁ ⟶ t'</code>",
+ "1303": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "1302":
  "<code>∀ {t' : Tm}, &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "1303": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
- "1302": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
- "1301":
- "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "1300": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
+ "1301": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1300": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
  "130": "<code>Slang.AevalRDivision.Aexp.eval (a : Aexp) : Option Nat</code>",
  "13": "<code>Bool</code>",
- "1299": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
- "1298":
+ "1299":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
+ "1298": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
+ "1297": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
+ "1296":
  "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ Bool }&gt;</code>",
- "1297": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t₁ ⦂ τ₁' }&gt;</code>",
- "1296": "<code>τ₂' &lt;: τ₂</code>",
- "1295":
+ "1295": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t₁ ⦂ τ₁' }&gt;</code>",
+ "1294": "<code>τ₂' &lt;: τ₂</code>",
+ "1293":
  "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂ . t₁ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1294": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂ . t₁ ⦂ τ₂' → τ₁' }&gt;</code>",
- "1293": "<code>t₂ ⟶ t₂'✝</code>",
- "1292": "<code>t₁'.IsValue</code>",
- "1291": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' }&gt;</code>",
- "1290":
- "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1292": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂ . t₁ ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1291": "<code>t₂ ⟶ t₂'✝</code>",
+ "1290": "<code>t₁'.IsValue</code>",
  "129": "<code>Slang.AevalRDivision.Aexp.div (a₁ a₂ : Aexp) : Aexp</code>",
- "1289": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
- "1288": "<code>&lt;{ ∅ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1287": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' }&gt;</code>",
- "1286":
+ "1289": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' }&gt;</code>",
+ "1288":
+ "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1287": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
+ "1286": "<code>&lt;{ ∅ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1285": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' }&gt;</code>",
+ "1284":
  "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1285": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
- "1284": "<code>&lt;{ Γ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1283":
+ "1283": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
+ "1282": "<code>&lt;{ Γ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1281":
  "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1282":
+ "1280":
  "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → ∅ = ∅ → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1281": "<code>&lt;{ ∅ ⊢ ( v₁✝ , t' ) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1280": "<code>t'.IsValue</code>",
  "128": "<code>Slang.AevalRDivision.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "1279": "<code>v₁✝.IsValue</code>",
- "1278": "<code>t✝ ⟶ t'✝</code>",
- "1277": "<code>&lt;{ t₁' t₂ }&gt; ⟶ t'</code>",
- "1276":
- "<code>∀ {t' : Tm}, t✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1275": "<code>&lt;{ snd t✝ }&gt; ⟶ t'</code>",
+ "1279": "<code>&lt;{ ∅ ⊢ ( v₁✝ , t' ) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1278": "<code>t'.IsValue</code>",
+ "1277": "<code>v₁✝.IsValue</code>",
+ "1276": "<code>t✝ ⟶ t'✝</code>",
+ "1275": "<code>&lt;{ t₁' t₂ }&gt; ⟶ t'</code>",
  "1274":
- "<code>StlcSub.preservation {t t' : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
- "1273":
- "<code>StlcSub.substitution_preserves_typing {Γ : StlcSub.Context} {x : String} {τ₁ : StlcSub.Ty} {t v : StlcSub.Tm}\n  {τ : StlcSub.Ty} (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1273": "<code>&lt;{ snd t✝ }&gt; ⟶ t'</code>",
  "1272":
+ "<code>StlcSub.preservation {t t' : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1271":
+ "<code>StlcSub.substitution_preserves_typing {Γ : StlcSub.Context} {x : String} {τ₁ : StlcSub.Ty} {t v : StlcSub.Tm}\n  {τ : StlcSub.Ty} (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
+ "1270":
  "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁✝ ; Γ_1 = x →ₚ τ₁✝ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁ ⦂ τ₁ }&gt;</code>",
- "1271": "<code>&lt;{ ~(x →ₚ τ₁✝ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1270": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁✝ }&gt;</code>",
  "127": "<code>Slang.AevalRDivision.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "1269":
+ "1269": "<code>&lt;{ ~(x →ₚ τ₁✝ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "1268": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁✝ }&gt;</code>",
+ "1267":
  "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁✝ ; Γ_1 = Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁ ⦂ τ₁ }&gt;</code>",
- "1268":
- "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1267": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "1266":
- "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1265": "<code>&lt;{ ~(y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1265": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "1264":
+ "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1263": "<code>&lt;{ ~(y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1262":
  "<code>∀ {Γ : Context} {x : String}, x →ₚ τ₁ ; Γ = y →ₚ τ₂✝ ; Γ✝ → &lt;{ Γ ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1263": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1262": "<code>&lt;{ ~?Γ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1261": "<code>τ₁ = σ</code>",
- "1260": "<code>(x →ₚ τ₁ ; Γ)[x] = some σ</code>",
+ "1261": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1260": "<code>&lt;{ ~?Γ ⊢ v ⦂ τ₁ }&gt;</code>",
  "126": "<code>Slang.AevalRDivision.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
- "1259": "<code>Γ[y] = some σ</code>",
- "1258":
+ "1259": "<code>τ₁ = σ</code>",
+ "1258": "<code>(x →ₚ τ₁ ; Γ)[x] = some σ</code>",
+ "1257": "<code>Γ[y] = some σ</code>",
+ "1256":
  "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ Γ ⊢ ~(StlcSub.Tm.var x) ⦂ τ₁ }&gt;</code>",
- "1257":
- "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "1256": "<code>(x →ₚ τ₁ ; Γ)[y] = some σ</code>",
  "1255":
+ "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
+ "1254": "<code>(x →ₚ τ₁ ; Γ)[y] = some σ</code>",
+ "1253":
  "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = x →ₚ τ₁ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1254": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1253": "<code>&lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "1252": "<code>PartialMap String Ty</code>",
- "1251": "<code>x →ₚ τ₁ ; Γ = Γ'</code>",
- "1250": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1252": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1251": "<code>&lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
+ "1250": "<code>PartialMap String Ty</code>",
  "125": "<code>Slang.AevalRDivision.Aexp.num (n : Nat) : Aexp</code>",
- "1249": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;</code>",
- "1248":
+ "1249": "<code>x →ₚ τ₁ ; Γ = Γ'</code>",
+ "1248": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1247": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;</code>",
+ "1246":
  "<code>StlcSub.substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "1247": "<code>none = some b✝</code>",
- "1246": "<code>∅[a✝] = some b✝</code>",
- "1245":
+ "1245": "<code>none = some b✝</code>",
+ "1244":
+ "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
+ "1243": "<code>∅[a✝] = some b✝</code>",
+ "1242":
  "<code>StlcSub.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
- "1244": "<code>∀ {Γ' : Context}, Γ ⊆ Γ' → &lt;{ Γ' ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1243":
+ "1241": "<code>∀ {Γ' : Context}, Γ ⊆ Γ' → &lt;{ Γ' ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "1240":
  "<code>StlcSub.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "1242": "<code>σ₂ &lt;: τ₂</code>",
- "1241": "<code>τ₁ &lt;: σ₁</code>",
- "1240": "<code>w✝ &lt;: τ₂</code>",
  "124": "<code>Slang.AevalRDivision.Aexp : Type</code>",
- "1239": "<code>τ₁ &lt;: w✝¹</code>",
- "1238": "<code>&lt;{ σ₁ → σ₂ }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
- "1237":
+ "1239": "<code>σ₂ &lt;: τ₂</code>",
+ "1238": "<code>τ₁ &lt;: σ₁</code>",
+ "1237": "<code>w✝ &lt;: τ₂</code>",
+ "1236": "<code>τ₁ &lt;: w✝¹</code>",
+ "1235": "<code>&lt;{ σ₁ → σ₂ }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "1234":
  "<code class=\"docstring\">`clear x...` removes the given hypotheses, or fails if there are remaining\nreferences to a hypothesis.\n</code>",
- "1236": "<code>&lt;{ ~(x →ₚ σ₁) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1235": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
- "1234": "<code>&lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;</code>",
- "1233":
- "<code>StlcSub.abs_arrow {x : String} {t₂ : Tm} {σ₁ τ₁ τ₂ : Ty} (h : &lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;) :\n  τ₁ &lt;: σ₁ ∧ &lt;{ ~(x →ₚ σ₁) ⊢ t₂ ⦂ τ₂ }&gt;</code>",
- "1232": "<code>&lt;{ Unit }&gt; &lt;: τ₁</code>",
- "1231":
- "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
+ "1233": "<code>&lt;{ ~(x →ₚ σ₁) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1232": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "1231": "<code>&lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;</code>",
  "1230":
- "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt; → &lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "<code>StlcSub.abs_arrow {x : String} {t₂ : Tm} {σ₁ τ₁ τ₂ : Ty} (h : &lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;) :\n  τ₁ &lt;: σ₁ ∧ &lt;{ ~(x →ₚ σ₁) ⊢ t₂ ⦂ τ₂ }&gt;</code>",
  "123":
  "<code>Slang.Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "1229": "<code>&lt;{ Γ ⊢ unit ⦂ τ₁ }&gt;</code>",
- "1228": "<code>&lt;{ unit }&gt; = t₁ → &lt;{ Unit }&gt; &lt;: τ₁</code>",
- "1227": "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt;</code>",
- "1226":
+ "1229": "<code>&lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "1228":
+ "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
+ "1227":
+ "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt; → &lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "1226": "<code>&lt;{ Γ ⊢ unit ⦂ τ₁ }&gt;</code>",
+ "1225": "<code>&lt;{ unit }&gt; = t₁ → &lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "1224": "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt;</code>",
+ "1223":
  "<code>StlcSub.HasType.unit (Γ : Context) : &lt;{ Γ ⊢ unit ⦂ Unit }&gt;</code>",
- "1225": "<code>&lt;{ unit }&gt; = &lt;{ snd t✝ }&gt;</code>",
- "1224":
- "<code>&lt;{ unit }&gt; = t✝ → &lt;{ Unit }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
- "1223": "<code>&lt;{ unit }&gt; = t</code>",
- "1222": "<code>&lt;{ Γ ⊢ unit ⦂ τ }&gt;</code>",
+ "1222": "<code>&lt;{ unit }&gt; = &lt;{ snd t✝ }&gt;</code>",
  "1221":
- "<code>StlcSub.typing_inversion_unit (Γ : Context) (τ : Ty) (h : &lt;{ Γ ⊢ unit ⦂ τ }&gt;) : &lt;{ Unit }&gt; &lt;: τ</code>",
- "1220": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "<code>&lt;{ unit }&gt; = t✝ → &lt;{ Unit }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1220": "<code>&lt;{ unit }&gt; = t</code>",
  "122": "<code>a₂ ⇓ a₂.eval</code>",
- "1219": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁</code>",
+ "1219": "<code>&lt;{ Γ ⊢ unit ⦂ τ }&gt;</code>",
  "1218":
- "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ λ ~x : σ₁ . t₂ }&gt; → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1217": "<code>&lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ }&gt;</code>",
- "1216":
- "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "<code>StlcSub.typing_inversion_unit (Γ : Context) (τ : Ty) (h : &lt;{ Γ ⊢ unit ⦂ τ }&gt;) : &lt;{ Unit }&gt; &lt;: τ</code>",
+ "1217": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1216": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁</code>",
  "1215":
- "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₂ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1214": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ τ₁ }&gt;</code>",
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ λ ~x : σ₁ . t₂ }&gt; → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1214": "<code>&lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ }&gt;</code>",
  "1213":
- "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = &lt;{ λ ~x : τ₂ . t₁ }&gt;</code>",
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
  "1212":
- "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x✝ →ₚ σ₁ ; x →ₚ τ₂ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1211": "<code>&lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₂ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1211": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ τ₁ }&gt;</code>",
  "1210":
- "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = &lt;{ λ ~x : τ₂ . t₁ }&gt;</code>",
  "121": "<code>a₁ ⇓ a₁.eval</code>",
- "1209": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ snd t✝ }&gt;</code>",
- "1208":
+ "1209":
+ "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x✝ →ₚ σ₁ ; x →ₚ τ₂ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1208": "<code>&lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "1207":
+ "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1206": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "1205":
  "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t✝ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(x →ₚ σ₁ ; Γ✝) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1207": "<code>&lt;{ Γ✝ ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1206": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t</code>",
- "1205": "<code>&lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ }&gt;</code>",
- "1204":
- "<code>StlcSub.typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}\n  (h : &lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ }&gt;) : ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
- "1203": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1202":
- "<code>&lt;{ true }&gt;.IsValue → &lt;{ true }&gt; = &lt;{ true }&gt; ∨ &lt;{ true }&gt; = &lt;{ false }&gt;</code>",
+ "1204": "<code>&lt;{ Γ✝ ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1203": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t</code>",
+ "1202": "<code>&lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ }&gt;</code>",
  "1201":
- "<code>&lt;{ false }&gt;.IsValue → &lt;{ false }&gt; = &lt;{ true }&gt; ∨ &lt;{ false }&gt; = &lt;{ false }&gt;</code>",
- "1200":
- "<code>t₁.IsValue → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "<code>StlcSub.typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}\n  (h : &lt;{ Γ ⊢ λ ~x : σ₁ . t₂ ⦂ τ }&gt;) : ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ t₂ ⦂ σ₂ }&gt;</code>",
+ "1200": "<code>&lt;{ ∅ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
  "120":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
  "12": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
- "1199": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ }&gt;</code>",
- "1198": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ }&gt;</code>",
- "1197": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ }&gt;</code>",
- "1196": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ }&gt;</code>",
- "1195":
+ "1199":
+ "<code>&lt;{ true }&gt;.IsValue → &lt;{ true }&gt; = &lt;{ true }&gt; ∨ &lt;{ true }&gt; = &lt;{ false }&gt;</code>",
+ "1198":
+ "<code>&lt;{ false }&gt;.IsValue → &lt;{ false }&gt; = &lt;{ true }&gt; ∨ &lt;{ false }&gt; = &lt;{ false }&gt;</code>",
+ "1197":
+ "<code>t₁.IsValue → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "1196": "<code>&lt;{ ∅ ⊢ t₃ ⦂ τ }&gt;</code>",
+ "1195": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ }&gt;</code>",
+ "1194": "<code>&lt;{ Γ ⊢ t₃ ⦂ τ }&gt;</code>",
+ "1193": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ }&gt;</code>",
+ "1192":
  "<code>StlcSub.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ }&gt;)\n  (h₃ : &lt;{ Γ ⊢ t₃ ⦂ τ }&gt;) : &lt;{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
- "1194": "<code>t₁ = &lt;{ λ ~x : σ . v }&gt;</code>",
- "1193":
- "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
- "1192": "<code>t₁.IsValue → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
- "1191":
- "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
+ "1191": "<code>t₁ = &lt;{ λ ~x : σ . v }&gt;</code>",
  "1190":
- "<code class=\"docstring\">`done` succeeds iff there are no remaining goals. </code>",
+ "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
  "119": "<code>a.eval = n</code>",
- "1189": "<code>∅ = ∅ → t✝.IsValue ∨ ∃ t', t✝ ⟶ t'</code>",
- "1188": "<code>&lt;{ ∅ ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1189": "<code>t₁.IsValue → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "1188":
+ "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;) (h₂ : &lt;{ Γ ⊢ t₂ ⦂ τ₂ }&gt;) :\n  &lt;{ Γ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
  "1187":
- "<code>StlcSub.progress (t : Tm) (τ : Ty) (h : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1186":
- "<code>t₁.IsValue → &lt;{ Bool }&gt; = &lt;{ Bool }&gt; → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
- "1185": "<code>τ₁ = &lt;{ Bool }&gt;</code>",
+ "<code class=\"docstring\">`done` succeeds iff there are no remaining goals. </code>",
+ "1186": "<code>∅ = ∅ → t✝.IsValue ∨ ∃ t', t✝ ⟶ t'</code>",
+ "1185": "<code>&lt;{ ∅ ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
  "1184":
+ "<code>StlcSub.progress (t : Tm) (τ : Ty) (h : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "1183":
+ "<code>t₁.IsValue → &lt;{ Bool }&gt; = &lt;{ Bool }&gt; → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "1182": "<code>τ₁ = &lt;{ Bool }&gt;</code>",
+ "1181":
  "<code class=\"docstring\">`apply t at i` uses forward reasoning with `t` at the hypothesis `i`.\nExplicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic adds\nmetavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,\nthen replaces the type of `i` with `αᵢ₊₁ → ⋯ → αₙ` by applying those metavariables and the\noriginal `i`.\n\nLifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/ApplyAt.lean].\n</code>",
- "1183": "<code>τ₁ &lt;: &lt;{ Bool }&gt;</code>",
- "1182":
- "<code>t₁.IsValue → &lt;{ Bool }&gt; = τ₁ → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
- "1181": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1180":
- "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : &lt;{ Γ ⊢ t₁ ⦂ τ₁ }&gt;) (hs : τ₁ &lt;: τ₂) : &lt;{ Γ ⊢ t₁ ⦂ τ₂ }&gt;</code>",
+ "1180": "<code>τ₁ &lt;: &lt;{ Bool }&gt;</code>",
  "118":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
  "1179":
- "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
- "1178":
- "<code class=\"docstring\">`trivial` tries different simple tactics (e.g., `rfl`, `contradiction`, ...)\nto close the current goal.\nYou can use the command `macro_rules` to extend the set of tactics used. Example:\n```\nmacro_rules | `(tactic| trivial) =&gt; `(tactic| simp)\n```\n</code>",
+ "<code>t₁.IsValue → &lt;{ Bool }&gt; = τ₁ → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "1178": "<code>&lt;{ Γ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
  "1177":
- "<code>t✝.IsValue → &lt;{ Bool }&gt; = &lt;{ τ₁✝ × Bool }&gt; → t✝ = &lt;{ true }&gt; ∨ t✝ = &lt;{ false }&gt;</code>",
- "1176": "<code>&lt;{ Γ✝ ⊢ t✝ ⦂ τ₁✝ × Bool }&gt;</code>",
- "1175": "<code>&lt;{ snd t✝ }&gt;.IsValue</code>",
+ "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : &lt;{ Γ ⊢ t₁ ⦂ τ₁ }&gt;) (hs : τ₁ &lt;: τ₂) : &lt;{ Γ ⊢ t₁ ⦂ τ₂ }&gt;</code>",
+ "1176":
+ "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
+ "1175":
+ "<code class=\"docstring\">`trivial` tries different simple tactics (e.g., `rfl`, `contradiction`, ...)\nto close the current goal.\nYou can use the command `macro_rules` to extend the set of tactics used. Example:\n```\nmacro_rules | `(tactic| trivial) =&gt; `(tactic| simp)\n```\n</code>",
  "1174":
- "<code class=\"docstring\">Applies `subst` to all hypotheses of the form `h : x = t` or `h : t = x`.\n</code>",
- "1173": "<code>&lt;{ Bool }&gt; = τ</code>",
- "1172": "<code>&lt;{ Γ ⊢ t ⦂ Bool }&gt;</code>",
+ "<code>t✝.IsValue → &lt;{ Bool }&gt; = &lt;{ τ₁✝ × Bool }&gt; → t✝ = &lt;{ true }&gt; ∨ t✝ = &lt;{ false }&gt;</code>",
+ "1173": "<code>&lt;{ Γ✝ ⊢ t✝ ⦂ τ₁✝ × Bool }&gt;</code>",
+ "1172": "<code>&lt;{ snd t✝ }&gt;.IsValue</code>",
  "1171":
- "<code>StlcSub.canonical_forms_of_bool {Γ : Context} {t : Tm} (ht : &lt;{ Γ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) :\n  t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
- "1170": "<code>&lt;{ Γ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
+ "<code class=\"docstring\">Applies `subst` to all hypotheses of the form `h : x = t` or `h : t = x`.\n</code>",
+ "1170": "<code>&lt;{ Bool }&gt; = τ</code>",
  "117":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
- "1169":
+ "1169": "<code>&lt;{ Γ ⊢ t ⦂ Bool }&gt;</code>",
+ "1168":
+ "<code>StlcSub.canonical_forms_of_bool {Γ : Context} {t : Tm} (ht : &lt;{ Γ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) :\n  t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
+ "1167": "<code>&lt;{ Γ ⊢ t ⦂ τ₁ → τ₂ }&gt;</code>",
+ "1166":
  "<code>StlcSub.canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty} (ht : &lt;{ Γ ⊢ t ⦂ τ₁ → τ₂ }&gt;)\n  (hv : t.IsValue) : ∃ x σ₁ t₂, t = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
- "1168": "<code>σ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
- "1167":
+ "1165": "<code>σ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "1164":
  "<code>StlcSub.sub_inversion_arrow {σ τ₁ τ₂ : Ty} (h : σ &lt;: &lt;{ τ₁ → τ₂ }&gt;) : ∃ σ₁ σ₂, σ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
- "1166": "<code>τ &lt;: &lt;{ Bool }&gt;</code>",
- "1165":
+ "1163": "<code>τ &lt;: &lt;{ Bool }&gt;</code>",
+ "1162":
  "<code>StlcSub.sub_inversion_bool (τ : Ty) (h : τ &lt;: &lt;{ Bool }&gt;) : τ = &lt;{ Bool }&gt;</code>",
- "1164": "<code>StlcSub.HasType.unexpand : Unexpander</code>",
- "1163": "<code>τ₁ &lt;: τ₂</code>",
- "1162": "<code>HasType Γ t₁ τ₁</code>",
- "1161":
- "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : HasType Γ t₁ τ₁) (hs : τ₁ &lt;: τ₂) : HasType Γ t₁ τ₂</code>",
- "1160":
- "<code>StlcSub.HasType.unit (Γ : Context) : HasType Γ (&lt;{ unit }&gt;) (&lt;{ Unit }&gt;)</code>",
+ "1161": "<code>StlcSub.HasType.unexpand : Unexpander</code>",
+ "1160": "<code>τ₁ &lt;: τ₂</code>",
  "116": "<code>a₂✝.eval = n₂✝</code>",
- "1159": "<code>HasType Γ t₃ τ</code>",
- "1158": "<code>HasType Γ t₂ τ</code>",
+ "1159": "<code>HasType Γ t₁ τ₁</code>",
+ "1158":
+ "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : HasType Γ t₁ τ₁) (hs : τ₁ &lt;: τ₂) : HasType Γ t₁ τ₂</code>",
  "1157":
- "<code>StlcSub.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : HasType Γ t₁ (&lt;{ Bool }&gt;)) (h₂ : HasType Γ t₂ τ)\n  (h₃ : HasType Γ t₃ τ) : HasType Γ (&lt;{ if t₁ then t₂ else t₃ }&gt;) τ</code>",
- "1156":
- "<code>StlcSub.HasType.fls (Γ : Context) : HasType Γ (&lt;{ false }&gt;) (&lt;{ Bool }&gt;)</code>",
- "1155":
- "<code>StlcSub.HasType.tru (Γ : Context) : HasType Γ (&lt;{ true }&gt;) (&lt;{ Bool }&gt;)</code>",
+ "<code>StlcSub.HasType.unit (Γ : Context) : HasType Γ (&lt;{ unit }&gt;) (&lt;{ Unit }&gt;)</code>",
+ "1156": "<code>HasType Γ t₃ τ</code>",
+ "1155": "<code>HasType Γ t₂ τ</code>",
  "1154":
- "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
+ "<code>StlcSub.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : HasType Γ t₁ (&lt;{ Bool }&gt;)) (h₂ : HasType Γ t₂ τ)\n  (h₃ : HasType Γ t₃ τ) : HasType Γ (&lt;{ if t₁ then t₂ else t₃ }&gt;) τ</code>",
  "1153":
- "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "<code>StlcSub.HasType.fls (Γ : Context) : HasType Γ (&lt;{ false }&gt;) (&lt;{ Bool }&gt;)</code>",
  "1152":
- "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : HasType Γ (StlcSub.Tm.var x) τ₁</code>",
- "1151": "<code>StlcSub.HasType : Context → Tm → Ty → Prop</code>",
- "1150": "<code>StlcSub.Context : Type</code>",
+ "<code>StlcSub.HasType.tru (Γ : Context) : HasType Γ (&lt;{ true }&gt;) (&lt;{ Bool }&gt;)</code>",
+ "1151":
+ "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
+ "1150":
+ "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
  "115": "<code>a₁✝.eval = n₁✝</code>",
- "1149": "<code>Subtype σ₂ τ₂</code>",
- "1148": "<code>Subtype τ₁ σ₁</code>",
- "1147":
+ "1149":
+ "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : HasType Γ (StlcSub.Tm.var x) τ₁</code>",
+ "1148": "<code>StlcSub.HasType : Context → Tm → Ty → Prop</code>",
+ "1147": "<code>StlcSub.Context : Type</code>",
+ "1146": "<code>Subtype σ₂ τ₂</code>",
+ "1145": "<code>Subtype τ₁ σ₁</code>",
+ "1144":
  "<code>StlcSub.Subtype.arrow {σ₁ σ₂ τ₁ τ₂ : Ty} (h₁ : Subtype τ₁ σ₁) (h₂ : Subtype σ₂ τ₂) :\n  Subtype (&lt;{ σ₁ → σ₂ }&gt;) (&lt;{ τ₁ → τ₂ }&gt;)</code>",
- "1146":
- "<code>StlcSub.Subtype.top {σ : Ty} : Subtype σ (&lt;{ ⊤ }&gt;)</code>",
- "1145": "<code>Subtype υ τ</code>",
- "1144": "<code>Subtype σ υ</code>",
  "1143":
- "<code>StlcSub.Subtype.trans {σ υ τ : Ty} (h₁ : Subtype σ υ) (h₂ : Subtype υ τ) : Subtype σ τ</code>",
- "1142": "<code>StlcSub.Subtype.refl {τ : Ty} : Subtype τ τ</code>",
- "1141": "<code>StlcSub.Subtype : Ty → Ty → Prop</code>",
+ "<code>StlcSub.Subtype.top {σ : Ty} : Subtype σ (&lt;{ ⊤ }&gt;)</code>",
+ "1142": "<code>Subtype υ τ</code>",
+ "1141": "<code>Subtype σ υ</code>",
  "1140":
- "<code><span class=\"literal string\">\" &lt;: \"</span> : String</code>",
+ "<code>StlcSub.Subtype.trans {σ υ τ : Ty} (h₁ : Subtype σ υ) (h₂ : Subtype υ τ) : Subtype σ τ</code>",
  "114": "<code>a₂✝ ⇓ n₂✝</code>",
- "1139":
- "<code>StlcSub.Step.ifFalse (t₂ t₃ : Tm) : Step (&lt;{ if false then t₂ else t₃ }&gt;) t₃</code>",
- "1138":
- "<code>StlcSub.Step.ifTrue (t₂ t₃ : Tm) : Step (&lt;{ if true then t₂ else t₃ }&gt;) t₂</code>",
+ "1139": "<code>StlcSub.Subtype.refl {τ : Ty} : Subtype τ τ</code>",
+ "1138": "<code>StlcSub.Subtype : Ty → Ty → Prop</code>",
  "1137":
- "<code>StlcSub.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step (&lt;{ if t₁ then t₂ else t₃ }&gt;) (&lt;{ if t₁' then t₂ else t₃ }&gt;)</code>",
+ "<code><span class=\"literal string\">\" &lt;: \"</span> : String</code>",
  "1136":
- "<code>StlcSub.Step.app₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step (&lt;{ v₁ t₂ }&gt;) (&lt;{ v₁ t₂' }&gt;)</code>",
+ "<code>StlcSub.Step.ifFalse (t₂ t₃ : Tm) : Step (&lt;{ if false then t₂ else t₃ }&gt;) t₃</code>",
  "1135":
- "<code>StlcSub.Step.app₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step (&lt;{ t₁ t₂ }&gt;) (&lt;{ t₁' t₂ }&gt;)</code>",
+ "<code>StlcSub.Step.ifTrue (t₂ t₃ : Tm) : Step (&lt;{ if true then t₂ else t₃ }&gt;) t₂</code>",
  "1134":
+ "<code>StlcSub.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step (&lt;{ if t₁ then t₂ else t₃ }&gt;) (&lt;{ if t₁' then t₂ else t₃ }&gt;)</code>",
+ "1133":
+ "<code>StlcSub.Step.app₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step (&lt;{ v₁ t₂ }&gt;) (&lt;{ v₁ t₂' }&gt;)</code>",
+ "1132":
+ "<code>StlcSub.Step.app₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step (&lt;{ t₁ t₂ }&gt;) (&lt;{ t₁' t₂ }&gt;)</code>",
+ "1131":
  "<code>StlcSub.Step.appAbs (x : String) (τ₂ : Ty) (t₁ v₂ : Tm) :\n  v₂.IsValue → Step (&lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt;) (&lt;{ [~x := v₂] t₁ }&gt;)</code>",
- "1133": "<code>StlcSub.Step : Tm → Tm → Prop</code>",
- "1132": "<code>StlcSub.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
- "1131": "<code>StlcSub.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
- "1130": "<code>StlcSub.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
+ "1130": "<code>StlcSub.Step : Tm → Tm → Prop</code>",
  "113": "<code>a₁✝ ⇓ n₁✝</code>",
- "1129":
- "<code>StlcSub.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
- "1128": "<code>StlcSub.Tm.IsValue : Tm → Prop</code>",
- "1127": "<code>StlcSub.unexpandSubst : Unexpander</code>",
+ "1129": "<code>StlcSub.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1128": "<code>StlcSub.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "1127": "<code>StlcSub.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
  "1126":
+ "<code>StlcSub.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "1125": "<code>StlcSub.Tm.IsValue : Tm → Prop</code>",
+ "1124": "<code>StlcSub.unexpandSubst : Unexpander</code>",
+ "1123":
  "<code class=\"docstring\">The `sorry` term is a temporary placeholder for a missing proof or value.\n\nThe syntax is intended for stubbing-out incomplete parts of a value or proof while still having a syntactically correct skeleton.\nLean will give a warning whenever a declaration uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a declaration depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n\n\"Go to definition\" on `sorry` in the Infoview will go to the source position where it was introduced, if such information is available.\n\nEach `sorry` is guaranteed to be unique, so for example the following fails:\n```lean\nexample : (sorry : Nat) = sorry := rfl -- fails\n```\n\nSee also the `sorry` tactic, which is short for `exact sorry`.\n</code>",
- "1125": "<code>StlcSub.subst (x : String) (s t : Tm) : Tm</code>",
- "1124": "<code>StlcSub.Delab.Tm.unexpandSnd : Unexpander</code>",
- "1123": "<code>StlcSub.Delab.Tm.unexpandFst : Unexpander</code>",
- "1122": "<code>StlcSub.Delab.Tm.unexpandPair : Unexpander</code>",
- "1121": "<code>StlcSub.Delab.Tm.unexpandUnit : Unexpander</code>",
- "1120": "<code>StlcSub.Delab.Tm.unexpandIte : Unexpander</code>",
+ "1122": "<code>StlcSub.subst (x : String) (s t : Tm) : Tm</code>",
+ "1121": "<code>StlcSub.Delab.Tm.unexpandSnd : Unexpander</code>",
+ "1120": "<code>StlcSub.Delab.Tm.unexpandFst : Unexpander</code>",
  "112":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
- "1119": "<code>StlcSub.Delab.Tm.unexpandFls : Unexpander</code>",
- "1118": "<code>StlcSub.Delab.Tm.unexpandTru : Unexpander</code>",
- "1117": "<code>StlcSub.Delab.Tm.unexpandAbs : Unexpander</code>",
- "1116": "<code>StlcSub.Delab.Tm.unexpandApp : Unexpander</code>",
- "1115": "<code>StlcSub.Delab.Tm.delabVar : Delab</code>",
- "1114": "<code>StlcSub.Delab.Tm.unexpandVar : Unexpander</code>",
- "1113": "<code>StlcSub.Delab.reservedTmNames : String → Bool</code>",
- "1112":
- "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
- "1111": "<code>TSyntax `str</code>",
- "1110": "<code>StlcSub.Delab.Ty.unexpandBase : Unexpander</code>",
+ "1119": "<code>StlcSub.Delab.Tm.unexpandPair : Unexpander</code>",
+ "1118": "<code>StlcSub.Delab.Tm.unexpandUnit : Unexpander</code>",
+ "1117": "<code>StlcSub.Delab.Tm.unexpandIte : Unexpander</code>",
+ "1116": "<code>StlcSub.Delab.Tm.unexpandFls : Unexpander</code>",
+ "1115": "<code>StlcSub.Delab.Tm.unexpandTru : Unexpander</code>",
+ "1114": "<code>StlcSub.Delab.Tm.unexpandAbs : Unexpander</code>",
+ "1113": "<code>StlcSub.Delab.Tm.unexpandApp : Unexpander</code>",
+ "1112": "<code>StlcSub.Delab.Tm.delabVar : Delab</code>",
+ "1111": "<code>StlcSub.Delab.Tm.unexpandVar : Unexpander</code>",
+ "1110": "<code>StlcSub.Delab.reservedTmNames : String → Bool</code>",
  "111": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
- "1109": "<code>StlcSub.Delab.reservedTyNames : String → Bool</code>",
- "1108": "<code>StlcSub.Delab.Ty.unexpandProd : Unexpander</code>",
- "1107": "<code>StlcSub.Delab.Ty.unexpandArrow : Unexpander</code>",
- "1106": "<code>StlcSub.Delab.Ty.unexpandUnit : Unexpander</code>",
- "1105": "<code>StlcSub.Delab.Ty.unexpandBool : Unexpander</code>",
- "1104": "<code>StlcSub.Delab.Ty.unexpandTop : Unexpander</code>",
- "1103": "<code>StlcSub.Elab.elabBracket : TermElab</code>",
- "1102": "<code>StlcSub.Elab.elabCtx : CtxElab</code>",
- "1101": "<code>StlcSub.Elab.elabTm : TmElab</code>",
- "1100": "<code>StlcSub.Elab.tmHandlers : TmElabHandler</code>",
+ "1109":
+ "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
+ "1108": "<code>TSyntax `str</code>",
+ "1107": "<code>StlcSub.Delab.Ty.unexpandBase : Unexpander</code>",
+ "1106": "<code>StlcSub.Delab.reservedTyNames : String → Bool</code>",
+ "1105": "<code>StlcSub.Delab.Ty.unexpandProd : Unexpander</code>",
+ "1104": "<code>StlcSub.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "1103": "<code>StlcSub.Delab.Ty.unexpandUnit : Unexpander</code>",
+ "1102": "<code>StlcSub.Delab.Ty.unexpandBool : Unexpander</code>",
+ "1101": "<code>StlcSub.Delab.Ty.unexpandTop : Unexpander</code>",
+ "1100": "<code>StlcSub.Elab.elabBracket : TermElab</code>",
  "110": "<code>a ⇓ n</code>",
  "11": "<code>Slang.Bexp : Type</code>",
- "1099": "<code>StlcSub.Elab.subTmHandler : TmElabHandler</code>",
- "1098": "<code>StlcSub.Elab.elabTy : TyElab</code>",
- "1097": "<code>StlcSub.Elab.tyHandlers : TyElabHandler</code>",
- "1096":
- "<code>Lean.mkStrLit (s : String) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">Return the string literal `.lit (.strVal s)` </code>",
- "1095": "<code>StlcCommon.Elab.IndentKind.object : IndentKind</code>",
- "1094":
- "<code>StlcCommon.Elab.classifyIdent? (id : Ident) : Option (IndentKind × String)</code>",
+ "1099": "<code>StlcSub.Elab.elabCtx : CtxElab</code>",
+ "1098": "<code>StlcSub.Elab.elabTm : TmElab</code>",
+ "1097": "<code>StlcSub.Elab.tmHandlers : TmElabHandler</code>",
+ "1096": "<code>StlcSub.Elab.subTmHandler : TmElabHandler</code>",
+ "1095": "<code>StlcSub.Elab.elabTy : TyElab</code>",
+ "1094": "<code>StlcSub.Elab.tyHandlers : TyElabHandler</code>",
  "1093":
+ "<code>Lean.mkStrLit (s : String) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">Return the string literal `.lit (.strVal s)` </code>",
+ "1092": "<code>StlcCommon.Elab.IndentKind.object : IndentKind</code>",
+ "1091":
+ "<code>StlcCommon.Elab.classifyIdent? (id : Ident) : Option (IndentKind × String)</code>",
+ "1090":
  "<code>StlcSub.Elab.baseTyHandler : TyElabHandler</code><span class=\"sep\"></span><code class=\"docstring\">Make unresolved type identifiers \"base types\".\nThis must run after `commonTyHandler`\nso a Lean variable `τ : Ty` is implicitly antiquoted first.\n</code>",
- "1092": "<code>StlcSub.Elab.subTyHandler : TyElabHandler</code>",
- "1091": "<code>StlcSub.Elab.language : Language</code>",
- "1090": "<code><span class=\"literal string\">\" ⊤ \"</span> : String</code>",
  "109":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
- "1089": "<code>StlcSub.Tm.snd : Tm → Tm</code>",
- "1088": "<code>StlcSub.Tm.fst : Tm → Tm</code>",
- "1087": "<code>StlcSub.Tm.pair : Tm → Tm → Tm</code>",
- "1086": "<code>StlcSub.Tm.unit : Tm</code>",
- "1085": "<code>StlcSub.Tm.ite : Tm → Tm → Tm → Tm</code>",
- "1084": "<code>StlcSub.Tm.fls : Tm</code>",
- "1083": "<code>StlcSub.Tm.tru : Tm</code>",
- "1082": "<code>StlcSub.Tm.abs : String → Ty → Tm → Tm</code>",
- "1081": "<code>StlcSub.Tm.app : Tm → Tm → Tm</code>",
- "1080": "<code>StlcSub.Tm.var : String → Tm</code>",
+ "1089": "<code>StlcSub.Elab.subTyHandler : TyElabHandler</code>",
+ "1088": "<code>StlcSub.Elab.language : Language</code>",
+ "1087": "<code><span class=\"literal string\">\" ⊤ \"</span> : String</code>",
+ "1086": "<code>StlcSub.Tm.snd : Tm → Tm</code>",
+ "1085": "<code>StlcSub.Tm.fst : Tm → Tm</code>",
+ "1084": "<code>StlcSub.Tm.pair : Tm → Tm → Tm</code>",
+ "1083": "<code>StlcSub.Tm.unit : Tm</code>",
+ "1082": "<code>StlcSub.Tm.ite : Tm → Tm → Tm → Tm</code>",
+ "1081": "<code>StlcSub.Tm.fls : Tm</code>",
+ "1080": "<code>StlcSub.Tm.tru : Tm</code>",
  "108":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
- "1079": "<code>StlcSub.Tm : Type</code>",
- "1078": "<code>StlcSub.Ty.prod : Ty → Ty → Ty</code>",
- "1077": "<code>StlcSub.Ty.unit : Ty</code>",
- "1076": "<code>StlcSub.Ty.arrow : Ty → Ty → Ty</code>",
- "1075": "<code>StlcSub.Ty.base : String → Ty</code>",
- "1074": "<code>StlcSub.Ty.bool : Ty</code>",
- "1073": "<code>StlcSub.Ty.top : Ty</code>",
- "1072": "<code>StlcSub.Ty : Type</code>",
- "1071":
- "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
- "1070":
- "<code>StlcExtended.Tm.IsValue.pair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "1079": "<code>StlcSub.Tm.abs : String → Ty → Tm → Tm</code>",
+ "1078": "<code>StlcSub.Tm.app : Tm → Tm → Tm</code>",
+ "1077": "<code>StlcSub.Tm.var : String → Tm</code>",
+ "1076": "<code>StlcSub.Tm : Type</code>",
+ "1075": "<code>StlcSub.Ty.prod : Ty → Ty → Ty</code>",
+ "1074": "<code>StlcSub.Ty.unit : Ty</code>",
+ "1073": "<code>StlcSub.Ty.arrow : Ty → Ty → Ty</code>",
+ "1072": "<code>StlcSub.Ty.base : String → Ty</code>",
+ "1071": "<code>StlcSub.Ty.bool : Ty</code>",
+ "1070": "<code>StlcSub.Ty.top : Ty</code>",
  "107":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1069": "<code>StlcExtended.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1069": "<code>StlcSub.Ty : Type</code>",
  "1068":
- "<code>StlcExtended.Tm.IsValue.listCons (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ v₁ :: v₂ }&gt;.IsValue</code>",
+ "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
  "1067":
- "<code>StlcExtended.Tm.IsValue.listNil (τ₁ : Ty) : &lt;{ nil τ₁ }&gt;.IsValue</code>",
- "1066":
- "<code>StlcExtended.Tm.IsValue.sumInr (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inr τ₁ v }&gt;.IsValue</code>",
+ "<code>StlcExtended.Tm.IsValue.pair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "1066": "<code>StlcExtended.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
  "1065":
- "<code>StlcExtended.Tm.IsValue.sumInl (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inl τ₁ v }&gt;.IsValue</code>",
+ "<code>StlcExtended.Tm.IsValue.listCons (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ v₁ :: v₂ }&gt;.IsValue</code>",
  "1064":
- "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
+ "<code>StlcExtended.Tm.IsValue.listNil (τ₁ : Ty) : &lt;{ nil τ₁ }&gt;.IsValue</code>",
  "1063":
- "<code>StlcExtended.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
- "1062": "<code>StlcExtended.Tm.IsValue : Tm → Prop</code>",
+ "<code>StlcExtended.Tm.IsValue.sumInr (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inr τ₁ v }&gt;.IsValue</code>",
+ "1062":
+ "<code>StlcExtended.Tm.IsValue.sumInl (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inl τ₁ v }&gt;.IsValue</code>",
  "1061":
- "<code class=\"docstring\">`/-- ... -/ #guard_msgs in cmd` captures the messages generated by the command `cmd`\nand checks that they match the contents of the docstring.\n\nBasic example:\n```lean\n/--\nerror: Unknown identifier `x`\n-/\n#guard_msgs in\nexample : α := x\n```\nThis checks that there is such an error and then consumes the message.\n\nBy default, the command captures all messages, but the filter condition can be adjusted.\nFor example, we can select only warnings:\n```lean\n/--\nwarning: declaration uses 'sorry'\n-/\n#guard_msgs(warning) in\nexample : α := sorry\n```\nor only errors\n```lean\n#guard_msgs(error) in\nexample : α := sorry\n```\nIn the previous example, since warnings are not captured there is a warning on `sorry`.\nWe can drop the warning completely with\n```lean\n#guard_msgs(error, drop warning) in\nexample : α := sorry\n```\n\nIn general, `#guard_msgs` accepts a comma-separated list of configuration clauses in parentheses:\n```\n#guard_msgs (configElt,*) in cmd\n```\nBy default, the configuration list is\n`(check all, whitespace := normalized, ordering := exact, positions := false)`.\n\nMessage filters select messages by severity:\n- `info`, `warning`, `error`: (non-trace) messages with the given severity level.\n- `trace`: trace messages\n- `all`: all messages.\n\nThe filters can be prefixed with the action to take:\n- `check` (the default): capture and check the message\n- `drop`: drop the message\n- `pass`: let the message pass through\n\nIf no filter is specified, `check all` is assumed.  Otherwise, these filters are processed in\nleft-to-right order, with an implicit `pass all` at the end.\n\nWhitespace handling (after trimming leading and trailing whitespace):\n- `whitespace := exact` requires an exact whitespace match.\n- `whitespace := normalized` converts all newline characters to a space before matching\n  (the default). This allows breaking long lines.\n- `whitespace := lax` collapses whitespace to a single space before matching.\n\nMessage ordering:\n- `ordering := exact` uses the exact ordering of the messages (the default).\n- `ordering := sorted` sorts the messages in lexicographic order.\n  This helps with testing commands that are non-deterministic in their ordering.\n\nPosition reporting:\n- `positions := true` reports the ranges of all messages relative to the line on which\n  `#guard_msgs` appears.\n- `positions := false` does not report position info.\n\nSubstring matching:\n- `substring := true` checks that the docstring appears as a substring of the output\n  (after whitespace normalization). This is useful when you only care about part of the message.\n- `substring := false` (the default) requires exact matching (modulo whitespace normalization).\n\nStabilizing output:\nWhen messages contain autogenerated names (e.g., metavariables like `?m.47`), the output may\ndiffer between runs or Lean versions. Use `set_option pp.mvars.anonymous false` to replace\nanonymous metavariables with `?_` while preserving user-named metavariables like `?a`.\nAlternatively, `set_option pp.mvars false` replaces all metavariables with `?_`.\nSimilarly, `set_option pp.fvars.anonymous false` replaces loose free variable names like\n`_fvar.22` with `_fvar._`.\n\nFor example, `#guard_msgs (error, drop all) in cmd` means to check errors and drop\neverything else.\n\nThe command elaborator has special support for `#guard_msgs` for linting.\nThe `#guard_msgs` itself wants to capture linter warnings,\nso it elaborates the command it is attached to as if it were a top-level command.\nHowever, the command elaborator runs linters for *all* top-level commands,\nwhich would include `#guard_msgs` itself, and would cause duplicate and/or uncaptured linter warnings.\nThe top-level command elaborator only runs the linters if `#guard_msgs` is not present.\n</code>",
- "1060": "<code>StlcExtended.Delab.Tm.unexpandFix : Unexpander</code>",
+ "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
+ "1060":
+ "<code>StlcExtended.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
  "106":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "1059": "<code>StlcExtended.Delab.Tm.unexpandLetIn : Unexpander</code>",
- "1058": "<code>StlcExtended.Delab.Tm.unexpandSnd : Unexpander</code>",
- "1057": "<code>StlcExtended.Delab.Tm.unexpandFst : Unexpander</code>",
- "1056": "<code>StlcExtended.Delab.Tm.unexpandPair : Unexpander</code>",
- "1055": "<code>StlcExtended.Delab.Tm.unexpandUnit : Unexpander</code>",
- "1054": "<code>StlcExtended.Delab.Tm.unexpandListCase : Unexpander</code>",
- "1053": "<code>StlcExtended.Delab.Tm.unexpandListCons : Unexpander</code>",
- "1052": "<code>StlcExtended.Delab.Tm.unexpandListNil : Unexpander</code>",
- "1051": "<code>StlcCommon.Delab.getVar (stx : Term) : TSyntax `stlcVar</code>",
- "1050": "<code>StlcExtended.Delab.Tm.unexpandSumCase : Unexpander</code>",
+ "1059": "<code>StlcExtended.Tm.IsValue : Tm → Prop</code>",
+ "1058":
+ "<code class=\"docstring\">`/-- ... -/ #guard_msgs in cmd` captures the messages generated by the command `cmd`\nand checks that they match the contents of the docstring.\n\nBasic example:\n```lean\n/--\nerror: Unknown identifier `x`\n-/\n#guard_msgs in\nexample : α := x\n```\nThis checks that there is such an error and then consumes the message.\n\nBy default, the command captures all messages, but the filter condition can be adjusted.\nFor example, we can select only warnings:\n```lean\n/--\nwarning: declaration uses 'sorry'\n-/\n#guard_msgs(warning) in\nexample : α := sorry\n```\nor only errors\n```lean\n#guard_msgs(error) in\nexample : α := sorry\n```\nIn the previous example, since warnings are not captured there is a warning on `sorry`.\nWe can drop the warning completely with\n```lean\n#guard_msgs(error, drop warning) in\nexample : α := sorry\n```\n\nIn general, `#guard_msgs` accepts a comma-separated list of configuration clauses in parentheses:\n```\n#guard_msgs (configElt,*) in cmd\n```\nBy default, the configuration list is\n`(check all, whitespace := normalized, ordering := exact, positions := false)`.\n\nMessage filters select messages by severity:\n- `info`, `warning`, `error`: (non-trace) messages with the given severity level.\n- `trace`: trace messages\n- `all`: all messages.\n\nThe filters can be prefixed with the action to take:\n- `check` (the default): capture and check the message\n- `drop`: drop the message\n- `pass`: let the message pass through\n\nIf no filter is specified, `check all` is assumed.  Otherwise, these filters are processed in\nleft-to-right order, with an implicit `pass all` at the end.\n\nWhitespace handling (after trimming leading and trailing whitespace):\n- `whitespace := exact` requires an exact whitespace match.\n- `whitespace := normalized` converts all newline characters to a space before matching\n  (the default). This allows breaking long lines.\n- `whitespace := lax` collapses whitespace to a single space before matching.\n\nMessage ordering:\n- `ordering := exact` uses the exact ordering of the messages (the default).\n- `ordering := sorted` sorts the messages in lexicographic order.\n  This helps with testing commands that are non-deterministic in their ordering.\n\nPosition reporting:\n- `positions := true` reports the ranges of all messages relative to the line on which\n  `#guard_msgs` appears.\n- `positions := false` does not report position info.\n\nSubstring matching:\n- `substring := true` checks that the docstring appears as a substring of the output\n  (after whitespace normalization). This is useful when you only care about part of the message.\n- `substring := false` (the default) requires exact matching (modulo whitespace normalization).\n\nStabilizing output:\nWhen messages contain autogenerated names (e.g., metavariables like `?m.47`), the output may\ndiffer between runs or Lean versions. Use `set_option pp.mvars.anonymous false` to replace\nanonymous metavariables with `?_` while preserving user-named metavariables like `?a`.\nAlternatively, `set_option pp.mvars false` replaces all metavariables with `?_`.\nSimilarly, `set_option pp.fvars.anonymous false` replaces loose free variable names like\n`_fvar.22` with `_fvar._`.\n\nFor example, `#guard_msgs (error, drop all) in cmd` means to check errors and drop\neverything else.\n\nThe command elaborator has special support for `#guard_msgs` for linting.\nThe `#guard_msgs` itself wants to capture linter warnings,\nso it elaborates the command it is attached to as if it were a top-level command.\nHowever, the command elaborator runs linters for *all* top-level commands,\nwhich would include `#guard_msgs` itself, and would cause duplicate and/or uncaptured linter warnings.\nThe top-level command elaborator only runs the linters if `#guard_msgs` is not present.\n</code>",
+ "1057": "<code>StlcExtended.Delab.Tm.unexpandFix : Unexpander</code>",
+ "1056": "<code>StlcExtended.Delab.Tm.unexpandLetIn : Unexpander</code>",
+ "1055": "<code>StlcExtended.Delab.Tm.unexpandSnd : Unexpander</code>",
+ "1054": "<code>StlcExtended.Delab.Tm.unexpandFst : Unexpander</code>",
+ "1053": "<code>StlcExtended.Delab.Tm.unexpandPair : Unexpander</code>",
+ "1052": "<code>StlcExtended.Delab.Tm.unexpandUnit : Unexpander</code>",
+ "1051": "<code>StlcExtended.Delab.Tm.unexpandListCase : Unexpander</code>",
+ "1050": "<code>StlcExtended.Delab.Tm.unexpandListCons : Unexpander</code>",
  "105": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
- "1049": "<code>StlcExtended.Delab.Tm.unexpandSumInr : Unexpander</code>",
- "1048": "<code>StlcExtended.Delab.Tm.unexpandSumInl : Unexpander</code>",
- "1047": "<code>StlcExtended.Delab.Tm.unexpandIte0 : Unexpander</code>",
- "1046": "<code>StlcExtended.Delab.Tm.unexpandMult : Unexpander</code>",
- "1045": "<code>StlcExtended.Delab.Tm.unexpandPred : Unexpander</code>",
- "1044": "<code>StlcExtended.Delab.Tm.unexpandSucc : Unexpander</code>",
- "1043": "<code>StlcExtended.Delab.Tm.unexpandConst : Unexpander</code>",
- "1042": "<code>StlcExtended.Delab.Tm.unexpandAbs : Unexpander</code>",
- "1041": "<code>StlcExtended.Delab.Tm.unexpandApp : Unexpander</code>",
- "1040": "<code>StlcExtended.Delab.Tm.delabVar : Delab</code>",
+ "1049": "<code>StlcExtended.Delab.Tm.unexpandListNil : Unexpander</code>",
+ "1048": "<code>StlcCommon.Delab.getVar (stx : Term) : TSyntax `stlcVar</code>",
+ "1047": "<code>StlcExtended.Delab.Tm.unexpandSumCase : Unexpander</code>",
+ "1046": "<code>StlcExtended.Delab.Tm.unexpandSumInr : Unexpander</code>",
+ "1045": "<code>StlcExtended.Delab.Tm.unexpandSumInl : Unexpander</code>",
+ "1044": "<code>StlcExtended.Delab.Tm.unexpandIte0 : Unexpander</code>",
+ "1043": "<code>StlcExtended.Delab.Tm.unexpandMult : Unexpander</code>",
+ "1042": "<code>StlcExtended.Delab.Tm.unexpandPred : Unexpander</code>",
+ "1041": "<code>StlcExtended.Delab.Tm.unexpandSucc : Unexpander</code>",
+ "1040": "<code>StlcExtended.Delab.Tm.unexpandConst : Unexpander</code>",
  "104": "<code>Lean.TSyntax `term</code>",
- "1039": "<code>StlcExtended.Delab.Tm.unexpandVar : Unexpander</code>",
- "1038": "<code><span class=\"literal string\">\"case\"</span> : String</code>",
- "1037": "<code><span class=\"literal string\">\"fix\"</span> : String</code>",
- "1036": "<code><span class=\"literal string\">\"let\"</span> : String</code>",
- "1035": "<code><span class=\"literal string\">\"snd\"</span> : String</code>",
- "1034": "<code><span class=\"literal string\">\"fst\"</span> : String</code>",
- "1033": "<code><span class=\"literal string\">\"unit\"</span> : String</code>",
- "1032": "<code>StlcExtended.Delab.reservedNames : String → Bool</code>",
- "1031": "<code>StlcExtended.Delab.Ty.unexpandProd : Unexpander</code>",
- "1030": "<code>StlcExtended.Delab.Ty.unexpandList : Unexpander</code>",
+ "1039": "<code>StlcExtended.Delab.Tm.unexpandAbs : Unexpander</code>",
+ "1038": "<code>StlcExtended.Delab.Tm.unexpandApp : Unexpander</code>",
+ "1037": "<code>StlcExtended.Delab.Tm.delabVar : Delab</code>",
+ "1036": "<code>StlcExtended.Delab.Tm.unexpandVar : Unexpander</code>",
+ "1035": "<code><span class=\"literal string\">\"case\"</span> : String</code>",
+ "1034": "<code><span class=\"literal string\">\"fix\"</span> : String</code>",
+ "1033": "<code><span class=\"literal string\">\"let\"</span> : String</code>",
+ "1032": "<code><span class=\"literal string\">\"snd\"</span> : String</code>",
+ "1031": "<code><span class=\"literal string\">\"fst\"</span> : String</code>",
+ "1030": "<code><span class=\"literal string\">\"unit\"</span> : String</code>",
  "103": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
- "1029": "<code>StlcCommon.Delab.getTy (stx : Term) : TSyntax `stlcTy</code>",
- "1028": "<code>StlcExtended.Delab.Ty.unexpandSum : Unexpander</code>",
- "1027": "<code>StlcExtended.Delab.Ty.unexpandArrow : Unexpander</code>",
- "1026": "<code><span class=\"literal string\">\"Unit\"</span> : String</code>",
- "1025": "<code>StlcExtended.Delab.Ty.unexpandUnit : Unexpander</code>",
- "1024": "<code>StlcExtended.Delab.Ty.unexpandNat : Unexpander</code>",
- "1023": "<code>StlcExtended.Elab.elabBracket : TermElab</code>",
- "1022": "<code>StlcExtended.Elab.elabCtx : CtxElab</code>",
- "1021": "<code>StlcExtended.Elab.elabTm : TmElab</code>",
- "1020": "<code>StlcExtended.Elab.tmHandlers : TmElabHandler</code>",
+ "1029": "<code>StlcExtended.Delab.reservedNames : String → Bool</code>",
+ "1028": "<code>StlcExtended.Delab.Ty.unexpandProd : Unexpander</code>",
+ "1027": "<code>StlcExtended.Delab.Ty.unexpandList : Unexpander</code>",
+ "1026": "<code>StlcCommon.Delab.getTy (stx : Term) : TSyntax `stlcTy</code>",
+ "1025": "<code>StlcExtended.Delab.Ty.unexpandSum : Unexpander</code>",
+ "1024": "<code>StlcExtended.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "1023": "<code><span class=\"literal string\">\"Unit\"</span> : String</code>",
+ "1022": "<code>StlcExtended.Delab.Ty.unexpandUnit : Unexpander</code>",
+ "1021": "<code>StlcExtended.Delab.Ty.unexpandNat : Unexpander</code>",
+ "1020": "<code>StlcExtended.Elab.elabBracket : TermElab</code>",
  "102":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
- "1019":
+ "1019": "<code>StlcExtended.Elab.elabCtx : CtxElab</code>",
+ "1018": "<code>StlcExtended.Elab.elabTm : TmElab</code>",
+ "1017": "<code>StlcExtended.Elab.tmHandlers : TmElabHandler</code>",
+ "1016":
  "<code>Lean.mkAppN (f : Expr) (args : Array Expr) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">`mkAppN f #[a₀, ..., aₙ]` constructs the application `f a₀ a₁ ... aₙ`.\n</code>",
- "1018":
+ "1015":
  "<code>StlcCommon.Elab.elabStlcBinder (lang : Language) (Γ : Scope) (x : TSyntax `stlcVar) : TermElabM (Expr × Scope)</code>",
- "1017": "<code>TSyntax `stlcVar</code>",
- "1016": "<code>StlcExtended.Elab.extendedTmHandler : TmElabHandler</code>",
- "1015": "<code>StlcExtended.Elab.elabTy : TyElab</code>",
- "1014": "<code>StlcExtended.Elab.tyHandlers : TyElabHandler</code>",
- "1013": "<code>StlcExtended.Elab.extendedTyHandler : TyElabHandler</code>",
- "1012": "<code>StlcExtended.Elab.language : Language</code>",
- "1011": "<code><span class=\"literal string\">\" in \"</span> : String</code>",
- "1010": "<code><span class=\"literal string\">\" = \"</span> : String</code>",
+ "1014": "<code>TSyntax `stlcVar</code>",
+ "1013": "<code>StlcExtended.Elab.extendedTmHandler : TmElabHandler</code>",
+ "1012": "<code>StlcExtended.Elab.elabTy : TyElab</code>",
+ "1011": "<code>StlcExtended.Elab.tyHandlers : TyElabHandler</code>",
+ "1010": "<code>StlcExtended.Elab.extendedTyHandler : TyElabHandler</code>",
  "101":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
- "1009": "<code><span class=\"literal string\">\"let \"</span> : String</code>",
- "1008": "<code><span class=\"literal string\">\" ) \"</span> : String</code>",
- "1007": "<code><span class=\"literal string\">\" , \"</span> : String</code>",
- "1006": "<code><span class=\"literal string\">\" ( \"</span> : String</code>",
- "1005": "<code><span class=\"literal string\">\"nil\"</span> : String</code>",
- "1004": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
- "1003":
- "<code><span class=\"literal string\">\" nil \"</span> : String</code>",
- "1002": "<code><span class=\"literal string\">\"inr\"</span> : String</code>",
- "1001": "<code><span class=\"literal string\">\" | \"</span> : String</code>",
+ "1009": "<code>StlcExtended.Elab.language : Language</code>",
+ "1008": "<code><span class=\"literal string\">\" in \"</span> : String</code>",
+ "1007": "<code><span class=\"literal string\">\" = \"</span> : String</code>",
+ "1006": "<code><span class=\"literal string\">\"let \"</span> : String</code>",
+ "1005": "<code><span class=\"literal string\">\" ) \"</span> : String</code>",
+ "1004": "<code><span class=\"literal string\">\" , \"</span> : String</code>",
+ "1003": "<code><span class=\"literal string\">\" ( \"</span> : String</code>",
+ "1002": "<code><span class=\"literal string\">\"nil\"</span> : String</code>",
+ "1001": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
  "1000":
- "<code><span class=\"literal string\">\" =&gt; \"</span> : String</code>",
+ "<code><span class=\"literal string\">\" nil \"</span> : String</code>",
  "100":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
  "10": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",

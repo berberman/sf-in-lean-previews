@@ -716,4 +716,4 @@ inductive List.In' {α : Type} (x : α) : List α → Prop
 --  The characterizing lemmas for `∈` are called
 --  `List.mem_nil_iff` and `List.mem_cons`.
 
--- Source revision: be3cee8, committed 2026-11-11 04:36 UTC
+-- Source revision: ff31379, committed 2026-11-11 12:07 UTC

@@ -484,7 +484,15 @@ def add2 : Nat → Nat := by
 --  This feature is mainly useful for writing functions with dependent
 --  types, which we won't explore much further in this book. But it does
 --  illustrate the uniformity and orthogonality of the basic ideas in Lean.
---
+
+--  Note to developers (Michael Hicks @mwhicks1):
+--      This statement is a bit mysterious. Why are dependent types
+--      special? I think the answer is that they allow for more explicit
+--      specifications -- normal types are just not strong enough to say
+--      much about a function you might ask tactics to synthesize. There
+--      are lots of Nat -> Nat functions, but far fewer that ... insert
+--      dependent type here.
+
 --  Since `def` and `theorem` can both use terms or `by`, is there any
 --  difference between the two? There is one: a `theorem` must have a
 --  `Prop` type.
@@ -1345,4 +1353,4 @@ theorem pe_implies_true_eq :
 
 end EvenProp
 
--- Source revision: be3cee8, committed 2026-11-11 04:36 UTC
+-- Source revision: ff31379, committed 2026-11-11 12:07 UTC

@@ -1817,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: be3cee8, committed 2026-11-11 04:36 UTC
+-- Source revision: ff31379, committed 2026-11-11 12:07 UTC
