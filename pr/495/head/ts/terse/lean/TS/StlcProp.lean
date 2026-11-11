@@ -35,54 +35,56 @@ import SFLCompat
 --                      if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
 --
 --  Small-step operational semantics:
-
---  v.IsValue
---                         -----------------------                    (appAbs)
---                          (λx:τ. t) v ⟶ [x:=v]t
 --
---                                t₁ ⟶ t₁'
---                            ----------------                        (app1)
---                             t₁ t₂ ⟶ t₁' t₂
+--                          v.IsValue
+--                    ---------------------                 (appAbs)
+--                    (λx:τ. t) v ⟶ [x:=v]t
 --
---                               v₁.IsValue
---                                t₂ ⟶ t₂'
---                            ----------------                        (app2)
---                             v₁ t₂ ⟶ v₁ t₂'
+--                           t₁ ⟶ t₁'
+--                        --------------                    (app1)
+--                        t₁ t₂ ⟶ t₁' t₂
 --
---                    --------------------------------                (ifTrue)
---                     (if true then t₁ else t₂) ⟶ t₁
+--                          v₁.IsValue
+--                           t₂ ⟶ t₂'
+--                        --------------                    (app2)
+--                        v₁ t₂ ⟶ v₁ t₂'
 --
---                    ---------------------------------               (ifFalse)
---                     (if false then t₁ else t₂) ⟶ t₂
+--                ------------------------------            (ifTrue)
+--                (if true then t₁ else t₂) ⟶ t₁
 --
---                                t₁ ⟶ t₁'
---          ----------------------------------------------------      (ifStep)
---           (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
-
+--               -------------------------------            (ifFalse)
+--               (if false then t₁ else t₂) ⟶ t₂
+--
+--                           t₁ ⟶ t₁'
+--      --------------------------------------------------  (ifStep)
+--      (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
+--
 --  Typing:
-
---  Γ x = τ₁
---                              ------------                       (var)
---                               Γ ⊢ x ⦂ τ₁
 --
---                          x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁
---                        -------------------------                (abs)
---                         Γ ⊢ λx:τ₂. t₁ ⦂ τ₂ → τ₁
+--                 Γ x = τ₁
+--                ----------            (var)
+--                Γ ⊢ x ⦂ τ₁
 --
---                            Γ ⊢ t₁ ⦂ τ₂ → τ₁
---                              Γ ⊢ t₂ ⦂ τ₂
---                           ------------------                    (app)
---                             Γ ⊢ t₁ t₂ ⦂ τ₁
+--          x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁
+--         -----------------------      (abs)
+--         Γ ⊢ λx:τ₂. t₁ ⦂ τ₂ → τ₁
 --
---                            -----------------                    (tru)
---                             Γ ⊢ true ⦂ Bool
+--             Γ ⊢ t₁ ⦂ τ₂ → τ₁
+--               Γ ⊢ t₂ ⦂ τ₂
+--             ----------------         (app)
+--              Γ ⊢ t₁ t₂ ⦂ τ₁
 --
---                           ------------------                    (fls)
---                            Γ ⊢ false ⦂ Bool
+--             ---------------          (tru)
+--             Γ ⊢ true ⦂ Bool
 --
---               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ τ₁    Γ ⊢ t₃ ⦂ τ₁
---              ---------------------------------------------      (ite)
---                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁
+--             ----------------         (fls)
+--             Γ ⊢ false ⦂ Bool
+--
+--              Γ ⊢ t₁ ⦂ Bool
+--               Γ ⊢ t₂ ⦂ τ₁
+--               Γ ⊢ t₃ ⦂ τ₁
+--      ------------------------------  (ite)
+--      Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁
 
 --  In this chapter, we develop the fundamental theory of
 --  the Simply Typed Lambda Calculus — in particular, the
@@ -103,14 +105,15 @@ open scoped Elab
 --  are not only well typed but *closed* — i.e., well typed
 --  in the empty context.
 
-theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ t ⦂ Bool }>) (hv : t.IsValue) :
+theorem canonical_forms_bool (t : Tm)
+    (hτ : <{ ∅ ⊢ t ⦂ Bool }>) (hv : t.IsValue) :
     t = <{ true }> ∨ t = <{ false }> := by
   cases hv with
   | abs x τ t₁ => cases hτ
   | tru => left; rfl
   | fls => right; rfl
 
-theorem canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty)
+theorem canonical_forms_fun (t : Tm) {τ₁ τ₂ : Ty}
     (hτ : <{ ∅ ⊢ t ⦂ τ₁ → τ₂ }>) (hv : t.IsValue) :
     ∃ x u, t = <{ λ x : τ₁ . u }> := by
   cases hv with
@@ -137,14 +140,14 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
   | tru => left; constructor
   | fls => left; constructor
   | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
-    -- `t = t₁ t₂`.  Proceed by cases on whether `t₁` is a value or steps.
+    -- `t = t₁ t₂`. Proceed on whether `t₁` is a value or steps.
     subst hΓ
     right
     cases ih₁ rfl with
     | inl hv₁ =>
       cases ih₂ rfl with
       | inl hv₂ =>
-        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ h₁ hv₁
+        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ h₁ hv₁
         exists <{ [x := t₂] u }>
         constructor
         assumption
@@ -256,16 +259,18 @@ theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
 
 theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
     (hi : Γ ⊆ Γ') (ht : <{ Γ ⊢ t ⦂ τ }>) : <{ Γ' ⊢ t ⦂ τ }> := by
-  induction ht generalizing Γ' with (apply_rules [PartialMap.update_subset] using StlcTyping)
+  induction ht generalizing Γ' with
+    (apply_rules [PartialMap.update_subset] using StlcTyping)
 
 --  The following simple corollary is what we actually need
 --  below.
 
-theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ t ⦂ τ }>) :
+theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty}
+    (ht : <{ ∅ ⊢ t ⦂ τ }>) :
     <{ Γ ⊢ t ⦂ τ }> := by
   apply weakening (Γ := ∅)
-  -- this is the "manual" way to show that the empty context is a subset of any context:
-  -- show that a 'lookup' in it is impossible.
+  -- this is the "manual" way to show that the empty context is a
+  -- subset of any context: show that a 'lookup' in it is impossible.
   · intros x b contra
     contradiction
   · assumption
@@ -286,11 +291,12 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ t ⦂
 --    of `x` in `t` and obtain a new term that still has
 --    type `τ`.
 
-theorem substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty)
-    (t v : Tm) (τ : Ty)
+theorem substitution_preserves_typing (Γ : Context) (x : String)
+    (τ' : Ty) (t v : Tm) (τ : Ty)
     (hτ : <{ x ↦ τ' ; Γ ⊢ t ⦂ τ }>) (hv : <{ ∅ ⊢ v ⦂ τ' }>) :
     <{ Γ ⊢ [x := v] t ⦂ τ }> := by
-  -- By induction on `t`; in each case we get at the derivation of `hτ`.
+  -- By induction on `t`;
+  -- in each case we get at the derivation of `hτ`.
   induction t generalizing Γ τ with
   | var y =>
     cases hτ with
@@ -374,7 +380,8 @@ theorem preservation (t t' : Tm) (τ : Ty)
     subst hΓ
     cases hs with
     | appAbs _ _ _ _ _ =>
-      -- The one interesting case: the desired result is the substitution lemma.
+      -- The one interesting case: the desired result is the
+      -- substitution lemma.
       cases h₁ with
       | abs _ _ _ _ _ hb =>
         apply substitution_preserves_typing
@@ -513,7 +520,6 @@ end Elab
 
 open scoped Elab
 
-
 namespace Delab
 
 open StlcCommon Elab Delab
@@ -533,7 +539,8 @@ private def reservedNames : String → Bool
   | _ => false
 
 @[app_unexpander Tm.var]
-private def Tm.unexpandVar : Unexpander := Delab.unexpandVar reservedNames ``Tm.var
+private def Tm.unexpandVar : Unexpander :=
+  Delab.unexpandVar reservedNames ``Tm.var
 
 @[app_delab Tm.var]
 private def Tm.delabVar : Delab := Delab.delabVar ``Tm.var
@@ -582,4 +589,4 @@ end Delab
 
 end StlcArith
 
--- Source revision: f14f418, committed 2026-11-10 05:48 UTC
+-- Source revision: be3cee8, committed 2026-11-11 04:36 UTC

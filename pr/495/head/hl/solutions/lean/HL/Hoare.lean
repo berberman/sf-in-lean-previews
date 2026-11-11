@@ -3468,4 +3468,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: f14f418, committed 2026-11-10 05:48 UTC
+-- Source revision: be3cee8, committed 2026-11-11 04:36 UTC

@@ -1,0 +1,1 @@
+window.docContents[247].resolve({"/Postscript/#Postscript":{"contents":"Congratulations: We've reached the end of Logical Foundations!\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"13. Postscript","id":"/Postscript/#Postscript"}});

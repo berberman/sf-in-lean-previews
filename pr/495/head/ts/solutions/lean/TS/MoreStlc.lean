@@ -19,7 +19,7 @@ import SFLCompat
 
 --  As we saw in the `StlcExtended` exercises at the end of the StlcProp
 --  chapter, adding types, constants, and primitive operations for natural
---  numbers is easy - basically just a matter of combining the Types and
+--  numbers is easy — basically just a matter of combining the Types and
 --  Stlc chapters. Adding more realistic numeric types like machine
 --  integers and floats is also straightforward, though of course the
 --  specifications of the numeric primitives become more fiddly.
@@ -44,25 +44,25 @@ import SFLCompat
 --  text conveying the same information. Here they are:
 --
 --  Syntax:
---
---        t ::=                   Terms
---            | ...                 (other terms same as before)
---            | let x = t₁ in t₂    let-binding
---
+
+--  t ::= ...
+--      | let x = t in t    (let-binding)
+
 --  Reduction:
 --
---                                       t₁ ⟶ t₁'
---                           -------------------------------------        (let₁)
---                           let x = t₁ in t₂ ⟶ let x = t₁' in t₂
+--                    t₁ ⟶ t₁'
+--      ------------------------------------  (let₁)
+--      let x = t₁ in t₂ ⟶ let x = t₁' in t₂
 --
---                              ---------------------------------         (letValue)
---                              let x = v₁ in t₂ ⟶ [x := v₁] t₂
+--      -------------------------------       (letValue)
+--      let x = v₁ in t₂ ⟶ [x := v₁] t₂
 --
 --  Typing:
 --
---                   Γ ⊢ t₁ ⦂ τ₁      x ↦ τ₁ ; Γ ⊢ t₂ ⦂ τ₂
---                   -------------------------------------------      (let)
---                           Γ ⊢ let x = t₁ in t₂ ⦂ τ₂
+--             Γ ⊢ t₁ ⦂ τ₁
+--        x ↦ τ₁ ; Γ ⊢ t₂ ⦂ τ₂
+--      -------------------------  (let)
+--      Γ ⊢ let x = t₁ in t₂ ⦂ τ₂
 
 --  ### Pairs
 
@@ -74,69 +74,72 @@ import SFLCompat
 --  emphasize the common pattern.
 --
 --  In Lean, there are two ways of extracting the components of a pair:
---  *pattern matching* and the projection operators `fst` and `snd`. Just
---  for fun, let's do our pairs the latter way. For example, here's how
---  we'd write a function that takes a pair of numbers and returns the pair
---  of their sum and difference:
+--  *pattern matching* and the projection operators `fst` and `snd`. We'll
+--  do our pairs the latter way. For example, here's how we'd write a
+--  function that takes a pair of numbers and returns the pair of their sum
+--  and difference:
 --
---             λX : Nat × Nat.
---                let Sum = fst X + snd X in
---                let Diff = fst X - snd X in
---                (Sum, Diff)
+--      λX : Nat × Nat.
+--         let Sum = fst X + snd X in
+--         let Diff = fst X - snd X in
+--         (Sum, Diff)
 --
 --  Adding pairs to the simply typed lambda-calculus, then, involves adding
---  two new forms of term - pairing, written `(t₁,t₂)`, and projection,
+--  two new forms of term — pairing, written `(t₁,t₂)`, and projection,
 --  written `fst t` for the first projection from `t` and `snd t` for the
---  second projection - plus one new type constructor, `τ₁ × τ₂`, called
+--  second projection — plus one new type constructor, `τ₁ × τ₂`, called
 --  the *product* of `τ₁` and `τ₂`.
 --
+--  We present a grammar with these changes to terms `t` and types `τ`
+--  below. Along with these, we also present a change to the definition of
+--  *values*, characterized as a grammar on the metavariable `v`. This
+--  isn't a real, separate syntactic category — a term is a value because
+--  the `IsValue` predicate (defined below) accepts it, but writing out a
+--  `v`-grammar alongside the term grammar is a common way to convey which
+--  terms `IsValue` accepts.
+--
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | (t₁, t₂)         pair
---                 | fst t            first projection
---                 | snd t            second projection
---
---             v ::=                Values
---                 | ...
---                 | (v₁, v₂)         pair value
---
---             τ ::=                Types
---                 | ...
---                 | τ₁ × τ₂          product type
---
+
+--  t ::= ...
+--      | ( t , t )    (pair)
+--      | fst t        (first projection)
+--      | snd t        (second projection)
+--  v ::= ...
+--      | ( v , v )    (pair value)
+--  τ ::= ...
+--      | τ × τ        (product type)
+
 --  For reduction, we need several new rules specifying how pairs and
 --  projection behave.
 --
---                                    t₁ ⟶ t₁'
---                               --------------------                        (pair₁)
---                               (t₁,t₂) ⟶ (t₁',t₂)
+--           t₁ ⟶ t₁'
+--      ------------------  (pair₁)
+--      (t₁,t₂) ⟶ (t₁',t₂)
 --
---                                    t₂ ⟶ t₂'
---                               --------------------                        (pair₂)
---                               (v₁,t₂) ⟶ (v₁,t₂')
+--           t₂ ⟶ t₂'
+--      ------------------  (pair₂)
+--      (v₁,t₂) ⟶ (v₁,t₂')
 --
---                                     t ⟶ t'
---                                 ------------------                        (fst₁)
---                                 fst t ⟶ fst t'
+--            t ⟶ t'
+--        --------------    (fst₁)
+--        fst t ⟶ fst t'
 --
---                                ------------------                       (fstPair)
---                                 fst (v₁,v₂) ⟶ v₁
+--       ----------------   (fstPair)
+--       fst (v₁,v₂) ⟶ v₁
 --
---                                     t ⟶ t'
---                                 ------------------                      (snd₁)
---                                 snd t ⟶ snd t'
+--            t ⟶ t'
+--        --------------    (snd₁)
+--        snd t ⟶ snd t'
 --
---                                ------------------                       (sndPair)
---                                snd (v₁,v₂) ⟶ v₂
+--       ----------------   (sndPair)
+--       snd (v₁,v₂) ⟶ v₂
 --
 --  Rules `fstPair` and `sndPair` say that, when a fully reduced pair meets
 --  a first or second projection, the result is the appropriate component.
 --  The congruence rules `fst₁` and `snd₁` allow reduction to proceed under
 --  projections, when the term being projected from has not yet been fully
 --  reduced. `pair₁` and `pair₂` reduce the parts of pairs: first the left
---  part, and then - when a value appears on the left - the right part. The
+--  part, and then — when a value appears on the left — the right part. The
 --  ordering arising from the use of the metavariables `v` and `t` in these
 --  rules enforces a left-to-right evaluation strategy for pairs. (Note the
 --  implicit convention that metavariables like `v` and `v₁` can only
@@ -148,17 +151,18 @@ import SFLCompat
 --
 --  The typing rules for pairs and projections are straightforward.
 --
---                           Γ ⊢ t₁ ⦂ τ₁     Γ t₂ ⦂ τ₂
---                          ------------------------------              (pair)
---                            Γ ⊢(t₁, t₂) ⦂ τ₁ × τ₂
+--           Γ ⊢ t₁ ⦂ τ₁
+--           Γ ⊢ t₂ ⦂ τ₂
+--      ----------------------  (pair)
+--      Γ ⊢ (t₁, t₂) ⦂ τ₁ × τ₂
 --
---                                 Γ ⊢ t ⦂ τ₁ × τ₂
---                              -----------------------                  (fst)
---                                  Γ ⊢ fst t ⦂ τ₁
+--         Γ ⊢ t ⦂ τ₁ × τ₂
+--         ---------------      (fst)
+--         Γ ⊢ fst t ⦂ τ₁
 --
---                                  Γ ⊢ t ⦂ τ₁ × τ₂
---                              -----------------------                   (snd)
---                                   Γ ⊢ snd t ⦂ τ₂
+--         Γ ⊢ t ⦂ τ₁ × τ₂
+--         ---------------      (snd)
+--         Γ ⊢ snd t ⦂ τ₂
 --
 --  `pair` says that `(t₁, t₂)` has type `τ₁ × τ₂` if `t₁` has type `τ₁`
 --  and `t₂` has type `τ₂`. Conversely, `fst` and `snd` tell us that, if
@@ -169,38 +173,33 @@ import SFLCompat
 
 --  Another handy base type is the singleton type `Unit`.
 --
---  It has a single element - the term constant `unit` (with a small `u`) -
+--  It has a single element — the term constant `unit` (with a small `u`) —
 --  and a typing rule making `unit` an element of `Unit`. We also add
---  `unit` to the set of possible values - indeed, `unit` is the *only*
+--  `unit` to the set of possible values — indeed, `unit` is the *only*
 --  possible result of reducing an expression of type `Unit`.
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...               (other terms same as before)
---                 | unit              unit
---
---             v ::=                Values
---                 | ...
---                 | unit              unit value
---
---             τ ::=                Types
---                 | ...
---                 | Unit              unit type
---
+
+--  t ::= ...
+--      | unit    (unit)
+--  v ::= ...
+--      | unit    (unit value)
+--  τ ::= ...
+--      | Unit    (unit type)
+
 --  Typing:
 --
---                               ----------------                       (unit)
---                               Γ ⊢ unit ⦂ Unit
+--      ---------------  (unit)
+--      Γ ⊢ unit ⦂ Unit
 --
 --  It may seem a little strange to bother defining a type that has just
---  one element -- after all, wouldn't every computation living in such a
+--  one element — after all, wouldn't every computation living in such a
 --  type be trivial?
 --
 --  This is a fair question, and indeed in the STLC the `Unit` type is not
 --  especially critical (though we'll see two uses for it below). Where
 --  `Unit` really comes in handy is in richer languages with *side effects*
---  -- e.g., assignment statements that mutate variables or pointers,
+--  — e.g., assignment statements that mutate variables or pointers,
 --  exceptions and other sorts of nonlocal control structures, etc. In such
 --  languages, it is convenient to have a type for the (trivial) result of
 --  an expression that is evaluated only for its effect.
@@ -228,7 +227,7 @@ import SFLCompat
 --  *disjoint union*), which describes a set of values drawn from one of
 --  two given types, e.g.:
 --
---             Nat + Bool
+--      Nat + Bool
 --
 --  We create elements of these types by *tagging* elements of the
 --  component types. For example, if `n` is a `Nat` then `inl n` is an
@@ -236,8 +235,8 @@ import SFLCompat
 --  a `Nat + Bool`. The names of the tags `inl` and `inr` arise from
 --  thinking of them as functions
 --
---             inl ⦂ Nat  → Nat + Bool
---             inr ⦂ Bool → Nat + Bool
+--      inl ⦂ Nat  → Nat + Bool
+--      inr ⦂ Bool → Nat + Bool
 --
 --  that "inject" elements of `Nat` or `Bool` into the left and right
 --  components of the sum type `Nat + Bool`. (But note that we don't
@@ -252,13 +251,13 @@ import SFLCompat
 --  (As we've seen in Lean programming, one important use of sums is
 --  signaling errors:
 --
---            Div ⦂ Nat → Nat → (Nat + Unit)
---            Div =
---              λX:Nat. λY:Nat,
---                if iszero Y then
---                  inr unit
---                else
---                  inl ...
+--      Div ⦂ Nat → Nat → (Nat + Unit)
+--      Div =
+--        λX:Nat. λY:Nat,
+--          if iszero Y then
+--            inr unit
+--          else
+--            inl ...
 --
 --  The type `Nat + Unit` above is in fact isomorphic to `Option Nat` in
 --  Lean - i.e., it's easy to write functions that translate back and
@@ -268,74 +267,65 @@ import SFLCompat
 --  simplified form of Lean's `match`) to destruct them. For example, the
 --  following procedure converts a `Nat + Bool` into a `Nat`:
 --
---          GetNat ⦂ Nat + Bool → Nat
---          GetNat =
---            λX:Nat + Bool,
---              case X of
---                inl N => N
---              | inr B => if B then 1 else 0
+--      GetNat ⦂ Nat + Bool → Nat
+--      GetNat =
+--        λX:Nat + Bool,
+--          case X of
+--            inl N => N
+--          | inr B => if B then 1 else 0
 --
 --  More formally...
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...               (other terms same as before)
---                 | inl τ₂ t₁         tagging (left)
---                 | inr τ₁ t₂         tagging (right)
---                 | case t of         case analysis
---                     inl x₁ => t₁
---                   | inr x₂ => t₂
---
---             v ::=                Values
---                 | ...
---                 | inl τ₂ v₁         tagged value (left)
---                 | inr τ₁ v₂         tagged value (right)
---
---             τ ::=                Types
---                 | ...
---                 | τ₁ + τ₂           sum type
---
+
+--  t ::= ...
+--      | inl τ t                              (tagging (left))
+--      | inr τ t                              (tagging (right))
+--      | case t of inl x => t | inr x => t    (case analysis)
+--  v ::= ...
+--      | inl τ v                              (tagged value (left))
+--      | inr τ v                              (tagged value (right))
+--  τ ::= ...
+--      | τ + τ                                (sum type)
+
 --  Reduction:
 --
---                                     t₁ ⟶ t₁'
---                              ------------------------                       (inl)
---                              inl τ₂ t₁ ⟶ inl τ₂ t₁'
+--                          t₁ ⟶ t₁'
+--                   ----------------------                (inl)
+--                   inl τ₂ t₁ ⟶ inl τ₂ t₁'
 --
---                                     t₂ ⟶ t₂'
---                              ------------------------                       (inr)
---                              inr τ₁ t₂ ⟶ inr τ₁ t₂'
+--                          t₂ ⟶ t₂'
+--                   ----------------------                (inr)
+--                   inr τ₁ t₂ ⟶ inr τ₁ t₂'
 --
---                                     t ⟶ t'
---                     -------------------------------------------            (case)
---                      case t of inl x₁ => t₁ | inr x₂ => t₂ ⟶
---                     case t' of inl x₁ => t₁ | inr x₂ => t₂
+--                           t ⟶ t'
+--           ---------------------------------------       (case)
+--           case t of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--           case t' of inl x₁ => t₁ | inr x₂ => t₂
 --
---                  -----------------------------------------------        (caseInl)
---                  case (inl τ₂ v₁) of inl x₁ => t₁ | inr x₂ => t₂
---                                 ⟶  [x₁ := v₁]t₁
+--      -------------------------------------------------  (caseInl)
+--      case (inl τ₂ v₁) of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--                        [x₁ := v₁]t₁
 --
---                  -----------------------------------------------        (caseInr)
---                  case (inr τ₁ v₂) of inl x₁ => t₁ | inr x₂ => t₂
---                                 ⟶  [x₂ := v₂]t₂
+--      -------------------------------------------------  (caseInr)
+--      case (inr τ₁ v₂) of inl x₁ => t₁ | inr x₂ => t₂ ⟶
+--                        [x₂ := v₂]t₂
 --
 --  Typing:
 --
---                                  Γ ⊢ t₁ ⦂ τ₁
---                         ----------------------------                      (inl)
---                             Γ ⊢ inl τ₂ t₁ ⦂ τ₁ + τ₂
+--                       Γ ⊢ t₁ ⦂ τ₁
+--                 -----------------------              (inl)
+--                 Γ ⊢ inl τ₂ t₁ ⦂ τ₁ + τ₂
 --
+--                       Γ ⊢ t₂ ⦂ τ₂
+--                 -----------------------              (inr)
+--                 Γ ⊢ inr τ₁ t₂ ⦂ τ₁ + τ₂
 --
---                                Γ ⊢ t₂ ⦂ τ₂
---                         ---------------------------                       (inr)
---                           Γ ⊢ inr τ₁ t₂ ⦂ τ₁ + τ₂
---
---
---                              Γ ⊢ t ⦂ τ₁ + τ₂
---                           x₁ ↦ τ₁; Γ ⊢ t₁ ⦂ τ₃
---                           x₂ ↦ τ₂; Γ ⊢ t₂ ⦂ τ₃
---               ----------------------------------------------------        (case)
---                   Γ ⊢ case t of inl x₁ => t₁ | inr x₂ => t₂ ⦂ τ₃
+--                     Γ ⊢ t ⦂ τ₁ + τ₂
+--                   x₁ ↦ τ₁; Γ ⊢ t₁ ⦂ τ₃
+--                   x₂ ↦ τ₂; Γ ⊢ t₂ ⦂ τ₃
+--      ----------------------------------------------  (case)
+--      Γ ⊢ case t of inl x₁ => t₁ | inr x₂ => t₂ ⦂ τ₃
 --
 --  We use the type annotations on `inl` and `inr` to make the typing
 --  relation deterministic (each term has at most one type), as we did for
@@ -344,18 +334,18 @@ import SFLCompat
 --  Without this extra information, the typing rule `inl`, for example,
 --  would have to say that, once we have shown that `t₁` is an element of
 --  type `τ₁`, we can derive that `inl t₁` is an element of `τ₁ + τ₂` for
---  *any* type `τ₂`. For example, we could derive both
---  `inl 5 : Nat + Nat`and `inl 5 : Nat + Bool` (and infinitely many other
---  types). This peculiarity (technically, a failure of uniqueness of
---  types) would mean t hat we cannot build a typechecking algorithm simply
---  by "reading the rules from bottom to top" as we could for all the other
---  features seen so far.
+--  *any* type `τ₂`. For example, we could derive both `inl 5 : Nat + Nat`
+--  and `inl 5 : Nat + Bool` (and infinitely many other types). This
+--  peculiarity (technically, a failure of uniqueness of types) would mean
+--  that we cannot build a typechecking algorithm simply by "reading the
+--  rules from bottom to top" as we could for all the other features seen
+--  so far.
 --
---  There are various ways to deal with this difficulty. One simple one --
---  which we've adopted here -- forces the programmer to explicitly
---  annotate the "other side" of a sum type when performing an injection.
---  This is a bit heavy for programmers (so real languages adopt other
---  solutions), but it is easy to understand and formalize.
+--  There are various ways to deal with this difficulty. One simple one —
+--  which we've adopted here — forces the programmer to explicitly annotate
+--  the "other side" of a sum type when performing an injection. This is a
+--  bit heavy for programmers (so real languages adopt other solutions),
+--  but it is easy to understand and formalize.
 
 --   ----------------------------------------
 
@@ -366,13 +356,13 @@ import SFLCompat
 --            let F = λX : Nat + Bool.
 --               case X of
 --                 inl N => N + 3
---                 | inr B => 0 in
+--               | inr B => 0 in
 --            F (inl Bool 4)
 --
 --          (A)  (λX : Nat + Bool.
 --                  case X of
 --                    inl N => N + 3
---                    | inr B => 0
+--                  | inr B => 0
 --               ) (inl Bool 4)
 --
 --          (B) 7
@@ -391,7 +381,7 @@ import SFLCompat
 --
 --        (λX : Nat + Bool.
 --           case X of
---           inl N => N + 3
+--             inl N => N + 3
 --           | inr B => 0
 --        ) (inl Bool 4)
 --
@@ -410,7 +400,7 @@ import SFLCompat
 --  What about this one?
 --
 --             case inl Bool 4 of
---               inl N => N + 3
+--                 inl N => N + 3
 --               | inr B => 0
 --
 --         (A)  4 + 3
@@ -439,70 +429,67 @@ import SFLCompat
 --  cannot appear on `cons`, these lists are essentially identical to those
 --  we built in Rocq. We use `case`, rather than `head` and `tail`
 --  operators, to destruct lists, to avoid dealing with questions like
---  "what is the `head` of the ∅ list?"
+--  "what is the `head` of the empty list?"
 --
 --  For example, here is a function that calculates the sum of the first
 --  two elements of a list of numbers:
 --
---  λ X:List Nat. case X of nil => 0 | A :: Xs' => case Xs' of nil => A | B
---  :: Xs'' => A + B
+--      λ X:List Nat.
+--      case X of
+--        nil   => 0
+--        | A :: Xs' => case Xs' of
+--                     nil    => A
+--                     | B :: Xs'' => A + B
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | nil τ             ∅ list
---                 | t₁ :: t₂          cons
---                 | case t₁ of        case analysis
---                     nil      => t₂
---                     | xh::xt => t₃
---
---             v ::=                Values
---                 | ...
---                 | nil τ             nil value
---                 | v₁ :: v₂          cons value
---
---             τ ::=                Types
---                 | ...
---                 | List τ            list of τs
---
+
+--  t ::= ...
+--      | nil τ                               (empty list)
+--      | t :: t                              (cons)
+--      | case t of nil => t | x :: x => t    (case analysis)
+--  v ::= ...
+--      | nil τ                               (nil value)
+--      | v :: v                              (cons value)
+--  τ ::= ...
+--      | List τ                              (list of τs)
+
 --  Reduction:
 --
---                                      t₁ ⟶ t₁'
---                             --------------------------                    (cons₁)
---                               t₁ :: t₂ ⟶ t₁' :: t₂
+--                          t₁ ⟶ t₁'
+--                    --------------------                 (cons₁)
+--                    t₁ :: t₂ ⟶ t₁' :: t₂
 --
---                                      t₂ ⟶ t₂'
---                             --------------------------                    (cons₂)
---                               v₁ :: t₂ ⟶ v₁ :: t₂'
+--                          t₂ ⟶ t₂'
+--                    --------------------                 (cons₂)
+--                    v₁ :: t₂ ⟶ v₁ :: t₂'
 --
---                                    t₁ ⟶ t₁'
---                      -------------------------------------------         (listCase₁)
---                       (case t₁ of nil => t₂ | xh :: xt => t₃) ⟶
---                      (case t₁' of nil => t₂ | xh :: xt => t₃)
+--                          t₁ ⟶ t₁'
+--          -----------------------------------------      (listCase₁)
+--          (case t₁ of nil => t₂ | xh :: xt => t₃) ⟶
+--          (case t₁' of nil => t₂ | xh :: xt => t₃)
 --
---                     ------------------------------------------          (listCaseNil)
---                     (case nil τ₁ of nil => t₂ | xh :: xt => t₃)
---                                      ⟶ t₂
+--      ------------------------------------------------   (listCaseNil)
+--      (case nil τ₁ of nil => t₂ | xh :: xt => t₃) ⟶ t₂
 --
---                    -------------------------------------------         (listCaseCons)
---                    (case (vh :: vt) of nil => t₂ | xh :: xt => t₃)
---                                ⟶ [xh:=vh][xt:=vt] t₃
+--      -------------------------------------------------  (listCaseCons)
+--      (case (vh :: vt) of nil => t₂ | xh :: xt => t₃) ⟶
+--                     [xh:=vh][xt:=vt] t₃
 --
 --  Typing:
 --
---                              ----------------------------                    (nil)
---                              Γ ⊢ nil τ₁ ⦂ List τ₁
+--                    --------------------                (nil)
+--                    Γ ⊢ nil τ₁ ⦂ List τ₁
 --
---                           Γ ⊢ t₁ ⦂ τ₁      Γ ⊢ t₂ ⦂ List τ₁
---                  -------------------------------------------------           (cons)
---                               Γ ⊢ t₁ :: t₂ ⦂ List τ₁
+--                        Γ ⊢ t₁ ⦂ τ₁
+--                      Γ ⊢ t₂ ⦂ List τ₁
+--                   ----------------------               (cons)
+--                   Γ ⊢ t₁ :: t₂ ⦂ List τ₁
 --
---                              Γ ⊢ t₁ ⦂ List τ₁
---                              Γ ⊢ t₂ ⦂ τ₂
---                        (xh ↦ τ₁; xt ↦ List τ₁; Γ) ⊢ t₃ ⦂ τ₂
---                ----------------------------------------------------         (listCase)
---                   Γ ⊢ (case t₁ of nil => t₂ | xh :: xt => t₃) ⦂ τ₂
+--                      Γ ⊢ t₁ ⦂ List τ₁
+--                        Γ ⊢ t₂ ⦂ τ₂
+--            (xh ↦ τ₁; xt ↦ List τ₁; Γ) ⊢ t₃ ⦂ τ₂
+--      ------------------------------------------------  (listCase)
+--      Γ ⊢ (case t₁ of nil => t₂ | xh :: xt => t₃) ⦂ τ₂
 
 --  ### General Recursion
 
@@ -510,12 +497,12 @@ import SFLCompat
 --  is the ability to define recursive functions. For example, we would
 --  like to be able to define and use the factorial function like this:
 --
---            let Fact = λX:Nat.
---                         if X=0 then 1 else X * (Fact (pred X))) in
---            Fact 3.
+--      let Fact = λX:Nat.
+--                   if X=0 then 1 else X * (Fact (pred X))) in
+--      Fact 3.
 --
 --  Note that the right-hand side of this binder mentions `Fact`, the
---  variable being bound - something that is not allowed according to the
+--  variable being bound — something that is not allowed according to the
 --  way we defined `let` above.
 --
 --  (The body of a `let` is typechecked in the same context as the `let`
@@ -524,7 +511,7 @@ import SFLCompat
 --  rule.)
 --
 --  Changing the `let` rule to handle "recursive definitions" like this is
---  possible, but it requires some extra effort -- e.g., passing around an
+--  possible, but it requires some extra effort — e.g., passing around an
 --  extra "environment" of recursive function definitions in the definition
 --  of the `step` relation. We're going to take a simpler path here.
 
@@ -537,17 +524,17 @@ import SFLCompat
 --
 --  For example, instead of
 --
---            Fact = λX:Nat.
---                      if X=0 then 1 else X * (Fact (pred X)))
+--      Fact = λX:Nat.
+--                if X=0 then 1 else X * (Fact (pred X)))
 --
 --  we will write:
-
---  Fact =
---            fix
---              (λF:Nat → Nat.
---                 λX:Nat.
---                    if X=0 then 1 else X * (F (pred X)))
-
+--
+--      Fact =
+--          fix
+--            (λF:Nat → Nat.
+--               λX:Nat.
+--                  if X=0 then 1 else X * (F (pred X)))
+--
 --  We can derive the latter from the former as follows:
 --  - In the right-hand side of the definition of `Fact`, replace recursive
 --    references to `Fact` by a fresh variable `F`.
@@ -565,10 +552,10 @@ import SFLCompat
 --  the desired behavior of `Fact` up to some number `n` (that is, a
 --  function that returns correct results on inputs less than or equal to
 --  `n` but we don't care what it does on inputs greater than `n`), then
---  `F` returns a slightly better approximation to `Fact` -- a function
---  that returns correct results for inputs up to `n+1`. Applying `fix` to
---  this generator returns its *fixed point*, which is a function that
---  gives the desired behavior for all inputs `n`.
+--  `F` returns a slightly better approximation to `Fact` — a function that
+--  returns correct results for inputs up to `n+1`. Applying `fix` to this
+--  generator returns its *fixed point*, which is a function that gives the
+--  desired behavior for all inputs `n`.
 --
 --  (The term "fixed point" is used here in exactly the same sense as in
 --  ordinary mathematics, where a fixed point of a function `f` is an input
@@ -577,29 +564,28 @@ import SFLCompat
 --  `F f` behaves the same as `f`.)
 --
 --  Syntax:
---
---             t ::=                Terms
---                 | ...
---                 | fix t₁            fixed-point operator
---
+
+--  t ::= ...
+--      | fix t    (fixed-point operator)
+
 --  Reduction:
 --
---                                      t₁ ⟶ t₁'
---                                  ------------------                   (fix₁)
---                                  fix t₁ ⟶ fix t₁'
+--                   t₁ ⟶ t₁'
+--      -------------------------                   (fix₁)
+--               fix t₁ ⟶ fix t₁'
 --
---                     --------------------------------------------      (fixAbs)
---                     fix (λxf:τ₁.t₁) ⟶ [xf:=fix (λxf:τ₁.t₁)] t₁
+--      ------------------------------------------  (fixAbs)
+--      fix (λxf:τ₁.t₁) ⟶ [xf:=fix (λxf:τ₁.t₁)] t₁
 --
 --  Typing:
 --
---                                 Γ ⊢ t₁ ⦂ τ₁ → τ₁
---                                 ------------------                    (fix)
---                                 Γ ⊢ fix t₁ ⦂ τ₁
+--      Γ ⊢ t₁ ⦂ τ₁ → τ₁
+--      ----------------  (fix)
+--      Γ ⊢ fix t₁ ⦂ τ₁
 
 --  Let's see how `fixAbs` works by reducing `Fact 3 = fix F 3`, where
 --
---          F = (λF. λX. if X=0 then 1 else X * (F (pred X)))
+--      F = (λF. λX. if X=0 then 1 else X * (F (pred X)))
 --
 --  (type annotations are omitted for brevity).
 --
@@ -717,36 +703,36 @@ import SFLCompat
 
 --  Translate this informal recursive definition into one using `fix`:
 --
---            Halve =
---              λX:Nat.
---                 if X=0 then 0
---                 else if (pred X)=0 then 0
---                 else 1 + (Halve (pred (pred X)))
+--      Halve =
+--        λX:Nat.
+--           if X=0 then 0
+--           else if (pred X)=0 then 0
+--           else 1 + (Halve (pred (pred X)))
 
---            Halve =
---                fix
---                  (λF:Nat→Nat.
---                     λX:Nat.
---                        if X=0 then 0
---                        else if (pred X)=0 then 0
---                        else 1 + (F (pred (pred X))))
+--      Halve =
+--          fix
+--            (λF:Nat→Nat.
+--               λX:Nat.
+--                  if X=0 then 0
+--                  else if (pred X)=0 then 0
+--                  else 1 + (F (pred (pred X))))
 
 --  ### Exercise (1 star): fact_steps (Optional) ⭐
 
 --  Write down the sequence of steps that the term `Fact 1` goes through to
 --  reduce to a normal form (assuming the usual reduction rules for
---  arithmetic operations.
+--  arithmetic operations).
 
---              Fact 1
---            = fix (λF:Nat→Nat. λX:Nat. if X=0 then 1 else X * (F (pred X))) 1
---          ⟶ (λX: Nat, if X = 0 then 1 else X * (Fact (pred X))) 1
---          ⟶ if 1 = 0 then 1 else 1 * (Fact (pred 1))
---          ⟶ 1 * (Fact (pred 1))
---          ⟶ 1 * ((λX:Nat. if X=0 then 1 else X * (Fact (pred X))) (pred 1))
---          ⟶ 1 * ((λX:Nat. if X=0 then 1 else X * (Fact (pred X))) 0)
---          ⟶ 1 * (if 0=0 then 1 else 0 * (Fact (pred 0)))
---          ⟶ 1 * 1
---          ⟶ 1
+--          Fact 1
+--        = fix (λF:Nat→Nat. λX:Nat. if X=0 then 1 else X * (F (pred X))) 1
+--      ⟶ (λX: Nat, if X = 0 then 1 else X * (Fact (pred X))) 1
+--      ⟶ if 1 = 0 then 1 else 1 * (Fact (pred 1))
+--      ⟶ 1 * (Fact (pred 1))
+--      ⟶ 1 * ((λX:Nat. if X=0 then 1 else X * (Fact (pred X))) (pred 1))
+--      ⟶ 1 * ((λX:Nat. if X=0 then 1 else X * (Fact (pred X))) 0)
+--      ⟶ 1 * (if 0=0 then 1 else 0 * (Fact (pred 0)))
+--      ⟶ 1 * 1
+--      ⟶ 1
 --
 --  Also see the solution to exercise `fact_example` below.
 
@@ -757,7 +743,7 @@ import SFLCompat
 --  *every* type is inhabited by some term. To see this, observe that, for
 --  every type `τ`, we can define the term:
 --
---          fix (λx:τ. x)
+--      fix (λx:τ. x)
 --
 --  By `fix` and `abs`, this term has type `τ`. By `fixAbs` it reduces to
 --  itself, over and over again. Thus it is a *diverging element* of `τ`.
@@ -765,26 +751,26 @@ import SFLCompat
 --  More usefully, here's an example using `fix` to define a two-argument
 --  recursive function:
 --
---          Equal =
---            fix
---              (λEq:Nat→Nat→Bool.
---                 λM:Nat. λN:Nat.
---                   if M=0 then iszero N
---                   else if N=0 then false
---                   else Eq (pred M) (pred N))
+--      Equal =
+--        fix
+--          (λEq:Nat→Nat→Bool.
+--             λM:Nat. λN:Nat.
+--               if M=0 then iszero N
+--               else if N=0 then false
+--               else Eq (pred M) (pred N))
 --
 --  And finally, here is an example where `fix` is used to define a *pair*
 --  of recursive functions (illustrating the fact that the type `τ₁` in the
 --  rule `fix` need not be a function type):
 --
---          let EvenOdd =
---               fix
---                 (λEo: ((Nat → Nat) * (Nat → Nat)).
---                    (λN:Nat. if0 N then 1 else (snd Eo (pred N)),
---                     λN:Nat. if0 N then 0 else (fst Eo (pred N)))) in
---          let Even = fst EvenOdd in
---          let Odd  = snd EvenOdd in
---          (Even 3, Even 4)}
+--      let EvenOdd =
+--           fix
+--             (λEo: ((Nat → Nat) * (Nat → Nat)).
+--                (λN:Nat. if0 N then 1 else (snd Eo (pred N)),
+--                 λN:Nat. if0 N then 0 else (fst Eo (pred N)))) in
+--      let Even = fst EvenOdd in
+--      let Odd  = snd EvenOdd in
+--      (Even 3, Even 4)
 
 --  ## Records
 
@@ -795,20 +781,15 @@ import SFLCompat
 --  *label* (rather than position).
 
 --  Syntax:
---
---             t ::=                          Terms
---                 | ...
---                 | {i₁=t₁, ..., iₙ=tₙ}        record
---                 | t.i                        projection
---
---             v ::=                          Values
---                 | ...
---                 | {i₁=v₁, ..., iₙ=vₙ}        record value
---
---             τ ::=                          Types
---                 | ...
---                 | {i₁:τ₁, ..., iₙ:τₙ}        record type
---
+
+--  t ::= ...
+--      | { i = t , ... , i = t }    (record)
+--      | t . i                      (projection)
+--  v ::= ...
+--      | { i = v , ... , i = v }    (record value)
+--  τ ::= ...
+--      | { i : τ , ... , i : τ }    (record type)
+
 --  The generalization from products should be pretty obvious. But it's
 --  worth noticing the ways in which what we've actually written is even
 --  *more* informal than the informal syntax we've used in previous
@@ -819,17 +800,17 @@ import SFLCompat
 --
 --  Reduction:
 --
---                                    ti ⟶ ti'
---                       ------------------------------------                  (rcd)
---                           {i₁=v₁, ..., im=vm, in=ti , ...}
---                       ⟶ {i₁=v₁, ..., im=vm, in=ti', ...}
+--                  ti ⟶ ti'
+--      ---------------------------------  (rcd)
+--      {i₁=v₁, ..., im=vm, in=ti, ...} ⟶
+--      {i₁=v₁, ..., im=vm, in=ti', ...}
 --
---                                    t ⟶ t'
---                                  --------------                           (proj₁)
---                                  t.i ⟶ t'.i
+--                   t ⟶ t'
+--                 ----------              (proj₁)
+--                 t.i ⟶ t'.i
 --
---                            -------------------------                    (projRcd)
---                            {..., i=vi, ...}.i ⟶ vi
+--           -----------------------       (projRcd)
+--           {..., i=vi, ...}.i ⟶ vi
 --
 --  Again, these rules are a bit informal. For example, the first rule is
 --  intended to be read "if `ti` is the leftmost field that is not a value
@@ -839,14 +820,13 @@ import SFLCompat
 --
 --  The typing rules are also simple:
 --
---                     Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tₙ ⦂ τₙ
---                -----------------------------------------------------        (rcd)
---                Γ ⊢ {i₁=t₁, ..., iₙ=tₙ} ⦂ {i₁:τ₁, ..., iₙ:τₙ}
+--           Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tₙ ⦂ τₙ
+--      ---------------------------------------------  (rcd)
+--      Γ ⊢ {i₁=t₁, ..., iₙ=tₙ} ⦂ {i₁:τ₁, ..., iₙ:τₙ}
 --
---
---                            Γ ⊢ t ⦂ {..., i:τᵢ, ...}
---                          ---------------------------------                  (proj)
---                                Γ ⊢ t.i ⦂ τᵢ
+--                Γ ⊢ t ⦂ {..., i:τᵢ, ...}
+--                ------------------------             (proj)
+--                      Γ ⊢ t.i ⦂ τᵢ
 --
 --  There are several ways to approach formalizing the above definitions.
 --  - We can directly formalize the syntactic forms and inference rules,
@@ -862,8 +842,8 @@ import SFLCompat
 --    informally here because they will help motivate the addition of
 --    subtyping to the type system when we get to the Sub chapter.)
 --  - Alternatively, we could look for a smoother way of presenting records
---    -- for example, a binary presentation with one constructor for the ∅
---    record and another constructor for adding a single field to an
+--    — for example, a binary presentation with one constructor for the
+--    empty record and another constructor for adding a single field to an
 --    existing record, instead of a single monolithic constructor that
 --    builds a whole record at once. This is the right way to go if we are
 --    primarily interested in studying the metatheory of the calculi with
@@ -880,50 +860,50 @@ import SFLCompat
 --  First, observe that we can encode arbitrary-size *tuples* using nested
 --  pairs and the `unit` value. To avoid overloading the pair notation
 --  `(t₁,t₂)`, we'll use curly braces without labels to write down tuples,
---  so `{}` is the ∅ tuple, `{5}` is a singleton tuple, `{5,6}]`is a
+--  so `{}` is the empty tuple, `{5}` is a singleton tuple, `{5,6}` is a
 --  2-tuple (morally the same as a pair), `{5,6,7}` is a triple, etc.
 --
---            {}                 ⟶  unit
---            {t₁, t₂, ..., tn}  ⟶  (t₁, trest)
---                                      where {t₂, ..., tn} ⟶ trest
+--      {}                 ⟶  unit
+--      {t₁, t₂, ..., tn}  ⟶  (t₁, trest)
+--                                where {t₂, ..., tn} ⟶ trest
 --
 --  Similarly, we can encode tuple types using nested product types:
 --
---            {}                 ⟶  Unit
---            {τ₁, τ₂, ..., τₙ}  ⟶  τ₁ × τrest
---                                      where {τ₂, ..., τₙ} ⟶ τrest
+--      {}                 ⟶  Unit
+--      {τ₁, τ₂, ..., τₙ}  ⟶  τ₁ × τrest
+--                                where {τ₂, ..., τₙ} ⟶ τrest
 --
 --  The operation of projecting a field from a tuple can be encoded using a
 --  sequence of second projections followed by a first projection:
 --
---            t.0        ⟶  fst t
---            t.(n+1)    ⟶  (snd t).n
+--      t.0        ⟶  fst t
+--      t.(n+1)    ⟶  (snd t).n
 --
 --  Next, suppose that there is some total ordering on record labels, so
 --  that we can associate each label with a unique natural number. This
 --  number is called the *position* of the label. For example, we might
 --  assign positions like this:
 --
---            LABEL   POSITION
---            a       0
---            b       1
---            c       2
---            ...     ...
---            bar     1395
---            ...     ...
---            foo     4460
---            ...     ...
+--      LABEL   POSITION
+--      a       0
+--      b       1
+--      c       2
+--      ...     ...
+--      bar     1395
+--      ...     ...
+--      foo     4460
+--      ...     ...
 --
 --  We use these positions to encode record values as tuples (i.e., as
 --  nested pairs) by sorting the fields according to their positions. For
 --  example:
 --
---            {a=5,b=6}       ⟶   {5,6}
---            {a=5,c=7}       ⟶   {5,unit,7}
---            {c=7,a=5}       ⟶   {5,unit,7}
---            {c=5,b=3}       ⟶   {unit,3,5}
---            {f=8,c=5,a=7}   ⟶   {7,unit,5,unit,unit,8}
---            {f=8,c=5}       ⟶   {unit,unit,5,unit,unit,8}
+--      {a=5,b=6}       ⟶   {5,6}
+--      {a=5,c=7}       ⟶   {5,unit,7}
+--      {c=7,a=5}       ⟶   {5,unit,7}
+--      {c=5,b=3}       ⟶   {unit,3,5}
+--      {f=8,c=5,a=7}   ⟶   {7,unit,5,unit,unit,8}
+--      {f=8,c=5}       ⟶   {unit,unit,5,unit,unit,8}
 --
 --  Note that each field appears in the position associated with its label,
 --  that the size of the tuple is determined by the label with the highest
@@ -931,18 +911,18 @@ import SFLCompat
 --
 --  We do exactly the same thing with record types:
 --
---            {a:Nat,b:Nat}       ⟶   {Nat,Nat}
---            {c:Nat,a:Nat}       ⟶   {Nat,Unit,Nat}
---            {f:Nat,c:Nat}       ⟶   {Unit,Unit,Nat,Unit,Unit,Nat}
+--      {a:Nat,b:Nat}       ⟶   {Nat,Nat}
+--      {c:Nat,a:Nat}       ⟶   {Nat,Unit,Nat}
+--      {f:Nat,c:Nat}       ⟶   {Unit,Unit,Nat,Unit,Unit,Nat}
 --
 --  Finally, record projection is encoded as a tuple projection from the
 --  appropriate position:
 --
---            t.l ⟶ t.(position of l)
+--      t.l ⟶ t.(position of l)
 --
 --  It is not hard to check that all the typing rules for the original
 --  "direct" presentation of records are validated by this encoding. (The
---  reduction rules are "almost validated" -- not quite, because the
+--  reduction rules are "almost validated" — not quite, because the
 --  encoding reorders fields.)
 
 --  Of course, this encoding will not be very efficient if we happen to use
@@ -959,10 +939,10 @@ import SFLCompat
 --  labels.
 --
 --  These n-ary variants give us almost enough mechanism to build arbitrary
---  inductive data types like lists and trees from scratch -- the only
---  thing missing is a way to allow *recursion* in type definitions. We
---  won't cover this here, but detailed treatments can be found in many
---  textbooks -- e.g., Types and Programming Languages (Pierce, 2002).
+--  inductive data types like lists and trees from scratch — the only thing
+--  missing is a way to allow *recursion* in type definitions. We won't
+--  cover this here, but detailed treatments can be found in many textbooks
+--  — e.g., Types and Programming Languages (Pierce, 2002).
 
 --  ### Exercise: Formalizing the Extensions
 
@@ -1045,11 +1025,11 @@ inductive Tm : Type where
 --  single `if0` form combining a zero test and a conditional. That is,
 --  instead of writing
 --
---             if x = 0 then ... else ...
+--      if x = 0 then ... else ...
 --
 --  we'll write this:
 --
---             if0 x then ... else ...
+--      if0 x then ... else ...
 --
 --  As in Stlc, terms, types, contexts, and typing judgments use `<{ … }>`
 --  brackets. Capital Latin identifiers are object-language names;
@@ -1063,12 +1043,13 @@ scoped syntax:51 " [ " stlcTy:50  " ] " : stlcTy
 
 scoped syntax:max num : stlcTm
 scoped syntax:60 stlcTm:60 " * " stlcTm:61 : stlcTm
-scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
+scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50
+  " else " stlcTm:50 : stlcTm
 
 scoped syntax:60 " inr " stlcTy:60 ppSpace stlcTm:60 : stlcTm
 scoped syntax:60 " inl " stlcTy:60 ppSpace stlcTm:60 : stlcTm
-scoped syntax:50 "case " stlcTm:50 " of " "inl" stlcVar " => " stlcTm:50 " | "
-  "inr" stlcVar " => " stlcTm:50 : stlcTm
+scoped syntax:50 "case " stlcTm:50 " of " "inl" stlcVar
+  " => " stlcTm:50 " | " "inr" stlcVar " => " stlcTm:50 : stlcTm
 
 scoped syntax:60 " nil " stlcTy:60 : stlcTm
 scoped syntax:60 stlcTm:61 " :: " stlcTm:60 : stlcTm
@@ -1077,7 +1058,8 @@ scoped syntax:50 "case " stlcTm:50 " of " "nil" " => " stlcTm:50 " | "
 
 scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
 
-scoped syntax:50 "let " stlcVar " = " stlcTm:50 " in " stlcTm:50 : stlcTm
+scoped syntax:50 "let " stlcVar " = " stlcTm:50
+  " in " stlcTm:50 : stlcTm
 
 namespace Elab
 
@@ -1174,7 +1156,8 @@ def extendedTmHandler : TmElabHandler :=
         let (x₂, Γ₂) ← elabStlcBinder language Γ x₂
         let (t₂, free) ← recur Γ₂ free t₂
 
-        return (mkAppN (mkConst ``Tm.sumCase) #[t, x₁, t₁, x₂, t₂], free)
+        return (mkAppN (mkConst ``Tm.sumCase)
+          #[t, x₁, t₁, x₂, t₂], free)
 
     | `(stlcTm| nil $T:stlcTy) => do
         let T ← elabTy T
@@ -1201,7 +1184,8 @@ def extendedTmHandler : TmElabHandler :=
 
         let (t₃, free) ← recur Γ free t₃
 
-        return (mkAppN (mkConst ``Tm.listCase) #[t₁, t₂, x, xs, t₃], free)
+        return (mkAppN (mkConst ``Tm.listCase)
+          #[t₁, t₂, x, xs, t₃], free)
 
     | `(stlcTm| Unit) => do
         throwError "`Unit` is not a valid term."
@@ -1244,7 +1228,6 @@ def extendedTmHandler : TmElabHandler :=
 
 def tmHandlers : TmElabHandler :=
   extendedTmHandler.orElse (commonTmHandler language elabTy)
-
 
 partial def elabTm : TmElab :=
   tmHandlers elabTm unsupportedTm
@@ -1292,7 +1275,6 @@ private def Ty.unexpandSum : Unexpander
       `(<{ $T₁':stlcTy + $T₂':stlcTy }>)
   | _ => throw ()
 
-
 @[app_unexpander Ty.list]
 private def Ty.unexpandList : Unexpander
   | `($_ $T) => do
@@ -1316,16 +1298,14 @@ private def reservedNames : String → Bool
   | _ => false
 
 @[app_unexpander Tm.var]
-private def Tm.unexpandVar : Unexpander := Delab.unexpandVar reservedNames ``Tm.var
-
+private def Tm.unexpandVar : Unexpander :=
+  Delab.unexpandVar reservedNames ``Tm.var
 
 @[app_delab Tm.var]
 private def Tm.delabVar : Delab := Delab.delabVar ``Tm.var
 
-
 @[app_unexpander Tm.app]
 private def Tm.unexpandApp : Unexpander := Delab.unexpandApp
-
 
 @[app_unexpander Tm.abs]
 private def Tm.unexpandAbs : Unexpander := Delab.unexpandAbs
@@ -1400,7 +1380,6 @@ private def Tm.unexpandSumCase : Unexpander
       }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.listNil]
 private def Tm.unexpandListNil : Unexpander
   | `($_ $T) => do
@@ -1454,7 +1433,6 @@ private def Tm.unexpandFst : Unexpander
       `(<{ $fst:ident $t':stlcTm }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.snd]
 private def Tm.unexpandSnd : Unexpander
   | stx@`($_ $t) => do
@@ -1478,7 +1456,6 @@ private def Tm.unexpandLetIn : Unexpander
       }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.fix]
 private def Tm.unexpandFix : Unexpander
   | stx@`($_ $t) => do
@@ -1489,6 +1466,48 @@ private def Tm.unexpandFix : Unexpander
 
 end Delab
 --  END DETAILS
+
+--  Here are a few example terms and types written in this notation:
+
+/-- info: <{ unit }> : Tm -/
+#guard_msgs in
+#check <{ unit }>
+
+/-- info: <{ λ X : Nat . X }> : Tm -/
+#guard_msgs in
+#check <{ λ X : Nat . X }>
+
+/-- info: <{ fix (λ X : Nat → Nat . X) }> : Tm -/
+#guard_msgs in
+#check <{ fix (λ X : Nat → Nat . X) }>
+
+/-- info: <{ let X = 1 in ( X , unit ) }> : Tm -/
+#guard_msgs in
+#check <{ let X = 1 in (X, unit) }>
+
+/-- info: <{ ( X , Y ) }> : Tm -/
+#guard_msgs in
+#check <{ (X , Y) }>
+
+/-- info: <{ fst  ( X , Y ) }> : Tm -/
+#guard_msgs in
+#check <{ fst (X , Y) }>
+
+/-- info: <{ inr Nat (λ X : Unit . X) }> : Tm -/
+#guard_msgs in
+#check <{ inr Nat (λ X : Unit . X) }>
+
+/-- info: <{ nil Nat }> : Tm -/
+#guard_msgs in
+#check <{ nil Nat }>
+
+/-- info: <{ 3 :: nil Nat }> : Tm -/
+#guard_msgs in
+#check <{ 3 :: nil Nat }>
+
+/-- info: <{ ( [ Nat ] → Nat × Unit) → Nat + Unit }> : Ty -/
+#guard_msgs in
+#check <{ ([Nat] -> Nat × Unit) -> Nat + Unit }>
 
 --  ### Exercise (3 stars): STLCExtended.subst (Manually graded) ⭐⭐⭐
 
@@ -1572,7 +1591,8 @@ example : <{ [Z := 0] (let W = Z in Z) }> = <{ let W = 0 in 0 }> := by
 example : <{ [Z := 0] (let W = Z in W) }> = <{ let W = 0 in W }> := by
   rfl
 
-example : <{ [Z := 0] (let Y = succ 0 in Z) }> = <{ let Y = succ 0 in 0 }> := by
+example : <{ [Z := 0] (let Y = succ 0 in Z) }> =
+    <{ let Y = succ 0 in 0 }> := by
   rfl
 
 --  (End of exercise)
@@ -1605,8 +1625,9 @@ inductive Tm.IsValue : Tm → Prop where
       IsValue v₂ →
       IsValue <{(v₁, v₂)}>
 
-attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsValue.sumInr
-    Tm.IsValue.listNil Tm.IsValue.listCons Tm.IsValue.unit Tm.IsValue.pair
+attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl
+    Tm.IsValue.sumInr Tm.IsValue.listNil Tm.IsValue.listCons
+    Tm.IsValue.unit Tm.IsValue.pair
 
 --  ### Exercise (3 stars): STLCExtended.step (Manually graded) ⭐⭐⭐
 
@@ -1655,16 +1676,21 @@ inductive Step : Tm → Tm → Prop where
   | sumInr (t₂ t₂' : Tm) (τ₁ : Ty) :
       t₂ ⟶ t₂' →
       <{inr τ₁ t₂}> ⟶ <{inr τ₁ t₂'}>
-  | sumCase (t t' : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) :
+  | sumCase (t t' : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String)
+      (t₂ : Tm) :
       t ⟶ t' →
       <{case t of inl x₁ => t₁ | inr x₂ => t₂}> ⟶
       <{case t' of inl x₁ => t₁ | inr x₂ => t₂}>
-  | sumCaseInl (v : Tm) (x₁:String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) (τ₂ : Ty) :
+  | sumCaseInl (v : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String)
+      (t₂ : Tm) (τ₂ : Ty) :
       v.IsValue →
-      <{case inl τ₂ v of inl x₁ => t₁ | inr x₂ => t₂}> ⟶ <{ [x₁ := v] t₁ }>
-  | sumCaseInr (v : Tm) (x₁:String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) (τ₁ : Ty) :
+      <{case inl τ₂ v of inl x₁ => t₁ | inr x₂ => t₂}> ⟶
+      <{ [x₁ := v] t₁ }>
+  | sumCaseInr (v : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String)
+      (t₂ : Tm) (τ₁ : Ty) :
       v.IsValue →
-      <{case inr τ₁ v of inl x₁ => t₁ | inr x₂ => t₂}> ⟶ <{ [x₂ := v] t₂ }>
+      <{case inr τ₁ v of inl x₁ => t₁ | inr x₂ => t₂}> ⟶
+      <{ [x₂ := v] t₂ }>
   -- lists
   | cons₁ (t₁ t₁' t₂ : Tm) :
       t₁ ⟶ t₁' →
@@ -1720,7 +1746,7 @@ inductive Step : Tm → Tm → Prop where
   | fix₁ (t₁ t₁' : Tm) :
       t₁ ⟶ t₁' →
       <{ fix t₁ }> ⟶ <{ fix t₁' }>
-   | fixAbs (x : String) (τ₁ : Ty) (t₁ : Tm) :
+  | fixAbs (x : String) (τ₁ : Ty) (t₁ : Tm) :
       <{ fix (λ x : τ₁ . t₁) }> ⟶
       <{ [x := fix (λ x : τ₁ . t₁) ] t₁ }>
 end
@@ -1733,7 +1759,8 @@ attribute [ExtStlcEval] Step.appAbs Step.app₁ Step.app₂
     Step.succ Step.succNat Step.pred Step.predConst
     Step.multConst Step.mult₁ Step.mult₂
     Step.if0Step Step.if0Zero Step.if0Nonzero
-    Step.sumInl Step.sumInr Step.sumCase Step.sumCaseInl Step.sumCaseInr
+    Step.sumInl Step.sumInr Step.sumCase Step.sumCaseInl
+    Step.sumCaseInr
     Step.cons₁ Step.cons₂ Step.listCase₁ Step.listCaseNil
     Step.listCaseCons
     Step.pair₁ Step.pair₂ Step.fst₁ Step.fstPair
@@ -1775,7 +1802,8 @@ inductive HasType : Context → Tm → Ty → Prop where
   | sumInr (Γ : Context) (t₂ : Tm) (τ₁ τ₂ : Ty) :
       <{ Γ ⊢ t₂ ⦂ τ₂ }> →
       <{ Γ ⊢ (inr τ₁ t₂) ⦂ τ₁ + τ₂ }>
-  | sumCase (Γ : Context) (x₁ x₂ : String) (τ₁ τ₂ τ₃: Ty) (t t₁ t₂ : Tm) :
+  | sumCase (Γ : Context) (x₁ x₂ : String) (τ₁ τ₂ τ₃ : Ty)
+      (t t₁ t₂ : Tm) :
       <{ Γ ⊢ t ⦂ τ₁ + τ₂ }> →
       <{ x₁ ↦ τ₁ ; Γ ⊢ t₁ ⦂ τ₃ }> →
       <{ x₂ ↦ τ₂ ; Γ ⊢ t₂ ⦂ τ₃ }> →
@@ -1787,7 +1815,8 @@ inductive HasType : Context → Tm → Ty → Prop where
       <{ Γ ⊢ t₁ ⦂ τ₁ }> →
       <{ Γ ⊢ t₂ ⦂ [τ₁] }> →
       <{ Γ ⊢ t₁ :: t₂ ⦂ [τ₁] }>
-  | listCase (Γ : Context) (t₁ t₂ t₃ : Tm) (x₁ x₂ : String) (τ₁ τ₂ : Ty) :
+  | listCase (Γ : Context) (t₁ t₂ t₃ : Tm) (x₁ x₂ : String)
+      (τ₁ τ₂ : Ty) :
       <{ Γ ⊢ t₁ ⦂ [τ₁] }> →
       <{ Γ ⊢ t₂ ⦂ τ₂ }> →
       <{ x₁ ↦ τ₁ ; x₂ ↦ [τ₁] ; Γ ⊢ t₃ ⦂ τ₂ }> →
@@ -1887,7 +1916,7 @@ theorem typechecks : <{ ∅ ⊢ tm_test ⦂ Nat }> := by
 
 theorem reduces :
   tm_test ⟶* Tm.const 6 := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Let
 
@@ -1903,7 +1932,7 @@ theorem typechecks :
 
 theorem reduces :
   tm_test ⟶* Tm.const 6 := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Let1
 
@@ -1920,7 +1949,7 @@ theorem typechecks :
 
 theorem reduces :
   tm_test ⟶* Tm.const 5 := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Sums1
 
@@ -1940,7 +1969,7 @@ theorem typechecks :
 
 theorem reduces :
   tm_test ⟶* <{ (5, ~(Tm.const 0)) }> := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Sums2
 
@@ -1958,7 +1987,7 @@ theorem typechecks :
 
 theorem reduces :
   tm_test ⟶* Tm.const 25 := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Lists
 
@@ -1970,7 +1999,8 @@ def fact :=
         λ A : Nat .
          if0 A then 1 else (A * (F (pred A)))) }>
 
--- (Warning: you may be able to typecheck `fact` but still have some rules wrong!) *)
+-- (Warning: you may be able to typecheck `fact` but still have some
+-- rules wrong!)
 
 theorem typechecks :
   <{ ∅ ⊢ fact ⦂ Nat → Nat }> := by
@@ -1978,7 +2008,7 @@ theorem typechecks :
 
 theorem reduces :
   <{ fact 4 }> ⟶* Tm.const 24 := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Fix1
 
@@ -2001,7 +2031,7 @@ theorem typechecks :
 theorem reduces :
   <{ map (λ A : Nat . succ A) (1 :: 2 :: (nil Nat)) }>
   ⟶* <{ 2 :: 3 :: (nil Nat) }> := by
-    normalize using ExtStlcEval
+  normalize using ExtStlcEval
 
 end Fix2
 
@@ -2091,7 +2121,8 @@ theorem canonical_forms_sum {t : Tm} {τ₁ τ₂ : Ty}
 
 theorem canonical_forms_list {t : Tm} {τ : Ty}
     (ht : <{ ∅ ⊢ t ⦂ [τ] }>) (hv : t.IsValue) :
-    t = <{ nil τ }> ∨ ∃ v₁ v₂, (v₁.IsValue ∧ v₂.IsValue ∧ t = <{v₁ :: v₂}>) := by
+    t = <{ nil τ }> ∨
+      ∃ v₁ v₂, (v₁.IsValue ∧ v₂.IsValue ∧ t = <{v₁ :: v₂}>) := by
   inversion ht with (inversion hv)
   | listNil _ => left; rfl
   | listCons v₁ v₂ _ _ _ _ => right; exists v₁, v₂
@@ -2105,8 +2136,8 @@ theorem canonical_forms_prod {t : Tm} {τ₁ τ₂ : Ty}
   | pair v₁ v₂ _ _ _ _ => exists v₁, v₂
 
 
-theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ t ⦂ τ }>) :
-    t.IsValue ∨ exists t', t ⟶ t' := by
+theorem progress (t : Tm) (τ : Ty) (ht : <{ ∅ ⊢ t ⦂ τ }>) :
+    t.IsValue ∨ ∃ t', t ⟶ t' := by
 
     generalize heq : (∅ : Context) = Γ at ht
     induction ht with (subst_vars; first
@@ -2187,7 +2218,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ t ⦂ τ }>) :
       -- t₁ is not a value
       case _ ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
-        exists <{if0 t₁' then t₂ else t₃}>; apply_rules using ExtStlcEval
+        exists <{if0 t₁' then t₂ else t₃}>
+        apply_rules using ExtStlcEval
     | sumInl Γ t₁ τ₁ τ₂ h ih =>
       cases ih rfl
       -- t₁ is a value
@@ -2212,12 +2244,15 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ t ⦂ τ }>) :
       case _ ht =>
         apply canonical_forms_sum at h₁
         obtain ⟨v, hv, hl | hr⟩ := h₁ ht
-        · rw [hl]; exists <{ [x₁ := v] t₁ }>; apply_rules using ExtStlcEval
-        · rw [hr]; exists <{ [x₂ := v] t₂ }>; apply_rules using ExtStlcEval
+        · rw [hl]; exists <{ [x₁ := v] t₁ }>
+          apply_rules using ExtStlcEval
+        · rw [hr]; exists <{ [x₂ := v] t₂ }>
+          apply_rules using ExtStlcEval
       -- t₁ is not a value
       case _ ht =>
         obtain ⟨t', ht⟩ := ht
-        exists <{case t' of inl x₁ => t₁ | inr x₂ => t₂}>; apply_rules using ExtStlcEval
+        exists <{case t' of inl x₁ => t₁ | inr x₂ => t₂}>
+        apply_rules using ExtStlcEval
     | listCons Γ t₁ t₂ τ₁ h₁ h₂ ih₁ ih₂ =>
       cases ih₁ rfl
       -- t₁ is a value
@@ -2235,17 +2270,19 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ t ⦂ τ }>) :
         obtain ⟨t₁', ht₁⟩ := ht₁
         right; exists <{t₁' :: t₂}>; apply_rules using ExtStlcEval
     | listCase Γ t₁ t₂ t₃ x₁ x₂ τ₁ τ₂ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
-        right; cases ih₁ rfl
-        -- t₁ is a value
-        case _ ht =>
-          apply canonical_forms_list at h₁
-          obtain hnil | ⟨v₁, v₂, hv₁, hv₂, h⟩ := h₁ ht
-          · rw [hnil]; exists t₂; apply_rules using ExtStlcEval
-          · rw [h]; exists <{ [x₂ := v₂] [x₁ := v₁] t₃ }>; apply_rules using ExtStlcEval
-        -- t₁ is not a value
-        case _ ht =>
-          obtain ⟨t', ht⟩ := ht
-          exists <{case t' of nil => t₂ | x₁ :: x₂ => t₃}>; apply_rules using ExtStlcEval
+      right; cases ih₁ rfl
+      -- t₁ is a value
+      case _ ht =>
+        apply canonical_forms_list at h₁
+        obtain hnil | ⟨v₁, v₂, hv₁, hv₂, h⟩ := h₁ ht
+        · rw [hnil]; exists t₂; apply_rules using ExtStlcEval
+        · rw [h]; exists <{ [x₂ := v₂] [x₁ := v₁] t₃ }>
+          apply_rules using ExtStlcEval
+      -- t₁ is not a value
+      case _ ht =>
+        obtain ⟨t', ht⟩ := ht
+        exists <{case t' of nil => t₂ | x₁ :: x₂ => t₃}>
+        apply_rules using ExtStlcEval
     -- complete the proof
     | pair Γ t₁ t₂ τ₁ τ₂ h₁ h₂ ih₁ ih₂ =>
       cases ih₁ rfl
@@ -2295,30 +2332,32 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ t ⦂ τ }>) :
         obtain ⟨t₁', ht₁⟩ := ht₁
         exists <{let x = t₁' in t₂}>; apply_rules using ExtStlcEval
     | fix Γ t₁ τ₁ h ih =>
-        right; cases ih rfl
-        -- t₁ is a value
-        case _ ht₁ =>
-          apply canonical_forms_fun at h
-          obtain ⟨x, v, ht⟩ := h ht₁; rw [ht]
-          exists <{ [x := fix (λ x : τ₁ . v) ] v }>; apply_rules using ExtStlcEval
-        -- t₁ is not a value
-        case _ ht₁ =>
-          obtain ⟨t₁', ht₁⟩ := ht₁
-          exists <{fix t₁'}>; apply_rules using ExtStlcEval
+      right; cases ih rfl
+      -- t₁ is a value
+      case _ ht₁ =>
+        apply canonical_forms_fun at h
+        obtain ⟨x, v, ht⟩ := h ht₁; rw [ht]
+        exists <{ [x := fix (λ x : τ₁ . v) ] v }>
+        apply_rules using ExtStlcEval
+      -- t₁ is not a value
+      case _ ht₁ =>
+        obtain ⟨t₁', ht₁⟩ := ht₁
+        exists <{fix t₁'}>; apply_rules using ExtStlcEval
 
 --  (End of exercise)
 
 --  Through the power of automation, the weakening proof is exactly the
 --  same as for the original STLC.
 
-theorem weakening {Γ Γ' : Context} {t : Tm} {τ: Ty}
+theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
     (hi : Γ ⊆ Γ')
     (ht : <{ Γ ⊢ t ⦂ τ }>) :
-     <{ Γ' ⊢ t ⦂ τ }> := by
-  induction ht generalizing Γ' with (apply_rules [PartialMap.update_subset] using ExtStlcTyping)
+    <{ Γ' ⊢ t ⦂ τ }> := by
+  induction ht generalizing Γ' with
+    (apply_rules [PartialMap.update_subset] using ExtStlcTyping)
 
-theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
-    (ht :<{ ∅ ⊢ t ⦂ τ }>) :
+theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty}
+    (ht : <{ ∅ ⊢ t ⦂ τ }>) :
     <{ Γ ⊢ t ⦂ τ }> := by
   apply weakening _ ht
   intro _ _ h
@@ -2329,12 +2368,14 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
 
 --  Complete the proof of `substitution_preserves_typing`
 
-theorem substitution_preserves_typing (Γ : Context) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)
+theorem substitution_preserves_typing (Γ : Context) (x : String)
+    (τ₁ : Ty) (t v : Tm) (τ : Ty)
     (ht : <{ x ↦ τ₁ ; Γ ⊢ t ⦂ τ }>)
     (hv : <{ ∅ ⊢ v ⦂ τ₁ }>) :
     <{ Γ ⊢ [x := v] t ⦂ τ }> := by
   induction t generalizing Γ τ with (
-      rw [subst]; try (inversion ht; apply_rules using ExtStlcTyping; done))
+      rw [subst];
+      try (inversion ht; apply_rules using ExtStlcTyping; done))
   | var y =>
       inversion ht with | _ h =>
       by_cases h₁ : x = y
@@ -2346,7 +2387,8 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (τ₁ : Ty) (
   | abs y _ _ ih =>
       inversion ht with | _ h =>
       by_cases h₁ : x = y
-      · simp_all [PartialMap.update_shadow]; apply_rules using ExtStlcTyping
+      · simp_all [PartialMap.update_shadow]
+        apply_rules using ExtStlcTyping
       · rw [PartialMap.update_permute] at h
         · simp_all; apply_rules using ExtStlcTyping
         · lia
@@ -2354,18 +2396,21 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (τ₁ : Ty) (
       inversion ht with | _ h₁ h₂ h₃ =>
       by_cases x = y₁ <;> by_cases x = y₂ <;> constructor <;> first
           | apply ih; assumption
-          | simp_all [PartialMap.update_shadow, PartialMap.update_permute]
+          | simp_all [PartialMap.update_shadow,
+              PartialMap.update_permute]
       apply ih₁; rw [PartialMap.update_permute]; assumption; lia
   | listCase _ _ y₁ y₂ _ ih ih₁ ih₂ =>
       inversion ht with | _ h₁ h₂ h₃ =>
       by_cases x = y₁ <;> by_cases x = y₂ <;> constructor <;> first
           | apply ih; assumption
-          | simp_all [PartialMap.update_shadow, PartialMap.update_permute]
+          | simp_all [PartialMap.update_shadow,
+              PartialMap.update_permute]
   | letIn y _ _ ih ih₁ =>
       inversion ht with | _ h₁ h₂ =>
       by_cases x = y <;> constructor <;> first
           | apply ih; assumption
-          | simp_all [PartialMap.update_shadow, PartialMap.update_permute]
+          | simp_all [PartialMap.update_shadow,
+              PartialMap.update_permute]
 
 --  ### Exercise (3 stars): STLCExtended.preservation ⭐⭐⭐
 
@@ -2440,4 +2485,4 @@ theorem preservation (t t' : Tm) (τ : Ty)
 
 end StlcExtended
 
--- Source revision: f14f418, committed 2026-11-10 05:48 UTC
+-- Source revision: be3cee8, committed 2026-11-11 04:36 UTC

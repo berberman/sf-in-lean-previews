@@ -863,6 +863,39 @@
   color: #a00;
 }
 </style><style>
+table.bnf {
+  margin: 1em auto;
+  border-collapse: collapse;
+  font-family: var(--verso-code-font-family, monospace);
+}
+table.bnf td {
+  padding: 0.15em 0.5em;
+  vertical-align: baseline;
+}
+table.bnf td.bnf-lhs { text-align: right; }
+table.bnf td.bnf-sep { text-align: center; }
+table.bnf td.bnf-alt { text-align: left; }
+table.bnf .bnf-nt  { font-style: italic; }
+table.bnf .bnf-mv  {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 0.18em;
+}
+table.bnf .bnf-kw  { font-weight: 600; font-family: var(--verso-code-font-family, monospace); }
+/* Neither italic (nonterminal) nor bold (terminal): an elision reads as punctuation,
+   not as a piece of the grammar proper. */
+table.bnf .bnf-ellipsis { opacity: 0.65; }
+/* The gloss column: set in the body font, muted, and pushed away from the
+   grammar so it reads as an annotation rather than as part of the syntax. */
+table.bnf td.bnf-note {
+  padding-left: 2.5em;
+  text-align: left;
+  font-family: inherit;
+  font-style: italic;
+  opacity: 0.65;
+}
+</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1083,36 +1116,6 @@ details.sf-details[open] > summary::before {
 }
 details.sf-details[open] {
   background: rgba(0, 0, 0, 0.03);
-}
-</style><style>
-table.bnf {
-  margin: 1em auto;
-  border-collapse: collapse;
-  font-family: var(--verso-code-font-family, monospace);
-}
-table.bnf td {
-  padding: 0.15em 0.5em;
-  vertical-align: baseline;
-}
-table.bnf td.bnf-lhs { text-align: right; }
-table.bnf td.bnf-sep { text-align: center; }
-table.bnf td.bnf-alt { text-align: left; }
-table.bnf .bnf-nt  { font-style: italic; }
-table.bnf .bnf-mv  {
-  font-style: italic;
-  text-decoration: underline;
-  text-decoration-thickness: 0.5px;
-  text-underline-offset: 0.18em;
-}
-table.bnf .bnf-kw  { font-weight: 600; font-family: var(--verso-code-font-family, monospace); }
-/* The gloss column: set in the body font, muted, and pushed away from the
-   grammar so it reads as an annotation rather than as part of the syntax. */
-table.bnf td.bnf-note {
-  padding-left: 2.5em;
-  text-align: left;
-  font-family: inherit;
-  font-style: italic;
-  opacity: 0.65;
 }
 </style><style>
 
@@ -6447,7 +6450,7 @@ in the <a href="Hoare/#Hoare">Hoare</a> chapter returns a weakest precondition.<
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f14f418, committed 2026-11-10 05:48 UTC</div>
+            Source revision: be3cee8, committed 2026-11-11 04:36 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Hoare/#Hoare" rel="prev" title="5. Hoare: Hoare Logic, Part I"><span class="arrow">←</span><span class="where">5. Hoare: Hoare Logic, Part I</span></a><div></div>
             </nav>
