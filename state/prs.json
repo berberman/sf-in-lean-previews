@@ -191,48 +191,11 @@
     },
     "495": {
       "base_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "bc4061c3cf316a414722ae1a5e14f866d217a0be",
+      "changed_variants": [],
+      "head_sha": "258c0e67b34135a5cfc7f59028603a0755ef105f",
       "preview_path": "pr/495/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42764445834",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
     },
