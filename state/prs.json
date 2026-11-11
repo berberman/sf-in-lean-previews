@@ -1,5 +1,5 @@
 {
-  "main_sha": "5b03a23cd70cd8aa003877f18cfcde44ae870f8b",
+  "main_sha": "a492f01848b9e9037207a291b9c66f34dcacb0d0",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -190,98 +190,14 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
     },
     "495": {
-      "base_sha": "86b6f46642f5bc4e63a71bd466c3746d92d65165",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "258c0e67b34135a5cfc7f59028603a0755ef105f",
+      "base_sha": "a492f01848b9e9037207a291b9c66f34dcacb0d0",
+      "changed_variants": [],
+      "head_sha": "e8ae4e02ecf568f9516267cefcf589022b1e90cf",
       "preview_path": "pr/495/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42960295282",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "ProofObjects chapter in Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/495"
-    },
-    "499": {
-      "base_sha": "83ba75093bca1c6f387552ec1f2d9b74b505e443",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "84dfdecd3fb38b70b563c3e035d832b38cb651e4",
-      "preview_path": "pr/499/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/42898747377",
-      "status": "published",
-      "title": "TS/StlcProp: Small simplifications",
-      "url": "https://github.com/plclub/sf-in-lean/pull/499"
     }
   },
   "schema": 3

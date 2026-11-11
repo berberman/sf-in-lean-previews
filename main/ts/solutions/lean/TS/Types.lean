@@ -1339,4 +1339,4 @@ end TM
 --  between reaching an error state and failing to terminate.  This is one
 --  reason that language theorists generally prefer the small-step style.
 
--- Source revision: 5b03a23, committed 2026-11-10 20:48 UTC
+-- Source revision: a492f01, committed 2026-11-11 11:57 UTC
