@@ -1252,7 +1252,8 @@ theorem combineOddEven_elim_even
 
 --  Lean treats *proofs* as first-class objects. There is a great deal to
 --  be said about this, but it is not necessary to understand it all to use
---  Lean. This section gives just a taste.
+--  Lean. This section gives just a taste, leaving a deeper exploration for
+--  the chapter ProofObjects.
 
 --  We have seen that we can use `#check` to ask Lean whether an expression
 --  has a given type:
@@ -2390,4 +2391,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Source revision: a492f01, committed 2026-11-11 11:57 UTC
+-- Source revision: f784fe9, committed 2026-11-12 01:26 UTC

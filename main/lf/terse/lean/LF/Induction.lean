@@ -445,4 +445,4 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- Source revision: a492f01, committed 2026-11-11 11:57 UTC
+-- Source revision: f784fe9, committed 2026-11-12 01:26 UTC

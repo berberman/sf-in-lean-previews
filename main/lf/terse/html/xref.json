@@ -39,11 +39,11 @@
      "data":
      {"title": "Typeclasses",
       "shortTitle": null,
-      "sectionNum": "11.",
+      "sectionNum": "12.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"}]},
      "address": "/Typeclasses/"}],
    "Tactics":
    [{"id": "Tactics",
@@ -58,6 +58,19 @@
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Tactics/"}],
+   "ProofObjects":
+   [{"id": "ProofObjects",
+     "data":
+     {"title": "ProofObjects: The Curry-Howard Correspondence",
+      "shortTitle": null,
+      "sectionNum": "10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/ProofObjects/"}],
    "Preface":
    [{"id": "Preface",
      "data":
@@ -74,11 +87,11 @@
      "data":
      {"title": "Postscript",
       "shortTitle": null,
-      "sectionNum": "12.",
+      "sectionNum": "13.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Postscript", "shortTitle": null, "number": "12"}]},
+       {"title": "Postscript", "shortTitle": null, "number": "13"}]},
      "address": "/Postscript/"}],
    "Poly":
    [{"id": "Poly",
@@ -217,11 +230,11 @@
      "data":
      {"title": "Why We Need Typeclasses",
       "shortTitle": null,
-      "sectionNum": "11.1.",
+      "sectionNum": "12.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Why We Need Typeclasses",
         "shortTitle": null,
         "number": "1"}]},
@@ -231,11 +244,11 @@
      "data":
      {"title": "Using Typeclasses",
       "shortTitle": null,
-      "sectionNum": "11.3.",
+      "sectionNum": "12.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
@@ -243,11 +256,11 @@
      "data":
      {"title": "Proof-Carrying Typeclasses",
       "shortTitle": null,
-      "sectionNum": "11.4.",
+      "sectionNum": "12.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Proof-Carrying Typeclasses",
         "shortTitle": null,
         "number": "4"}]},
@@ -258,11 +271,11 @@
      "data":
      {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.1.2.",
+      "sectionNum": "12.5.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "1"},
        {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
@@ -273,11 +286,11 @@
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.1.1.",
+      "sectionNum": "12.5.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "1"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
@@ -287,11 +300,11 @@
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.1.",
+      "sectionNum": "12.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
@@ -300,11 +313,11 @@
      "data":
      {"title": "Reasoning About Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.2.",
+      "sectionNum": "12.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Reasoning About Total Maps",
         "shortTitle": null,
@@ -315,11 +328,11 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.4.",
+      "sectionNum": "12.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
@@ -328,11 +341,11 @@
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.3.",
+      "sectionNum": "12.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
@@ -343,11 +356,11 @@
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.",
+      "sectionNum": "12.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
@@ -355,11 +368,11 @@
      "data":
      {"title": "Defining Your Own Typeclasses",
       "shortTitle": null,
-      "sectionNum": "11.2.",
+      "sectionNum": "12.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
         "number": "2"}]},
@@ -370,11 +383,11 @@
      "data":
      {"title": "Decidable  and Equality",
       "shortTitle": null,
-      "sectionNum": "11.6.1.",
+      "sectionNum": "12.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
        {"title": "Decidable  and Equality",
         "shortTitle": null,
@@ -386,11 +399,11 @@
      "data":
      {"title": "Decidable  and Classical Logic",
       "shortTitle": null,
-      "sectionNum": "11.6.3.",
+      "sectionNum": "12.6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
        {"title": "Decidable  and Classical Logic",
         "shortTitle": null,
@@ -402,11 +415,11 @@
      "data":
      {"title": "Decidable  Beyond Equality",
       "shortTitle": null,
-      "sectionNum": "11.6.2.",
+      "sectionNum": "12.6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
        {"title": "Decidable  Beyond Equality",
         "shortTitle": null,
@@ -417,11 +430,11 @@
      "data":
      {"title": "Deciding Propositions",
       "shortTitle": null,
-      "sectionNum": "11.6.",
+      "sectionNum": "12.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "12"},
        {"title": "Deciding Propositions", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
@@ -699,6 +712,280 @@
         "number": "7"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Working-with-Proof-Irrelevance":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Working-with-Proof-Irrelevance",
+     "data":
+     {"title": "Working with Proof Irrelevance",
+      "shortTitle": null,
+      "sectionNum": "10.10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Working with Proof Irrelevance",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions--Dependency___-Equivalence___-and-Proof-Irrelevance":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions--Dependency___-Equivalence___-and-Proof-Irrelevance",
+     "data":
+     {"title": "Dependency, Equivalence, and Proof Irrelevance",
+      "shortTitle": null,
+      "sectionNum": "10.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Quantifiers, Implications, Functions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Dependency, Equivalence, and Proof Irrelevance",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions",
+     "data":
+     {"title": "Quantifiers, Implications, Functions",
+      "shortTitle": null,
+      "sectionNum": "10.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Quantifiers, Implications, Functions",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Proof-Scripts":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Proof-Scripts",
+     "data":
+     {"title": "Proof Scripts",
+      "shortTitle": null,
+      "sectionNum": "10.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Proof Scripts", "shortTitle": null, "number": "1"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Programming-with-Tactics":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Programming-with-Tactics",
+     "data":
+     {"title": "Programming with Tactics",
+      "shortTitle": null,
+      "sectionNum": "10.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Programming with Tactics",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Practical-Uses-of-Terms-in-Proofs":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Practical-Uses-of-Terms-in-Proofs",
+     "data":
+     {"title": "Practical Uses of Terms in Proofs",
+      "shortTitle": null,
+      "sectionNum": "10.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Practical Uses of Terms in Proofs",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--More-Exercises":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--More-Exercises",
+     "data":
+     {"title": "More Exercises",
+      "shortTitle": null,
+      "sectionNum": "10.9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "More Exercises", "shortTitle": null, "number": "9"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--True--and--False":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--True--and--False",
+     "data":
+     {"title": "True  and  False",
+      "shortTitle": null,
+      "sectionNum": "10.6.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Logical Connectives as Inductive Types",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "True  and  False", "shortTitle": null, "number": "4"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Existential-Quantification":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Existential-Quantification",
+     "data":
+     {"title": "Existential Quantification",
+      "shortTitle": null,
+      "sectionNum": "10.6.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Logical Connectives as Inductive Types",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Existential Quantification",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Disjunction":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Disjunction",
+     "data":
+     {"title": "Disjunction",
+      "shortTitle": null,
+      "sectionNum": "10.6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Logical Connectives as Inductive Types",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Disjunction", "shortTitle": null, "number": "2"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Conjunction":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types--Conjunction",
+     "data":
+     {"title": "Conjunction",
+      "shortTitle": null,
+      "sectionNum": "10.6.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Logical Connectives as Inductive Types",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Conjunction", "shortTitle": null, "number": "1"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Logical-Connectives-as-Inductive-Types",
+     "data":
+     {"title": "Logical Connectives as Inductive Types",
+      "shortTitle": null,
+      "sectionNum": "10.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Logical Connectives as Inductive Types",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Lean___s-Trusted-Computing-Base":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Lean___s-Trusted-Computing-Base",
+     "data":
+     {"title": "Lean's Trusted Computing Base",
+      "shortTitle": null,
+      "sectionNum": "10.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Lean's Trusted Computing Base",
+        "shortTitle": null,
+        "number": "8"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality--Inversion___-Again":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality--Inversion___-Again",
+     "data":
+     {"title": "Inversion, Again",
+      "shortTitle": null,
+      "sectionNum": "10.7.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Equality", "shortTitle": null, "number": "7"},
+       {"title": "Inversion, Again", "shortTitle": null, "number": "1"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality",
+     "data":
+     {"title": "Equality",
+      "shortTitle": null,
+      "sectionNum": "10.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Equality", "shortTitle": null, "number": "7"}]},
+     "address": "/ProofObjects/"}],
+   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Building-Proof-Objects-Incrementally-_LPAR_Optional_RPAR_":
+   [{"id":
+     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Building-Proof-Objects-Incrementally-_LPAR_Optional_RPAR_",
+     "data":
+     {"title": "Building Proof Objects Incrementally (Optional)",
+      "shortTitle": null,
+      "sectionNum": "10.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Building Proof Objects Incrementally (Optional)",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/ProofObjects/"}],
    "Logical-Foundations--Preface--Welcome":
    [{"id": "Logical-Foundations--Preface--Welcome",
      "data":
@@ -917,11 +1204,11 @@
      "data":
      {"title": "Resources",
       "shortTitle": null,
-      "sectionNum": "12.3.",
+      "sectionNum": "13.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Postscript", "shortTitle": null, "number": "13"},
        {"title": "Resources", "shortTitle": null, "number": "3"}]},
      "address": "/Postscript/"}],
    "Logical-Foundations--Postscript--Looking-Forward":
@@ -929,11 +1216,11 @@
      "data":
      {"title": "Looking Forward",
       "shortTitle": null,
-      "sectionNum": "12.2.",
+      "sectionNum": "13.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Postscript", "shortTitle": null, "number": "13"},
        {"title": "Looking Forward", "shortTitle": null, "number": "2"}]},
      "address": "/Postscript/"}],
    "Logical-Foundations--Postscript--Looking-Back":
@@ -941,11 +1228,11 @@
      "data":
      {"title": "Looking Back",
       "shortTitle": null,
-      "sectionNum": "12.1.",
+      "sectionNum": "13.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Postscript", "shortTitle": null, "number": "13"},
        {"title": "Looking Back", "shortTitle": null, "number": "1"}]},
      "address": "/Postscript/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
@@ -2881,13 +3168,13 @@
      "data":
      {"title": "The  trivial  Tactic",
       "shortTitle": null,
-      "sectionNum": "10.4.",
+      "sectionNum": "11.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "The  trivial  Tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--simp--Tactic--Idiomatic--simp--Usage":
@@ -2896,13 +3183,13 @@
      "data":
      {"title": "Idiomatic  simp  Usage",
       "shortTitle": null,
-      "sectionNum": "10.3.1.",
+      "sectionNum": "11.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"},
        {"title": "Idiomatic  simp  Usage", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -2912,13 +3199,13 @@
      "data":
      {"title": "The  simp  Tactic",
       "shortTitle": null,
-      "sectionNum": "10.3.",
+      "sectionNum": "11.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--lia--Tactic":
@@ -2927,13 +3214,13 @@
      "data":
      {"title": "The  lia  Tactic",
       "shortTitle": null,
-      "sectionNum": "10.1.",
+      "sectionNum": "11.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "The  lia  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--Combinator":
@@ -2942,13 +3229,13 @@
      "data":
      {"title": "The  try  Combinator",
       "shortTitle": null,
-      "sectionNum": "10.2.1.",
+      "sectionNum": "11.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  try  Combinator", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -2958,13 +3245,13 @@
      "data":
      {"title": "The  repeat  Combinator",
       "shortTitle": null,
-      "sectionNum": "10.2.2.",
+      "sectionNum": "11.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  repeat  Combinator",
         "shortTitle": null,
@@ -2976,13 +3263,13 @@
      "data":
      {"title": "The  first  Combinator",
       "shortTitle": null,
-      "sectionNum": "10.2.3.",
+      "sectionNum": "11.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  first  Combinator", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
@@ -2992,13 +3279,13 @@
      "data":
      {"title": "Tactic Combinators",
       "shortTitle": null,
-      "sectionNum": "10.2.",
+      "sectionNum": "11.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Weak___-Pumping-Lemma":
@@ -3007,13 +3294,13 @@
      "data":
      {"title": "The \"Weak\" Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "10.5.4.",
+      "sectionNum": "11.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3027,13 +3314,13 @@
      "data":
      {"title": "The \"Strong\" Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "10.5.5.",
+      "sectionNum": "11.5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3047,13 +3334,13 @@
      "data":
      {"title": "The  generalize  Tactic",
       "shortTitle": null,
-      "sectionNum": "10.5.3.",
+      "sectionNum": "11.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3067,13 +3354,13 @@
      "data":
      {"title": "Palindromes Revisited",
       "shortTitle": null,
-      "sectionNum": "10.5.6.",
+      "sectionNum": "11.5.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3085,13 +3372,13 @@
      "data":
      {"title": "Examples",
       "shortTitle": null,
-      "sectionNum": "10.5.2.",
+      "sectionNum": "11.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3103,13 +3390,13 @@
      "data":
      {"title": "Definitions",
       "shortTitle": null,
-      "sectionNum": "10.5.1.",
+      "sectionNum": "11.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -3121,13 +3408,13 @@
      "data":
      {"title": "Case Study: Regular Expressions",
       "shortTitle": null,
-      "sectionNum": "10.5.",
+      "sectionNum": "11.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"},
+        "number": "11"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"}]},
@@ -3210,13 +3497,13 @@
      "data":
      {"title": "Automation: More Automation",
       "shortTitle": null,
-      "sectionNum": "10.",
+      "sectionNum": "11.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "10"}]},
+        "number": "11"}]},
      "address": "/Automation/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
@@ -8080,6 +8367,242 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "EvenProp.two_add_two":
+   [{"id": "EvenProp___two_add_two",
+     "data":
+     {"/ProofObjects/#EvenProp___two_add_two":
+      {"display": "two_add_two",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.three":
+   [{"id": "EvenProp___three",
+     "data":
+     {"/ProofObjects/#EvenProp___three":
+      {"display": "three",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.length_cons":
+   [{"id": "EvenProp___length_cons",
+     "data":
+     {"/ProofObjects/#EvenProp___length_cons":
+      {"display": "length_cons",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.le_chain":
+   [{"id": "EvenProp___le_chain",
+     "data":
+     {"/ProofObjects/#EvenProp___le_chain":
+      {"display": "le_chain",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.instantiatePartial":
+   [{"id": "EvenProp___instantiatePartial",
+     "data":
+     {"/ProofObjects/#EvenProp___instantiatePartial":
+      {"display": "instantiatePartial",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Proof Scripts"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.imp_trans":
+   [{"id": "EvenProp___imp_trans",
+     "data":
+     {"/ProofObjects/#EvenProp___imp_trans":
+      {"display": "imp_trans",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.iff_swap":
+   [{"id": "EvenProp___iff_swap",
+     "data":
+     {"/ProofObjects/#EvenProp___iff_swap":
+      {"display": "iff_swap",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.exists_double":
+   [{"id": "EvenProp___exists_double",
+     "data":
+     {"/ProofObjects/#EvenProp___exists_double":
+      {"display": "exists_double",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_plus4''":
+   [{"id": "EvenProp___even_plus4______",
+     "data":
+     {"/ProofObjects/#EvenProp___even_plus4______":
+      {"display": "even_plus4''",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Quantifiers, Implications, Functions"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_plus4'":
+   [{"id": "EvenProp___even_plus4___",
+     "data":
+     {"/ProofObjects/#EvenProp___even_plus4___":
+      {"display": "even_plus4'",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Quantifiers, Implications, Functions"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_plus4":
+   [{"id": "EvenProp___even_plus4",
+     "data":
+     {"/ProofObjects/#EvenProp___even_plus4":
+      {"display": "even_plus4",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Quantifiers, Implications, Functions"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_4'''":
+   [{"id": "EvenProp___even_4_________",
+     "data":
+     {"/ProofObjects/#EvenProp___even_4_________":
+      {"display": "even_4'''",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Proof Scripts"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_4''":
+   [{"id": "EvenProp___even_4______",
+     "data":
+     {"/ProofObjects/#EvenProp___even_4______":
+      {"display": "even_4''",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Proof Scripts"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_4'":
+   [{"id": "EvenProp___even_4___",
+     "data":
+     {"/ProofObjects/#EvenProp___even_4___":
+      {"display": "even_4'",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.even_4":
+   [{"id": "EvenProp___even_4",
+     "data":
+     {"/ProofObjects/#EvenProp___even_4":
+      {"display": "even_4",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.and_swap":
+   [{"id": "EvenProp___and_swap",
+     "data":
+     {"/ProofObjects/#EvenProp___and_swap":
+      {"display": "and_swap",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.add_comm_flip":
+   [{"id": "EvenProp___add_comm_flip",
+     "data":
+     {"/ProofObjects/#EvenProp___add_comm_flip":
+      {"display": "add_comm_flip",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.Props.dist_exists_or_term":
+   [{"id": "EvenProp___Props___dist_exists_or_term",
+     "data":
+     {"/ProofObjects/#EvenProp___Props___dist_exists_or_term":
+      {"display": "dist_exists_or_term",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Logical Connectives as Inductive Types",
+        "Existential Quantification"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.PosNat.val":
+   [{"id": "EvenProp___PosNat___val",
+     "data":
+     {"/ProofObjects/#EvenProp___PosNat___val":
+      {"display": "val",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.PosNat.pos":
+   [{"id": "EvenProp___PosNat___pos",
+     "data":
+     {"/ProofObjects/#EvenProp___PosNat___pos":
+      {"display": "pos",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.PosNat":
+   [{"id": "EvenProp___PosNat",
+     "data":
+     {"/ProofObjects/#EvenProp___PosNat":
+      {"display": "PosNat",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Practical Uses of Terms in Proofs"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.Even.zero":
+   [{"id": "EvenProp___Even___zero",
+     "data":
+     {"/ProofObjects/#EvenProp___Even___zero":
+      {"display": "zero",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.Even.succ_succ":
+   [{"id": "EvenProp___Even___succ_succ",
+     "data":
+     {"/ProofObjects/#EvenProp___Even___succ_succ":
+      {"display": "succ_succ",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.Even":
+   [{"id": "EvenProp___Even",
+     "data":
+     {"/ProofObjects/#EvenProp___Even":
+      {"display": "Even",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence"]}},
+     "address": "/ProofObjects/"}],
    "Even.zero":
    [{"id": "Even___zero",
      "data":
