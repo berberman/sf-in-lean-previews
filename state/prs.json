@@ -192,9 +192,9 @@
     "503": {
       "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
       "changed_variants": [],
-      "head_sha": "6fcb951cf5f3a63a3542998904ce3864957f7e9c",
+      "head_sha": "25a767e4cb99dc0946e150c6e8c221a4364fddf1",
       "preview_path": "pr/503/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43315165365",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43324517382",
       "status": "ci-failed",
       "title": "Run the exercises in the browser",
       "url": "https://github.com/plclub/sf-in-lean/pull/503"
