@@ -188,6 +188,56 @@
       "status": "published",
       "title": "Largely to completely eliminated use of `rfl` as a term.",
       "url": "https://github.com/plclub/sf-in-lean/pull/468"
+    },
+    "503": {
+      "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
+      "changed_variants": [],
+      "head_sha": "6fcb951cf5f3a63a3542998904ce3864957f7e9c",
+      "preview_path": "pr/503/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43315165365",
+      "status": "ci-failed",
+      "title": "Run the exercises in the browser",
+      "url": "https://github.com/plclub/sf-in-lean/pull/503"
+    },
+    "504": {
+      "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
+      "changed_variants": [],
+      "head_sha": "ab8bcfd852b69743ae9c85b277d3bfc05c93b5ff",
+      "preview_path": "pr/504/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318352275",
+      "status": "ci-failed",
+      "title": "Bring the exercise editor closer to VS Code",
+      "url": "https://github.com/plclub/sf-in-lean/pull/504"
+    },
+    "505": {
+      "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
+      "changed_variants": [],
+      "head_sha": "88ccd8b814c9d7304dba36666f7edbc7e3797854",
+      "preview_path": "pr/505/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318360251",
+      "status": "ci-failed",
+      "title": "Let students edit any code block in the book, and run HL",
+      "url": "https://github.com/plclub/sf-in-lean/pull/505"
+    },
+    "506": {
+      "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
+      "changed_variants": [],
+      "head_sha": "45af81389b1a592a4bea875425fd32a8ab0814d5",
+      "preview_path": "pr/506/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318366765",
+      "status": "ci-failed",
+      "title": "Carry a block's edit into the code after it, with resets",
+      "url": "https://github.com/plclub/sf-in-lean/pull/506"
+    },
+    "507": {
+      "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
+      "changed_variants": [],
+      "head_sha": "52ad39e38c23d5c41d30a6d87db4a948af49ef2e",
+      "preview_path": "pr/507/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318371444",
+      "status": "ci-failed",
+      "title": "Show an edited block on the page as a diff against the book's",
+      "url": "https://github.com/plclub/sf-in-lean/pull/507"
     }
   },
   "schema": 3
