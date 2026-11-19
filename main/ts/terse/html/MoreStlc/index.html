@@ -2285,7 +2285,7 @@ their sum and difference:</p>
                 <p>
                   Syntax:</p>
                 <table class="bnf"><tr><td class="bnf-lhs"><span class="bnf-nt">t</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-ellipsis">…</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">(</span> <span class="bnf-nt">t</span> <span class="bnf-kw">,</span> <span class="bnf-nt">t</span> <span class="bnf-kw">)</span></td><td class="bnf-note">(pair)</td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">fst</span> <span class="bnf-nt">t</span></td><td class="bnf-note">(first projection)</td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">snd</span> <span class="bnf-nt">t</span></td><td class="bnf-note">(second projection)</td></tr><tr><td class="bnf-lhs"><span class="bnf-nt">v</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-ellipsis">…</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">(</span> <span class="bnf-nt">v</span> <span class="bnf-kw">,</span> <span class="bnf-nt">v</span> <span class="bnf-kw">)</span></td><td class="bnf-note">(pair value)</td></tr><tr><td class="bnf-lhs"><span class="bnf-nt">τ</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-ellipsis">…</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">τ</span> <span class="bnf-kw">×</span> <span class="bnf-nt">τ</span></td><td class="bnf-note">(product type)</td></tr></table><p>
-                  Reduction...</p>
+                  Reduction:</p>
                 <div class="sf-display-centered">
                   <pre><code>     t₁ ⟶ t₁'
 ------------------  (pair₁)
@@ -2351,7 +2351,7 @@ their sum and difference:</p>
                   </div>
                 <details class="sf-quiz-solution"><summary>Show solution</summary><div class="sf-quiz-solution-body">
                     <p>
-                      No! For instance <code>λX:Unit. X</code> unit is also a <em>term</em> of type <code>Unit</code>.</p>
+                      No! For instance <code>(λX:Unit. X) unit</code> is also a <em>term</em> of type <code>Unit</code>.</p>
                     </div>
                   </details></section>
               <section>
@@ -3394,12 +3394,12 @@ arbitrary Lean expressions require <code>~</code> antiquotation.</p>
                   The proofs of progress and preservation for this enriched system
 are essentially the same (though of course longer) as for the pure
 STLC.</p>
-                <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-91349" data-verso-hover="35">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">StlcExtended</span><span class="inter-text">
+                <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-91749" data-verso-hover="35">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">StlcExtended</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></section>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f784fe9, committed 2026-11-12 01:26 UTC</div>
+            Source revision: cb999ba, committed 2026-11-19 20:54 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="StlcProp/#StlcProp" rel="prev" title="6. StlcProp: Properties of STLC"><span class="arrow">←</span><span class="where">6. StlcProp: Properties of STLC</span></a><a class="local-button active" href="Sub/#Sub" rel="next" title="8. Sub: Subtyping"><span class="where">8. Sub: Subtyping</span><span class="arrow">→</span></a></nav>
           </div>

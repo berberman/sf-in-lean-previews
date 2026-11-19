@@ -4,9 +4,7 @@ import SFLCompat
 
 --  # ProofObjects: The Curry-Howard Correspondence
 
---  This setting is enabled to make some tricky mistakes
---  harder to make.
-
+-- This setting is enabled to make some tricky mistakes harder to make.
 set_option autoImplicit false
 
 --  "Algorithms are the computational content of proofs."
@@ -106,7 +104,7 @@ theorem even_4' : Even 4 := by
 
 --  When we write a proof using tactics, what we are doing
 --  is instructing Lean to build a proof object under the
---  hood. We can see this using the custom command
+--  hood. We can see this using the custom tactic
 --  `show_proof`:
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Tactic: show_proof)
@@ -291,15 +289,14 @@ end IncrementalProofObjects
 --  ## Practical Uses of Terms in Proofs
 
 --  In the `Even` examples, we show how to build proofs
---  using terms to illustrate that they are one and they
---  same. But in this particular example, doing so is
---  impractical: the proof terms above are verbose and
---  arguably harder to write and follow than a tactic proof,
---  which is more aligned with most people's style of
---  reasoning. So the question naturally arises- would we
---  ever use terms in *real* Lean proofs? The answer is yes,
---  and we show some examples where such use is both helpful
---  and actively encouraged in real Lean developments.
+--  using terms to illustrate that they are one and the
+--  same. But in the most recent example, doing so is
+--  impractical: the proof terms are verbose and arguably
+--  harder to write and follow than a tactic proof. So the
+--  question naturally arises — would we ever use terms in
+--  *real* Lean proofs? The answer is yes, and we show some
+--  examples where such use is helpful, and indeed actively
+--  encouraged in real Lean developments.
 --
 --  Here are some of the places where terms most often
 --  appear in Lean proofs:
@@ -348,7 +345,7 @@ def three : PosNat where
 --  Using terms in proofs can be more succinct and more
 --  useful than writing out tactics. Try out using terms
 --  like `rfl` directly in your proofs in this book and see
---  what you discover.
+--  what you discover!
 
 namespace Props
 
@@ -362,12 +359,19 @@ namespace Props
 
 --   ----------------------------------------
 
+--  The notation in the standard library is a slight
+--  extension of the above, enabling syntactic forms such as
+--  `∃ x y, P x y`. The standard library's `Exists` also
+--  takes `P` implicitly.
+
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --   ----------------------------------------
 
---  To destruct existentials in a proof term we simply use
---  match:
+--  To destruct existentials in a proof term, we simply use
+--  `match`:
 
 theorem dist_exists_or_term (α : Type) (P Q : α → Prop) :
     (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (∃ x, Q x) :=
@@ -391,4 +395,4 @@ end EqualityPlayground
 
 end EvenProp
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

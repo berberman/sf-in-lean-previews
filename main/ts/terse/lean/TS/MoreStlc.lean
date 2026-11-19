@@ -75,7 +75,7 @@ import SFLCompat
 --  τ ::= ...
 --      | τ × τ        (product type)
 
---  Reduction...
+--  Reduction:
 --
 --           t₁ ⟶ t₁'
 --      ------------------  (pair₁)
@@ -1182,4 +1182,4 @@ attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl
 
 end StlcExtended
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

@@ -4,8 +4,7 @@ import SFLCompat
 
 --  # ProofObjects: The Curry-Howard Correspondence
 
---  This setting is enabled to make some tricky mistakes harder to make.
-
+-- This setting is enabled to make some tricky mistakes harder to make.
 set_option autoImplicit false
 
 --  "Algorithms are the computational content of proofs." (Robert Harper)
@@ -120,7 +119,7 @@ theorem even_4 : Even 4 := by
 --  `List.nil` can be thought of as a function from types to empty lists
 --  with elements of that type.
 --
---  The fact that the some arguments are implicit, like `{α}` of `List` and
+--  The fact that some arguments are implicit, like `{α}` of `List` and
 --  `{n}` of the real `Even.succ_succ`, actually doesn't make a difference
 --  at all: `List` is still taking one argument, and `Even.succ_succ` is
 --  still taking two. Implicit arguments are just a usability feature that
@@ -145,7 +144,7 @@ theorem even_4' : Even 4 := by
 --  internally is that it is gradually constructing a proof object — a term
 --  whose type is the proposition being proved. All the tactics following
 --  `by` tell it how to build up a term of the required type. To see this
---  process in action, we provide a `show_proof` command to display the
+--  process in action, we provide a `show_proof` tactic to display the
 --  current state of the proof tree at various points in the following
 --  tactic proof.
 --
@@ -396,8 +395,9 @@ theorem even_plus2_theorems_same :
 --  Surprisingly, we don't. This is because Lean has a special feature
 --  called *definitional proof irrelevance*. It says that any two proofs of
 --  the same proposition are definitionally equal. So we could write the
---  same proof again however we wanted— with different tactics, using terms
---  instead of tactics, etc.— and we would still have "the same theorem."
+--  same proof again however we wanted — with different tactics, using
+--  terms instead of tactics, etc. — and we would still have "the same
+--  theorem."
 
 theorem even_plus2_thm'' (n : Nat) (heven : Even n) :
     Even (n + 2) := by
@@ -513,8 +513,8 @@ set_option warn.sorry false
 --  As you probably noticed while solving the exercises earlier in the
 --  chapter, constructing proof objects is more involved than constructing
 --  the corresponding tactic proofs. Fortunately, there's a simple trick to
---  help in the construction: we can use the *term* `sorry` as placeholder
---  of any type we like.
+--  help in the construction: we can use the *term* `sorry` as a
+--  placeholder of any type we like.
 --
 --  As an example, let's walk through the process of constructing a proof
 --  object demonstrating the evenness of `8`.
@@ -530,7 +530,7 @@ theorem even_8_atmpt_1 : Even 8 := sorry
 
 theorem even_8_atmpt_2 : Even 8 := Even.succ_succ 6 sorry
 
---  In the attempt above, we've omitted the proofs that `6` is even, but it
+--  In the attempt above, we've omitted the proof that `6` is even, but it
 --  can easily be constructed following the same procedure:
 
 theorem even_8_atmpt_3 : Even 8 :=
@@ -545,7 +545,7 @@ theorem even_8_atmpt_5 : Even 8 :=
     (Even.succ_succ 2 (Even.succ_succ 0 Even.zero)))
 
 --  To recap, we've been guided by an informal proof that we have in our
---  minds, and we check the high level details before completing the
+--  minds, and we check the high-level details before completing the
 --  intricacies of the proof. The `sorry` term allows us to do this.
 
 end IncrementalProofObjects
@@ -553,13 +553,12 @@ end IncrementalProofObjects
 --  ## Practical Uses of Terms in Proofs
 
 --  In the `Even` examples, we show how to build proofs using terms to
---  illustrate that they are one and they same. But in this particular
---  example, doing so is impractical: the proof terms above are verbose and
---  arguably harder to write and follow than a tactic proof, which is more
---  aligned with most people's style of reasoning. So the question
---  naturally arises- would we ever use terms in *real* Lean proofs? The
---  answer is yes, and we show some examples where such use is both helpful
---  and actively encouraged in real Lean developments.
+--  illustrate that they are one and the same. But in the most recent
+--  example, doing so is impractical: the proof terms are verbose and
+--  arguably harder to write and follow than a tactic proof. So the
+--  question naturally arises — would we ever use terms in *real* Lean
+--  proofs? The answer is yes, and we show some examples where such use is
+--  helpful, and indeed actively encouraged in real Lean developments.
 --
 --  Here are some of the places where terms most often appear in Lean
 --  proofs:
@@ -606,17 +605,17 @@ def three : PosNat where
 
 --  Using terms in proofs can be more succinct and more useful than writing
 --  out tactics. Try out using terms like `rfl` directly in your proofs in
---  this book and see what you discover.
+--  this book and see what you discover!
 
 --  ## Logical Connectives as Inductive Types
 
---  We have already seen how tactics are not "special" in Lean: they are
---  just manipulators of terms. Recall that Lean's logical connectives are
---  also not "special:" only universal quantification (with implication as
---  a special case) is built into Lean; all the others are defined
+--  We have now seen that tactics are not "special" in Lean: they are just
+--  manipulators of terms. Recall that Lean's logical connectives are also
+--  not "special": only universal quantification (with implication as a
+--  special case) is built into Lean; all the other connectives are defined
 --  inductively. Now that we know more about the relationship between terms
---  and tactics, we can delve further into more advanced ways to work with
---  logical connectives. Let's see how.
+--  and tactics, we can delve into advanced ways to work with logical
+--  connectives.
 
 namespace Props
 
@@ -624,8 +623,8 @@ namespace Props
 
 --  To prove that `P ∧ Q` holds, we must present evidence for both `P` and
 --  `Q`. Thus, it makes sense to define a proof object for `P ∧ Q` to
---  consist of a pair of two proofs: one for `P` and another one for `Q`.
---  This leads to the following definition.
+--  consist of a pair of proofs: one for `P` and another for `Q`. This
+--  leads to the following definition.
 
 namespace AndPlayground
 
@@ -636,13 +635,14 @@ structure And (P Q : Prop) : Prop where
 
 --  Now that we have pulled back the covers a bit further, we can reveal
 --  another fact: a `structure` is just an inductive type with one
---  constructor and whose fields have names. By default, the constructor is
+--  constructor whose parameters are named. By default, the constructor is
 --  called `mk`, which we can rename to `<name>` using `<name> ::`, as in
 --  the example.
 --
 --  We can also see that this definition of `And` matches core `And`
 --  exactly: a `structure` with constructor `intro` and fields
---  `left`/`right` (except that core uses `a` and `b` instead of `P` `Q`).
+--  `left`/`right` (except that core uses `a` and `b` instead of `P` and
+--  `Q`).
 
 #print _root_.And
 
@@ -673,11 +673,13 @@ structure And (P Q : Prop) : Prop where
 --  This similarity should clarify why `cases`, `obtain` `⟨hp, hq⟩`, and
 --  `intro` `⟨hp, hq⟩` patterns can be used on a conjunctive hypothesis.
 --  Case analysis allows us to consider all possible ways in which `P ∧ Q`
---  was proved — here just one (the `And.intro` constructor).
+--  was proved. For `And` there is just one — the `And.intro` constructor:
 
 theorem proj1' (P Q : Prop) (hpq : And P Q) : P := by
-    cases hpq with
-    | intro hp _ => exact hp
+  cases hpq with
+  | intro hp _ => exact hp
+
+--  Here is a use of `obtain`:
 
 theorem and_comm (P Q : Prop) : And P Q ↔ And Q P := by
   constructor
@@ -694,9 +696,8 @@ theorem and_comm (P Q : Prop) : And P Q ↔ And Q P := by
 
 end AndPlayground
 
---  This shows why the inductive (structure) definition of `And` can be
---  manipulated by tactics as we've been doing. We can also use it to build
---  proofs directly, using pattern-matching. For instance:
+--  Just as the `inductive` (`structure`) definition of `And` can be
+--  manipulated by tactics, we can also use it to build proofs directly.
 
 theorem proj1'' (P Q : Prop) (hpq : P ∧ Q) : P :=
   match hpq with
@@ -709,8 +710,8 @@ theorem and_comm'_aux (P Q : Prop) (h : P ∧ Q) : Q ∧ P :=
 theorem and_comm' (P Q : Prop) : P ∧ Q ↔ Q ∧ P :=
   Iff.intro (and_comm'_aux P Q) (and_comm'_aux Q P)
 
---  Here, `Iff.intro` is doing exactly the same thing as `And.intro`; it
---  builds the `Iff` `structure` with its two arguments.
+--  Here, `Iff.intro` is doing the same thing as `And.intro`: it builds the
+--  `Iff` `structure` with its two arguments.
 
 --  ### Exercise (2 stars): conj_fact ⭐⭐
 
@@ -798,6 +799,12 @@ theorem or_elim' (P Q R : Prop) (hpq : Or P Q)
     apply hqr
     exact hq
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      It is confusing that we don't use `show_proof` here, but if we did,
+--      it doesn't show the proof in the first example; it looks more like
+--      the second example directly. Should we change the example? Maybe
+--      use the non-sameness to explain how proofs can differ?
+
 end OrPlayground
 
 --  ### Exercise (2 stars): or_commut' ⭐⭐
@@ -825,11 +832,11 @@ theorem or_commut' : ∀ (P Q : Prop), P ∨ Q → Q ∨ P :=
 --
 --  (A) `∀ P Q H, Q ∨ P ∨ H`
 --
---  (B) `∀ (P Q : Prop), P ∨ Q → P ∨ Q`
+--  (B) `∀ (P Q : Prop), P ∨ Q → Q ∨ P`
 --
 --  (C) `∀ P Q H, P ∨ Q → Q ∨ P → H`
 --
---  (D) `∀ (P Q : Prop), P ∨ Q → Q ∨ P`
+--  (D) `∀ (P Q : Prop), P ∨ Q → P ∨ Q`
 --
 --  (E) Not typeable
 
@@ -837,8 +844,9 @@ theorem or_commut' : ∀ (P Q : Prop), P ∨ Q → Q ∨ P :=
 
 --  ### Existential Quantification
 
---  To give evidence for an existential quantifier, we package a witness
---  `x` together with a proof that `x` satisfies the property `P`:
+--  To give evidence for an existentially quantified proposition `P`, we
+--  package a witness `x` together with a proof of `P x`, i.e., that `x`
+--  satisfies `P`:
 
 namespace ExistsPlayground
 
@@ -847,16 +855,11 @@ inductive Exists {α : Type} (P : α → Prop) : Prop where
 
 end ExistsPlayground
 
---  This probably needs a little unpacking. The core definition is for a
---  type former `Exists` that can be used to build propositions of the form
---  `Exists P`, where `P` itself is a *function* from witness values in the
---  type `α` to propositions. The `Exists.intro` constructor then offers a
---  way of constructing evidence for `Exists p`, given a witness `w` and a
---  proof of `P w`.
---
---  The notation in the standard library is a slight extension of the
---  above, enabling syntactic forms such as `∃ x y, P x y`. The standard
---  library's `Exists` also takes `P` implicitly.
+--  This definition may need a little unpacking. `Exists` can be used to
+--  build propositions of the form `Exists P`, where `P` is a predicate,
+--  i.e., a *function* from witness values of type `α` to `Prop`. The
+--  `Exists.intro` constructor then offers a way of constructing evidence
+--  for `Exists P`, given a witness `w` and a proof of `P w`.
 --
 --  The more familiar form `∃ x, Even x` desugars to an expression
 --  involving `Exists`:
@@ -872,12 +875,16 @@ theorem some_nat_is_even : ∃ n, Even n :=
   Exists.intro 4
     (Even.succ_succ 2 (Even.succ_succ 0 Even.zero))
 
+--  The notation in the standard library is a slight extension of the
+--  above, enabling syntactic forms such as `∃ x y, P x y`. The standard
+--  library's `Exists` also takes `P` implicitly.
+
 --   ----------------------------------------
 
 --  _Quiz:_
 
 --  Which of the following propositions is proved by providing an explicit
---  witness `w` using `exists w`?
+--  witness `w` using `exists` `w`?
 --
 --  (A) `∀ (x : Nat), (∃ n, x = n + 1) → x ≠ 0`
 --
@@ -900,7 +907,7 @@ theorem ex_even_Sn : Exists (fun n => Even (n + 1)) :=
 
 --  (End of exercise)
 
---  To destruct existentials in a proof term we simply use match:
+--  To destruct existentials in a proof term, we simply use `match`:
 
 theorem dist_exists_or_term (α : Type) (P Q : α → Prop) :
     (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (∃ x, Q x) :=
@@ -945,15 +952,13 @@ theorem p_implies_true : ∀ (P : Prop), P → True :=
 
 inductive False : Prop
 
---  That is, `False` is an inductive type with *no* constructors — i.e., no
---  way to build evidence for it. For example, there is no way to complete
---  the following definition such that it succeeds.
+--  That is, `False` is an inductive type with *no* constructors, i.e., no
+--  way to build evidence for it. Thus, there is no way to complete the
+--  following definition (replacing `sorry`) such that it succeeds.
 
-sf_expect_failure_in
-  theorem contra : False :=
-    True.intro
+theorem contra : False := sorry
 
---  But it is possible to destruct `False` by pattern matching. There can
+--  But it *is* possible to destruct `False` by pattern matching. There can
 --  be no patterns that match it, since it has no constructors. To handle
 --  this, Lean uses the `nomatch` construct.
 
@@ -988,44 +993,40 @@ inductive Eq {α : Type} : α → α → Prop where
 
 scoped infix:50 " =' " => Eq
 
---  The way to think about this definition (which mirrors the standard
---  library's) is that, given a set `α`, it defines a *family* of
---  propositions "`x` is equal to `y`," parameterized by `x` and indexed by
---  `y` from `α`. There is just one way of constructing evidence for
---  members of this family: applying the constructor `Eq.refl` to a type
---  `α` and a single value `x : α`, which yields evidence that `x` is equal
---  to `x`.
+--  The `Eq` definition relates pairs of elements of type `α`. The only way
+--  to prove `Eq a b` for a pair of elements `a` and `b` is via the
+--  `Eq.refl` constructor, which by requiring `Eq x x` for all `x` forces
+--  `a` and `b` to be *the same*.
 --
---  Other types of the form `Eq x y` where `x` and `y` are not the same are
---  thus uninhabited.
---
---  We can use `Eq.refl` to construct evidence that, for example, `2 = 2`.
---  Can we also use it to construct evidence that `1 + 1 = 2`? Yes, we can.
---  Indeed, it is the very same piece of evidence!
+--  This means we can use `Eq.refl` to construct evidence that, for
+--  example, `2 = 2`. Can we also use it to construct evidence that
+--  `1 + 1 = 2`? Perhaps surprisingly: Yes, we can!
 --
 --  The reason is that Lean treats as "the same" any two terms that are
---  *convertible* according to a simple set of computation rules.
---
---  These rules, which are similar to those used by `#eval`, include
---  evaluation of function application, inlining of definitions, and
---  simplification of `match`es.
---
---  Lean terms are "the same" if they are *convertible* according to a
---  simple set of computation rules: evaluation of function applications,
---  inlining of definitions, and simplification of `match`es.
+--  *convertible* according to a simple set of computation rules. These
+--  rules, which are similar to those used by `#eval`, include evaluation
+--  of function application, inlining of definitions, and simplification of
+--  `match` expressions.
 
 theorem four : 2 + 2 =' 1 + 3 := by
   apply Eq.refl
 
 --  The `rfl` tactic that we have used to prove equalities of the form
---  `x = y` up to now is essentially just shorthand for `apply Eq.refl`.
+--  `x = y` up to now is essentially just shorthand for `apply` `Eq.refl`.
 --
---  In tactic-based proofs of equality, the conversion rules are normally
---  hidden in uses of `simp` (either explicit or implicit in other tactics
---  such as `rfl`).
---
---  But you can see them directly at work in the following explicit proof
---  objects:
+--  In tactic-based proofs of equality, the conversion rules operate
+--  invisibly: whenever Lean checks two terms for definitional equality —
+--  as `rfl` does when closing a goal `x = y`, or as `exact` and `apply` do
+--  when unifying a term against an expected type — it reduces both sides
+--  by these computation rules before comparing them. You can see what's
+--  going on by enabling the Lean option `trace.Meta.isDefEq`:
+
+set_option trace.Meta.isDefEq true in
+example : 1 + 1 = 2 := rfl
+
+--  In explicit proofs of equality, the conversion rules still operate
+--  invisibly, but their *result* is made manifest as an argument to
+--  `Eq.refl` in the proof term.
 
 theorem four' : 2 + 2 =' 1 + 3 :=
   Eq.refl 4
@@ -1082,8 +1083,8 @@ theorem eq_cons : ∀ (α : Type) (h1 h2 : α) (t1 t2 : List α),
 --  ### Exercise (2 stars): equality__leibniz_equality ⭐⭐
 
 --  The inductive definition of equality implies *Leibniz equality*: what
---  we mean when we say "`x` and `y` are equal" is that every property on
---  `P` that is true of `x` is also true of `y`. Prove that.
+--  we mean when we say "`x` and `y` are equal" is that every property `P`
+--  that is true of `x` is also true of `y`. Prove that.
 
 theorem equality__leibniz_equality : ∀ (α : Type) (x y : α),
     x =' y → ∀ (P : α → Prop), P x → P y := by
@@ -1144,9 +1145,11 @@ theorem leibniz_equality__equality : ∀ (α : Type) (x y : α),
 
 end EqualityPlayground
 
---  ### Inversion, Again
-
 --  Note to developers:
+--      -- ## Inversion, Again
+--
+--      -- :::suppressPreviousHeaderWhenTerse -- :::
+--
 --      HIDE: PR: This section may be repetitive given the increased
 --      attention paid to `inversion`, and it may be ineffective since this
 --      chapter is no longer on the recommended path. We need to think
@@ -1158,6 +1161,13 @@ end EqualityPlayground
 --      leave it.
 
 --  ## Lean's Trusted Computing Base
+
+--  Note to developers (Mike Hicks @mwhicks1):
+--      There is some overlap here and with the discussion of the TCB in
+--      Logic.lean. For that matter, much of the discussion of logical
+--      connective proofs here overlaps with the presentation in
+--      Logic.lean. This split feels non-optimal to me. I wonder if we can
+--      consider some sort of merge of these two chapters.
 
 --  One question that arises with any automated proof assistant is "why
 --  should we trust it?" — i.e., what if there is a bug in the
@@ -1300,8 +1310,8 @@ theorem uncurry : ∀ (P Q R : Prop),
 --  ## Working with Proof Irrelevance
 
 --  In Logic we saw that functional extensionality (`funext`) is a core
---  property of Lean. A similar notion about propositions also exists in a
---  Lean, this time as a core axiom:
+--  property of Lean. A similar notion about propositions also exists in
+--  Lean, this time as a core axiom of *propositional extensionality*:
 
 -- Written out, propositional extensionality looks like this:
 def propositional_extensionality : Prop :=
@@ -1351,6 +1361,37 @@ theorem pe_implies_true_eq :
 
 --  (End of exercise)
 
+--  Propositional extensionality is about equating two different
+--  *propositions* that happen to be equivalent. A related but distinct
+--  notion, *proof irrelevance*, is instead about equating two different
+--  *proofs* of the *same* proposition:
+
+def proof_irrelevance : Prop :=
+  ∀ (P : Prop) (pf1 pf2 : P), pf1 = pf2
+
+--  In many proof assistants, proving this fact outright requires an
+--  assumption like propositional extensionality: without some axiom to
+--  fall back on, two proofs of the same proposition are just two terms,
+--  and nothing forces them to be equal. But recall the Dependency,
+--  Equivalence, and Proof Irrelevance section earlier in this chapter:
+--  Lean's `Prop` already builds proof irrelevance into its type theory, so
+--  that any two proofs of the same proposition are automatically
+--  *definitionally* equal. So `proof_irrelevance` holds outright here,
+--  with no axioms needed at all:
+
+theorem proof_irrelevance_lean : proof_irrelevance :=
+  fun _ _ _ => rfl
+
+#print axioms proof_irrelevance_lean
+
+--  Output:
+--    'EvenProp.proof_irrelevance_lean' does not depend on any axioms
+
+--  This is one of the ways Lean's type theory is unusual: most other proof
+--  assistants either don't have this property by default, or offer it only
+--  for a separate, special-purpose kind of proposition that you have to
+--  opt into.
+
 end EvenProp
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

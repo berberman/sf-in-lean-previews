@@ -2,7 +2,26 @@
  {"title": "Sections or chapters of the manual",
   "description": null,
   "contents":
-  {"le-example":
+  {"proof-irrelevance":
+   [{"id": "proof-irrelevance",
+     "data":
+     {"title": "Dependency, Equivalence, and Proof Irrelevance",
+      "shortTitle": null,
+      "sectionNum": "10.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "ProofObjects: The Curry-Howard Correspondence",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Quantifiers, Implications, Functions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Dependency, Equivalence, and Proof Irrelevance",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/ProofObjects/"}],
+   "le-example":
    [{"id": "le-example",
      "data":
      {"title": "Example: Binary Relation for Comparing Numbers",
@@ -729,26 +748,6 @@
         "shortTitle": null,
         "number": "10"}]},
      "address": "/ProofObjects/"}],
-   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions--Dependency___-Equivalence___-and-Proof-Irrelevance":
-   [{"id":
-     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions--Dependency___-Equivalence___-and-Proof-Irrelevance",
-     "data":
-     {"title": "Dependency, Equivalence, and Proof Irrelevance",
-      "shortTitle": null,
-      "sectionNum": "10.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "ProofObjects: The Curry-Howard Correspondence",
-        "shortTitle": null,
-        "number": "10"},
-       {"title": "Quantifiers, Implications, Functions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Dependency, Equivalence, and Proof Irrelevance",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/ProofObjects/"}],
    "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions":
    [{"id":
      "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Quantifiers___-Implications___-Functions",
@@ -937,22 +936,6 @@
        {"title": "Lean's Trusted Computing Base",
         "shortTitle": null,
         "number": "8"}]},
-     "address": "/ProofObjects/"}],
-   "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality--Inversion___-Again":
-   [{"id":
-     "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality--Inversion___-Again",
-     "data":
-     {"title": "Inversion, Again",
-      "shortTitle": null,
-      "sectionNum": "10.7.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "ProofObjects: The Curry-Howard Correspondence",
-        "shortTitle": null,
-        "number": "10"},
-       {"title": "Equality", "shortTitle": null, "number": "7"},
-       {"title": "Inversion, Again", "shortTitle": null, "number": "1"}]},
      "address": "/ProofObjects/"}],
    "Logical-Foundations--ProofObjects___-The-Curry-Howard-Correspondence--Equality":
    [{"id":
@@ -12912,7 +12895,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly",
+   [{"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -12923,7 +12906,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly-next",
+    {"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -13809,6 +13792,26 @@
      "data":
      {"/ProofObjects/#EvenProp___propositional_extensionality":
       {"display": "propositional_extensionality",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Working with Proof Irrelevance"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.proof_irrelevance_lean":
+   [{"id": "EvenProp___proof_irrelevance_lean",
+     "data":
+     {"/ProofObjects/#EvenProp___proof_irrelevance_lean":
+      {"display": "proof_irrelevance_lean",
+       "context":
+       ["Logical Foundations",
+        "ProofObjects: The Curry-Howard Correspondence",
+        "Working with Proof Irrelevance"]}},
+     "address": "/ProofObjects/"}],
+   "EvenProp.proof_irrelevance":
+   [{"id": "EvenProp___proof_irrelevance",
+     "data":
+     {"/ProofObjects/#EvenProp___proof_irrelevance":
+      {"display": "proof_irrelevance",
        "context":
        ["Logical Foundations",
         "ProofObjects: The Curry-Howard Correspondence",

@@ -2227,10 +2227,10 @@ theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
 theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty}
     (ht : <{ ∅ ⊢ t ⦂ τ }>) :
     <{ Γ ⊢ t ⦂ τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  · intros x b contra
+    contradiction
+  · assumption
 
 --  ### Exercise (2 stars): STLCExtended.substitution_preserves_typing ⭐⭐
 
@@ -2295,4 +2295,4 @@ theorem preservation (t t' : Tm) (τ : Ty)
 
 end StlcExtended
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

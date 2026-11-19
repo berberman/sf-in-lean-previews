@@ -1,5 +1,5 @@
 {
-  "main_sha": "f784fe9f8409c993574c84694af541d739638de5",
+  "main_sha": "cb999ba1bf75d20a9c08c710d148096de00038b1",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -196,7 +196,7 @@
       "preview_path": "pr/503/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43324517382",
       "status": "ci-failed",
-      "title": "Run the exercises in the browser",
+      "title": "[1/5] Run the exercises in the browser",
       "url": "https://github.com/plclub/sf-in-lean/pull/503"
     },
     "504": {
@@ -206,7 +206,7 @@
       "preview_path": "pr/504/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318352275",
       "status": "ci-failed",
-      "title": "Bring the exercise editor closer to VS Code",
+      "title": "[2/5] Bring the exercise editor closer to VS Code",
       "url": "https://github.com/plclub/sf-in-lean/pull/504"
     },
     "505": {
@@ -216,7 +216,7 @@
       "preview_path": "pr/505/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318360251",
       "status": "ci-failed",
-      "title": "Let students edit any code block in the book, and run HL",
+      "title": "[3/5] Let students edit any code block in the book, and run HL",
       "url": "https://github.com/plclub/sf-in-lean/pull/505"
     },
     "506": {
@@ -226,7 +226,7 @@
       "preview_path": "pr/506/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318366765",
       "status": "ci-failed",
-      "title": "Carry a block's edit into the code after it, with resets",
+      "title": "[4/5] Carry a block's edit into the code after it, with resets",
       "url": "https://github.com/plclub/sf-in-lean/pull/506"
     },
     "507": {
@@ -236,7 +236,7 @@
       "preview_path": "pr/507/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/43318371444",
       "status": "ci-failed",
-      "title": "Show an edited block on the page as a diff against the book's",
+      "title": "[5/5] Show an edited block on the page as a diff against the book's",
       "url": "https://github.com/plclub/sf-in-lean/pull/507"
     }
   },

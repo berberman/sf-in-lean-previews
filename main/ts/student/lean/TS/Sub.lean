@@ -8,7 +8,7 @@ import SFLCompat
 
 --  ## Concepts
 
---  We now turn to *subtyping*, a key feature of - in particular -
+--  We now turn to *subtyping*, a key feature of — in particular —
 --  object-oriented programming languages.
 
 --  ### A Motivating Example
@@ -16,12 +16,12 @@ import SFLCompat
 --  Suppose we are writing a program involving two record types defined as
 --  follows:
 --
---            Person  = {name:String, age:Nat}
---            Student = {name:String, age:Nat, gpa:Nat}
+--      Person  = {name:String, age:Nat}
+--      Student = {name:String, age:Nat, gpa:Nat}
 --
---  In the simply typed lamdba-calculus with records, the term
+--  In the simply typed lambda-calculus with records, the term
 --
---          (λ R:Person. (R.age)+1) {name="Pat", age=21, gpa=1}
+--      (λ R:Person. (R.age)+1) {name="Pat", age=21, gpa=1}
 --
 --  is not typable, since it applies a function that wants a two-field
 --  record to an argument that actually provides three fields, while the
@@ -48,7 +48,7 @@ import SFLCompat
 --  subtype of `τ`", written `σ <: τ`, if a value of type `σ` can safely be
 --  used in any context where a value of type `τ` is expected. The idea of
 --  subtyping applies not only to records, but to all of the type
---  constructors in the language -- functions, pairs, etc.
+--  constructors in the language — functions, pairs, etc.
 --
 --  Safe substitution principle:
 --  - `σ` is a subtype of `τ`, written `σ <: τ`, if a value of type `σ` can
@@ -56,7 +56,7 @@ import SFLCompat
 
 --  ### Subtyping and Object-Oriented Languages
 
---  Subtyping plays a fundamental role in many programming languages -- in
+--  Subtyping plays a fundamental role in many programming languages — in
 --  particular, it is central to the design of object-oriented languages
 --  and their libraries.
 --
@@ -66,7 +66,7 @@ import SFLCompat
 --  of an object `o` on some arguments `a₁..an` roughly consists of
 --  projecting out the `m` field of `o` and applying it to `a₁..an`.
 --
---  The type of an object is called a *class* -- or, in some languages, an
+--  The type of an object is called a *class* — or, in some languages, an
 --  *interface*. It describes which methods and which data fields the
 --  object offers. Classes and interfaces are related by the *subclass* and
 --  *subinterface* relations. An object belonging to a subclass (or
@@ -90,15 +90,15 @@ import SFLCompat
 --  code in superclasses via *inheritance*. Classes can have static methods
 --  and fields. Etc., etc.
 --
---  To keep things simple here, we won't deal with any of these issues --
---  in fact, we won't even talk any more about objects or classes. (There
---  is a lot of discussion in Pierce (2002), if you are interested.)
---  Instead, we'll study the core concepts behind the subclass /
---  subinterface relation in the simplified setting of the STLC.
+--  To keep things simple here, we won't deal with any of these issues — in
+--  fact, we won't even talk any more about objects or classes. (There is a
+--  lot of discussion in Pierce (2002), if you are interested.) Instead,
+--  we'll study the core concepts behind the subclass / subinterface
+--  relation in the simplified setting of the STLC.
 
 --  ### The Subsumption Rule
 
---  τ₂ Our goal for this chapter is to add subtyping to the simply typed
+--  Our goal for this chapter is to add subtyping to the simply typed
 --  lambda-calculus (with some basic extensions). This involves two steps:
 --  - Defining a binary *subtype relation* between types.
 --  - Enriching the typing relation to take subtyping into account.
@@ -106,9 +106,10 @@ import SFLCompat
 --  The second step is actually very simple. We add just a single rule to
 --  the typing relation: the so-called *rule of subsumption*:
 --
---                               Γ ⊢ t₁ ⦂ τ₁     τ₁ <: τ₂
---                               --------------------------           (sub)
---                                     Γ ⊢ t₁ ⦂ τ₂
+--      Γ ⊢ t₁ ⦂ τ₁
+--       τ₁ <: τ₂
+--      -----------  (sub)
+--      Γ ⊢ t₁ ⦂ τ₂
 --
 --  This rule says, intuitively, that it is OK to "forget" some of what we
 --  know about a term.
@@ -120,8 +121,8 @@ import SFLCompat
 
 --  ### The Subtype Relation
 
---  The first step -- the definition of the relation `σ <: τ` -- is where
---  all the action is. Let's look at each of the clauses of its definition.
+--  The first step — the definition of the relation `σ <: τ` — is where all
+--  the action is. Let's look at each of the clauses of its definition.
 
 --  #### Structural Rules
 
@@ -130,15 +131,16 @@ import SFLCompat
 --  intuitively that, if `σ` is better (richer, safer) than `υ` and `υ` is
 --  better than `τ`, then `σ` is better than `τ`...
 --
---                                    σ <: υ    υ <: τ
---                                    ----------------                        (trans)
---                                         σ <: τ
+--      σ <: υ
+--      υ <: τ
+--      ------  (trans)
+--      σ <: τ
 --
 --  ... and a rule of *reflexivity*, since certainly any type `τ` is as
 --  good as itself:
 --
---                                         ------                              (refl)
---                                         τ <: τ
+--      ------  (refl)
+--      τ <: τ
 
 --  #### Products
 
@@ -146,15 +148,18 @@ import SFLCompat
 --  with product types. We consider one pair to be a subtype of another if
 --  each of its components is.
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                        (prod)
---                                   σ₁ × σ₂ <: τ₁ × τ₂
---
+--           σ₁ <: τ₁
+--           σ₂ <: τ₂
+--      ------------------  (prod)
+--      σ₁ × σ₂ <: τ₁ × τ₂
+
+--  #### Arrows
+
 --  The subtyping rule for arrows is a little less intuitive. Suppose we
 --  have functions `F` and `G` with these types:
 --
---             F : C → Student
---             G : (C→Person) → D
+--      F : C → Student
+--      G : (C→Person) → D
 --
 --  That is, `F` is a function that yields a record of type `Student`, and
 --  `G` is a (higher-order) function that expects its argument to be a
@@ -172,16 +177,17 @@ import SFLCompat
 --  say that two arrow types are in the subtype relation if their results
 --  are:
 --
---                                        σ₂ <: τ₂
---                                    ----------------                     (arrow_co)
---                                  σ₁ → σ₂ <: σ₁ → τ₂
+--           σ₂ <: τ₂
+--      ------------------  (arrow_co)
+--      σ₁ → σ₂ <: σ₁ → τ₂
 --
 --  We can generalize this to allow the arguments of the two arrow types to
 --  be in the subtype relation as well:
 --
---                                  τ₁ <: σ₁    σ₂ <: τ₂
---                                  --------------------                      (arrow)
---                                    σ₁ → σ₂ <: τ₁ → τ₂
+--           τ₁ <: σ₁
+--           σ₂ <: τ₂
+--      ------------------  (arrow)
+--      σ₁ → σ₂ <: τ₁ → τ₂
 --
 --  But notice that the argument types are subtypes "the other way round":
 --  in order to conclude that `σ₁→σ₂` to be a subtype of `τ₁→τ₂`, it must
@@ -191,8 +197,8 @@ import SFLCompat
 --
 --  Here is an example that illustrates this:
 --
---             F : Person → C
---             G : (Student → C) → D
+--      F : Person → C
+--      G : (Student → C) → D
 --
 --  The application `G F` is safe, because the only thing the body of `G`
 --  can do with `F` is to apply it to some argument of type `Student`.
@@ -254,9 +260,9 @@ import SFLCompat
 --  a record with fields `x`, `y`, and `z`; the `z` field will simply be
 --  ignored. For example,
 --
---          {name:String, age:Nat, gpa:Nat} <: {name:String, age:Nat}
---          {name:String, age:Nat} <: {name:String}
---          {name:String} <: {}
+--      {name:String, age:Nat, gpa:Nat} <: {name:String, age:Nat}
+--               {name:String, age:Nat} <: {name:String}
+--                        {name:String} <: {}
 --
 --  This is known as "width subtyping" for records.
 --
@@ -265,25 +271,25 @@ import SFLCompat
 --  with a field `x` of type `τ`, it will be happy with a record having a
 --  field `x` of type `σ` as long as `σ` is a subtype of `τ`. For example,
 --
---          {x:Student} <: {x:Person}
+--      {x:Student} <: {x:Person}
 --
 --  This is known as "depth subtyping".
 --
 --  Finally, although the fields of a record type are written in a
 --  particular order, the order does not really matter. For example,
 --
---          {name:String,age:Nat} <: {age:Nat,name:String}
+--      {name:String,age:Nat} <: {age:Nat,name:String}
 --
 --  This is known as "permutation subtyping".
 --
 --  We *could* formalize these requirements in a single subtyping rule for
 --  records as follows:
 --
---                              ∀ jₖ in j₁..jₙ,
---                          ∃ iₚ in i₁..iₘ, such that
---                              jₖ=iₚ and σₚ <: τₖ
---                        ----------------------------------                    (rcd)
---                        {i₁:σ₁...iₘ:σₘ} <: {j₁:τ₁...jₙ:τₙ}
+--               ∀ jₖ in j₁..jₙ,
+--          ∃ iₚ in i₁..iₘ, such that
+--              jₖ=iₚ and σₚ <: τₖ
+--      ----------------------------------  (rcd)
+--      {i₁:σ₁...iₘ:σₘ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  That is, the record on the left should have all the field labels of the
 --  one on the right (and possibly more), while the types of the common
@@ -295,9 +301,9 @@ import SFLCompat
 --
 --  First, adding fields to the end of a record type gives a subtype:
 --
---                                     n > m
---                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
+--                    n > m
+--      ----------------------------------  (rcdWidth)
+--      {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
 --  We can use `rcdWidth` to drop later fields of a multi-field record
 --  while keeping earlier fields, showing for example that
@@ -306,9 +312,9 @@ import SFLCompat
 --  Second, subtyping can be applied inside the components of a compound
 --  record type:
 --
---                             σ₁ <: τ₁  ...  σₙ <: τₙ
---                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
+--           σ₁ <: τ₁  ...  σₙ <: τₙ
+--      ----------------------------------  (rcdDepth)
+--      {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
 --  For example, we can use `rcdDepth` and `rcdWidth` together to show that
 --  `{y:Student, x:Nat} <: {y:Person}`.
@@ -318,16 +324,16 @@ import SFLCompat
 --  achieved this yet: using just `rcdDepth` and `rcdWidth` we can only
 --  drop fields from the *end* of a record type. So we add:
 --
---               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
---               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
+--      {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
+--      ---------------------------------------------------  (rcdPerm)
+--              {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  It is worth noting that full-blown language designs may choose not to
 --  adopt all of these subtyping rules. For example, in Java:
 --  - Each class member (field or method) can be assigned a single index,
 --    adding new indices "on the right" as more members are added in
 --    subclasses (i.e., no permutation for classes).
---  - A class may implement multiple interfaces -- so-called "multiple
+--  - A class may implement multiple interfaces — so-called "multiple
 --    inheritance" of interfaces (i.e., permutation is allowed for
 --    interfaces).
 --  - In early versions of Java, a subclass could not change the argument
@@ -339,15 +345,16 @@ import SFLCompat
 --  Suppose we had incorrectly defined subtyping as covariant on both the
 --  right and the left of arrow types:
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                (arrowWrong)
---                                  σ₁ → σ₂ <: τ₁ → τ₂
+--           σ₁ <: τ₁
+--           σ₂ <: τ₂
+--      ------------------  (arrowWrong)
+--      σ₁ → σ₂ <: τ₁ → τ₂
 --
 --  Give a concrete example of functions `F` and `G` with the following
 --  types...
 --
---             F : Student → Nat
---             G : (Person → Nat) → Nat
+--      F : Student → Nat
+--      G : (Person → Nat) → Nat
 --
 --  ... such that the application `G F` will get stuck during execution.
 --  (Use informal syntax. No need to prove formally that the application
@@ -356,14 +363,14 @@ import SFLCompat
 --  #### ⊤
 
 --  Finally, it is convenient to give the subtype relation a maximum
---  element -- a type that lies above every other type and is inhabited by
+--  element — a type that lies above every other type and is inhabited by
 --  all (well-typed) values. We do this by adding to the language one new
---  type constant, called `⊤` (pronounced "⊤" and written ⊤), together with
---  a subtyping rule that places it above every other type in the subtype
---  relation:
+--  type constant, called `⊤` (pronounced "top" and written ⊤), together
+--  with a subtyping rule that places it above every other type in the
+--  subtype relation:
 --
---                                         --------                             (⊤)
---                                         σ <: ⊤
+--      ------  (⊤)
+--      σ <: ⊤
 --
 --  The `⊤` type is an analog of the `Object` type in Java and C#.
 
@@ -374,42 +381,46 @@ import SFLCompat
 --  - adding a base type `⊤`,
 --  - adding the rule of subsumption
 --
---                               Γ ⊢ t₁ ⦂ τ₁     τ₁ <: τ₂
---                               --------------------------------            (sub)
---                                     Γ ⊢ t₁ ⦂ τ₂
+--      Γ ⊢ t₁ ⦂ τ₁
+--       τ₁ <: τ₂
+--      -----------  (sub)
+--      Γ ⊢ t₁ ⦂ τ₂
 --
 --  to the typing relation, and
 --  - defining a subtype relation as follows:
 --
---                                    σ <: υ    υ <: τ
---                                    ----------------                        (trans)
---                                         σ <: τ
+--                            σ <: υ
+--                            υ <: τ
+--                            ------                         (trans)
+--                            σ <: τ
 --
---                                         ------                              (refl)
---                                         τ <: τ
+--                            ------                         (refl)
+--                            τ <: τ
 --
---                                         --------                             (⊤)
---                                         σ <: ⊤
+--                            ------                         (⊤)
+--                            σ <: ⊤
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                       (prod)
---                                   σ₁ × σ₂ <: τ₁ × τ₂
+--                           σ₁ <: τ₁
+--                           σ₂ <: τ₂
+--                      ------------------                   (prod)
+--                      σ₁ × σ₂ <: τ₁ × τ₂
 --
---                                  τ₁ <: σ₁    σ₂ <: τ₂
---                                  --------------------                      (arrow)
---                                  σ₁ → σ₂ <: τ₁ → τ₂
+--                           τ₁ <: σ₁
+--                           σ₂ <: τ₂
+--                      ------------------                   (arrow)
+--                      σ₁ → σ₂ <: τ₁ → τ₂
 --
---                                     n > m
---                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
+--                            n > m
+--              ----------------------------------           (rcdWidth)
+--              {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
---                             σ₁ <: τ₁  ...  σₙ <: τₙ
---                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
+--                   σ₁ <: τ₁  ...  σₙ <: τₙ
+--              ----------------------------------           (rcdDepth)
+--              {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
---               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
---               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
+--      {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
+--      ---------------------------------------------------  (rcdPerm)
+--              {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 
 --   ----------------------------------------
 
@@ -492,31 +503,28 @@ import SFLCompat
 --  Which of the following statements are true? Write *true* or *false*
 --  after each one. ∀
 --
---            ∀ σ τ,
---                σ <: τ  →
---                σ→σ   <:  τ→τ
---      :::solution
---            Answer: False
---      :::
+--      ∀ σ τ,
+--          σ <: τ  →
+--          σ→σ   <:  τ→τ
 --
---            ∀ σ,
---                 σ <: υ→υ →
---                 ∃ τ,
---                    σ = τ→τ  ∧  τ <: υ
+--      ∀ σ,
+--           σ <: υ→υ →
+--           ∃ τ,
+--              σ = τ→τ  ∧  τ <: υ
 --
---            ∀ σ τ₁ τ₂,
---                 (σ <: τ₁ → τ₂) →
---                 ∃ σ₁ σ₂,
---                    σ = σ₁ → σ₂  ∧  τ₁ <: σ₁  ∧  σ₂ <: τ₂
+--      ∀ σ τ₁ τ₂,
+--           (σ <: τ₁ → τ₂) →
+--           ∃ σ₁ σ₂,
+--              σ = σ₁ → σ₂  ∧  τ₁ <: σ₁  ∧  σ₂ <: τ₂
 --
---            ∃ σ, σ <: σ → σ
+--      ∃ σ, σ <: σ → σ
 --
---  ∃ σ, σ→σ <: σ
+--      ∃ σ, σ→σ <: σ
 --
---            ∀ σ τ₁ τ₂,
---                 σ <: τ₁×τ₂ →
---                 ∃ σ₁ σ₂,
---                    σ = σ₁×σ₂  ∧  σ₁ <: τ₁  ∧  σ₂ <: τ₂
+--      ∀ σ τ₁ τ₂,
+--           σ <: τ₁×τ₂ →
+--           ∃ σ₁ σ₂,
+--              σ = σ₁×σ₂  ∧  σ₁ <: τ₁  ∧  σ₂ <: τ₂
 
 --  ### Exercise (1 star): subtype_concepts_tf (Manually graded) ⭐
 
@@ -537,12 +545,12 @@ import SFLCompat
 --    type.
 --
 --  - There is an infinite descending chain of distinct types in the
---    subtype relation---that is, an infinite sequence of types `σ₀`, `σ₁`,
+--    subtype relation — that is, an infinite sequence of types `σ₀`, `σ₁`,
 --    etc., such that all the `σi`'s are different and each `σ(i+1)` is a
 --    subtype of `σi`.
 --
 --  - There is an infinite *ascending* chain of distinct types in the
---    subtype relation---that is, an infinite sequence of types `σ₀`, `σ₁`,
+--    subtype relation — that is, an infinite sequence of types `σ₀`, `σ₁`,
 --    etc., such that all the `σi`'s are different and each `σ(i+1)` is a
 --    supertype of `σi`.
 
@@ -551,10 +559,10 @@ import SFLCompat
 --  Is the following statement true or false? Briefly explain your answer.
 --  (`A` here and below represents an arbitrary base type.)
 --
---          ∀ τ,
---               ~(τ = Bool ∨ ∃ n, τ = A) →
---               ∃ σ,
---                  σ <: τ  ∧  σ <> τ
+--      ∀ τ,
+--           ~(τ = Bool ∨ ∃ n, τ = A) →
+--           ∃ σ,
+--              σ <: τ  ∧  σ <> τ
 
 --  ### Exercise (2 stars): small_large_1 (Manually graded) ⭐⭐
 
@@ -562,7 +570,7 @@ import SFLCompat
 --    that makes the following assertion true? (Assume we have `Unit` among
 --    the base types and `unit` as a constant of this type. )
 --
---        ∅ ⊢ (λP:τ×⊤. P.fst) ((λZ:A. Z), unit) ⦂ A→A
+--      ∅ ⊢ (λP:τ×⊤. P.fst) ((λZ:A. Z), unit) ⦂ A→A
 --
 --  - What is the *largest* type `τ` that makes the same assertion true?
 
@@ -571,7 +579,7 @@ import SFLCompat
 --  - What is the *smallest* type `τ` that makes the following assertion
 --    true?
 --
---             ∅ ⊢ (λP:(A→A × B→B). P) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
+--      ∅ ⊢ (λP:(A→A × B→B). P) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
 --
 --  - What is the *largest* type `τ` that makes the same assertion true?
 
@@ -580,7 +588,7 @@ import SFLCompat
 --  - What is the *smallest* type `τ` that makes the following assertion
 --    true?
 --
---             X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
+--      X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  - What is the *largest* type `τ` that makes the same assertion true?
 
@@ -593,7 +601,7 @@ import SFLCompat
 --  What is the *smallest* type `τ` that makes the following assertion
 --  true?
 --
---          X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
+--      X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -613,7 +621,7 @@ import SFLCompat
 
 --  What is the *largest* type `τ` that makes the following assertion true?
 --
---             X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
+--      X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -643,8 +651,8 @@ import SFLCompat
 --  _Quiz:_
 
 --  "Suppose `σ`, `τ₁`, and `τ₂` are types with `σ <: τ₁ → τ₂`. Then `σ`
---  itself is an arrow type -- i.e., `σ = σ₁ → σ₂` for some `σ₁` and `σ₂`
---  -- with `τ₁` <: `σ₁` and `σ₂ <: τ₂`."
+--  itself is an arrow type — i.e., `σ = σ₁ → σ₂` for some `σ₁` and `σ₂` —
+--  with `τ₁` <: `σ₁` and `σ₂ <: τ₂`."
 --
 --  (A) True
 --
@@ -657,8 +665,8 @@ import SFLCompat
 --  - What is the *smallest* type `τ` (if one exists) that makes the
 --    following assertion true?
 --
---             ∃ σ,
---               ∅ ⊢ (λP:(A×τ). (P.snd) (P.fst)) ⦂ σ
+--      ∃ σ,
+--        ∅ ⊢ (λP:(A×τ). (P.snd) (P.fst)) ⦂ σ
 --
 --  - What is the *largest* type `τ` that makes the same assertion true?
 
@@ -667,15 +675,15 @@ import SFLCompat
 --  What is the *smallest* type `τ` (if one exists) that makes the
 --  following assertion true?
 --
---            ∃ σ t,
---              ∅ ⊢ (λX:τ. X X) t ⦂ σ
+--      ∃ σ t,
+--        ∅ ⊢ (λX:τ. X X) t ⦂ σ
 
 --  ### Exercise (2 stars): smallest_2 (Manually graded) ⭐⭐
 
 --  What is the *smallest* type `τ` that makes the following assertion
 --  true?
 --
---            ∅ ⊢ (λX:⊤. X) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
+--      ∅ ⊢ (λX:⊤. X) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
 
 --  ### Exercise (3 stars): count_supertypes (Optional) ⭐⭐⭐
 
@@ -689,15 +697,16 @@ import SFLCompat
 
 --  The subtyping rule for product types
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                        (prod)
---                                     σ₁*σ₂ <: τ₁*τ₂
+--         σ₁ <: τ₁
+--         σ₂ <: τ₂
+--      --------------  (prod)
+--      σ₁*σ₂ <: τ₁*τ₂
 --
 --  intuitively corresponds to the "depth" subtyping rule for records.
 --  Extending the analogy, we might consider adding a "permutation" rule
 --
---                                         --------------
---                                         τ₁*τ₂ <: τ₂*τ₁
+--      --------------
+--      τ₁*τ₂ <: τ₂*τ₁
 --
 --  for products. Is this a good idea? Briefly explain why or why not.
 
@@ -708,8 +717,8 @@ namespace StlcSub
 open scoped MyGetElem
 
 --  Most of the definitions needed to formalize what we've discussed above
---  -- in particular, the syntax and operational semantics of the language
---  -- are identical to what we saw in the last chapter. We just need to
+--  — in particular, the syntax and operational semantics of the language —
+--  are identical to what we saw in the last chapter. We just need to
 --  extend the typing relation with the subsumption rule and add a new
 --  `inductive` definition for the subtyping relation. Let's first do the
 --  identical bits.
@@ -762,14 +771,14 @@ inductive Tm : Type where
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
 scoped syntax:50 stlcTy:51 " × " stlcTy:50 : stlcTy
 scoped syntax:max " ⊤ " : stlcTy
-scoped syntax:50 "if " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
+scoped syntax:50 "if " stlcTm:51 " then " stlcTm:50
+  " else " stlcTm:50 : stlcTm
 scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
 
 namespace Elab
 
 open StlcCommon
 open Lean Meta Elab Term
-
 
 def language : Language where
   tyType := ``Ty
@@ -814,9 +823,11 @@ def baseTyHandler : TyElabHandler :=
     | _ => k T
 
 def tyHandlers : TyElabHandler :=
-  subTyHandler.orElse ((commonTyHandler language).orElse baseTyHandler)
+  subTyHandler.orElse
+    ((commonTyHandler language).orElse baseTyHandler)
 
-partial def elabTy : TyElab := tyHandlers elabTy  <| unsupportedTy language
+partial def elabTy : TyElab :=
+  tyHandlers elabTy <| unsupportedTy language
 
 def subTmHandler : TmElabHandler :=
   fun recur k Γ free t => do
@@ -848,7 +859,8 @@ def subTmHandler : TmElabHandler :=
         return (mkApp (mkConst ``Tm.snd) t, free)
     | _ => k Γ free t
 
-def tmHandlers : TmElabHandler := subTmHandler.orElse (commonTmHandler language elabTy)
+def tmHandlers : TmElabHandler :=
+  subTmHandler.orElse (commonTmHandler language elabTy)
 
 partial def elabTm : TmElab := tmHandlers elabTm unsupportedTm
 
@@ -870,7 +882,6 @@ namespace Delab
 
 open StlcCommon Elab Delab
 open Lean PrettyPrinter Delaborator
-
 
 @[app_unexpander Ty.top]
 private def Ty.unexpandTop : Unexpander
@@ -923,7 +934,6 @@ private def reservedTmNames : String → Bool
   | "snd" => true
   | _ => false
 
-
 @[app_unexpander Tm.var]
 private def Tm.unexpandVar : Unexpander :=
   Delab.unexpandVar reservedTmNames ``Tm.var
@@ -960,7 +970,6 @@ private def Tm.unexpandIte : Unexpander
       `(<{if $c':stlcTm then $t':stlcTm else $e':stlcTm }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.unit]
 private def Tm.unexpandUnit : Unexpander
   | stx => do
@@ -975,7 +984,6 @@ private def Tm.unexpandPair : Unexpander
       let t₂' := getTm t₂
       `(<{ ($t₁':stlcTm, $t₂':stlcTm) }>)
   | _ => throw ()
-
 
 @[app_unexpander Tm.fst]
 private def Tm.unexpandFst : Unexpander
@@ -996,7 +1004,7 @@ private def Tm.unexpandSnd : Unexpander
 end Delab
 --  END DETAILS
 
---  ### Substitution
+--  #### Substitution
 
 --  The definition of substitution remains exactly the same as for the pure
 --  STLC.
@@ -1018,7 +1026,7 @@ def subst (x : String) (s : Tm) (t : Tm) : Tm :=
   | .ite t₁ t₂ t₃ =>
       <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }>
 
-  -- Complete the following cases when you do the `products` exercise later
+  -- Complete the following cases when you do the `products` exercise
   | .pair t₁ t₂ =>
       sorry
   | .fst t =>
@@ -1032,7 +1040,7 @@ open Lean PrettyPrinter in
 def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 --  END DETAILS
 
---  ### Reduction
+--  #### Reduction
 
 --  Likewise the definitions of `IsValue` and `Step`.
 
@@ -1046,10 +1054,11 @@ inductive Tm.IsValue : Tm → Prop where
   | unit :
       IsValue <{unit}>
 
--- Fill in more rules when you do the `products` exercise later
+-- Fill in more rules when you do the `products` exercise
 --  FILL IN HERE
 
-attribute [StlcSubEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls Tm.IsValue.unit
+attribute [StlcSubEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
+    Tm.IsValue.unit
 
 section
 set_option hygiene false in
@@ -1082,7 +1091,7 @@ end
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
--- Be sure to add your constructors for pairs to this list later
+-- Be sure to add your constructors for pairs to this list
 attribute [StlcSubEval] Step.appAbs Step.app₁ Step.app₂
     Step.ifStep Step.ifTrue Step.ifFalse
 --  FILL IN HERE
@@ -1113,13 +1122,14 @@ inductive Subtype : Ty → Ty → Prop where
       (h₂ : σ₂ <: τ₂) :
       <{ σ₁ → σ₂ }> <: <{ τ₁ → τ₂ }>
 
--- Fill in more rules when you do the `products` exercise later
+-- Fill in more rules when you do the `products` exercise
 --  FILL IN HERE
 end
 
 scoped notation:40 τ:41 " <: " τ':41 => Subtype τ τ'
 
-attribute [StlcSubTyping] Subtype.refl Subtype.trans Subtype.top Subtype.arrow
+attribute [StlcSubTyping] Subtype.refl Subtype.trans Subtype.top
+    Subtype.arrow
 --  FILL IN HERE
 
 --  Note that we don't need any special rules for base types (`Bool` and
@@ -1139,16 +1149,16 @@ example : <{ C → Bool }> <: <{ C → ⊤ }> := by
 --  ### Exercise (2 stars): subtyping_judgements (Optional) ⭐⭐
 
 --  Leave this exercise until after you have finished adding product types
---  to the language - see exercise `products` - at least up to this point
+--  to the language — see exercise `products` — at least up to this point
 --  in the file.
 --
 --  Recall that, in chapter MoreStlc, the optional section "Encoding
 --  Records" describes how records can be encoded as pairs. Using this
 --  encoding, define pair types representing the following record types:
 --
---          Person := { name : String }
---          Student := { name : String ; gpa : Float }
---          Employee := { name : String ; ssn : Integer }
+--      Person := { name : String }
+--      Student := { name : String ; gpa : Float }
+--      Employee := { name : String ; ssn : Integer }
 
 def person : Ty := sorry
 def student : Ty := sorry
@@ -1232,9 +1242,13 @@ def HasType.unexpand : Unexpander := StlcCommon.Delab.unexpandHasType
 --  END DETAILS
 
 --  We deliberately exclude `HasType.sub` from the list of constructors
---  with the `StlcSubTyping`. `apply_rules using StlcSubTyping` will search
---  for derivations without using the subtyping rule; if you want to make
---  use of it in a derivation you will need to do so yourself.
+--  with the `StlcSubTyping`. Like the `Subtype` rules above, `HasType.sub`
+--  is not syntax-directed — it applies to a term `t₁` regardless of that
+--  term's shape, and asks us to invent an intermediate type `τ₁` — so
+--  including it would make `apply_rules`'s search loop.
+--  `apply_rules using StlcSubTyping` will search for derivations without
+--  using the subtyping rule; if you want to make use of it in a derivation
+--  you will need to do so yourself.
 
 namespace Examples
 
@@ -1283,16 +1297,13 @@ end Examples
 --  ### Exercise (2 stars): sub_inversion_bool (Optional) ⭐⭐
 
 theorem sub_inversion_bool (τ : Ty)
-    (h : τ <: <{ Bool }>) :
-    τ = Ty.bool := by
+    (h : τ <: <{ Bool }>) : τ = Ty.bool := by
   sorry
 
 --  ### Exercise (3 stars): sub_inversion_arrow ⭐⭐⭐
 
-theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
-     (h : σ <: <{ τ₁ → τ₂ }>) :
-     ∃ σ₁ σ₂,
-     σ = <{ σ₁ → σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
+theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty} (h : σ <: <{ τ₁ → τ₂ }>) :
+    ∃ σ₁ σ₂, σ = <{ σ₁ → σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
   sorry
 
 --  (End of exercise)
@@ -1304,17 +1315,20 @@ theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
 
 --  ### Exercise (2 stars): sub_inversion_unit (Optional) ⭐⭐
 
-theorem sub_inversion_unit {τ : Ty} (h : τ <: <{ Unit }>) : τ = Ty.unit := by
+theorem sub_inversion_unit {τ : Ty}
+    (h : τ <: <{ Unit }>) : τ = Ty.unit := by
   sorry
 
 --  ### Exercise (2 stars): sub_inversion_base (Optional) ⭐⭐
 
-theorem sub_inversion_base {τ : Ty} {s : String} (h : τ <: Ty.base s) : τ = Ty.base s := by
+theorem sub_inversion_base {τ : Ty} {s : String}
+    (h : τ <: Ty.base s) : τ = Ty.base s := by
   sorry
 
 --  ### Exercise (2 stars): sub_inversion_top (Optional) ⭐⭐
 
-theorem sub_inversion_top {τ : Ty} (h : Ty.top <: τ) : τ = Ty.top := by
+theorem sub_inversion_top {τ : Ty}
+    (h : Ty.top <: τ) : τ = Ty.top := by
   sorry
 
 --  (End of exercise)
@@ -1326,15 +1340,15 @@ theorem sub_inversion_top {τ : Ty} (h : Ty.top <: τ) : τ = Ty.top := by
 
 --  ### Canonical Forms
 
---  The proof of the progress theorem -- that a well-typed non-value can
---  always take a step -- doesn't need to change too much: we just need one
+--  The proof of the progress theorem — that a well-typed non-value can
+--  always take a step — doesn't need to change too much: we just need one
 --  small refinement. When we're considering the case where the term in
 --  question is an application `t₁ t₂` where both `t₁` and `t₂` are values,
 --  we need to know that `t₁` has the *form* of a lambda-abstraction, so
 --  that we can apply the `abs` reduction rule. In the ordinary STLC, this
 --  is obvious: we know that `t₁` has a function type `τ₁₁→τ₁₂`, and there
---  is only one rule that can be used to give a function type to a value -
---  rule `abs` - and the form of the conclusion of this rule forces `t₁` to
+--  is only one rule that can be used to give a function type to a value —
+--  rule `abs` — and the form of the conclusion of this rule forces `t₁` to
 --  be an abstraction.
 --
 --  In the STLC with subtyping, this reasoning doesn't quite work because
@@ -1351,10 +1365,9 @@ theorem sub_inversion_top {τ : Ty} (h : Ty.top <: τ) : τ = Ty.top := by
 
 --  ### Exercise (3 stars): canonical_forms_of_arrow_types (Optional) ⭐⭐⭐
 
-theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty}
-  (ht : <{ Γ ⊢ t ⦂ τ₁ → τ₂ }>)
-  (hv : t.IsValue) :
-  ∃ x σ₁ t₂, t = <{λ x : σ₁ . t₂}> := by
+theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm}
+    {τ₁ τ₂ : Ty} (ht : <{ Γ ⊢ t ⦂ τ₁ → τ₂ }>) (hv : t.IsValue) :
+    ∃ x σ₁ t₂, t = <{λ x : σ₁ . t₂}> := by
   sorry
 
 --  (End of exercise)
@@ -1363,9 +1376,8 @@ theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty
 --  and `fls`
 
 theorem canonical_forms_of_bool {Γ : Context} {t : Tm}
-  (ht : <{ Γ ⊢ t ⦂ Bool }>)
-  (hv : t.IsValue) :
-  t = Tm.tru ∨ t = Tm.fls := by
+    (ht : <{ Γ ⊢ t ⦂ Bool }>) (hv : t.IsValue) :
+    t = <{ true }> ∨ t = <{ false }> := by
 
   generalize heq : Ty.bool = τ at ht
   induction ht with (subst_vars; first | trivial | try lia)
@@ -1485,7 +1497,7 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
 --  that `x ↦ σ₁ ;  Γ ⊢ t₂ ⦂ σ₂` and `σ₁ → σ₂ <: τ`.
 --
 --  Notice that the lemma does *not* say, "then `τ` itself is an arrow
---  type" -- this is tempting, but false! (Why?)
+--  type" — this is tempting, but false! (Why?)
 --
 --  *Proof*: Let `Γ`, `x`, `σ₁`, `t₂` and `τ` be given as described.
 --  Proceed by induction on the derivation of `Γ ⊢ λ x : σ₁ . t₂ ⦂ τ`. The
@@ -1503,7 +1515,8 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
 --
 --  Formally:
 
-theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}
+theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty}
+  {t₂ : Tm} {τ : Ty}
   (h : <{ Γ ⊢ λ x : σ₁ . t₂ ⦂ τ }>) :
     ∃ σ₂, <{ σ₁ → σ₂ }> <: τ ∧ <{ x ↦ σ₁ ; Γ ⊢ t₂ ⦂ σ₂ }> := by
 
@@ -1569,17 +1582,18 @@ theorem weakening {Γ Γ' : Context} {t : Tm} {τ: Ty}
     (hi : Γ ⊆ Γ')
     (ht : <{ Γ ⊢ t ⦂ τ }>) :
      <{ Γ' ⊢ t ⦂ τ }> := by
-  induction ht generalizing Γ' with (try apply_rules [PartialMap.update_subset] using StlcSubTyping)
+  induction ht generalizing Γ' with
+    (try apply_rules [PartialMap.update_subset] using StlcSubTyping)
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
     apply HasType.sub <;> solve_by_elim using StlcSubTyping
 
 theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
     (ht :<{ ∅ ⊢ t ⦂ τ }>) :
     <{ Γ ⊢ t ⦂ τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  · intros x b contra
+    contradiction
+  · assumption
 
 --  ### Substitution
 
@@ -1589,14 +1603,16 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
 --  the typing derivation this time (see Exercise
 --  `substitution_preserves_typing_from_typing_ind` in StlcProp).
 
-theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}
+theorem substitution_preserves_typing {Γ : Context} {x : String}
+    {τ₁ : Ty} {t v : Tm} {τ : Ty}
     (ht : <{ x ↦ τ₁ ; Γ ⊢ t ⦂ τ }>)
     (hv : <{ ∅ ⊢ v ⦂ τ₁ }>) :
     <{ Γ ⊢ [x := v] t ⦂ τ }> := by
 
   generalize heq : x →ₚ τ₁ ; Γ = Γ' at ht
   induction ht generalizing x Γ with (
-    subst_vars; try rw [subst]; try (apply_rules using StlcSubTyping; done))
+    subst_vars; try rw [subst];
+    try (apply_rules using StlcSubTyping; done))
   | var Γ y σ h =>
       by_cases h₁ : x = y
       · subst h₁; simp at h; subst h;
@@ -1606,8 +1622,10 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
         apply_rules using StlcSubTyping
   | abs _ y _ _ _ h ih =>
       by_cases h₁ : x = y
-      · simp_all [PartialMap.update_shadow]; apply_rules using StlcSubTyping
-      · simp_all; constructor; apply ih; rw [PartialMap.update_permute]; lia
+      · simp_all [PartialMap.update_shadow]
+        apply_rules using StlcSubTyping
+      · simp_all; constructor; apply ih
+        rw [PartialMap.update_permute]; lia
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
       apply HasType.sub <;> solve_by_elim using StlcSubTyping
 
@@ -1680,10 +1698,13 @@ theorem preservation {t t' : Tm} {τ : Ty}
         · assumption
         · apply HasType.sub <;> apply_rules using StlcSubTyping
   | ite Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
-    inversion hs with (try (constructor <;> solve_by_elim using StlcSubEval))
+    inversion hs with
+      (try (constructor <;> solve_by_elim using StlcSubEval))
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
       apply HasType.sub <;> solve_by_elim using StlcSubTyping
 --  FILL IN HERE
+
+--  ### Records, via Products and Top
 
 --  This formalization of the STLC with subtyping omits record types for
 --  brevity. If we want to deal with them more seriously, we have two
@@ -1701,12 +1722,14 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  the encoding of tuples and the "don't care" placeholder in the encoding
 --  of records, we use `⊤`. So:
 --
---          {a:Nat, b:Nat} --⟶ {Nat,Nat}       i.e., (Nat,(Nat,⊤))
---          {c:Nat, a:Nat} --⟶ {Nat,⊤,Nat}   i.e., (Nat,(⊤,(Nat,⊤)))
+--      {a:Nat, b:Nat} --⟶ {Nat,Nat}       i.e., (Nat,(Nat,⊤))
+--      {c:Nat, a:Nat} --⟶ {Nat,⊤,Nat}   i.e., (Nat,(⊤,(Nat,⊤)))
 --
 --  The encoding of record values doesn't change at all. It is easy (and
 --  instructive) to check that the subtyping rules above are validated by
 --  the encoding.
+
+--  ### Exercises
 
 --  ### Exercise (2 stars): variations (Manually graded) ⭐⭐
 
@@ -1717,44 +1740,47 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  false. If a property becomes false, give a counterexample.
 --  - Suppose we add the following typing rule:
 --
---                                 <{ Γ ⊢ t ⦂ σ₁→σ₂ }>
---                          σ₁ <: τ₁     τ₁ <: σ₁      σ₂ <: τ₂
---                          -----------------------------------     (funny₁)
---                                 <{ Γ ⊢ t ⦂ τ₁→τ₂ }>
+--      Γ ⊢ t ⦂ σ₁→σ₂
+--         σ₁ <: τ₁
+--         τ₁ <: σ₁
+--         σ₂ <: τ₂
+--      -------------  (funny₁)
+--      Γ ⊢ t ⦂ τ₁→τ₂
 --
 --  - Suppose we add the following reduction rule:
 --
---                                   --------------------          (funny₂)
---                                   unit ⟶ (λX:⊤. X)
+--      ----------------  (funny₂)
+--      unit ⟶ (λX:⊤. X)
 --
 --  - Suppose we add the following subtyping rule:
 --
---                                    ----------------            (funny₃)
---                                     Unit <: ⊤→⊤
+--      -----------  (funny₃)
+--      Unit <: ⊤→⊤
 --
 --  - Suppose we add the following subtyping rule:
 --
---                                     ----------------            (funny₄)
---                                     ⊤→⊤ <: Unit
+--      -----------  (funny₄)
+--      ⊤→⊤ <: Unit
 --
 --  - Suppose we add the following reduction rule:
 --
---                                   ---------------------        (funny₅)
---                                   (unit t) ⟶ (t unit)
+--      -------------------  (funny₅)
+--      (unit t) ⟶ (t unit)
 --
 --  - Suppose we add the same reduction rule *and* a new typing rule:
 --
---                                   ---------------------        (funny₅)
---                                   (unit t) ⟶ (t unit)
+--      -------------------  (funny₅)
+--      (unit t) ⟶ (t unit)
 --
---                                 ---------------------------     (funny₆)
---                                 ∅ ⊢ unit ⦂ ⊤→⊤
+--        --------------     (funny₆)
+--        ∅ ⊢ unit ⦂ ⊤→⊤
 --
 --  - Suppose we *change* the arrow subtyping rule to:
 --
---                                σ₁ <: τ₁   σ₂ <: τ₂
---                                -------------------              (arrow')
---                                σ₁→σ₂ <: τ₁→τ₂
+--         σ₁ <: τ₁
+--         σ₂ <: τ₂
+--      --------------  (arrow')
+--      σ₁→σ₂ <: τ₁→τ₂
 
 --  #### Exercise: Adding Products
 
@@ -1773,9 +1799,10 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  - typing relation
 --  - Extend the subtyping relation with this rule:
 --
---                              σ₁ <: τ₁    σ₂ <: τ₂
---                              --------------------   (prod)
---                               σ₁ × σ₂ <: τ₁ × τ₂
+--           σ₁ <: τ₁
+--           σ₂ <: τ₂
+--      ------------------  (prod)
+--      σ₁ × σ₂ <: τ₁ × τ₂
 --
 --  - Extend the proofs of progress, preservation, and all their supporting
 --    lemmas to deal with the new constructs. (You'll also need to add a
@@ -1813,19 +1840,22 @@ theorem formal_subtype_instances_tf_1c:
 --  ### Exercise (1 star): formal_subtype_instances_tf_1d (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1d:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ τ → (τ → υ) }> <: <{ σ → (σ → δ) }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ →
+    <{ τ → (τ → υ) }> <: <{ σ → (σ → δ) }>) := by
   sorry
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1e (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1e:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ (τ → τ) → υ }> <: <{ (σ → σ)→ δ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ →
+    <{ (τ → τ) → υ }> <: <{ (σ → σ)→ δ }>) := by
   sorry
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1f (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1f:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ((τ → σ) → τ)→ υ }> <: <{ ((σ → τ)→ σ) → δ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ →
+    <{ ((τ → σ) → τ)→ υ }> <: <{ ((σ → τ)→ σ) → δ }>) := by
   sorry
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1g (Optional) ⭐
@@ -1854,13 +1884,15 @@ theorem formal_subtype_instances_tf_2b {A : Ty}:
 --  Hint: Assert a generalization of the statement to be proved and use
 --  induction on a type (rather than on a subtyping derviation).
 
-theorem formal_subtype_instances_tf_2d: tf (∃ σ, σ <: <{ σ → σ }>) := by
+theorem formal_subtype_instances_tf_2d:
+  tf (∃ σ, σ <: <{ σ → σ }>) := by
 
   sorry
 
 --  ### Exercise (2 stars): formal_subtype_instances_tf_2e (Optional) ⭐⭐
 
-theorem formal_subtype_instances_tf_2e: tf (∃ σ, <{ σ → σ }> <: σ) := by
+theorem formal_subtype_instances_tf_2e:
+  tf (∃ σ, <{ σ → σ }> <: σ) := by
   sorry
 
 --  ### Exercise (2 stars): formal_subtype_concepts_tfa (Optional) ⭐⭐
@@ -1910,7 +1942,8 @@ theorem formal_subtype_concepts_tfg:
 --  ### Exercise (2 stars): formal_subtype_concepts_tfh (Optional) ⭐⭐
 
 theorem formal_subtype_concepts_tfh:
-  tf (∃ f : Nat → Ty, (∀ i j, i ≠ j → f i ≠ f j) ∧ (∀ i, f i <: f (i + 1))) := by
+  tf (∃ f : Nat → Ty, (∀ i j, i ≠ j → f i ≠ f j) ∧
+    (∀ i, f i <: f (i + 1))) := by
   sorry
 
 --  ### Exercise (3 stars): formal_proper_subtypes (Optional) ⭐⭐⭐
@@ -1927,4 +1960,4 @@ end FormalThoughtExercises
 
 end StlcSub
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

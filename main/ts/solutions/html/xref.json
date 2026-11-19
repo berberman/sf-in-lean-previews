@@ -229,6 +229,22 @@
        {"title": "Properties", "shortTitle": null, "number": "3"},
        {"title": "Substitution", "shortTitle": null, "number": "6"}]},
      "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Records___-via-Products-and-Top":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Records___-via-Products-and-Top",
+     "data":
+     {"title": "Records, via Products and Top",
+      "shortTitle": null,
+      "sectionNum": "8.3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Records, via Products and Top",
+        "shortTitle": null,
+        "number": "8"}]},
+     "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Properties--Progress":
    [{"id": "Type-Systems--Sub___-Subtyping--Properties--Progress",
      "data":
@@ -241,23 +257,6 @@
        {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
        {"title": "Properties", "shortTitle": null, "number": "3"},
        {"title": "Progress", "shortTitle": null, "number": "3"}]},
-     "address": "/Sub/"}],
-   "Type-Systems--Sub___-Subtyping--Properties--Preservation--Exercise___-Adding-Products":
-   [{"id":
-     "Type-Systems--Sub___-Subtyping--Properties--Preservation--Exercise___-Adding-Products",
-     "data":
-     {"title": "Exercise: Adding Products",
-      "shortTitle": null,
-      "sectionNum": "8.3.7.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
-       {"title": "Properties", "shortTitle": null, "number": "3"},
-       {"title": "Preservation", "shortTitle": null, "number": "7"},
-       {"title": "Exercise: Adding Products",
-        "shortTitle": null,
-        "number": "1"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Properties--Preservation":
    [{"id": "Type-Systems--Sub___-Subtyping--Properties--Preservation",
@@ -310,7 +309,7 @@
      "data":
      {"title": "Formalized \"Thought Exercises\"",
       "shortTitle": null,
-      "sectionNum": "8.3.8.",
+      "sectionNum": "8.3.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
@@ -318,7 +317,37 @@
        {"title": "Properties", "shortTitle": null, "number": "3"},
        {"title": "Formalized \"Thought Exercises\"",
         "shortTitle": null,
-        "number": "8"}]},
+        "number": "10"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Exercises--Exercise___-Adding-Products":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Exercises--Exercise___-Adding-Products",
+     "data":
+     {"title": "Exercise: Adding Products",
+      "shortTitle": null,
+      "sectionNum": "8.3.9.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "9"},
+       {"title": "Exercise: Adding Products",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Exercises":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "8.3.9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "9"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Properties--Canonical-Forms":
    [{"id": "Type-Systems--Sub___-Subtyping--Properties--Canonical-Forms",
@@ -350,31 +379,18 @@
      "data":
      {"title": "Typing",
       "shortTitle": null,
-      "sectionNum": "8.2.5.",
+      "sectionNum": "8.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
        {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
        {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
-       {"title": "Typing", "shortTitle": null, "number": "5"}]},
+       {"title": "Typing", "shortTitle": null, "number": "3"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Formal-Definitions--Subtyping":
    [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Subtyping",
      "data":
      {"title": "Subtyping",
-      "shortTitle": null,
-      "sectionNum": "8.2.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
-       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
-       {"title": "Subtyping", "shortTitle": null, "number": "4"}]},
-     "address": "/Sub/"}],
-   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Substitution":
-   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Substitution",
-     "data":
-     {"title": "Substitution",
       "shortTitle": null,
       "sectionNum": "8.2.2.",
       "searchPriority": 50,
@@ -382,20 +398,7 @@
       [{"title": "Type Systems", "shortTitle": null, "number": null},
        {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
        {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
-       {"title": "Substitution", "shortTitle": null, "number": "2"}]},
-     "address": "/Sub/"}],
-   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Reduction":
-   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Reduction",
-     "data":
-     {"title": "Reduction",
-      "shortTitle": null,
-      "sectionNum": "8.2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
-       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
-       {"title": "Reduction", "shortTitle": null, "number": "3"}]},
+       {"title": "Subtyping", "shortTitle": null, "number": "2"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Syntax":
    [{"id":
@@ -411,6 +414,36 @@
        {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
        {"title": "Core Definitions", "shortTitle": null, "number": "1"},
        {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Substitution":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "8.2.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Core Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Substitution", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Reduction":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "8.2.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Core Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Reduction", "shortTitle": null, "number": "3"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions":
    [{"id":
@@ -444,21 +477,6 @@
      "data":
      {"title": "⊤",
       "shortTitle": null,
-      "sectionNum": "8.1.4.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
-       {"title": "Concepts", "shortTitle": null, "number": "1"},
-       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
-       {"title": "⊤", "shortTitle": null, "number": "4"}]},
-     "address": "/Sub/"}],
-   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary":
-   [{"id":
-     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary",
-     "data":
-     {"title": "Summary",
-      "shortTitle": null,
       "sectionNum": "8.1.4.5.",
       "searchPriority": 50,
       "context":
@@ -466,7 +484,22 @@
        {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
        {"title": "Concepts", "shortTitle": null, "number": "1"},
        {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
-       {"title": "Summary", "shortTitle": null, "number": "5"}]},
+       {"title": "⊤", "shortTitle": null, "number": "5"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary",
+     "data":
+     {"title": "Summary",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Summary", "shortTitle": null, "number": "6"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Structural-Rules":
    [{"id":
@@ -489,14 +522,14 @@
      "data":
      {"title": "Records",
       "shortTitle": null,
-      "sectionNum": "8.1.4.3.",
+      "sectionNum": "8.1.4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
        {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
        {"title": "Concepts", "shortTitle": null, "number": "1"},
        {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
-       {"title": "Records", "shortTitle": null, "number": "3"}]},
+       {"title": "Records", "shortTitle": null, "number": "4"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Products":
    [{"id":
@@ -512,6 +545,21 @@
        {"title": "Concepts", "shortTitle": null, "number": "1"},
        {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
        {"title": "Products", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Arrows":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Arrows",
+     "data":
+     {"title": "Arrows",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Arrows", "shortTitle": null, "number": "3"}]},
      "address": "/Sub/"}],
    "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation":
    [{"id": "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation",
@@ -4595,6 +4643,7 @@
        ["Type Systems",
         "Sub: Subtyping",
         "Formal Definitions",
+        "Core Definitions",
         "Substitution"]}},
      "address": "/Sub/"}],
    "StlcSub.typing_inversion_var":
@@ -4691,6 +4740,7 @@
        ["Type Systems",
         "Sub: Subtyping",
         "Formal Definitions",
+        "Core Definitions",
         "Substitution"]}},
      "address": "/Sub/"}],
    "StlcSub.sub_inversion_unit":
@@ -5020,7 +5070,11 @@
      {"/Sub/#StlcSub___Tm___IsValue___unit":
       {"display": "unit",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm.IsValue.tru":
    [{"id": "StlcSub___Tm___IsValue___tru",
@@ -5028,7 +5082,11 @@
      {"/Sub/#StlcSub___Tm___IsValue___tru":
       {"display": "tru",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm.IsValue.pair":
    [{"id": "StlcSub___Tm___IsValue___pair",
@@ -5036,7 +5094,11 @@
      {"/Sub/#StlcSub___Tm___IsValue___pair":
       {"display": "pair",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm.IsValue.fls":
    [{"id": "StlcSub___Tm___IsValue___fls",
@@ -5044,7 +5106,11 @@
      {"/Sub/#StlcSub___Tm___IsValue___fls":
       {"display": "fls",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm.IsValue.abs":
    [{"id": "StlcSub___Tm___IsValue___abs",
@@ -5052,7 +5118,11 @@
      {"/Sub/#StlcSub___Tm___IsValue___abs":
       {"display": "abs",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm.IsValue":
    [{"id": "StlcSub___Tm___IsValue",
@@ -5060,7 +5130,11 @@
      {"/Sub/#StlcSub___Tm___IsValue":
       {"display": "Tm.IsValue",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Tm":
    [{"id": "StlcSub___Tm",
@@ -5128,7 +5202,11 @@
      {"/Sub/#StlcSub___Step___snd___":
       {"display": "snd₁",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.sndPair":
    [{"id": "StlcSub___Step___sndPair",
@@ -5136,7 +5214,11 @@
      {"/Sub/#StlcSub___Step___sndPair":
       {"display": "sndPair",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.pair₂":
    [{"id": "StlcSub___Step___pair___-next",
@@ -5144,7 +5226,11 @@
      {"/Sub/#StlcSub___Step___pair___-next":
       {"display": "pair₂",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.pair₁":
    [{"id": "StlcSub___Step___pair___",
@@ -5152,7 +5238,11 @@
      {"/Sub/#StlcSub___Step___pair___":
       {"display": "pair₁",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.ifTrue":
    [{"id": "StlcSub___Step___ifTrue",
@@ -5160,7 +5250,11 @@
      {"/Sub/#StlcSub___Step___ifTrue":
       {"display": "ifTrue",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.ifStep":
    [{"id": "StlcSub___Step___ifStep",
@@ -5168,7 +5262,11 @@
      {"/Sub/#StlcSub___Step___ifStep":
       {"display": "ifStep",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.ifFalse":
    [{"id": "StlcSub___Step___ifFalse",
@@ -5176,7 +5274,11 @@
      {"/Sub/#StlcSub___Step___ifFalse":
       {"display": "ifFalse",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.fst₁":
    [{"id": "StlcSub___Step___fst___",
@@ -5184,7 +5286,11 @@
      {"/Sub/#StlcSub___Step___fst___":
       {"display": "fst₁",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.fstPair":
    [{"id": "StlcSub___Step___fstPair",
@@ -5192,7 +5298,11 @@
      {"/Sub/#StlcSub___Step___fstPair":
       {"display": "fstPair",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.app₂":
    [{"id": "StlcSub___Step___app___-next",
@@ -5200,7 +5310,11 @@
      {"/Sub/#StlcSub___Step___app___-next":
       {"display": "app₂",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.app₁":
    [{"id": "StlcSub___Step___app___",
@@ -5208,7 +5322,11 @@
      {"/Sub/#StlcSub___Step___app___":
       {"display": "app₁",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step.appAbs":
    [{"id": "StlcSub___Step___appAbs",
@@ -5216,7 +5334,11 @@
      {"/Sub/#StlcSub___Step___appAbs":
       {"display": "appAbs",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.Step":
    [{"id": "StlcSub___Step",
@@ -5224,7 +5346,11 @@
      {"/Sub/#StlcSub___Step":
       {"display": "Step",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Reduction"]}},
      "address": "/Sub/"}],
    "StlcSub.HasType.var":
    [{"id": "StlcSub___HasType___var",

@@ -13,13 +13,13 @@ import SFLCompat
 --  Suppose we are writing a program involving two record
 --  types defined as follows:
 --
---            Person  = {name:String, age:Nat}
---            Student = {name:String, age:Nat, gpa:Nat}
+--      Person  = {name:String, age:Nat}
+--      Student = {name:String, age:Nat, gpa:Nat}
 --
 --  *Problem*: In the pure STLC with records, the following
 --  term is not typable:
 --
---          (λR:Person. (R.age)+1) {name="Pat",age=21,gpa=1}
+--      (λR:Person. (R.age)+1) {name="Pat",age=21,gpa=1}
 --
 --  This is a shame.
 --
@@ -65,7 +65,7 @@ import SFLCompat
 
 --  ### The Subsumption Rule
 
---  τ₂ Our goal for this chapter is to add subtyping to the
+--  Our goal for this chapter is to add subtyping to the
 --  simply typed lambda-calculus (with some basic
 --  extensions). This involves two steps:
 --  - Defining a binary *subtype relation* between types.
@@ -76,18 +76,19 @@ import SFLCompat
 --  single rule to the typing relation: the so-called *rule
 --  of subsumption*:
 --
---                               Γ ⊢ t₁ ⦂ τ₁     τ₁ <: τ₂
---                               --------------------------           (sub)
---                                     Γ ⊢ t₁ ⦂ τ₂
+--      Γ ⊢ t₁ ⦂ τ₁
+--       τ₁ <: τ₂
+--      -----------  (sub)
+--      Γ ⊢ t₁ ⦂ τ₂
 --
 --  This rule says, intuitively, that it is OK to "forget"
 --  some of what we know about a term.
 
 --  ### The Subtype Relation
 
---  The first step -- the definition of the relation
---  `σ <: τ` -- is where all the action is. Let's look at
---  each of the clauses of its definition.
+--  The first step — the definition of the relation `σ <: τ`
+--  — is where all the action is. Let's look at each of the
+--  clauses of its definition.
 
 --  #### Structural Rules
 
@@ -97,15 +98,16 @@ import SFLCompat
 --  is better (richer, safer) than `υ` and `υ` is better
 --  than `τ`, then `σ` is better than `τ`...
 --
---                                    σ <: υ    υ <: τ
---                                    ----------------                        (trans)
---                                         σ <: τ
+--      σ <: υ
+--      υ <: τ
+--      ------  (trans)
+--      σ <: τ
 --
 --  ... and a rule of *reflexivity*, since certainly any
 --  type `τ` is as good as itself:
 --
---                                         ------                              (refl)
---                                         τ <: τ
+--      ------  (refl)
+--      τ <: τ
 
 --  #### Products
 
@@ -113,14 +115,17 @@ import SFLCompat
 --  one, beginning with product types. We consider one pair
 --  to be a subtype of another if each of its components is.
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                        (prod)
---                                   σ₁ × σ₂ <: τ₁ × τ₂
---
+--           σ₁ <: τ₁
+--           σ₂ <: τ₂
+--      ------------------  (prod)
+--      σ₁ × σ₂ <: τ₁ × τ₂
+
+--  #### Arrows
+
 --  Suppose we have functions `F` and `G` with these types:
 --
---          F : C → Student
---          G : (C→Person) → D
+--      F : C → Student
+--      G : (C→Person) → D
 --
 --  Is it safe to allow the application `G F`?
 --
@@ -128,14 +133,14 @@ import SFLCompat
 --
 --  So we want:
 --
---            C→Student  <:  C→Person
+--      C→Student  <:  C→Person
 --
 --  I.e., arrow is *covariant* in its right-hand argument.
 --
 --  Now suppose we have:
 --
---             F : Person → C
---             G : (Student→C) → D
+--      F : Person → C
+--      G : (Student→C) → D
 --
 --  Is it safe to allow the application `G F`?
 --
@@ -143,16 +148,17 @@ import SFLCompat
 --
 --  So we want:
 --
---            Person → C  <:  Student → C
+--      Person → C  <:  Student → C
 --
 --  I.e., arrow is *contravariant* in its left-hand
 --  argument.
 --
 --  Putting these together...
 --
---                                  τ₁ <: σ₁    σ₂ <: τ₂
---                                  --------------------                      (arrow)
---                                  σ₁ → σ₂ <: τ₁ → τ₂
+--           τ₁ <: σ₁
+--           σ₂ <: τ₂
+--      ------------------  (arrow)
+--      σ₁ → σ₂ <: τ₁ → τ₂
 
 --   ----------------------------------------
 
@@ -202,9 +208,9 @@ import SFLCompat
 --  receive a record with fields `x`, `y`, and `z`; the `z`
 --  field will simply be ignored. For example,
 --
---          {name:String, age:Nat, gpa:Nat} <: {name:String, age:Nat}
---          {name:String, age:Nat} <: {name:String}
---          {name:String} <: {}
+--      {name:String, age:Nat, gpa:Nat} <: {name:String, age:Nat}
+--               {name:String, age:Nat} <: {name:String}
+--                        {name:String} <: {}
 --
 --  This is known as "width subtyping" for records.
 --
@@ -215,7 +221,7 @@ import SFLCompat
 --  `x` of type `σ` as long as `σ` is a subtype of `τ`. For
 --  example,
 --
---          {x:Student} <: {x:Person}
+--      {x:Student} <: {x:Person}
 --
 --  This is known as "depth subtyping".
 --
@@ -223,18 +229,18 @@ import SFLCompat
 --  written in a particular order, the order does not really
 --  matter. For example,
 --
---          {name:String,age:Nat} <: {age:Nat,name:String}
+--      {name:String,age:Nat} <: {age:Nat,name:String}
 --
 --  This is known as "permutation subtyping".
 --
 --  We *could* formalize these requirements in a single
 --  subtyping rule for records as follows:
 --
---                              ∀ jₖ in j₁..jₙ,
---                          ∃ iₚ in i₁..iₘ, such that
---                              jₖ=iₚ and σₚ <: τₖ
---                        ----------------------------------                    (rcd)
---                        {i₁:σ₁...iₘ:σₘ} <: {j₁:τ₁...jₙ:τₙ}
+--               ∀ jₖ in j₁..jₙ,
+--          ∃ iₚ in i₁..iₘ, such that
+--              jₖ=iₚ and σₚ <: τₖ
+--      ----------------------------------  (rcd)
+--      {i₁:σ₁...iₘ:σₘ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  That is, the record on the left should have all the
 --  field labels of the one on the right (and possibly
@@ -249,9 +255,9 @@ import SFLCompat
 --  First, adding fields to the end of a record type gives a
 --  subtype:
 --
---                                     n > m
---                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
+--                    n > m
+--      ----------------------------------  (rcdWidth)
+--      {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
 --  We can use `rcdWidth` to drop later fields of a
 --  multi-field record while keeping earlier fields, showing
@@ -260,9 +266,9 @@ import SFLCompat
 --  Second, subtyping can be applied inside the components
 --  of a compound record type:
 --
---                             σ₁ <: τ₁  ...  σₙ <: τₙ
---                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
+--           σ₁ <: τ₁  ...  σₙ <: τₙ
+--      ----------------------------------  (rcdDepth)
+--      {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
 --  For example, we can use `rcdDepth` and `rcdWidth`
 --  together to show that
@@ -274,9 +280,9 @@ import SFLCompat
 --  and `rcdWidth` we can only drop fields from the *end* of
 --  a record type. So we add:
 --
---               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
---               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
+--      {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
+--      ---------------------------------------------------  (rcdPerm)
+--              {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  It is worth noting that full-blown language designs may
 --  choose not to adopt all of these subtyping rules. For
@@ -285,7 +291,7 @@ import SFLCompat
 --    single index, adding new indices "on the right" as
 --    more members are added in subclasses (i.e., no
 --    permutation for classes).
---  - A class may implement multiple interfaces -- so-called
+--  - A class may implement multiple interfaces — so-called
 --    "multiple inheritance" of interfaces (i.e.,
 --    permutation is allowed for interfaces).
 --  - In early versions of Java, a subclass could not change
@@ -296,15 +302,15 @@ import SFLCompat
 --  #### ⊤
 
 --  Finally, it is convenient to give the subtype relation a
---  maximum element -- a type that lies above every other
+--  maximum element — a type that lies above every other
 --  type and is inhabited by all (well-typed) values. We do
 --  this by adding to the language one new type constant,
---  called `⊤` (pronounced "⊤" and written ⊤), together with
---  a subtyping rule that places it above every other type
---  in the subtype relation:
+--  called `⊤` (pronounced "top" and written ⊤), together
+--  with a subtyping rule that places it above every other
+--  type in the subtype relation:
 --
---                                         --------                             (⊤)
---                                         σ <: ⊤
+--      ------  (⊤)
+--      σ <: ⊤
 --
 --  The `⊤` type is an analog of the `Object` type in Java
 --  and C#.
@@ -317,42 +323,46 @@ import SFLCompat
 --  - adding a base type `⊤`,
 --  - adding the rule of subsumption
 --
---                               Γ ⊢ t₁ ⦂ τ₁     τ₁ <: τ₂
---                               --------------------------------            (sub)
---                                     Γ ⊢ t₁ ⦂ τ₂
+--      Γ ⊢ t₁ ⦂ τ₁
+--       τ₁ <: τ₂
+--      -----------  (sub)
+--      Γ ⊢ t₁ ⦂ τ₂
 --
 --  to the typing relation, and
 --  - defining a subtype relation as follows:
 --
---                                    σ <: υ    υ <: τ
---                                    ----------------                        (trans)
---                                         σ <: τ
+--                            σ <: υ
+--                            υ <: τ
+--                            ------                         (trans)
+--                            σ <: τ
 --
---                                         ------                              (refl)
---                                         τ <: τ
+--                            ------                         (refl)
+--                            τ <: τ
 --
---                                         --------                             (⊤)
---                                         σ <: ⊤
+--                            ------                         (⊤)
+--                            σ <: ⊤
 --
---                                  σ₁ <: τ₁    σ₂ <: τ₂
---                                  --------------------                       (prod)
---                                   σ₁ × σ₂ <: τ₁ × τ₂
+--                           σ₁ <: τ₁
+--                           σ₂ <: τ₂
+--                      ------------------                   (prod)
+--                      σ₁ × σ₂ <: τ₁ × τ₂
 --
---                                  τ₁ <: σ₁    σ₂ <: τ₂
---                                  --------------------                      (arrow)
---                                  σ₁ → σ₂ <: τ₁ → τ₂
+--                           τ₁ <: σ₁
+--                           σ₂ <: τ₂
+--                      ------------------                   (arrow)
+--                      σ₁ → σ₂ <: τ₁ → τ₂
 --
---                                     n > m
---                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
+--                            n > m
+--              ----------------------------------           (rcdWidth)
+--              {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
---                             σ₁ <: τ₁  ...  σₙ <: τₙ
---                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
+--                   σ₁ <: τ₁  ...  σₙ <: τₙ
+--              ----------------------------------           (rcdDepth)
+--              {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
---               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
---               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
+--      {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
+--      ---------------------------------------------------  (rcdPerm)
+--              {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 
 --   ----------------------------------------
 
@@ -398,7 +408,7 @@ import SFLCompat
 --  What is the *smallest* type `τ` that makes the following
 --  assertion true?
 --
---          X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
+--      X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -419,7 +429,7 @@ import SFLCompat
 --  What is the *largest* type `τ` that makes the following
 --  assertion true?
 --
---             X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
+--      X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -449,9 +459,9 @@ import SFLCompat
 --  _Quiz:_
 
 --  "Suppose `σ`, `τ₁`, and `τ₂` are types with
---  `σ <: τ₁ → τ₂`. Then `σ` itself is an arrow type --
---  i.e., `σ = σ₁ → σ₂` for some `σ₁` and `σ₂` -- with `τ₁`
---  <: `σ₁` and `σ₂ <: τ₂`."
+--  `σ <: τ₁ → τ₂`. Then `σ` itself is an arrow type — i.e.,
+--  `σ = σ₁ → σ₂` for some `σ₁` and `σ₂` — with `τ₁` <: `σ₁`
+--  and `σ₂ <: τ₂`."
 --
 --  (A) True
 --
@@ -466,12 +476,12 @@ namespace StlcSub
 open scoped MyGetElem
 
 --  Most of the definitions needed to formalize what we've
---  discussed above -- in particular, the syntax and
---  operational semantics of the language -- are identical
---  to what we saw in the last chapter. We just need to
---  extend the typing relation with the subsumption rule and
---  add a new `inductive` definition for the subtyping
---  relation. Let's first do the identical bits.
+--  discussed above — in particular, the syntax and
+--  operational semantics of the language — are identical to
+--  what we saw in the last chapter. We just need to extend
+--  the typing relation with the subsumption rule and add a
+--  new `inductive` definition for the subtyping relation.
+--  Let's first do the identical bits.
 
 --  ### Core Definitions
 
@@ -511,14 +521,14 @@ inductive Tm : Type where
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
 scoped syntax:50 stlcTy:51 " × " stlcTy:50 : stlcTy
 scoped syntax:max " ⊤ " : stlcTy
-scoped syntax:50 "if " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
+scoped syntax:50 "if " stlcTm:51 " then " stlcTm:50
+  " else " stlcTm:50 : stlcTm
 scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
 
 namespace Elab
 
 open StlcCommon
 open Lean Meta Elab Term
-
 
 def language : Language where
   tyType := ``Ty
@@ -563,9 +573,11 @@ def baseTyHandler : TyElabHandler :=
     | _ => k T
 
 def tyHandlers : TyElabHandler :=
-  subTyHandler.orElse ((commonTyHandler language).orElse baseTyHandler)
+  subTyHandler.orElse
+    ((commonTyHandler language).orElse baseTyHandler)
 
-partial def elabTy : TyElab := tyHandlers elabTy  <| unsupportedTy language
+partial def elabTy : TyElab :=
+  tyHandlers elabTy <| unsupportedTy language
 
 def subTmHandler : TmElabHandler :=
   fun recur k Γ free t => do
@@ -597,7 +609,8 @@ def subTmHandler : TmElabHandler :=
         return (mkApp (mkConst ``Tm.snd) t, free)
     | _ => k Γ free t
 
-def tmHandlers : TmElabHandler := subTmHandler.orElse (commonTmHandler language elabTy)
+def tmHandlers : TmElabHandler :=
+  subTmHandler.orElse (commonTmHandler language elabTy)
 
 partial def elabTm : TmElab := tmHandlers elabTm unsupportedTm
 
@@ -619,7 +632,6 @@ namespace Delab
 
 open StlcCommon Elab Delab
 open Lean PrettyPrinter Delaborator
-
 
 @[app_unexpander Ty.top]
 private def Ty.unexpandTop : Unexpander
@@ -672,7 +684,6 @@ private def reservedTmNames : String → Bool
   | "snd" => true
   | _ => false
 
-
 @[app_unexpander Tm.var]
 private def Tm.unexpandVar : Unexpander :=
   Delab.unexpandVar reservedTmNames ``Tm.var
@@ -709,7 +720,6 @@ private def Tm.unexpandIte : Unexpander
       `(<{if $c':stlcTm then $t':stlcTm else $e':stlcTm }>)
   | _ => throw ()
 
-
 @[app_unexpander Tm.unit]
 private def Tm.unexpandUnit : Unexpander
   | stx => do
@@ -724,7 +734,6 @@ private def Tm.unexpandPair : Unexpander
       let t₂' := getTm t₂
       `(<{ ($t₁':stlcTm, $t₂':stlcTm) }>)
   | _ => throw ()
-
 
 @[app_unexpander Tm.fst]
 private def Tm.unexpandFst : Unexpander
@@ -745,7 +754,7 @@ private def Tm.unexpandSnd : Unexpander
 end Delab
 --  END DETAILS
 
---  ### Substitution
+--  #### Substitution
 
 --  The definition of substitution remains exactly the same
 --  as for the pure STLC.
@@ -767,7 +776,7 @@ def subst (x : String) (s : Tm) (t : Tm) : Tm :=
   | .ite t₁ t₂ t₃ =>
       <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }>
 
-  -- Complete the following cases when you do the `products` exercise later
+  -- Complete the following cases when you do the `products` exercise
   | .pair t₁ t₂ =>
       sorry
   | .fst t =>
@@ -781,7 +790,7 @@ open Lean PrettyPrinter in
 def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 --  END DETAILS
 
---  ### Reduction
+--  #### Reduction
 
 --  Likewise the definitions of `IsValue` and `Step`.
 
@@ -795,10 +804,11 @@ inductive Tm.IsValue : Tm → Prop where
   | unit :
       IsValue <{unit}>
 
--- Fill in more rules when you do the `products` exercise later
+-- Fill in more rules when you do the `products` exercise
 --  FILL IN HERE
 
-attribute [StlcSubEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls Tm.IsValue.unit
+attribute [StlcSubEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
+    Tm.IsValue.unit
 
 section
 set_option hygiene false in
@@ -831,7 +841,7 @@ end
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
--- Be sure to add your constructors for pairs to this list later
+-- Be sure to add your constructors for pairs to this list
 attribute [StlcSubEval] Step.appAbs Step.app₁ Step.app₂
     Step.ifStep Step.ifTrue Step.ifFalse
 --  FILL IN HERE
@@ -856,13 +866,14 @@ inductive Subtype : Ty → Ty → Prop where
       (h₂ : σ₂ <: τ₂) :
       <{ σ₁ → σ₂ }> <: <{ τ₁ → τ₂ }>
 
--- Fill in more rules when you do the `products` exercise later
+-- Fill in more rules when you do the `products` exercise
 --  FILL IN HERE
 end
 
 scoped notation:40 τ:41 " <: " τ':41 => Subtype τ τ'
 
-attribute [StlcSubTyping] Subtype.refl Subtype.trans Subtype.top Subtype.arrow
+attribute [StlcSubTyping] Subtype.refl Subtype.trans Subtype.top
+    Subtype.arrow
 --  FILL IN HERE
 
 --  Note that we don't need any special rules for base types
@@ -920,7 +931,12 @@ def HasType.unexpand : Unexpander := StlcCommon.Delab.unexpandHasType
 --  END DETAILS
 
 --  We deliberately exclude `HasType.sub` from the list of
---  constructors with the `StlcSubTyping`.
+--  constructors with the `StlcSubTyping`. Like the
+--  `Subtype` rules above, `HasType.sub` is not
+--  syntax-directed — it applies to a term `t₁` regardless
+--  of that term's shape, and asks us to invent an
+--  intermediate type `τ₁` — so including it would make
+--  `apply_rules`'s search loop.
 --  `apply_rules using StlcSubTyping` will search for
 --  derivations without using the subtyping rule; if you
 --  want to make use of it in a derivation you will need to
@@ -949,16 +965,13 @@ def HasType.unexpand : Unexpander := StlcCommon.Delab.unexpandHasType
 --  ### Exercise (2 stars): sub_inversion_bool (Optional) ⭐⭐
 
 theorem sub_inversion_bool (τ : Ty)
-    (h : τ <: <{ Bool }>) :
-    τ = Ty.bool := by
+    (h : τ <: <{ Bool }>) : τ = Ty.bool := by
   sorry
 
 --  ### Exercise (3 stars): sub_inversion_arrow ⭐⭐⭐
 
-theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
-     (h : σ <: <{ τ₁ → τ₂ }>) :
-     ∃ σ₁ σ₂,
-     σ = <{ σ₁ → σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
+theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty} (h : σ <: <{ τ₁ → τ₂ }>) :
+    ∃ σ₁ σ₂, σ = <{ σ₁ → σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
   sorry
 
 --  ### Canonical Forms
@@ -974,10 +987,9 @@ theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
 
 --  ### Exercise (3 stars): canonical_forms_of_arrow_types (Optional) ⭐⭐⭐
 
-theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty}
-  (ht : <{ Γ ⊢ t ⦂ τ₁ → τ₂ }>)
-  (hv : t.IsValue) :
-  ∃ x σ₁ t₂, t = <{λ x : σ₁ . t₂}> := by
+theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm}
+    {τ₁ τ₂ : Ty} (ht : <{ Γ ⊢ t ⦂ τ₁ → τ₂ }>) (hv : t.IsValue) :
+    ∃ x σ₁ t₂, t = <{λ x : σ₁ . t₂}> := by
   sorry
 
 --  (End of exercise)
@@ -986,9 +998,8 @@ theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty
 --  constants `tru` and `fls`
 
 theorem canonical_forms_of_bool {Γ : Context} {t : Tm}
-  (ht : <{ Γ ⊢ t ⦂ Bool }>)
-  (hv : t.IsValue) :
-  t = Tm.tru ∨ t = Tm.fls := by
+    (ht : <{ Γ ⊢ t ⦂ Bool }>) (hv : t.IsValue) :
+    t = <{ true }> ∨ t = <{ false }> := by
 
   generalize heq : Ty.bool = τ at ht
   induction ht with (subst_vars; first | trivial | try lia)
@@ -1073,7 +1084,8 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
 --
 --  Formally:
 
-theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}
+theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty}
+  {t₂ : Tm} {τ : Ty}
   (h : <{ Γ ⊢ λ x : σ₁ . t₂ ⦂ τ }>) :
     ∃ σ₂, <{ σ₁ → σ₂ }> <: τ ∧ <{ x ↦ σ₁ ; Γ ⊢ t₂ ⦂ σ₂ }> := by
 
@@ -1127,17 +1139,18 @@ theorem weakening {Γ Γ' : Context} {t : Tm} {τ: Ty}
     (hi : Γ ⊆ Γ')
     (ht : <{ Γ ⊢ t ⦂ τ }>) :
      <{ Γ' ⊢ t ⦂ τ }> := by
-  induction ht generalizing Γ' with (try apply_rules [PartialMap.update_subset] using StlcSubTyping)
+  induction ht generalizing Γ' with
+    (try apply_rules [PartialMap.update_subset] using StlcSubTyping)
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
     apply HasType.sub <;> solve_by_elim using StlcSubTyping
 
 theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
     (ht :<{ ∅ ⊢ t ⦂ τ }>) :
     <{ Γ ⊢ t ⦂ τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  · intros x b contra
+    contradiction
+  · assumption
 
 --  ### Substitution
 
@@ -1148,14 +1161,16 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
 --  to use induction on typing derivations rather than on
 --  terms.
 
-theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}
+theorem substitution_preserves_typing {Γ : Context} {x : String}
+    {τ₁ : Ty} {t v : Tm} {τ : Ty}
     (ht : <{ x ↦ τ₁ ; Γ ⊢ t ⦂ τ }>)
     (hv : <{ ∅ ⊢ v ⦂ τ₁ }>) :
     <{ Γ ⊢ [x := v] t ⦂ τ }> := by
 
   generalize heq : x →ₚ τ₁ ; Γ = Γ' at ht
   induction ht generalizing x Γ with (
-    subst_vars; try rw [subst]; try (apply_rules using StlcSubTyping; done))
+    subst_vars; try rw [subst];
+    try (apply_rules using StlcSubTyping; done))
   | var Γ y σ h =>
       by_cases h₁ : x = y
       · subst h₁; simp at h; subst h;
@@ -1165,8 +1180,10 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
         apply_rules using StlcSubTyping
   | abs _ y _ _ _ h ih =>
       by_cases h₁ : x = y
-      · simp_all [PartialMap.update_shadow]; apply_rules using StlcSubTyping
-      · simp_all; constructor; apply ih; rw [PartialMap.update_permute]; lia
+      · simp_all [PartialMap.update_shadow]
+        apply_rules using StlcSubTyping
+      · simp_all; constructor; apply ih
+        rw [PartialMap.update_permute]; lia
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
       apply HasType.sub <;> solve_by_elim using StlcSubTyping
 
@@ -1247,11 +1264,12 @@ theorem preservation {t t' : Tm} {τ : Ty}
         · assumption
         · apply HasType.sub <;> apply_rules using StlcSubTyping
   | ite Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
-    inversion hs with (try (constructor <;> solve_by_elim using StlcSubEval))
+    inversion hs with
+      (try (constructor <;> solve_by_elim using StlcSubEval))
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
       apply HasType.sub <;> solve_by_elim using StlcSubTyping
 --  FILL IN HERE
 
 end StlcSub
 
--- Source revision: f784fe9, committed 2026-11-12 01:26 UTC
+-- Source revision: cb999ba, committed 2026-11-19 20:54 UTC

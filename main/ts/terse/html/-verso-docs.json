@@ -1585,396 +1585,396 @@
  "1504": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;</code>",
  "1503":
  "<code>STLCRef.substitution_preserves_typing (Γ : Context) (δ : StoreTy) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ / δ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "1502":
- "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1501": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1500":
- "<code>STLCRef.weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) :\n  &lt;{ Γ' / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1502": "<code>none = some b✝</code>",
+ "1501":
+ "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
+ "1500": "<code>∅[a✝] = some b✝</code>",
  "150":
  "<code>Slang.AevalRExtended.Aexp.EvalR.any (n : Nat) : any.EvalR n</code>",
  "15": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
- "1499": "<code>t / ρ ⟶ t' / ρ'</code>",
- "1498": "<code>δ ⊢ ρ</code>",
- "1497": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1496":
+ "1499":
+ "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1498": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1497":
+ "<code>STLCRef.weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) :\n  &lt;{ Γ' / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1496": "<code>t / ρ ⟶ t' / ρ'</code>",
+ "1495": "<code>δ ⊢ ρ</code>",
+ "1494": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1493":
  "<code>STLCRef.preservation_theorem {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} : Prop</code>",
- "1495": "<code>Extends tail✝ tail✝</code>",
- "1494": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
- "1493": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
- "1492":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
- "1491":
- "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
- "1490":
- "<code>Nat.succ_lt_succ {n m : Nat} : n &lt; m → n.succ &lt; m.succ</code>",
+ "1492": "<code>Extends tail✝ tail✝</code>",
+ "1491": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
+ "1490": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
  "149": "<code>Slang.AevalRExtended.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1489": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
- "1488": "<code>0 &lt; (τ :: δ✝).length</code>",
+ "1489":
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
+ "1488":
+ "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
  "1487":
+ "<code>Nat.succ_lt_succ {n m : Nat} : n &lt; m → n.succ &lt; m.succ</code>",
+ "1486": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
+ "1485": "<code>0 &lt; (τ :: δ✝).length</code>",
+ "1484":
  "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
- "1486": "<code>l &lt; (τ :: δ✝).length</code>",
- "1485":
+ "1483": "<code>l &lt; (τ :: δ✝).length</code>",
+ "1482":
  "<code>∀ {l : Nat}, l &lt; List.length δ✝ → l &lt; List.length δ'✝</code>",
- "1484": "<code>Extends δ'✝ δ✝</code>",
- "1483":
+ "1481": "<code>Extends δ'✝ δ✝</code>",
+ "1480":
  "<code>STLCRef.length_extends {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : l &lt; List.length δ'</code>",
- "1482": "<code>l + 1 &lt; (hd :: tl).length</code>",
- "1481": "<code>Extends tl' tl</code>",
- "1480": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
  "148": "<code>Slang.AevalRExtended.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "1479": "<code>Extends [] (hd :: tl)</code>",
- "1478": "<code>Extends δ' (hd :: tl)</code>",
- "1477":
- "<code>∀ {l : Nat} {δ' : StoreTy}, l &lt; tl.length → Extends δ' tl → δ'[l] = tl[l]</code>",
- "1476": "<code>List Ty</code>",
- "1475": "<code>Extends δ' []</code>",
+ "1479": "<code>l + 1 &lt; (hd :: tl).length</code>",
+ "1478": "<code>Extends tl' tl</code>",
+ "1477": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
+ "1476": "<code>Extends [] (hd :: tl)</code>",
+ "1475": "<code>Extends δ' (hd :: tl)</code>",
  "1474":
+ "<code>∀ {l : Nat} {δ' : StoreTy}, l &lt; tl.length → Extends δ' tl → δ'[l] = tl[l]</code>",
+ "1473": "<code>List Ty</code>",
+ "1472": "<code>Extends δ' []</code>",
+ "1471":
  "<code>STLCRef.extends_lookup {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : δ'[l] = δ[l]</code>",
- "1473": "<code>Extends δ' δ</code>",
- "1472":
- "<code>STLCRef.Extends.cons (τ : Ty) {δ' δ : StoreTy} (h : Extends δ' δ) : Extends (τ :: δ') (τ :: δ)</code>",
- "1471": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
- "1470": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
+ "1470": "<code>Extends δ' δ</code>",
  "147": "<code>Slang.AevalRExtended.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
  "1469":
- "<code>STLCRef.preservation_less_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
- "1468": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
- "1467":
- "<code>STLCRef.preservation_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
+ "<code>STLCRef.Extends.cons (τ : Ty) {δ' δ : StoreTy} (h : Extends δ' δ) : Extends (τ :: δ') (τ :: δ)</code>",
+ "1468": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
+ "1467": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
  "1466":
- "<code>StlcCommon.Delab.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code>",
- "1465": "<code>STLCRef.HasType.unexpand : Unexpander</code>",
- "1464": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;)</code>",
+ "<code>STLCRef.preservation_less_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
+ "1465": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
+ "1464":
+ "<code>STLCRef.preservation_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
  "1463":
+ "<code>StlcCommon.Delab.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code>",
+ "1462": "<code>STLCRef.HasType.unexpand : Unexpander</code>",
+ "1461": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;)</code>",
+ "1460":
  "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Ref τ₂ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ := t₂ }&gt;) (&lt;{ Unit }&gt;)</code>",
- "1462": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)</code>",
- "1461":
- "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)) :\n  HasType δ Γ (&lt;{ !t₁ }&gt;) τ₁</code>",
- "1460": "<code>HasType δ Γ t₁ τ₁</code>",
  "146": "<code>Slang.AevalRExtended.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
- "1459":
- "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ τ₁) :\n  HasType δ Γ (&lt;{ ref t₁ }&gt;) (&lt;{ Ref τ₁ }&gt;)</code>",
- "1458": "<code>l &lt; List.length δ</code>",
- "1457":
- "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  HasType δ Γ (Tm.loc l) (&lt;{ Ref ~δ[l] }&gt;)</code>",
+ "1459": "<code>HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)</code>",
+ "1458":
+ "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ (&lt;{ Ref τ₁ }&gt;)) :\n  HasType δ Γ (&lt;{ !t₁ }&gt;) τ₁</code>",
+ "1457": "<code>HasType δ Γ t₁ τ₁</code>",
  "1456":
- "<code>STLCRef.HasType.unit {δ : StoreTy} {Γ : Context} : HasType δ Γ (&lt;{ unit }&gt;) (&lt;{ Unit }&gt;)</code>",
- "1455": "<code>HasType δ Γ t₃ τ</code>",
- "1454": "<code>HasType δ Γ t₂ τ</code>",
+ "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : HasType δ Γ t₁ τ₁) :\n  HasType δ Γ (&lt;{ ref t₁ }&gt;) (&lt;{ Ref τ₁ }&gt;)</code>",
+ "1455": "<code>l &lt; List.length δ</code>",
+ "1454":
+ "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  HasType δ Γ (Tm.loc l) (&lt;{ Ref ~δ[l] }&gt;)</code>",
  "1453":
- "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ τ) (h₃ : HasType δ Γ t₃ τ) : HasType δ Γ (&lt;{ if0 t₁ then t₂ else t₃ }&gt;) τ</code>",
- "1452": "<code>HasType δ Γ t₂ (&lt;{ Nat }&gt;)</code>",
- "1451":
- "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ (&lt;{ Nat }&gt;)) : HasType δ Γ (&lt;{ t₁ * t₂ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "<code>STLCRef.HasType.unit {δ : StoreTy} {Γ : Context} : HasType δ Γ (&lt;{ unit }&gt;) (&lt;{ Unit }&gt;)</code>",
+ "1452": "<code>HasType δ Γ t₃ τ</code>",
+ "1451": "<code>HasType δ Γ t₂ τ</code>",
  "1450":
- "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ pred t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ τ) (h₃ : HasType δ Γ t₃ τ) : HasType δ Γ (&lt;{ if0 t₁ then t₂ else t₃ }&gt;) τ</code>",
  "145": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
- "1449": "<code>HasType δ Γ t₁ (&lt;{ Nat }&gt;)</code>",
+ "1449": "<code>HasType δ Γ t₂ (&lt;{ Nat }&gt;)</code>",
  "1448":
- "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ succ t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ Nat }&gt;))\n  (h₂ : HasType δ Γ t₂ (&lt;{ Nat }&gt;)) : HasType δ Γ (&lt;{ t₁ * t₂ }&gt;) (&lt;{ Nat }&gt;)</code>",
  "1447":
- "<code>STLCRef.HasType.const {δ : StoreTy} {Γ : Context} {n : Nat} : HasType δ Γ (Tm.const n) (&lt;{ Nat }&gt;)</code>",
- "1446": "<code>HasType δ Γ t₂ τ₂</code>",
- "1445": "<code>HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ pred t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
+ "1446": "<code>HasType δ Γ t₁ (&lt;{ Nat }&gt;)</code>",
+ "1445":
+ "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : HasType δ Γ t₁ (&lt;{ Nat }&gt;)) :\n  HasType δ Γ (&lt;{ succ t₁ }&gt;) (&lt;{ Nat }&gt;)</code>",
  "1444":
- "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
- "1443": "<code>HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
- "1442":
- "<code>STLCRef.HasType.abs {δ : StoreTy} {Γ : Context} {x : String} {τ₁ τ₂ : Ty} {t₁ : Tm}\n  (h : HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁) : HasType δ Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
+ "<code>STLCRef.HasType.const {δ : StoreTy} {Γ : Context} {n : Nat} : HasType δ Γ (Tm.const n) (&lt;{ Nat }&gt;)</code>",
+ "1443": "<code>HasType δ Γ t₂ τ₂</code>",
+ "1442": "<code>HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;)</code>",
  "1441":
- "<code>STLCRef.HasType.var {δ : StoreTy} {Γ : Context} {x : String} {τ₁ : Ty} (h : Γ[x] = some τ₁) :\n  HasType δ Γ (STLCRef.Tm.var x) τ₁</code>",
- "1440":
- "<code>STLCRef.HasType (δ : StoreTy) : Context → Tm → Ty → Prop</code>",
+ "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : HasType δ Γ t₁ (&lt;{ τ₂ → τ₁ }&gt;))\n  (h₂ : HasType δ Γ t₂ τ₂) : HasType δ Γ (&lt;{ t₁ t₂ }&gt;) τ₁</code>",
+ "1440": "<code>HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
  "144": "<code>Slang.AevalRExtended.Aexp.any : Aexp</code>",
  "1439":
- "<code>STLCRef.StoreTy_get_zero_hd (hd : Ty) (tl : StoreTy) : (hd :: tl)[0] = hd</code>",
+ "<code>STLCRef.HasType.abs {δ : StoreTy} {Γ : Context} {x : String} {τ₁ τ₂ : Ty} {t₁ : Tm}\n  (h : HasType δ (x →ₚ τ₂ ; Γ) t₁ τ₁) : HasType δ Γ (&lt;{ λ ~x : τ₂ . t₁ }&gt;) (&lt;{ τ₂ → τ₁ }&gt;)</code>",
  "1438":
+ "<code>STLCRef.HasType.var {δ : StoreTy} {Γ : Context} {x : String} {τ₁ : Ty} (h : Γ[x] = some τ₁) :\n  HasType δ Γ (STLCRef.Tm.var x) τ₁</code>",
+ "1437":
+ "<code>STLCRef.HasType (δ : StoreTy) : Context → Tm → Ty → Prop</code>",
+ "1436":
+ "<code>STLCRef.StoreTy_get_zero_hd (hd : Ty) (tl : StoreTy) : (hd :: tl)[0] = hd</code>",
+ "1435":
  "<code>STLCRef.StoreTy_get_succ_tl (hd : Ty) (tl : StoreTy) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
- "1437": "<code>StoreTy</code>",
- "1436": "<code>StoreTy → Nat → Ty</code>",
- "1435": "<code>STLCRef.StoreTy : Type</code>",
- "1434": "<code>STLCRef.Context : Type</code>",
- "1433":
- "<code>STLCRef.Step.assign₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ := t₂ }&gt;, ρ) (&lt;{ v₁ := t₂' }&gt;, ρ')</code>",
- "1432":
- "<code>STLCRef.Step.assign₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ := t₂ }&gt;, ρ) (&lt;{ t₁' := t₂ }&gt;, ρ')</code>",
- "1431":
- "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  Step (&lt;{ ~(Tm.loc l) := v }&gt;, ρ) (&lt;{ unit }&gt;, List.set ρ l v)</code>",
+ "1434": "<code>StoreTy</code>",
+ "1433": "<code>StoreTy → Nat → Ty</code>",
+ "1432": "<code>STLCRef.StoreTy : Type</code>",
+ "1431": "<code>STLCRef.Context : Type</code>",
  "1430":
- "<code>STLCRef.Step.deref {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ !t₁ }&gt;, ρ) (&lt;{ !t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.assign₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ := t₂ }&gt;, ρ) (&lt;{ v₁ := t₂' }&gt;, ρ')</code>",
  "143": "<code>Slang.AevalRExtended.Aexp : Type</code>",
  "1429":
- "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : Step (&lt;{ !~(Tm.loc l) }&gt;, ρ) (ρ[l], ρ)</code>",
+ "<code>STLCRef.Step.assign₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ := t₂ }&gt;, ρ) (&lt;{ t₁' := t₂ }&gt;, ρ')</code>",
  "1428":
- "<code>STLCRef.Step.ref_ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ ref t₁ }&gt;, ρ) (&lt;{ ref t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  Step (&lt;{ ~(Tm.loc l) := v }&gt;, ρ) (&lt;{ unit }&gt;, List.set ρ l v)</code>",
  "1427":
- "<code>List.concat.{u} {α : Type u} : List α → α → List α</code><span class=\"sep\"></span><code class=\"docstring\">Adds an element to the *end* of a list.\n\nThe added element is the last element of the resulting list.\n\nExamples:\n* `List.concat [\"red\", \"yellow\"] \"green\" = [\"red\", \"yellow\", \"green\"]`\n* `List.concat [1, 2, 3] 4 = [1, 2, 3, 4]`\n* `List.concat [] () = [()]`\n</code>",
+ "<code>STLCRef.Step.deref {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ !t₁ }&gt;, ρ) (&lt;{ !t₁' }&gt;, ρ')</code>",
  "1426":
- "<code>STLCRef.Step.refValue {v : Tm} {ρ : Store} (h : v.IsValue) :\n  Step (&lt;{ ref v }&gt;, ρ) (Tm.loc (List.length ρ), List.concat ρ v)</code>",
+ "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : Step (&lt;{ !~(Tm.loc l) }&gt;, ρ) (ρ[l], ρ)</code>",
  "1425":
- "<code>STLCRef.Step.if0Nonzero {n : Nat} {t₂ t₃ : Tm} {ρ : Store} :\n  Step (&lt;{ if0 ~(Tm.const (n + 1)) then t₂ else t₃ }&gt;, ρ) (t₃, ρ)</code>",
+ "<code>STLCRef.Step.ref_ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) : Step (&lt;{ ref t₁ }&gt;, ρ) (&lt;{ ref t₁' }&gt;, ρ')</code>",
  "1424":
- "<code>STLCRef.Step.if0Zero {t₂ t₃ : Tm} {ρ : Store} : Step (&lt;{ if0 0 then t₂ else t₃ }&gt;, ρ) (t₂, ρ)</code>",
+ "<code>List.concat.{u} {α : Type u} : List α → α → List α</code><span class=\"sep\"></span><code class=\"docstring\">Adds an element to the *end* of a list.\n\nThe added element is the last element of the resulting list.\n\nExamples:\n* `List.concat [\"red\", \"yellow\"] \"green\" = [\"red\", \"yellow\", \"green\"]`\n* `List.concat [1, 2, 3] 4 = [1, 2, 3, 4]`\n* `List.concat [] () = [()]`\n</code>",
  "1423":
- "<code>STLCRef.Step.if0Step {t₁ t₁' t₂ t₃ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ if0 t₁ then t₂ else t₃ }&gt;, ρ) (&lt;{ if0 t₁' then t₂ else t₃ }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.refValue {v : Tm} {ρ : Store} (h : v.IsValue) :\n  Step (&lt;{ ref v }&gt;, ρ) (Tm.loc (List.length ρ), List.concat ρ v)</code>",
  "1422":
- "<code>STLCRef.Step.mult₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ * t₂ }&gt;, ρ) (&lt;{ v₁ * t₂' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.if0Nonzero {n : Nat} {t₂ t₃ : Tm} {ρ : Store} :\n  Step (&lt;{ if0 ~(Tm.const (n + 1)) then t₂ else t₃ }&gt;, ρ) (t₃, ρ)</code>",
  "1421":
- "<code>STLCRef.Step.mult₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ * t₂ }&gt;, ρ) (&lt;{ t₁' * t₂ }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.if0Zero {t₂ t₃ : Tm} {ρ : Store} : Step (&lt;{ if0 0 then t₂ else t₃ }&gt;, ρ) (t₂, ρ)</code>",
  "1420":
- "<code>STLCRef.Step.multConst {n₁ n₂ : Nat} {ρ : Store} :\n  Step (&lt;{ ~(Tm.const n₁) * ~(Tm.const n₂) }&gt;, ρ) (Tm.const (n₁ * n₂), ρ)</code>",
+ "<code>STLCRef.Step.if0Step {t₁ t₁' t₂ t₃ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ if0 t₁ then t₂ else t₃ }&gt;, ρ) (&lt;{ if0 t₁' then t₂ else t₃ }&gt;, ρ')</code>",
  "142": "<code>n₂ * n₃ = n₁</code>",
  "1419":
- "<code>STLCRef.Step.pred {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ pred t₁ }&gt;, ρ) (&lt;{ pred t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.mult₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ * t₂ }&gt;, ρ) (&lt;{ v₁ * t₂' }&gt;, ρ')</code>",
  "1418":
- "<code>STLCRef.Step.predConst {n : Nat} {ρ : Store} : Step (&lt;{ pred ~(Tm.const n) }&gt;, ρ) (Tm.const (n - 1), ρ)</code>",
+ "<code>STLCRef.Step.mult₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ * t₂ }&gt;, ρ) (&lt;{ t₁' * t₂ }&gt;, ρ')</code>",
  "1417":
- "<code>STLCRef.Step.succ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ succ t₁ }&gt;, ρ) (&lt;{ succ t₁' }&gt;, ρ')</code>",
+ "<code>STLCRef.Step.multConst {n₁ n₂ : Nat} {ρ : Store} :\n  Step (&lt;{ ~(Tm.const n₁) * ~(Tm.const n₂) }&gt;, ρ) (Tm.const (n₁ * n₂), ρ)</code>",
  "1416":
- "<code>STLCRef.Step.succNat {n : Nat} {ρ : Store} : Step (&lt;{ succ ~(Tm.const n) }&gt;, ρ) (Tm.const (n + 1), ρ)</code>",
- "1415": "<code>Step (t₂, ρ) (t₂', ρ')</code>",
+ "<code>STLCRef.Step.pred {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ pred t₁ }&gt;, ρ) (&lt;{ pred t₁' }&gt;, ρ')</code>",
+ "1415":
+ "<code>STLCRef.Step.predConst {n : Nat} {ρ : Store} : Step (&lt;{ pred ~(Tm.const n) }&gt;, ρ) (Tm.const (n - 1), ρ)</code>",
  "1414":
+ "<code>STLCRef.Step.succ {t₁ t₁' : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ succ t₁ }&gt;, ρ) (&lt;{ succ t₁' }&gt;, ρ')</code>",
+ "1413":
+ "<code>STLCRef.Step.succNat {n : Nat} {ρ : Store} : Step (&lt;{ succ ~(Tm.const n) }&gt;, ρ) (Tm.const (n + 1), ρ)</code>",
+ "1412": "<code>Step (t₂, ρ) (t₂', ρ')</code>",
+ "1411":
  "<code>STLCRef.Step.app₂ {v₁ t₂ t₂' : Tm} {ρ ρ' : Store} (h₁ : v₁.IsValue) (h₂ : Step (t₂, ρ) (t₂', ρ')) :\n  Step (&lt;{ v₁ t₂ }&gt;, ρ) (&lt;{ v₁ t₂' }&gt;, ρ')</code>",
- "1413": "<code>Step (t₁, ρ) (t₁', ρ')</code>",
- "1412":
- "<code>STLCRef.Step.app₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ t₂ }&gt;, ρ) (&lt;{ t₁' t₂ }&gt;, ρ')</code>",
- "1411": "<code>v₂.IsValue</code>",
- "1410":
- "<code>STLCRef.Step.appAbs {x : String} {τ₂ : Ty} {t₁ v₂ : Tm} {ρ : Store} (h : v₂.IsValue) :\n  Step (&lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt;, ρ) (&lt;{ [~x := v₂] t₁ }&gt;, ρ)</code>",
+ "1410": "<code>Step (t₁, ρ) (t₁', ρ')</code>",
  "141": "<code>n₂ &gt; 0</code>",
- "1409": "<code>STLCRef.Step : Tm × Store → Tm × Store → Prop</code>",
- "1408": "<code>∀ (l₁ l₂ : Nat), l₁ ≠ l₂ → (tl.set l₂ t)[l₁] = tl[l₁]</code>",
+ "1409":
+ "<code>STLCRef.Step.app₁ {t₁ t₁' t₂ : Tm} {ρ ρ' : Store} (h : Step (t₁, ρ) (t₁', ρ')) :\n  Step (&lt;{ t₁ t₂ }&gt;, ρ) (&lt;{ t₁' t₂ }&gt;, ρ')</code>",
+ "1408": "<code>v₂.IsValue</code>",
  "1407":
+ "<code>STLCRef.Step.appAbs {x : String} {τ₂ : Ty} {t₁ v₂ : Tm} {ρ : Store} (h : v₂.IsValue) :\n  Step (&lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt;, ρ) (&lt;{ [~x := v₂] t₁ }&gt;, ρ)</code>",
+ "1406": "<code>STLCRef.Step : Tm × Store → Tm × Store → Prop</code>",
+ "1405": "<code>∀ (l₁ l₂ : Nat), l₁ ≠ l₂ → (tl.set l₂ t)[l₁] = tl[l₁]</code>",
+ "1404":
  "<code>STLCRef.Store_get_set_neq (l₁ l₂ : Nat) (t : Tm) (ρ : Store) : l₁ ≠ l₂ → (List.set ρ l₂ t)[l₁] = ρ[l₁]</code>",
- "1406": "<code>n✝ + 1 &lt; (hd :: tl).length</code>",
- "1405": "<code>0 &lt; (hd :: tl).length</code>",
- "1404": "<code>l &lt; (hd :: tl).length</code>",
- "1403": "<code>∀ (l : Nat), l &lt; tl.length → (tl.set l x)[l] = x</code>",
- "1402": "<code>List Tm</code>",
- "1401": "<code>l &lt; [].length</code>",
- "1400":
- "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
+ "1403": "<code>n✝ + 1 &lt; (hd :: tl).length</code>",
+ "1402": "<code>0 &lt; (hd :: tl).length</code>",
+ "1401": "<code>l &lt; (hd :: tl).length</code>",
+ "1400": "<code>∀ (l : Nat), l &lt; tl.length → (tl.set l x)[l] = x</code>",
  "140":
  "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n₃ = n₁) : (a₁.div a₂).EvalR n₃</code>",
  "14":
  "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
- "1399":
- "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
- "1398":
- "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
- "1397": "<code>l &lt; List.length ρ</code>",
+ "1399": "<code>List Tm</code>",
+ "1398": "<code>l &lt; [].length</code>",
+ "1397":
+ "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
  "1396":
- "<code>STLCRef.Store_get_set_eq (ρ : Store) (l : Nat) (x : Tm) (h : l &lt; List.length ρ) : (List.set ρ l x)[l] = x</code>",
+ "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
  "1395":
- "<code>List.set.{u_1} {α : Type u_1} (l : List α) (n : Nat) (a : α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Replaces the value at (zero-based) index `n` in `l` with `a`. If the index is out of bounds, then\nthe list is returned unmodified.\n\nExamples:\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 1 \"tea\" = [\"water\", \"tea\", \"soda\", \"juice\"]`\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 4 \"tea\" = [\"water\", \"coffee\", \"soda\", \"juice\"]`\n</code>",
- "1394":
- "<code>STLCRef.Store_get_zero_hd (hd : Tm) (tl : Store) : (hd :: tl)[0] = hd</code>",
+ "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
+ "1394": "<code>l &lt; List.length ρ</code>",
  "1393":
- "<code>STLCRef.Store_get_succ_tl (hd : Tm) (tl : Store) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
+ "<code>STLCRef.Store_get_set_eq (ρ : Store) (l : Nat) (x : Tm) (h : l &lt; List.length ρ) : (List.set ρ l x)[l] = x</code>",
  "1392":
- "<code>List.getD.{u_1} {α : Type u_1} (as : List α) (i : Nat) (fallback : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the element at the provided index, counting from `0`. Returns `fallback` if the index is out\nof bounds.\n\nTo return an `Option` depending on whether the index is in bounds, use `as[i]?`. To panic if the\nindex is out of bounds, use `as[i]!`.\n\nExamples:\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 2 \"never\" = \"fall\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 0 \"never\" = \"spring\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 4 \"never\" = \"never\"`\n</code>",
- "1391": "<code>Store</code>",
- "1390": "<code>Store → Nat → Tm</code>",
+ "<code>List.set.{u_1} {α : Type u_1} (l : List α) (n : Nat) (a : α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Replaces the value at (zero-based) index `n` in `l` with `a`. If the index is out of bounds, then\nthe list is returned unmodified.\n\nExamples:\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 1 \"tea\" = [\"water\", \"tea\", \"soda\", \"juice\"]`\n* `[\"water\", \"coffee\", \"soda\", \"juice\"].set 4 \"tea\" = [\"water\", \"coffee\", \"soda\", \"juice\"]`\n</code>",
+ "1391":
+ "<code>STLCRef.Store_get_zero_hd (hd : Tm) (tl : Store) : (hd :: tl)[0] = hd</code>",
+ "1390":
+ "<code>STLCRef.Store_get_succ_tl (hd : Tm) (tl : Store) (n : Nat) : (hd :: tl)[n + 1] = tl[n]</code>",
  "139":
  "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "1389":
+ "<code>List.getD.{u_1} {α : Type u_1} (as : List α) (i : Nat) (fallback : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the element at the provided index, counting from `0`. Returns `fallback` if the index is out\nof bounds.\n\nTo return an `Option` depending on whether the index is in bounds, use `as[i]?`. To panic if the\nindex is out of bounds, use `as[i]!`.\n\nExamples:\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 2 \"never\" = \"fall\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 0 \"never\" = \"spring\"`\n * `[\"spring\", \"summer\", \"fall\", \"winter\"].getD 4 \"never\" = \"never\"`\n</code>",
+ "1388": "<code>Store</code>",
+ "1387": "<code>Store → Nat → Tm</code>",
+ "1386":
  "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
- "1388": "<code>STLCRef.Store : Type</code>",
- "1387": "<code>STLCRef.unexpandSubst : Unexpander</code>",
- "1386": "<code>STLCRef.subst (x : String) (s t : Tm) : Tm</code>",
- "1385": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : (Tm.loc l).IsValue</code>",
- "1384": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
- "1383": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : («loc» l).IsValue</code>",
- "1382": "<code>STLCRef.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
- "1381": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
- "1380":
- "<code>STLCRef.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "1385": "<code>STLCRef.Store : Type</code>",
+ "1384": "<code>STLCRef.unexpandSubst : Unexpander</code>",
+ "1383": "<code>STLCRef.subst (x : String) (s t : Tm) : Tm</code>",
+ "1382": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : (Tm.loc l).IsValue</code>",
+ "1381": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (Tm.const n).IsValue</code>",
+ "1380": "<code>STLCRef.Tm.IsValue.loc_ (l : Nat) : («loc» l).IsValue</code>",
  "138":
  "<code>Slang.AevalRDivision.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1379": "<code>STLCRef.Tm.IsValue : Tm → Prop</code>",
- "1378": "<code>STLCRef.Delab.Tm.unexpandLoc : Unexpander</code>",
- "1377": "<code>STLCRef.Delab.Tm.unexpandDeref : Unexpander</code>",
- "1376": "<code>STLCRef.Delab.Tm.unexpandRef : Unexpander</code>",
- "1375": "<code>STLCRef.Delab.Tm.unexpandAssign : Unexpander</code>",
- "1374": "<code>STLCRef.Delab.Tm.unexpandUnit : Unexpander</code>",
- "1373": "<code>STLCRef.Delab.Tm.unexpandIte0 : Unexpander</code>",
- "1372": "<code>STLCRef.Delab.Tm.unexpandTseq : Unexpander</code>",
- "1371": "<code>STLCRef.Delab.Tm.unexpandMult : Unexpander</code>",
- "1370": "<code>STLCRef.Delab.Tm.unexpandPred : Unexpander</code>",
+ "1379": "<code>STLCRef.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1378": "<code>STLCRef.Tm.IsValue.nat (n : Nat) : (const n).IsValue</code>",
+ "1377":
+ "<code>STLCRef.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "1376": "<code>STLCRef.Tm.IsValue : Tm → Prop</code>",
+ "1375": "<code>STLCRef.Delab.Tm.unexpandLoc : Unexpander</code>",
+ "1374": "<code>STLCRef.Delab.Tm.unexpandDeref : Unexpander</code>",
+ "1373": "<code>STLCRef.Delab.Tm.unexpandRef : Unexpander</code>",
+ "1372": "<code>STLCRef.Delab.Tm.unexpandAssign : Unexpander</code>",
+ "1371": "<code>STLCRef.Delab.Tm.unexpandUnit : Unexpander</code>",
+ "1370": "<code>STLCRef.Delab.Tm.unexpandIte0 : Unexpander</code>",
  "137":
  "<code>Slang.AevalRDivision.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1369": "<code>STLCRef.Delab.Tm.unexpandSucc : Unexpander</code>",
- "1368": "<code>STLCRef.Delab.Tm.unexpandConst : Unexpander</code>",
- "1367": "<code>STLCRef.Delab.Tm.unexpandAbs : Unexpander</code>",
- "1366": "<code>STLCRef.Delab.Tm.unexpandApp : Unexpander</code>",
- "1365": "<code>STLCRef.Delab.Tm.delabVar : Delab</code>",
- "1364": "<code>STLCRef.Delab.Tm.unexpandVar : Unexpander</code>",
- "1363": "<code><span class=\"literal string\">\"Ref\"</span> : String</code>",
- "1362": "<code><span class=\"literal string\">\"loc\"</span> : String</code>",
- "1361": "<code><span class=\"literal string\">\"ref\"</span> : String</code>",
- "1360": "<code>STLCRef.Delab.reservedNames : String → Bool</code>",
+ "1369": "<code>STLCRef.Delab.Tm.unexpandTseq : Unexpander</code>",
+ "1368": "<code>STLCRef.Delab.Tm.unexpandMult : Unexpander</code>",
+ "1367": "<code>STLCRef.Delab.Tm.unexpandPred : Unexpander</code>",
+ "1366": "<code>STLCRef.Delab.Tm.unexpandSucc : Unexpander</code>",
+ "1365": "<code>STLCRef.Delab.Tm.unexpandConst : Unexpander</code>",
+ "1364": "<code>STLCRef.Delab.Tm.unexpandAbs : Unexpander</code>",
+ "1363": "<code>STLCRef.Delab.Tm.unexpandApp : Unexpander</code>",
+ "1362": "<code>STLCRef.Delab.Tm.delabVar : Delab</code>",
+ "1361": "<code>STLCRef.Delab.Tm.unexpandVar : Unexpander</code>",
+ "1360": "<code><span class=\"literal string\">\"Ref\"</span> : String</code>",
  "136":
  "<code>Slang.AevalRDivision.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "1359": "<code>STLCRef.Delab.Ty.unexpandRef : Unexpander</code>",
- "1358": "<code>STLCRef.Delab.Ty.unexpandArrow : Unexpander</code>",
- "1357": "<code>STLCRef.Delab.Ty.unexpandUnit : Unexpander</code>",
- "1356":
+ "1359": "<code><span class=\"literal string\">\"loc\"</span> : String</code>",
+ "1358": "<code><span class=\"literal string\">\"ref\"</span> : String</code>",
+ "1357": "<code>STLCRef.Delab.reservedNames : String → Bool</code>",
+ "1356": "<code>STLCRef.Delab.Ty.unexpandRef : Unexpander</code>",
+ "1355": "<code>STLCRef.Delab.Ty.unexpandArrow : Unexpander</code>",
+ "1354": "<code>STLCRef.Delab.Ty.unexpandUnit : Unexpander</code>",
+ "1353":
  "<code>StlcCommon.Elab.mkObjectIdentFrom («ref» : Syntax) (name : String) : Ident</code>",
- "1355": "<code>STLCRef.Delab.Ty.unexpandNat : Unexpander</code>",
- "1354": "<code>Lean.Level.zero : Level</code>",
- "1353": "<code>Lean.levelZero : Level</code>",
- "1352":
- "<code>Lean.Elab.Term.elabTermEnsuringType (stx : Syntax) (expectedType? : Option Expr)\n  (catchExPostpone implicitLambda : Bool := true) (errorMsgHeader? : Option String := none) : TermElabM Expr</code><span class=\"sep\"></span><code class=\"docstring\">Similar to `Lean.Elab.Term.elabTerm`, but ensures that the type of the elaborated term is `expectedType?`\nby inserting coercions if necessary.\n\nIf `errToSorry` is true, then if coercion insertion fails, this function returns `sorry` and logs the error.\nOtherwise, it throws the error.\n</code>",
- "1351": "<code>TSyntax `stlcCtx</code>",
- "1350": "<code>STLCRef.Elab.elabBracket : TermElab</code>",
+ "1352": "<code>STLCRef.Delab.Ty.unexpandNat : Unexpander</code>",
+ "1351": "<code>Lean.Level.zero : Level</code>",
+ "1350": "<code>Lean.levelZero : Level</code>",
  "135": "<code>Slang.AevalRDivision.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1349": "<code>Lean.mkApp4 (f a b c d : Expr) : Expr</code>",
- "1348":
- "<code>StlcCommon.Elab.Language.hasType (self : Language) : Name</code>",
- "1347":
- "<code>Lean.Elab.Term.resolveId? (stx : Syntax) (kind : String := \"term\") (withInfo : Bool := false) : TermElabM (Option Expr)</code>",
- "1346": "<code>Lean.Elab.Term.TermElabM (α : Type) : Type</code>",
+ "1349":
+ "<code>Lean.Elab.Term.elabTermEnsuringType (stx : Syntax) (expectedType? : Option Expr)\n  (catchExPostpone implicitLambda : Bool := true) (errorMsgHeader? : Option String := none) : TermElabM Expr</code><span class=\"sep\"></span><code class=\"docstring\">Similar to `Lean.Elab.Term.elabTerm`, but ensures that the type of the elaborated term is `expectedType?`\nby inserting coercions if necessary.\n\nIf `errToSorry` is true, then if coercion insertion fails, this function returns `sorry` and logs the error.\nOtherwise, it throws the error.\n</code>",
+ "1348": "<code>TSyntax `stlcCtx</code>",
+ "1347": "<code>STLCRef.Elab.elabBracket : TermElab</code>",
+ "1346": "<code>Lean.mkApp4 (f a b c d : Expr) : Expr</code>",
  "1345":
- "<code>Lean.Expr : Type</code><span class=\"sep\"></span><code class=\"docstring\">Lean expressions. This data structure is used in the kernel and\nelaborator. However, expressions sent to the kernel should not\ncontain metavariables.\n\nRemark: we use the `E` suffix (short for `Expr`) to avoid collision with keywords.\nWe considered using «...», but it is too inconvenient to use.\n</code>",
+ "<code>StlcCommon.Elab.Language.hasType (self : Language) : Name</code>",
  "1344":
+ "<code>Lean.Elab.Term.resolveId? (stx : Syntax) (kind : String := \"term\") (withInfo : Bool := false) : TermElabM (Option Expr)</code>",
+ "1343": "<code>Lean.Elab.Term.TermElabM (α : Type) : Type</code>",
+ "1342":
+ "<code>Lean.Expr : Type</code><span class=\"sep\"></span><code class=\"docstring\">Lean expressions. This data structure is used in the kernel and\nelaborator. However, expressions sent to the kernel should not\ncontain metavariables.\n\nRemark: we use the `E` suffix (short for `Expr`) to avoid collision with keywords.\nWe considered using «...», but it is too inconvenient to use.\n</code>",
+ "1341":
  "<code>STLCRef.Elab.mkHasType (δ Γ t T : Expr) : TermElabM Expr</code>",
- "1343": "<code>STLCRef.Elab.elabCtx : CtxElab</code>",
- "1342": "<code>STLCRef.Elab.elabTm : TmElab</code>",
- "1341": "<code>STLCRef.Elab.tmHandlers : TmElabHandler</code>",
- "1340": "<code>STLCRef.Elab.extendedTmHandler : TmElabHandler</code>",
+ "1340": "<code>STLCRef.Elab.elabCtx : CtxElab</code>",
  "134":
  "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "1339": "<code>STLCRef.Elab.elabTy : TyElab</code>",
- "1338": "<code>STLCRef.Elab.tyHandlers : TyElabHandler</code>",
- "1337": "<code>STLCRef.Elab.extendedTyHandler : TyElabHandler</code>",
- "1336": "<code>STLCRef.Elab.language : Language</code>",
- "1335": "<code>STLCRef.Tm.tseq (t₁ t₂ : Tm) : Tm</code>",
- "1334": "<code>Lean.Parser.Category.stlcQuoted : Lean.Parser.Category</code>",
- "1333": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "1332": "<code><span class=\"literal string\">\" / \"</span> : String</code>",
- "1331": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1330": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1339": "<code>STLCRef.Elab.elabTm : TmElab</code>",
+ "1338": "<code>STLCRef.Elab.tmHandlers : TmElabHandler</code>",
+ "1337": "<code>STLCRef.Elab.extendedTmHandler : TmElabHandler</code>",
+ "1336": "<code>STLCRef.Elab.elabTy : TyElab</code>",
+ "1335": "<code>STLCRef.Elab.tyHandlers : TyElabHandler</code>",
+ "1334": "<code>STLCRef.Elab.extendedTyHandler : TyElabHandler</code>",
+ "1333": "<code>STLCRef.Elab.language : Language</code>",
+ "1332": "<code>STLCRef.Tm.tseq (t₁ t₂ : Tm) : Tm</code>",
+ "1331": "<code>Lean.Parser.Category.stlcQuoted : Lean.Parser.Category</code>",
+ "1330": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
  "133":
  "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
- "1329": "<code><span class=\"literal string\">\"!\"</span> : String</code>",
- "1328": "<code><span class=\"literal string\">\"loc \"</span> : String</code>",
- "1327": "<code><span class=\"literal string\">\"ref \"</span> : String</code>",
- "1326": "<code><span class=\"literal string\">\"Ref \"</span> : String</code>",
- "1325": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
- "1324": "<code>STLCRef.Tm.loc : Nat → Tm</code>",
- "1323": "<code>STLCRef.Tm.assign : Tm → Tm → Tm</code>",
- "1322": "<code>STLCRef.Tm.deref : Tm → Tm</code>",
- "1321": "<code>STLCRef.Tm.ref : Tm → Tm</code>",
- "1320": "<code>STLCRef.Tm.unit : Tm</code>",
+ "1329": "<code><span class=\"literal string\">\" / \"</span> : String</code>",
+ "1328": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
+ "1327": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1326": "<code><span class=\"literal string\">\"!\"</span> : String</code>",
+ "1325": "<code><span class=\"literal string\">\"loc \"</span> : String</code>",
+ "1324": "<code><span class=\"literal string\">\"ref \"</span> : String</code>",
+ "1323": "<code><span class=\"literal string\">\"Ref \"</span> : String</code>",
+ "1322": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "1321": "<code>STLCRef.Tm.loc : Nat → Tm</code>",
+ "1320": "<code>STLCRef.Tm.assign : Tm → Tm → Tm</code>",
  "132":
  "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
- "1319": "<code>STLCRef.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
- "1318": "<code>STLCRef.Tm.mult : Tm → Tm → Tm</code>",
- "1317": "<code>STLCRef.Tm.pred : Tm → Tm</code>",
- "1316": "<code>STLCRef.Tm.succ : Tm → Tm</code>",
- "1315": "<code>STLCRef.Tm.const : Nat → Tm</code>",
- "1314": "<code>STLCRef.Tm.abs : String → Ty → Tm → Tm</code>",
- "1313": "<code>STLCRef.Tm.app : Tm → Tm → Tm</code>",
- "1312": "<code>STLCRef.Tm.var : String → Tm</code>",
- "1311": "<code>STLCRef.Tm : Type</code>",
- "1310": "<code>STLCRef.Ty.ref : Ty → Ty</code>",
+ "1319": "<code>STLCRef.Tm.deref : Tm → Tm</code>",
+ "1318": "<code>STLCRef.Tm.ref : Tm → Tm</code>",
+ "1317": "<code>STLCRef.Tm.unit : Tm</code>",
+ "1316": "<code>STLCRef.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
+ "1315": "<code>STLCRef.Tm.mult : Tm → Tm → Tm</code>",
+ "1314": "<code>STLCRef.Tm.pred : Tm → Tm</code>",
+ "1313": "<code>STLCRef.Tm.succ : Tm → Tm</code>",
+ "1312": "<code>STLCRef.Tm.const : Nat → Tm</code>",
+ "1311": "<code>STLCRef.Tm.abs : String → Ty → Tm → Tm</code>",
+ "1310": "<code>STLCRef.Tm.app : Tm → Tm → Tm</code>",
  "131":
  "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
- "1309": "<code>STLCRef.Ty.arrow : Ty → Ty → Ty</code>",
- "1308": "<code>STLCRef.Ty.unit : Ty</code>",
- "1307": "<code>STLCRef.Ty.nat : Ty</code>",
- "1306": "<code>STLCRef.Ty : Type</code>",
- "1305": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "1304": "<code>t₁ ⟶ t'</code>",
- "1303": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
- "1302":
- "<code>∀ {t' : Tm}, &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "1301": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
- "1300": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1309": "<code>STLCRef.Tm.var : String → Tm</code>",
+ "1308": "<code>STLCRef.Tm : Type</code>",
+ "1307": "<code>STLCRef.Ty.ref : Ty → Ty</code>",
+ "1306": "<code>STLCRef.Ty.arrow : Ty → Ty → Ty</code>",
+ "1305": "<code>STLCRef.Ty.unit : Ty</code>",
+ "1304": "<code>STLCRef.Ty.nat : Ty</code>",
+ "1303": "<code>STLCRef.Ty : Type</code>",
+ "1302": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁ }&gt;</code>",
+ "1301": "<code>t₁ ⟶ t'</code>",
+ "1300": "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₁ }&gt;</code>",
  "130": "<code>Slang.AevalRDivision.Aexp.eval (a : Aexp) : Option Nat</code>",
  "13": "<code>Bool</code>",
  "1299":
- "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
- "1298": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
- "1297": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
+ "<code>∀ {t' : Tm}, &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
+ "1298": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1297": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
  "1296":
- "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ Bool }&gt;</code>",
- "1295": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t₁ ⦂ τ₁' }&gt;</code>",
- "1294": "<code>τ₂' &lt;: τ₂</code>",
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ Bool }&gt;</code>",
+ "1295": "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
+ "1294": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ }&gt;</code>",
  "1293":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ Bool }&gt;</code>",
+ "1292": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ t₁ ⦂ τ₁' }&gt;</code>",
+ "1291": "<code>τ₂' &lt;: τ₂</code>",
+ "1290":
  "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂ . t₁ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1292": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂ . t₁ ⦂ τ₂' → τ₁' }&gt;</code>",
- "1291": "<code>t₂ ⟶ t₂'✝</code>",
- "1290": "<code>t₁'.IsValue</code>",
  "129": "<code>Slang.AevalRDivision.Aexp.div (a₁ a₂ : Aexp) : Aexp</code>",
- "1289": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' }&gt;</code>",
- "1288":
+ "1289": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂ . t₁ ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1288": "<code>t₂ ⟶ t₂'✝</code>",
+ "1287": "<code>t₁'.IsValue</code>",
+ "1286": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' }&gt;</code>",
+ "1285":
  "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1287": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
- "1286": "<code>&lt;{ ∅ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1285": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' }&gt;</code>",
- "1284":
- "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
- "1283": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
- "1282": "<code>&lt;{ Γ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1284": "<code>&lt;{ ∅ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
+ "1283": "<code>&lt;{ ∅ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1282": "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' }&gt;</code>",
  "1281":
- "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1280":
- "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → ∅ = ∅ → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = Γ → &lt;{ Γ ⊢ t' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1280": "<code>&lt;{ Γ ⊢ t₂ ⦂ τ₂' }&gt;</code>",
  "128": "<code>Slang.AevalRDivision.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "1279": "<code>&lt;{ ∅ ⊢ ( v₁✝ , t' ) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1278": "<code>t'.IsValue</code>",
- "1277": "<code>v₁✝.IsValue</code>",
- "1276": "<code>t✝ ⟶ t'✝</code>",
- "1275": "<code>&lt;{ t₁' t₂ }&gt; ⟶ t'</code>",
- "1274":
- "<code>∀ {t' : Tm}, t✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1273": "<code>&lt;{ snd t✝ }&gt; ⟶ t'</code>",
- "1272":
- "<code>StlcSub.preservation {t t' : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1279": "<code>&lt;{ Γ ⊢ t₁' ⦂ τ₂' → τ₁' }&gt;</code>",
+ "1278":
+ "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1277":
+ "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → ∅ = ∅ → &lt;{ ∅ ⊢ t'_1 ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1276": "<code>&lt;{ ∅ ⊢ ( v₁✝ , t' ) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1275": "<code>t'.IsValue</code>",
+ "1274": "<code>v₁✝.IsValue</code>",
+ "1273": "<code>t✝ ⟶ t'✝</code>",
+ "1272": "<code>&lt;{ t₁' t₂ }&gt; ⟶ t'</code>",
  "1271":
- "<code>StlcSub.substitution_preserves_typing {Γ : StlcSub.Context} {x : String} {τ₁ : StlcSub.Ty} {t v : StlcSub.Tm}\n  {τ : StlcSub.Ty} (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "1270":
- "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁✝ ; Γ_1 = x →ₚ τ₁✝ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁ ⦂ τ₁ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ t' ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1270": "<code>&lt;{ snd t✝ }&gt; ⟶ t'</code>",
  "127": "<code>Slang.AevalRDivision.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "1269": "<code>&lt;{ ~(x →ₚ τ₁✝ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1268": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁✝ }&gt;</code>",
+ "1269":
+ "<code>StlcSub.preservation {t t' : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ t' ⦂ τ }&gt;</code>",
+ "1268":
+ "<code>StlcSub.substitution_preserves_typing {Γ : StlcSub.Context} {x : String} {τ₁ : StlcSub.Ty} {t v : StlcSub.Tm}\n  {τ : StlcSub.Ty} (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
  "1267":
- "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁✝ ; Γ_1 = Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁ ⦂ τ₁ }&gt;</code>",
- "1266":
- "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1265": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁✝ ; Γ_1 = x →ₚ τ₁✝ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁ ⦂ τ₁ }&gt;</code>",
+ "1266": "<code>&lt;{ ~(x →ₚ τ₁✝ ; Γ) ⊢ t₁ ⦂ τ₁ }&gt;</code>",
+ "1265": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁✝ }&gt;</code>",
  "1264":
+ "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁✝ ; Γ_1 = Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁ ⦂ τ₁ }&gt;</code>",
+ "1263":
+ "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; Γ → &lt;{ Γ_1 ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1262": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1261":
  "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1263": "<code>&lt;{ ~(y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1262":
- "<code>∀ {Γ : Context} {x : String}, x →ₚ τ₁ ; Γ = y →ₚ τ₂✝ ; Γ✝ → &lt;{ Γ ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1261": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
- "1260": "<code>&lt;{ ~?Γ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1260": "<code>&lt;{ ~(y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
  "126": "<code>Slang.AevalRDivision.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
- "1259": "<code>τ₁ = σ</code>",
- "1258": "<code>(x →ₚ τ₁ ; Γ)[x] = some σ</code>",
- "1257": "<code>Γ[y] = some σ</code>",
- "1256":
- "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ Γ ⊢ ~(StlcSub.Tm.var x) ⦂ τ₁ }&gt;</code>",
- "1255":
- "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "1254": "<code>(x →ₚ τ₁ ; Γ)[y] = some σ</code>",
+ "1259":
+ "<code>∀ {Γ : Context} {x : String}, x →ₚ τ₁ ; Γ = y →ₚ τ₂✝ ; Γ✝ → &lt;{ Γ ⊢ [~x := v] t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1258": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ✝) ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1257": "<code>&lt;{ ~?Γ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1256": "<code>τ₁ = σ</code>",
+ "1255": "<code>(x →ₚ τ₁ ; Γ)[x] = some σ</code>",
+ "1254": "<code>Γ[y] = some σ</code>",
  "1253":
+ "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ Γ ⊢ ~(StlcSub.Tm.var x) ⦂ τ₁ }&gt;</code>",
+ "1252":
+ "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
+ "1251": "<code>(x →ₚ τ₁ ; Γ)[y] = some σ</code>",
+ "1250":
  "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = x →ₚ τ₁ ; Γ → &lt;{ Γ_1 ⊢ [~x_1 := v] t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1252": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
- "1251": "<code>&lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
- "1250": "<code>PartialMap String Ty</code>",
  "125": "<code>Slang.AevalRDivision.Aexp.num (n : Nat) : Aexp</code>",
- "1249": "<code>x →ₚ τ₁ ; Γ = Γ'</code>",
- "1248": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1247": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;</code>",
- "1246":
+ "1249": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t✝ ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "1248": "<code>&lt;{ Γ' ⊢ t ⦂ τ }&gt;</code>",
+ "1247": "<code>PartialMap String Ty</code>",
+ "1246": "<code>x →ₚ τ₁ ; Γ = Γ'</code>",
+ "1245": "<code>&lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1244": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;</code>",
+ "1243":
  "<code>StlcSub.substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
- "1245": "<code>none = some b✝</code>",
- "1244":
- "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
- "1243": "<code>∅[a✝] = some b✝</code>",
  "1242":
  "<code>StlcSub.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ ⊢ t ⦂ τ }&gt;</code>",
  "1241": "<code>∀ {Γ' : Context}, Γ ⊆ Γ' → &lt;{ Γ' ⊢ t₁ ⦂ τ₁ }&gt;</code>",
