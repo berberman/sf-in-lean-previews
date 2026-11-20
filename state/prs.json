@@ -1,5 +1,5 @@
 {
-  "main_sha": "cb999ba1bf75d20a9c08c710d148096de00038b1",
+  "main_sha": "082fda27a1fcf92a21c83fc7253c244e86df0dad",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -239,55 +239,8 @@
       "title": "[5/5] Show an edited block on the page as a diff against the book's",
       "url": "https://github.com/plclub/sf-in-lean/pull/507"
     },
-    "516": {
-      "base_sha": "cb999ba1bf75d20a9c08c710d148096de00038b1",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c2f8ccfc4195ebfaa97bd1438ffc41b72765dba7",
-      "preview_path": "pr/516/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/44752822006",
-      "status": "published",
-      "title": "TS/References: small fixes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/516"
-    },
     "517": {
-      "base_sha": "c2f8ccfc4195ebfaa97bd1438ffc41b72765dba7",
+      "base_sha": "082fda27a1fcf92a21c83fc7253c244e86df0dad",
       "changed_variants": [
         {
           "audience": "solutions",

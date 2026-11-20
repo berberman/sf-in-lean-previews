@@ -1,1 +1,0 @@
-window.docContents[153].resolve({"/Hoare/#Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Additional-Exercises":{"contents":"\n\n\n\n\n\n\n\n","context":"Hoare Logic\u0009Hoare: Hoare Logic, Part I","header":"5.6. Additional Exercises","id":"/Hoare/#Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Additional-Exercises"}});

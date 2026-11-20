@@ -472,9 +472,13 @@ def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 
 --  (λX:Unit. !R) (r := succ(!R)).
 
+sf_recall
+  abbrev Tm.tseq (t₁ t₂ : Tm) : Tm :=
+    Tm.app (.abs "X" .unit t₂) t₁
+
 /-- info: <{ R := succ (!R) ; !R }> : Tm -/
 #guard_msgs in
-#check <{R := succ (!R); !R}>
+#check Tm.tseq <{R := succ (!R)}> <{!R}>
 
 --  ### References and Aliasing
 
@@ -631,12 +635,15 @@ def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 --
 --  This is *not* just a question of taste in language
 --  design: it is extremely difficult to achieve type safety
---  in the presence of an explicit deallocation operation.
+--  in the presence of an explicit deallocation operation;
+--  only the Rust language has made this practical, at the
+--  cost of significantly constraining the creation and use
+--  of aliases.
 --
---  One reason for this is the familiar *dangling reference*
---  problem: we allocate a cell holding a number, save a
---  reference to it in some data structure, use it for a
---  while, then deallocate it and allocate a new cell
+--  One reason for this difficulty is the familiar *dangling
+--  reference* problem: we allocate a cell holding a number,
+--  save a reference to it in some data structure, use it
+--  for a while, then deallocate it and allocate a new cell
 --  holding a boolean, possibly reusing the same storage.
 --  Now we can have two names for the same storage cell —
 --  one with type `Ref Nat` and the other with type
@@ -760,11 +767,13 @@ theorem Store_get_set_neq (l₁ l₂ : Nat) (t : Tm) (ρ : Store) :
 --      --------------------------------        (assign₂)
 --        v₁ := t₂ / ρ ⟶ v₁ := t₂' / ρ'
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
 section
 set_option hygiene false in
 local notation:40
   t:71 " / " ρ:41 " ⟶ " t':71 " / " ρ':41 =>
   Step (t, ρ) (t', ρ')
+--  END DETAILS
 
 inductive Step : Tm × Store → Tm × Store → Prop where
   -- pure STLC
@@ -835,19 +844,21 @@ inductive Step : Tm × Store → Tm × Store → Prop where
       <{ v₁ := t₂ }> / ρ ⟶ <{ v₁ := t₂' }> / ρ'
 end
 
-scoped notation:40
-  t:71 " / " ρ:41 " ⟶ " t':71 " / " ρ':41 =>
-  Step (t, ρ) (t', ρ')
-scoped notation:40
-  t:71 " / " ρ:41 " ⟶* " t':71 " / " ρ':41 =>
-  Multi Step (t, ρ) (t', ρ')
-
 attribute [StlcRefEval] Step.appAbs Step.app₁ Step.app₂
     Step.succ Step.succNat Step.pred Step.predConst
     Step.multConst Step.mult₁ Step.mult₂
     Step.if0Step Step.if0Zero Step.if0Nonzero
     Step.refValue Step.ref_ Step.derefLoc Step.deref Step.assign
     Step.assign₁ Step.assign₂
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
+scoped notation:40
+  t:71 " / " ρ:41 " ⟶ " t':71 " / " ρ':41 =>
+  Step (t, ρ) (t', ρ')
+scoped notation:40
+  t:71 " / " ρ:41 " ⟶* " t':71 " / " ρ':41 =>
+  Multi Step (t, ρ) (t', ρ')
+--  END DETAILS
 
 --  ## Typing
 
@@ -909,6 +920,7 @@ instance : MyGetElem StoreTy Nat Ty where
 @[simp]
 theorem StoreTy_get_succ_tl (hd : Ty) (tl : StoreTy) (n : Nat) :
   (hd :: tl)[n + 1] = tl[n] := by rfl
+
 @[simp]
 theorem StoreTy_get_zero_hd (hd : Ty) (tl : StoreTy) :
   (hd :: tl)[0] = hd := by rfl
@@ -1170,10 +1182,10 @@ theorem weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ: Ty}
 theorem weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ: Ty}
     (ht :<{ ∅ / δ ⊢ t ⦂ τ }>) :
     <{ Γ / δ ⊢ t ⦂ τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  · intros x b contra
+    contradiction
+  · assumption
 
 theorem substitution_preserves_typing (Γ : Context) (δ : StoreTy) (x : String)
     (τ₁ : Ty) (t v : Tm) (τ : Ty)
@@ -1542,9 +1554,9 @@ theorem progress (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store)
 --  reference cell; the trick is that we then smuggle in a
 --  reference to itself!
 --
---         (λR: Ref (Unit → Unit),
---              R := (λx:Unit,(!R) unit); (!R) unit)
---      (ref (λX:Unit.unit))
+--      (λR : Ref (Unit → Unit).
+--          R := (λX:Unit. (!R) unit); (!R) unit)
+--      (ref (λX:Unit. unit))
 
 namespace RefsAndNontermination
 
@@ -1618,4 +1630,4 @@ end RefsAndNontermination
 
 end STLCRef
 
--- Source revision: cb999ba, committed 2026-11-19 20:54 UTC
+-- Source revision: 082fda2, committed 2026-11-20 15:29 UTC
