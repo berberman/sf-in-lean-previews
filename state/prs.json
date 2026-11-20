@@ -1,5 +1,5 @@
 {
-  "main_sha": "082fda27a1fcf92a21c83fc7253c244e86df0dad",
+  "main_sha": "0519b34b6644b3ff3df7dcb91da7b6aa1ec0df18",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -238,53 +238,6 @@
       "status": "ci-failed",
       "title": "[5/5] Show an edited block on the page as a diff against the book's",
       "url": "https://github.com/plclub/sf-in-lean/pull/507"
-    },
-    "517": {
-      "base_sha": "082fda27a1fcf92a21c83fc7253c244e86df0dad",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "da298dfebe94bb672fde3d8f518a1a025c89db53",
-      "preview_path": "pr/517/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/44753552794",
-      "status": "published",
-      "title": "TS/References.lean: Swap order of Progress and Preservation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/517"
     }
   },
   "schema": 3

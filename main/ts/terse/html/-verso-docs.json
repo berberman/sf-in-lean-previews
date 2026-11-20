@@ -1311,336 +1311,336 @@
  "<code>STLCRef.RefsAndNontermination.loop_typeable : ∃ τ, &lt;{ ∅ / [] ⊢ loop ⦂ τ }&gt;</code>",
  "1677": "<code>STLCRef.RefsAndNontermination.loop : Tm</code>",
  "1676": "<code>STLCRef.RefsAndNontermination.loop_fun : Tm</code>",
- "1675": "<code>t₂ / ρ ⟶ w✝¹ / w✝</code>",
- "1674": "<code>∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1675": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1674":
+ "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
  "1673":
- "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  &lt;{ ~(Tm.loc l) := v }&gt; / ρ ⟶ &lt;{ unit }&gt; / List.set ρ l v</code>",
- "1672": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ ~δ[l] }&gt;</code>",
- "1671": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₂✝ }&gt;</code>",
- "1670": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "1672": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ ~δ[l✝] }&gt;</code>",
+ "1671":
+ "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "1670":
+ "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
  "167":
  "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
- "1669": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
- "1668": "<code>∅ = Γ✝ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
- "1667":
- "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : &lt;{ !~(Tm.loc l) }&gt; / ρ ⟶ ρ[l] / ρ</code>",
+ "1669": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₂✝ }&gt;</code>",
+ "1668":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1667": "<code>&lt;{ t₁✝ := t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1666":
- "<code>∅ = ∅ → (Tm.loc l).IsValue ∨ ∃ t' ρ', Tm.loc l / ρ ⟶ t' / ρ'</code>",
- "1665": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₁✝ }&gt;</code>",
- "1664": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1665": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "1664":
+ "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ ρ</code>",
  "1663":
- "<code>∅ = ∅ → (Tm.const (n✝ + 1)).IsValue ∨ ∃ t' ρ', Tm.const (n✝ + 1) / ρ ⟶ t' / ρ'</code>",
- "1662":
- "<code>∅ = ∅ → &lt;{ 0 }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ 0 }&gt; / ρ ⟶ t' / ρ'</code>",
- "1661":
- "<code>∅ = ∅ → (Tm.const n).IsValue ∨ ∃ t' ρ', Tm.const n / ρ ⟶ t' / ρ'</code>",
- "1660": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n) ⦂ Nat }&gt;</code>",
+ "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1662": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₁✝ }&gt;</code>",
+ "1661": "<code>l✝ &lt; List.length ρ</code>",
+ "1660":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
  "166":
  "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
- "1659": "<code>∅ = ∅ → t₃✝.IsValue ∨ ∃ t' ρ', t₃✝ / ρ ⟶ t' / ρ'</code>",
+ "1659": "<code>&lt;{ !t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1658":
- "<code>∅ = ∅ → (Tm.const n✝¹).IsValue ∨ ∃ t' ρ', Tm.const n✝¹ / ρ ⟶ t' / ρ'</code>",
- "1657": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝¹) ⦂ Nat }&gt;</code>",
- "1656": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Nat }&gt;</code>",
- "1655": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ Nat }&gt;</code>",
- "1654": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
- "1653": "<code>t₁✝ / ρ ⟶ t₁' / ρ'</code>",
- "1652": "<code>∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
- "1651": "<code>t₂✝ / ρ ⟶ t₂' / ρ'</code>",
- "1650": "<code>∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1657": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₁ }&gt;</code>",
+ "1656":
+ "<code>List.length δ = List.length ρ ∧ ∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
+ "1655":
+ "<code>&lt;{ Ref τ₁ }&gt; = &lt;{ Ref ~(List.concat δ τ₁)[List.length ρ] }&gt;</code>",
+ "1654":
+ "<code>∀ {t' : Tm},\n  t₁✝ / ρ ⟶ t' / List.concat ρ t₁✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ List.concat ρ t₁✝</code>",
+ "1653":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1652": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
+ "1651": "<code>&lt;{ ref t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1650":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
  "165": "<code>SimpleArith1.Step : Tm → Tm → Prop</code>",
- "1649":
- "<code>Exists.intro.{u} {α : Sort u} {p : α → Prop} (w : α) (h : p w) : Exists p</code><span class=\"sep\"></span><code class=\"docstring\">Existential introduction. If `a : α` and `h : p a`,\nthen `⟨a, h⟩` is a proof that `∃ x : α, p x`. </code>",
+ "1649": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
  "1648":
- "<code>∅ = ∅ → (Tm.loc l✝).IsValue ∨ ∃ t' ρ', Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
- "1647": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, Tm.const (n✝ + 1) / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1647":
+ "<code>∀ {t' : Tm}, &lt;{ 0 }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
  "1646":
- "<code>∅ = ∅ → &lt;{ unit }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ unit }&gt; / ρ ⟶ t' / ρ'</code>",
- "1645": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1645":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
  "1644":
- "<code>∅ = ∅ → (Tm.const n✝).IsValue ∨ ∃ t' ρ', Tm.const n✝ / ρ ⟶ t' / ρ'</code>",
- "1643": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1642":
- "<code>∅ = ∅ → &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1641": "<code>∅ = ∅ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
- "1640": "<code>∅ = ∅ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1643":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1642": "<code>&lt;{ if0 t₁✝ then t₂✝ else t₃✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1641": "<code>&lt;{ Γ✝ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
+ "1640": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
  "164": "<code>Eval t₂ n₂</code>",
- "1639": "<code>∅ = Γ✝ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
- "1638": "<code>∅ = Γ✝ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1639": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ Nat }&gt;</code>",
+ "1638":
+ "<code>∀ {t' : Tm}, Tm.const n₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
  "1637":
- "<code>STLCRef.progress (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ) :\n  t.IsValue ∨ ∃ t' ρ', t / ρ ⟶ t' / ρ'</code>",
- "1636": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₂✝ }&gt;</code>",
- "1635":
- "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
+ "<code>∀ {t' : Tm}, Tm.const n₁✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1636": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₂✝) ⦂ Nat }&gt;</code>",
+ "1635": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₁✝) ⦂ Nat }&gt;</code>",
  "1634":
- "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ ~δ[l✝] }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1633": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ ~δ[l✝] }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1633": "<code>&lt;{ t₁✝ * t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1632":
- "<code>∀ {t' : Tm},\n  Tm.loc l✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ →\n    ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1631":
- "<code>∀ {t' : Tm},\n  t₂✝ / ρ ⟶ t' / List.set ρ l✝ t₂✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ List.set ρ l✝ t₂✝</code>",
- "1630": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₂✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1631": "<code>&lt;{ pred t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1630": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Nat }&gt;</code>",
  "163": "<code>Eval t₁ n₁</code>",
  "1629":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1628": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
- "1627": "<code>&lt;{ t₁✝ := t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "<code>∀ {t' : Tm}, Tm.const n✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "1628":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1627": "<code>&lt;{ succ t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "1626":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1625": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
- "1624":
- "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₂ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ := t₂ ⦂ Unit }&gt;</code>",
- "1623": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Ref τ₁✝ }&gt;</code>",
- "1622":
- "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref ~δ[l✝] }&gt; ∧ δ' ⊢ ρ</code>",
- "1621":
- "<code>∀ {t' : Tm}, Tm.loc l✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1620": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Ref τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1625": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ τ₂✝ }&gt;</code>",
+ "1624": "<code>t₂✝ / ρ ⟶ t₂'✝ / ρ'</code>",
+ "1623": "<code>δ' ⊢ ρ'</code>",
+ "1622": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1621": "<code>t₁✝ / ρ ⟶ t₁'✝ / ρ'</code>",
+ "1620":
+ "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
  "162":
  "<code>Eval.plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : Eval t₁ n₁) (h₂ : Eval t₂ n₂) : Eval (t₁.p t₂) (n₁ + n₂)</code>",
- "1619": "<code>l✝ &lt; List.length ρ</code>",
- "1618":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1617": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
- "1616": "<code>&lt;{ !t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1619":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1618": "<code>&lt;{ ~(x✝ →ₚ τ₂✝) / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1617":
+ "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "1616":
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ }&gt; ∧ δ' ⊢ ρ</code>",
  "1615":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Ref τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1614": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1614":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
  "1613":
- "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ !t₁ ⦂ τ₁ }&gt;</code>",
- "1612": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₁ }&gt;</code>",
- "1611":
- "<code>List.length δ = List.length ρ ∧ ∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
- "1610":
- "<code>&lt;{ Ref τ₁ }&gt; = &lt;{ Ref ~(List.concat δ τ₁)[List.length ρ] }&gt;</code>",
+ "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1612":
+ "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1611": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1610": "<code>&lt;{ t₁✝ t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
  "161": "<code>Eval.const (n : Nat) : Eval (Tm.c n) n</code>",
- "1609":
- "<code>∀ {t' : Tm},\n  t₁✝ / ρ ⟶ t' / List.concat ρ t₁✝ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ List.concat ρ t₁✝</code>",
+ "1609": "<code>Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
  "1608":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1607": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
- "1606": "<code>&lt;{ ref t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1605":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₁ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1604": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₁ }&gt;</code>",
- "1603":
- "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ ref t₁ ⦂ Ref τ₁ }&gt;</code>",
+ "<code>STLCRef.preservation {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ)\n  (hEval : t / ρ ⟶ t' / ρ') : ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1607":
+ "<code>List.getElem?_append_left.{u_1} {α : Type u_1} {l₁ l₂ : List α} {i : Nat} (hn : i &lt; l₁.length) : (l₁ ++ l₂)[i]? = l₁[i]?</code>",
+ "1606":
+ "<code>Nat.le (n : Nat) : Nat → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict, or weak, inequality of natural numbers, usually accessed via the `≤` operator.\n</code>",
+ "1605": "<code>l.succ.le (List.length ρ)</code>",
+ "1604": "<code>l &lt; List.length ρ + 1</code>",
+ "1603": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
  "1602":
- "<code>∀ {t' : Tm}, Tm.const (n✝ + 1) / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1601": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
- "1600":
- "<code>∀ {t' : Tm}, &lt;{ 0 }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
+ "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
+ "1601":
+ "<code>List.concat_eq_append.{u} {α : Type u} {as : List α} {a : α} : as.concat a = as ++ [a]</code>",
+ "1600": "<code>&lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
  "160": "<code>Eval : Tm → Nat → Prop</code>",
  "16": "<code>Slang.Bexp.neq (a₁ a₂ : Aexp) : Bexp</code>",
  "1599":
- "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "<code>STLCRef.store_well_typed_app {δ : StoreTy} {ρ : Store} {t₁ : Tm} {τ₁ : Ty} (hStoreTy : δ ⊢ ρ)\n  (hTy : &lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;) : List.concat δ τ₁ ⊢ List.concat ρ t₁</code>",
  "1598":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1597": "<code>&lt;{ ∅ / δ ⊢ 0 ⦂ Nat }&gt;</code>",
- "1596":
- "<code>∀ {t' : Tm}, t₃✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1595":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1594": "<code>&lt;{ ∅ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
- "1593": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
- "1592": "<code>&lt;{ if0 t₁✝ then t₂✝ else t₃✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1591": "<code>&lt;{ Γ✝ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
- "1590": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
+ "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  &lt;{ Γ / δ ⊢ ~(Tm.loc l) ⦂ Ref ~δ[l] }&gt;</code>",
+ "1597":
+ "<code>STLCRef.store_weakening {Γ : Context} {δ δ' : StoreTy} {t : Tm} {τ : Ty} (hExt : Extends δ' δ)\n  (hTy : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ' ⊢ t ⦂ τ }&gt;</code>",
+ "1596": "<code>l' &lt; (List.set ρ l' t).length</code>",
+ "1595": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l'] }&gt;</code>",
+ "1594": "<code>l' &lt; List.length ρ</code>",
+ "1593": "<code>¬l' = l</code>",
+ "1592": "<code>l' = l</code>",
+ "1591": "<code>l' &lt; (List.set ρ l t).length</code>",
+ "1590":
+ "<code>List.length_set.{u} {α : Type u} {as : List α} {i : Nat} {a : α} : (as.set i a).length = as.length</code>",
  "159": "<code>evalF (t : Tm) : Nat</code>",
- "1589":
- "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ }&gt;) (h₃ : &lt;{ Γ / δ ⊢ t₃ ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ if0 t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
- "1588": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ Nat }&gt;</code>",
- "1587":
- "<code>∀ {t' : Tm}, Tm.const n₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1586":
- "<code>∀ {t' : Tm}, Tm.const n₁✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1585": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₂✝) ⦂ Nat }&gt;</code>",
- "1584": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n₁✝) ⦂ Nat }&gt;</code>",
- "1583":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1582": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
- "1581": "<code>&lt;{ t₁✝ * t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1580":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1589": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;</code>",
+ "1588":
+ "<code>STLCRef.assign_pres_store_typing {δ : StoreTy} {ρ : Store} {l : Nat} {t : Tm} (hLen : l &lt; List.length ρ)\n  (hStoreTy : δ ⊢ ρ) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;) : δ ⊢ List.set ρ l t</code>",
+ "1587": "<code>&lt;{ ~(x →ₚ τ₁ ; y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1586": "<code>&lt;{ ~(y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1585":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(y →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~y := v] a✝ ⦂ τ }&gt;</code>",
+ "1584": "<code>&lt;{ ~(y →ₚ a✝¹ ; x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1583": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ λ ~y : a✝¹ . a✝ ⦂ τ }&gt;</code>",
+ "1582": "<code>&lt;{ ~?Γ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1581": "<code>τ₁ = τ</code>",
+ "1580": "<code>(x →ₚ τ₁ ; Γ)[x] = some τ</code>",
  "158": "<code>Tm</code>",
- "1579": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
- "1578": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
- "1577":
- "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
- "1576": "<code>&lt;{ pred t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1579": "<code>(x →ₚ τ₁ ; Γ)[y] = some τ</code>",
+ "1578": "<code>a✝ &lt; List.length δ</code>",
+ "1577": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(Tm.loc a✝) ⦂ τ }&gt;</code>",
+ "1576": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ := a✝ ⦂ τ }&gt;</code>",
  "1575":
- "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ pred t₁ ⦂ Nat }&gt;</code>",
- "1574": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ Nat }&gt;</code>",
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝ ⦂ τ }&gt;</code>",
+ "1574":
+ "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝¹ ⦂ τ }&gt;</code>",
  "1573":
- "<code>∀ {t' : Tm}, Tm.const n✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ</code>",
- "1572": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ Nat }&gt;</code>",
- "1571":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1570": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
+ "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(STLCRef.Tm.var y) ⦂ τ }&gt;</code>",
+ "1572": "<code>&lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
+ "1571": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1570":
+ "<code>STLCRef.substitution_preserves_typing (Γ : Context) (δ : StoreTy) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ / δ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
  "157": "<code>Tm.p (t₁ t₂ : Tm) : Tm</code>",
- "1569": "<code>&lt;{ succ t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1569":
+ "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
  "1568":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ Nat }&gt; ∧ δ' ⊢ ρ'</code>",
- "1567":
- "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ succ t₁ ⦂ Nat }&gt;</code>",
- "1566": "<code>&lt;{ ∅ / δ' ⊢ t₂'✝ ⦂ τ₂✝ }&gt;</code>",
- "1565": "<code>t₁✝.IsValue</code>",
- "1564": "<code>t₂✝ / ρ ⟶ t₂'✝ / ρ'</code>",
- "1563": "<code>δ' ⊢ ρ'</code>",
- "1562": "<code>&lt;{ ∅ / δ' ⊢ t₁'✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1561": "<code>t₁✝ / ρ ⟶ t₁'✝ / ρ'</code>",
+ "<code>STLCRef.weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) :\n  &lt;{ Γ' / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1567": "<code>t / ρ ⟶ t' / ρ'</code>",
+ "1566":
+ "<code>STLCRef.preservation_theorem {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} : Prop</code>",
+ "1565": "<code>Extends tail✝ tail✝</code>",
+ "1564": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
+ "1563": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
+ "1562":
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
+ "1561":
+ "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
  "1560":
- "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
+ "<code>Nat.succ_lt_succ {n m : Nat} : n &lt; m → n.succ &lt; m.succ</code>",
  "156": "<code>Tm.c (n : Nat) : Tm</code>",
- "1559":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1558": "<code>&lt;{ ~(x✝ →ₚ τ₂✝) / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1559": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
+ "1558": "<code>0 &lt; (τ :: δ✝).length</code>",
  "1557":
- "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ → τ₁✝ }&gt; ∧ δ' ⊢ ρ</code>",
- "1556":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝¹ }&gt; ∧ δ' ⊢ ρ</code>",
- "1555": "<code>t₂✝.IsValue</code>",
- "1554": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ τ₂✝¹ → τ₁✝ }&gt;</code>",
- "1553": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝¹ }&gt;</code>",
- "1552":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1551":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = ∅ → ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1550": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
+ "1556": "<code>l &lt; (τ :: δ✝).length</code>",
+ "1555":
+ "<code>∀ {l : Nat}, l &lt; List.length δ✝ → l &lt; List.length δ'✝</code>",
+ "1554": "<code>Extends δ'✝ δ✝</code>",
+ "1553":
+ "<code>STLCRef.length_extends {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : l &lt; List.length δ'</code>",
+ "1552": "<code>l + 1 &lt; (hd :: tl).length</code>",
+ "1551": "<code>Extends tl' tl</code>",
+ "1550": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
  "155": "<code>Tm : Type</code>",
- "1549": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
- "1548":
- "<code>∀ {t' : Tm}, t₂✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ }&gt; ∧ δ' ⊢ ρ'</code>",
+ "1549": "<code>Extends [] (hd :: tl)</code>",
+ "1548": "<code>Extends δ' (hd :: tl)</code>",
  "1547":
- "<code>∀ {t' : Tm}, t₁✝ / ρ ⟶ t' / ρ' → ∅ = Γ✝ → ∃ δ', Extends δ' δ ∧ &lt;{ Γ✝ / δ' ⊢ t' ⦂ τ₂✝ → τ₁✝ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1546": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
- "1545": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "<code>∀ {l : Nat} {δ' : StoreTy}, l &lt; tl.length → Extends δ' tl → δ'[l] = tl[l]</code>",
+ "1546": "<code>List Ty</code>",
+ "1545": "<code>Extends δ' []</code>",
  "1544":
- "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
- "1543": "<code>&lt;{ t₁✝ t₂✝ }&gt; / ρ ⟶ t' / ρ'</code>",
- "1542": "<code>Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
- "1541":
- "<code>STLCRef.preservation {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ)\n  (hEval : t / ρ ⟶ t' / ρ') : ∃ δ', Extends δ' δ ∧ &lt;{ ∅ / δ' ⊢ t' ⦂ τ }&gt; ∧ δ' ⊢ ρ'</code>",
- "1540":
- "<code>List.getElem?_append_left.{u_1} {α : Type u_1} {l₁ l₂ : List α} {i : Nat} (hn : i &lt; l₁.length) : (l₁ ++ l₂)[i]? = l₁[i]?</code>",
+ "<code>STLCRef.extends_lookup {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : δ'[l] = δ[l]</code>",
+ "1543": "<code>Extends δ' δ</code>",
+ "1542":
+ "<code>STLCRef.Extends.cons (τ : Ty) {δ' δ : StoreTy} (h : Extends δ' δ) : Extends (τ :: δ') (τ :: δ)</code>",
+ "1541": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
+ "1540": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
  "154":
  "<code>Slang.AevalRExtended.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "1539":
- "<code>Nat.le (n : Nat) : Nat → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict, or weak, inequality of natural numbers, usually accessed via the `≤` operator.\n</code>",
- "1538": "<code>l.succ.le (List.length ρ)</code>",
- "1537": "<code>l &lt; List.length ρ + 1</code>",
- "1536": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
- "1535":
- "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
- "1534":
- "<code>List.concat_eq_append.{u} {α : Type u} {as : List α} {a : α} : as.concat a = as ++ [a]</code>",
- "1533": "<code>&lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;</code>",
- "1532":
- "<code>STLCRef.store_well_typed_app {δ : StoreTy} {ρ : Store} {t₁ : Tm} {τ₁ : Ty} (hStoreTy : δ ⊢ ρ)\n  (hTy : &lt;{ ∅ / δ ⊢ t₁ ⦂ τ₁ }&gt;) : List.concat δ τ₁ ⊢ List.concat ρ t₁</code>",
- "1531": "<code>l✝ &lt; List.length δ</code>",
- "1530":
- "<code>STLCRef.HasType.loc_ {δ : StoreTy} {Γ : Context} {l : Nat} (h : l &lt; List.length δ) :\n  &lt;{ Γ / δ ⊢ ~(Tm.loc l) ⦂ Ref ~δ[l] }&gt;</code>",
+ "<code>STLCRef.preservation_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
+ "1538": "<code>t₂ / ρ ⟶ w✝¹ / w✝</code>",
+ "1537": "<code>∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1536":
+ "<code>STLCRef.Step.assign {v : Tm} {l : Nat} {ρ : Store} (h₁ : v.IsValue) (h₂ : l &lt; List.length ρ) :\n  &lt;{ ~(Tm.loc l) := v }&gt; / ρ ⟶ &lt;{ unit }&gt; / List.set ρ l v</code>",
+ "1535": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ ~δ[l] }&gt;</code>",
+ "1534": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₂✝ }&gt;</code>",
+ "1533": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
+ "1532": "<code>&lt;{ ∅ / δ ⊢ t₂ ⦂ τ₂✝ }&gt;</code>",
+ "1531": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1530": "<code>∅ = Γ✝ → t₂.IsValue ∨ ∃ t' ρ', t₂ / ρ ⟶ t' / ρ'</code>",
  "153":
  "<code>Slang.AevalRExtended.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1529":
- "<code>STLCRef.store_weakening {Γ : Context} {δ δ' : StoreTy} {t : Tm} {τ : Ty} (hExt : Extends δ' δ)\n  (hTy : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ' ⊢ t ⦂ τ }&gt;</code>",
- "1528": "<code>l' &lt; (List.set ρ l' t).length</code>",
- "1527": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l'] }&gt;</code>",
- "1526": "<code>l' &lt; List.length ρ</code>",
- "1525": "<code>¬l' = l</code>",
- "1524": "<code>l' = l</code>",
- "1523": "<code>l' &lt; (List.set ρ l t).length</code>",
+ "1529": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₂✝ }&gt;</code>",
+ "1528":
+ "<code>STLCRef.HasType.assign {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₂ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ := t₂ ⦂ Unit }&gt;</code>",
+ "1527":
+ "<code>STLCRef.Step.derefLoc {l : Nat} {ρ : Store} (h : l &lt; List.length ρ) : &lt;{ !~(Tm.loc l) }&gt; / ρ ⟶ ρ[l] / ρ</code>",
+ "1526":
+ "<code>∅ = ∅ → (Tm.loc l).IsValue ∨ ∃ t' ρ', Tm.loc l / ρ ⟶ t' / ρ'</code>",
+ "1525": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l) ⦂ Ref τ₁✝ }&gt;</code>",
+ "1524": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
+ "1523": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Ref τ₁✝ }&gt;</code>",
  "1522":
- "<code>List.length_set.{u} {α : Type u} {as : List α} {i : Nat} {a : α} : (as.set i a).length = as.length</code>",
- "1521":
- "<code>∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
- "1520": "<code>List.length δ = List.length ρ</code>",
+ "<code>STLCRef.HasType.deref {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Ref τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ !t₁ ⦂ τ₁ }&gt;</code>",
+ "1521": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₁✝ }&gt;</code>",
+ "1520":
+ "<code>STLCRef.HasType.ref_ {δ : StoreTy} {Γ : Context} {t₁ : Tm} {τ₁ : Ty} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₁ }&gt;) :\n  &lt;{ Γ / δ ⊢ ref t₁ ⦂ Ref τ₁ }&gt;</code>",
  "152":
  "<code>Slang.AevalRExtended.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1519": "<code>&lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;</code>",
- "1518":
- "<code>STLCRef.assign_pres_store_typing {δ : StoreTy} {ρ : Store} {l : Nat} {t : Tm} (hLen : l &lt; List.length ρ)\n  (hStoreTy : δ ⊢ ρ) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ ~δ[l] }&gt;) : δ ⊢ List.set ρ l t</code>",
- "1517": "<code>&lt;{ ~(x →ₚ τ₁ ; y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
- "1516": "<code>&lt;{ ~(y →ₚ a✝¹ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
+ "1519":
+ "<code>∅ = ∅ → (Tm.const (n✝ + 1)).IsValue ∨ ∃ t' ρ', Tm.const (n✝ + 1) / ρ ⟶ t' / ρ'</code>",
+ "1518": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
+ "1517":
+ "<code>∅ = ∅ → &lt;{ 0 }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ 0 }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1516": "<code>&lt;{ ∅ / δ ⊢ 0 ⦂ Nat }&gt;</code>",
  "1515":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(y →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~y := v] a✝ ⦂ τ }&gt;</code>",
- "1514": "<code>&lt;{ ~(y →ₚ a✝¹ ; x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ₁✝ }&gt;</code>",
- "1513": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ λ ~y : a✝¹ . a✝ ⦂ τ }&gt;</code>",
- "1512": "<code>&lt;{ ~?Γ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1511": "<code>τ₁ = τ</code>",
- "1510": "<code>(x →ₚ τ₁ ; Γ)[x] = some τ</code>",
+ "<code>∅ = ∅ → (Tm.const n).IsValue ∨ ∃ t' ρ', Tm.const n / ρ ⟶ t' / ρ'</code>",
+ "1514": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n) ⦂ Nat }&gt;</code>",
+ "1513": "<code>∅ = ∅ → t₃✝.IsValue ∨ ∃ t' ρ', t₃✝ / ρ ⟶ t' / ρ'</code>",
+ "1512": "<code>&lt;{ ∅ / δ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
+ "1511": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
+ "1510":
+ "<code>STLCRef.HasType.ite0 {δ : StoreTy} {Γ : Context} {t₁ t₂ t₃ : Tm} {τ : Ty} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ }&gt;) (h₃ : &lt;{ Γ / δ ⊢ t₃ ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ if0 t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
  "151":
  "<code>Slang.AevalRExtended.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "1509": "<code>(x →ₚ τ₁ ; Γ)[y] = some τ</code>",
- "1508": "<code>a✝ &lt; List.length δ</code>",
- "1507": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(Tm.loc a✝) ⦂ τ }&gt;</code>",
- "1506": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ := a✝ ⦂ τ }&gt;</code>",
+ "1509":
+ "<code>∅ = ∅ → (Tm.const n✝¹).IsValue ∨ ∃ t' ρ', Tm.const n✝¹ / ρ ⟶ t' / ρ'</code>",
+ "1508": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝¹) ⦂ Nat }&gt;</code>",
+ "1507": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
+ "1506": "<code>&lt;{ Γ✝ / δ ⊢ t₂✝ ⦂ Nat }&gt;</code>",
  "1505":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝ ⦂ τ }&gt;</code>",
- "1504":
- "<code>∀ (Γ : Context) (τ : Ty), &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ a✝¹ ⦂ τ }&gt; → &lt;{ Γ / δ ⊢ [~x := v] a✝¹ ⦂ τ }&gt;</code>",
- "1503":
- "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ ~(STLCRef.Tm.var y) ⦂ τ }&gt;</code>",
- "1502": "<code>&lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;</code>",
- "1501": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;</code>",
+ "<code>STLCRef.HasType.mult {δ : StoreTy} {Γ : Context} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
+ "1504": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ Nat }&gt;</code>",
+ "1503": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ Nat }&gt;</code>",
+ "1502": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ Nat }&gt;</code>",
+ "1501": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
  "1500":
- "<code>STLCRef.substitution_preserves_typing (Γ : Context) (δ : StoreTy) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) / δ ⊢ t ⦂ τ }&gt;) (hv : &lt;{ ∅ / δ ⊢ v ⦂ τ₁ }&gt;) : &lt;{ Γ / δ ⊢ [~x := v] t ⦂ τ }&gt;</code>",
+ "<code>STLCRef.HasType.pred {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ pred t₁ ⦂ Nat }&gt;</code>",
  "150":
  "<code>Slang.AevalRExtended.Aexp.EvalR.any (n : Nat) : any.EvalR n</code>",
  "15": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
- "1499":
- "<code>STLCRef.weakening_empty {Γ : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1498": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1499": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
+ "1498": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ Nat }&gt;</code>",
  "1497":
- "<code>STLCRef.weakening {Γ Γ' : Context} {δ : StoreTy} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ Γ / δ ⊢ t ⦂ τ }&gt;) :\n  &lt;{ Γ' / δ ⊢ t ⦂ τ }&gt;</code>",
- "1496": "<code>t / ρ ⟶ t' / ρ'</code>",
- "1495": "<code>δ ⊢ ρ</code>",
- "1494": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
- "1493":
- "<code>STLCRef.preservation_theorem {δ : StoreTy} {t t' : Tm} {τ : Ty} {ρ ρ' : Store} : Prop</code>",
- "1492": "<code>Extends tail✝ tail✝</code>",
- "1491": "<code>STLCRef.extends_refl (δ : StoreTy) : Extends δ δ</code>",
- "1490": "<code>∀ (δ' : StoreTy), Extends (tail✝ ++ δ') tail✝</code>",
+ "<code>STLCRef.HasType.succ {δ : StoreTy} {Γ : Context} {t₁ : Tm} (h : &lt;{ Γ / δ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ Γ / δ ⊢ succ t₁ ⦂ Nat }&gt;</code>",
+ "1496": "<code>t₁✝ / ρ ⟶ t₁' / ρ'</code>",
+ "1495": "<code>∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1494": "<code>t₂✝ / ρ ⟶ t₂' / ρ'</code>",
+ "1493": "<code>∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "1492":
+ "<code>Exists.intro.{u} {α : Sort u} {p : α → Prop} (w : α) (h : p w) : Exists p</code><span class=\"sep\"></span><code class=\"docstring\">Existential introduction. If `a : α` and `h : p a`,\nthen `⟨a, h⟩` is a proof that `∃ x : α, p x`. </code>",
+ "1491":
+ "<code>∅ = ∅ → (Tm.loc l✝).IsValue ∨ ∃ t' ρ', Tm.loc l✝ / ρ ⟶ t' / ρ'</code>",
+ "1490": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.loc l✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "149": "<code>Slang.AevalRExtended.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "1489":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
- "1488":
- "<code>STLCRef.extends_app (δ δ' : StoreTy) : Extends (δ ++ δ') δ</code>",
+ "<code>∅ = ∅ → &lt;{ unit }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ unit }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1488": "<code>&lt;{ ∅ / δ ⊢ unit ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
  "1487":
- "<code>Nat.succ_lt_succ {n m : Nat} : n &lt; m → n.succ &lt; m.succ</code>",
- "1486": "<code>l' + 1 &lt; (τ :: δ✝).length</code>",
- "1485": "<code>0 &lt; (τ :: δ✝).length</code>",
- "1484":
- "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
- "1483": "<code>l &lt; (τ :: δ✝).length</code>",
- "1482":
- "<code>∀ {l : Nat}, l &lt; List.length δ✝ → l &lt; List.length δ'✝</code>",
- "1481": "<code>Extends δ'✝ δ✝</code>",
- "1480":
- "<code>STLCRef.length_extends {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : l &lt; List.length δ'</code>",
+ "<code>∅ = ∅ → (Tm.const n✝).IsValue ∨ ∃ t' ρ', Tm.const n✝ / ρ ⟶ t' / ρ'</code>",
+ "1486": "<code>&lt;{ ∅ / δ ⊢ ~(Tm.const n✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1485":
+ "<code>∅ = ∅ → &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt;.IsValue ∨ ∃ t' ρ', &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; / ρ ⟶ t' / ρ'</code>",
+ "1484": "<code>&lt;{ ∅ / δ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ τ₂✝¹ → τ₁✝ }&gt;</code>",
+ "1483": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝¹ }&gt;</code>",
+ "1482": "<code>t₂✝.IsValue</code>",
+ "1481": "<code>t₁✝.IsValue</code>",
+ "1480": "<code>∅ = ∅ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
  "148": "<code>Slang.AevalRExtended.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "1479": "<code>l + 1 &lt; (hd :: tl).length</code>",
- "1478": "<code>Extends tl' tl</code>",
- "1477": "<code>Extends (hd' :: tl') (hd :: tl)</code>",
- "1476": "<code>Extends [] (hd :: tl)</code>",
- "1475": "<code>Extends δ' (hd :: tl)</code>",
- "1474":
- "<code>∀ {l : Nat} {δ' : StoreTy}, l &lt; tl.length → Extends δ' tl → δ'[l] = tl[l]</code>",
- "1473": "<code>List Ty</code>",
- "1472": "<code>Extends δ' []</code>",
- "1471":
- "<code>STLCRef.extends_lookup {l : Nat} {δ δ' : StoreTy} (h₁ : l &lt; List.length δ) (h₂ : Extends δ' δ) : δ'[l] = δ[l]</code>",
- "1470": "<code>Extends δ' δ</code>",
+ "1479": "<code>∅ = ∅ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1478": "<code>&lt;{ ∅ / δ ⊢ t₂✝ ⦂ τ₂✝ }&gt;</code>",
+ "1477": "<code>&lt;{ ∅ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1476": "<code>∅ = Γ✝ → t₂✝.IsValue ∨ ∃ t' ρ', t₂✝ / ρ ⟶ t' / ρ'</code>",
+ "1475": "<code>∅ = Γ✝ → t₁✝.IsValue ∨ ∃ t' ρ', t₁✝ / ρ ⟶ t' / ρ'</code>",
+ "1474": "<code>&lt;{ Γ✝ / δ ⊢ t₁✝ ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "1473":
+ "<code>STLCRef.HasType.app {δ : StoreTy} {Γ : Context} {τ₁ τ₂ : Ty} {t₁ t₂ : Tm} (h₁ : &lt;{ Γ / δ ⊢ t₁ ⦂ τ₂ → τ₁ }&gt;)\n  (h₂ : &lt;{ Γ / δ ⊢ t₂ ⦂ τ₂ }&gt;) : &lt;{ Γ / δ ⊢ t₁ t₂ ⦂ τ₁ }&gt;</code>",
+ "1472": "<code>l✝ &lt; List.length δ</code>",
+ "1471": "<code>&lt;{ Γ / δ ⊢ t ⦂ τ }&gt;</code>",
+ "1470":
+ "<code>∀ (l : Nat), l &lt; List.length ρ → &lt;{ ∅ / δ ⊢ ~ρ[l] ⦂ ~δ[l] }&gt;</code>",
  "147": "<code>Slang.AevalRExtended.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "1469":
- "<code>STLCRef.Extends.cons (τ : Ty) {δ' δ : StoreTy} (h : Extends δ' δ) : Extends (τ :: δ') (τ :: δ)</code>",
- "1468": "<code>STLCRef.Extends.nil (δ' : StoreTy) : Extends δ' []</code>",
- "1467": "<code>STLCRef.Extends : StoreTy → StoreTy → Prop</code>",
- "1466":
- "<code>STLCRef.preservation_less_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → δ ⊢ ρ → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
- "1465": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
+ "1469": "<code>List.length δ = List.length ρ</code>",
+ "1468": "<code>δ ⊢ ρ</code>",
+ "1467":
+ "<code>STLCRef.progress (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) (hStoreTy : δ ⊢ ρ) :\n  t.IsValue ∨ ∃ t' ρ', t / ρ ⟶ t' / ρ'</code>",
+ "1466": "<code>STLCRef.StoreWellTyped (δ : StoreTy) (ρ : Store) : Prop</code>",
+ "1465": "<code>&lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;</code>",
  "1464":
- "<code>STLCRef.preservation_wrong (δ : StoreTy) (τ : Ty) (t t' : Tm) (ρ ρ' : Store) :\n  &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt; → t / ρ ⟶ t' / ρ' → &lt;{ ∅ / δ ⊢ t' ⦂ τ }&gt;</code>",
+ "<code>STLCRef.progress_wrong (δ : StoreTy) (t : Tm) (τ : Ty) (ρ : Store) (hTy : &lt;{ ∅ / δ ⊢ t ⦂ τ }&gt;) :\n  t.IsValue ∨ ∃ t' ρ', t / ρ ⟶ t' / ρ'</code>",
  "1463":
  "<code>StlcCommon.Delab.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code>",
  "1462": "<code>STLCRef.HasType.unexpand : Unexpander</code>",

@@ -1556,6 +1556,92 @@
      "data":
      {"title": "Progress",
       "shortTitle": null,
+      "sectionNum": "9.5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Progress", "shortTitle": null, "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Weakening-for-Stores":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Weakening-for-Stores",
+     "data":
+     {"title": "Weakening for Stores",
+      "shortTitle": null,
+      "sectionNum": "9.5.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation", "shortTitle": null, "number": "4"},
+       {"title": "Weakening for Stores", "shortTitle": null, "number": "3"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--The-Proof___":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--The-Proof___",
+     "data":
+     {"title": "The Proof!",
+      "shortTitle": null,
+      "sectionNum": "9.5.4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation", "shortTitle": null, "number": "4"},
+       {"title": "The Proof!", "shortTitle": null, "number": "4"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Substitution-Lemma":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Substitution-Lemma",
+     "data":
+     {"title": "Substitution Lemma",
+      "shortTitle": null,
+      "sectionNum": "9.5.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation", "shortTitle": null, "number": "4"},
+       {"title": "Substitution Lemma", "shortTitle": null, "number": "1"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Assignment-Preserves-Store-Typing":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation--Assignment-Preserves-Store-Typing",
+     "data":
+     {"title": "Assignment Preserves Store Typing",
+      "shortTitle": null,
+      "sectionNum": "9.5.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "References: Typing Mutable References",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Properties", "shortTitle": null, "number": "5"},
+       {"title": "Preservation", "shortTitle": null, "number": "4"},
+       {"title": "Assignment Preserves Store Typing",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/References/"}],
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation":
+   [{"id":
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation",
+     "data":
+     {"title": "Preservation",
+      "shortTitle": null,
       "sectionNum": "9.5.4.",
       "searchPriority": 50,
       "context":
@@ -1564,83 +1650,13 @@
         "shortTitle": null,
         "number": "9"},
        {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Progress", "shortTitle": null, "number": "4"}]},
+       {"title": "Preservation", "shortTitle": null, "number": "4"}]},
      "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Weakening-for-Stores":
+   "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings":
    [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Weakening-for-Stores",
+     "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings",
      "data":
-     {"title": "Weakening for Stores",
-      "shortTitle": null,
-      "sectionNum": "9.5.3.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "References: Typing Mutable References",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
-       {"title": "Weakening for Stores", "shortTitle": null, "number": "3"}]},
-     "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Substitution-Lemma":
-   [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Substitution-Lemma",
-     "data":
-     {"title": "Substitution Lemma",
-      "shortTitle": null,
-      "sectionNum": "9.5.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "References: Typing Mutable References",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
-       {"title": "Substitution Lemma", "shortTitle": null, "number": "1"}]},
-     "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Preservation___":
-   [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Preservation___",
-     "data":
-     {"title": "Preservation!",
-      "shortTitle": null,
-      "sectionNum": "9.5.3.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "References: Typing Mutable References",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
-       {"title": "Preservation!", "shortTitle": null, "number": "4"}]},
-     "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Assignment-Preserves-Store-Typing":
-   [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally--Assignment-Preserves-Store-Typing",
-     "data":
-     {"title": "Assignment Preserves Store Typing",
-      "shortTitle": null,
-      "sectionNum": "9.5.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "References: Typing Mutable References",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"},
-       {"title": "Assignment Preserves Store Typing",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally":
-   [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Preservation___-Finally",
-     "data":
-     {"title": "Preservation, Finally",
+     {"title": "Extending Store Typings",
       "shortTitle": null,
       "sectionNum": "9.5.3.",
       "searchPriority": 50,
@@ -1650,25 +1666,9 @@
         "shortTitle": null,
         "number": "9"},
        {"title": "Properties", "shortTitle": null, "number": "5"},
-       {"title": "Preservation, Finally", "shortTitle": null, "number": "3"}]},
-     "address": "/References/"}],
-   "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings":
-   [{"id":
-     "Type-Systems--References___-Typing-Mutable-References--Properties--Extending-Store-Typings",
-     "data":
-     {"title": "Extending Store Typings",
-      "shortTitle": null,
-      "sectionNum": "9.5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "References: Typing Mutable References",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Properties", "shortTitle": null, "number": "5"},
        {"title": "Extending Store Typings",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "3"}]},
      "address": "/References/"}],
    "Type-Systems--References___-Typing-Mutable-References--Properties":
    [{"id": "Type-Systems--References___-Typing-Mutable-References--Properties",
@@ -10269,7 +10269,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Substitution Lemma"]}},
      "address": "/References/"}],
    "STLCRef.weakening":
@@ -10281,7 +10281,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Substitution Lemma"]}},
      "address": "/References/"}],
    "STLCRef.unexpandSubst":
@@ -10304,7 +10304,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Substitution Lemma"]}},
      "address": "/References/"}],
    "STLCRef.subst":
@@ -10327,7 +10327,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Weakening for Stores"]}},
      "address": "/References/"}],
    "STLCRef.store_weakening":
@@ -10339,7 +10339,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Weakening for Stores"]}},
      "address": "/References/"}],
    "STLCRef.store_not_unique":
@@ -10347,6 +10347,17 @@
      "data":
      {"/References/#STLCRef___store_not_unique":
       {"display": "store_not_unique",
+       "context":
+       ["Type Systems",
+        "References: Typing Mutable References",
+        "Properties",
+        "Well-Typed Stores"]}},
+     "address": "/References/"}],
+   "STLCRef.progress_wrong":
+   [{"id": "STLCRef___progress_wrong",
+     "data":
+     {"/References/#STLCRef___progress_wrong":
+      {"display": "progress_wrong",
        "context":
        ["Type Systems",
         "References: Typing Mutable References",
@@ -10384,7 +10395,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Well-Typed Stores"]}},
+        "Extending Store Typings"]}},
      "address": "/References/"}],
    "STLCRef.preservation_theorem":
    [{"id": "STLCRef___preservation_theorem",
@@ -10395,7 +10406,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally"]}},
+        "Preservation"]}},
      "address": "/References/"}],
    "STLCRef.preservation_shorter":
    [{"id": "STLCRef___preservation_shorter",
@@ -10406,19 +10417,8 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
-        "Preservation!"]}},
-     "address": "/References/"}],
-   "STLCRef.preservation_less_wrong":
-   [{"id": "STLCRef___preservation_less_wrong",
-     "data":
-     {"/References/#STLCRef___preservation_less_wrong":
-      {"display": "preservation_less_wrong",
-       "context":
-       ["Type Systems",
-        "References: Typing Mutable References",
-        "Properties",
-        "Well-Typed Stores"]}},
+        "Preservation",
+        "The Proof!"]}},
      "address": "/References/"}],
    "STLCRef.preservation":
    [{"id": "STLCRef___preservation",
@@ -10429,8 +10429,8 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
-        "Preservation!"]}},
+        "Preservation",
+        "The Proof!"]}},
      "address": "/References/"}],
    "STLCRef.length_extends":
    [{"id": "STLCRef___length_extends",
@@ -10496,7 +10496,7 @@
        ["Type Systems",
         "References: Typing Mutable References",
         "Properties",
-        "Preservation, Finally",
+        "Preservation",
         "Assignment Preserves Store Typing"]}},
      "address": "/References/"}],
    "STLCRef.Ty.unit":

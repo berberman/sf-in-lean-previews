@@ -1,1 +1,0 @@
-window.docContents[131].resolve({"/Sub/#Type-Systems--Sub___-Subtyping--Properties--Records___-via-Products-and-Top":{"contents":"\n\n\n\n","context":"Type Systems\u0009Sub: Subtyping\u0009Properties","header":"8.3.8. Records, via Products and Top","id":"/Sub/#Type-Systems--Sub___-Subtyping--Properties--Records___-via-Products-and-Top"}});
