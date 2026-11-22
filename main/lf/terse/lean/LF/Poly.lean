@@ -71,10 +71,10 @@ def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
 --  Some simple facts about `replicate`:
 
 theorem replicate_zero (α : Type) (a : α) :
-    replicate α a 0 = MyList.nil := rfl
+    replicate α a 0 = MyList.nil := by rfl
 
 theorem replicate_succ (α : Type) (a : α) (count : Nat) :
-    replicate α a (count + 1) = MyList.cons a (replicate α a count) := rfl
+    replicate α a (count + 1) = MyList.cons a (replicate α a count) := by rfl
 
 example : replicate Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
@@ -687,4 +687,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

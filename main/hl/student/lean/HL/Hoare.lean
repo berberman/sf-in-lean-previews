@@ -1745,11 +1745,12 @@ theorem if_example :
     · exact hoare_asgn
     · assertion_auto
 
---  We can even shorten it a little bit more. Wherever Lean expects a term
---  of some type, we may write `(by <tactics>)` in its place: the tactics
---  run immediately, and the proof they produce is spliced in as that term.
---  Here we use it to supply `hoare_consequence_pre`'s second argument, the
---  implication `P ↠ P'`, directly at the call site, instead of `apply`-ing
+--  We can even shorten it a little bit more. Recall that wherever Lean
+--  expects a term of some type, we may write `(by <tactics>)` in its
+--  place: the tactics run immediately, and the proof they produce is
+--  spliced in as that term. Here we use it to supply
+--  `hoare_consequence_pre`'s second argument, the implication `P ↠ P'`,
+--  directly at the call site, instead of `apply`-ing
 --  `hoare_consequence_pre` and discharging that goal afterward with a
 --  separate bullet.
 
@@ -2078,7 +2079,7 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
   | whileTrue hb hc hloop ih₁ ih₂ =>
     injection heq with hbeq hceq
     subst hbeq hceq
-    exact ih₂ (hhoare hc ⟨hpre, hb⟩) rfl
+    apply ih₂ (hhoare hc ⟨hpre, hb⟩) (by rfl)
   | skip | asgn | seq | ifTrue | ifFalse =>
     contradiction
 
@@ -2835,7 +2836,7 @@ theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
   | asgn n h =>
     exists (x →ₜ n ; st)
     subst h
-    exact ⟨rfl, hQ⟩
+    exact ⟨by rfl, hQ⟩
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
@@ -2879,7 +2880,7 @@ theorem hoare_skip {P : Assertion} :
   rw [validHoareTriple_def]
   intro st r h hpre
   inversion h
-  exact ⟨st, rfl, hpre⟩
+  exists st
 
 theorem hoare_if {P Q : Assertion} {b : Bexp} {c₁ c₂ : Com}
     (htrue : {{ P ∧ b}} c₁ {{ Q }})
@@ -2905,14 +2906,15 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
   intro st r heval hpre
   generalize heq : (imp { while (b) { c } }) = cmd at heval
   induction heval generalizing P with
-  | whileFalse hb =>
+  | @whileFalse _ st _ hb =>
     injection heq with hbeq hceq
     subst hbeq hceq
-    exact ⟨_, rfl, hpre, by simp [hb]⟩
+    exists st
+    simp_all
   | whileTrueNormal hb hc hloop ih₁ ih₂ =>
     injection heq with hbeq hceq
     subst hbeq hceq
-    apply ih₂ hhoare _ rfl
+    apply ih₂ hhoare _ (by rfl)
     obtain ⟨s₁, heq₁, hs₁⟩ := hhoare hc ⟨hpre, hb⟩
     injection heq₁ with he
     subst he
@@ -2944,4 +2946,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

@@ -1110,15 +1110,11 @@ theorem eval_of_multistep (t t' : Tm) (h : IsNormalFormOf Step t t') :
     intro a tc hst
     induction hst with
     | refl b => intro heq; subst heq; exact .const n
-    | step b c d h₁ h₂ ih =>
-        intro heq
-        apply eval_of_step (t' := c)
-        · exact h₁
-        · exact ih heq
+    | step b c d h₁ h₂ ih => intro heq; exact eval_of_step b c n h₁ (ih heq)
   exists n
   constructor
   · rfl
-  · apply H t (.c n)
+  · apply H
     · exact hs
     · rfl
 
@@ -1917,4 +1913,4 @@ theorem normalize_ex :
   · normalize using SimpleArith
   · constructor
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

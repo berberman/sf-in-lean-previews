@@ -522,8 +522,9 @@ theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList)
   rw [count_cons_def, h, cond_false]
 
 example : count 1 [1] = 1 := by
-  rw [count_cons_same _ _ _ rfl]
-  rw [count_nil]
+  rw [count_cons_same] -- This generates a subgoal for `h`, which will be closed by `rfl`
+  · rw [count_nil]
+  · rfl
 
 example : count 2 [2, 2] = 2 := (by rfl)
 
@@ -562,7 +563,7 @@ theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList)
   rw [member, h, cond_false]
 
 example : member 1 [1] = true := by
-  rw [member_cons_same _ _ _ rfl]
+  rw [member_cons_same _ _ _ (by rfl)]
 
 example : member 2 [1] = false := (by rfl)
 
@@ -597,8 +598,8 @@ theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList)
   rw [removeOne, h, cond_false]
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
-  rw [removeOne_cons_diff _ _ _ rfl]
-  rw [removeOne_cons_same _ _ _ rfl]
+  rw [removeOne_cons_diff _ _ _ (by rfl)]
+  rw [removeOne_cons_same _ _ _ (by rfl)]
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := (by rfl)
 
@@ -626,10 +627,10 @@ theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList)
   rw [removeAll, h, cond_false]
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
-  rw [removeAll_cons_same _ _ _ rfl]
-  rw [removeAll_cons_diff _ _ _ rfl]
+  rw [removeAll_cons_same _ _ _ (by rfl)]
+  rw [removeAll_cons_diff _ _ _ (by rfl)]
   rw [removeAll_nil]
-  rw [count_cons_diff _ _ _ rfl]
+  rw [count_cons_diff _ _ _ (by rfl)]
   rw [count_nil]
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := (by rfl)
@@ -662,8 +663,8 @@ theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList)
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
   · exact included_nil _
-  · rw [member_cons_diff _ _ _ rfl]
-    rw [member_cons_same _ _ _ rfl]
+  · rw [member_cons_diff _ _ _ (by rfl)]
+    rw [member_cons_same _ _ _ (by rfl)]
 
 example : included [1, 1] [2, 1, 4, 1] = true := (by rfl)
 
@@ -1046,9 +1047,9 @@ theorem beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList)
 example : beq [] [] = true := (by rfl)
 example : beq [1, 2, 3] [1, 2, 3] = true := (by rfl)
 example : beq [1, 2, 3] [1, 2, 4] = false := by
-  rw [beq_cons_same _ _ _ _ rfl]
-  rw [beq_cons_same _ _ _ _ rfl]
-  rw [beq_cons_diff _ _ _ _ rfl]
+  rw [beq_cons_same _ _ _ _ (by rfl)]
+  rw [beq_cons_same _ _ _ _ (by rfl)]
+  rw [beq_cons_diff _ _ _ _ (by rfl)]
 
 theorem beq_refl (l : NatList) :
     beq l l = true := by
@@ -1093,9 +1094,9 @@ theorem remove_does_not_increase_count (l : NatList) :
   | cons n s' ih =>
     cases n with
     | zero =>
-      rw [removeOne_cons_same _ _ _ rfl, count_cons_same _ _ _ rfl, ble_self_succ]
+      rw [removeOne_cons_same _ _ _ (by rfl), count_cons_same _ _ _ (by rfl), ble_self_succ]
     | succ n' =>
-      rw [removeOne_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl]
+      rw [removeOne_cons_diff _ _ _ (by rfl), count_cons_diff _ _ _ (by rfl), count_cons_diff _ _ _ (by rfl)]
       exact ih
 
 --  ### Exercise (3 stars): count_append (Optional, Manually graded) ⭐⭐⭐
@@ -1347,4 +1348,4 @@ end PartialMap
 
 end Lists
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

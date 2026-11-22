@@ -298,10 +298,15 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   · rfl /- 2 * 2 = 4 -/
 
 --  Rather than applying the constructor, we can explicitly provide the
---  arguments to the constructor as an `exact` proof.
+--  arguments to the constructor as an `exact` proof. In particular, we can
+--  write each argument as a *subproof* using the `by` keyword (the same
+--  keyword that begins a proof- not a coincidence!). For example, since
+--  each subproof of `And.intro` in the example below is closed by `rfl`,
+--  we can close these proofs by passing `(by rfl)` as an argument to
+--  `And.intro`.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  exact And.intro rfl rfl
+  exact And.intro (by rfl) (by rfl)
 
 --  Lean can figure out which constructor to use just from the goal's type,
 --  so we don't have to name it ourselves. This is what the tactic
@@ -309,6 +314,9 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  builds a value of the goal's type, leaving one subgoal per argument of
 --  that constructor. Since `And` has just one constructor, `constructor`
 --  always picks it here.
+--
+--  The constructor tactic is *very* useful for proofs involving types with
+--  many constructors, which we will see in the IndProp chapter.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   constructor
@@ -319,7 +327,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  which works on constructors for proofs as well.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  exact ⟨rfl, rfl⟩
+  exact ⟨(by rfl), (by rfl)⟩
 
 --  ### Exercise (2 stars): add_is_zero ⭐⭐
 
@@ -1169,7 +1177,7 @@ def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := (
 theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := (by constructor)
 
 theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
-    List.All p (x :: l) = (p x ∧ All p l) := (rfl)
+    List.All p (x :: l) = (p x ∧ All p l) := (by rfl)
 
 theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
@@ -1660,7 +1668,9 @@ theorem andb_true_iff (b1 b2 : Bool) :
   · intro h
     cases b1 with
     | false => rw [and] at h; contradiction
-    | true => rw [and] at h; exact ⟨rfl, h⟩
+    | true =>
+      rw [and] at h
+      exact ⟨by rfl, h⟩
   · intro h
     cases b1 with
     | false => exfalso; cases h.left
@@ -1696,18 +1706,18 @@ def beqList {α : Type} (beq : α → α → Bool) (xs ys : List α) : Bool := (
   | _, _ => false)
 
 theorem beqList_nil_nil {α : Type} {beq : α → α → Bool} :
-    beqList beq [] [] = true := (rfl)
+    beqList beq [] [] = true := (by rfl)
 
 theorem beqList_cons_cons {α : Type} {beq : α → α → Bool}
     {x y : α} {xs ys : List α} :
     beqList beq (x :: xs) (y :: ys) = (beq x y && beqList beq xs ys) :=
-  (rfl)
+  (by rfl)
 
 theorem beqList_nil_cons {α : Type} {beq : α → α → Bool}
-    {x : α} {xs : List α} : beqList beq [] (x :: xs) = false := (rfl)
+    {x : α} {xs : List α} : beqList beq [] (x :: xs) = false := (by rfl)
 
 theorem beqList_cons_nil {α : Type} {beq : α → α → Bool}
-    {x : α} {xs : List α} : beqList beq (x :: xs) [] = false := (rfl)
+    {x : α} {xs : List α} : beqList beq (x :: xs) [] = false := (by rfl)
 
 theorem beqList_true_iff α (beq : α → α → Bool)
     (h : ∀ (x y : α), beq x y = true ↔ x = y) :
@@ -1764,10 +1774,10 @@ def List.allb {α : Type} (test : α → Bool) (l : List α) : Bool := (
   | [] => true
   | x :: xs' => test x && allb test xs')
 
-theorem List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true := (rfl)
+theorem List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true := (by rfl)
 
 theorem List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} :
-    allb test (x :: l) = (test x && allb test l) := (rfl)
+    allb test (x :: l) = (test x && allb test l) := (by rfl)
 
 theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
     allb test l = true ↔ All (fun x => test x = true) l := by
@@ -2391,4 +2401,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

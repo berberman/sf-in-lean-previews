@@ -1335,9 +1335,9 @@ attribute [irreducible] pred
 --  Similarly, for each of the three branches of the definition of `even`,
 --  we need one simplification rule:
 
-theorem even_zero : even zero = true := rfl
-theorem even_one : even (succ zero) = false := rfl
-theorem even_succ_succ (n : Nat) : even (succ (succ n)) = even n := rfl
+theorem even_zero : even zero = true := by rfl
+theorem even_one : even (succ zero) = false := by rfl
+theorem even_succ_succ (n : Nat) : even (succ (succ n)) = even n := by rfl
 
 attribute [irreducible] even odd
 
@@ -2270,4 +2270,4 @@ theorem inspectBag_changeBag_comm_ticketed
 end Airport
 end NatPlayground
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

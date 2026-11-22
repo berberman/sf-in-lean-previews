@@ -255,10 +255,15 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 --  Rather than applying the constructor, we can explicitly
 --  provide the arguments to the constructor as an `exact`
---  proof.
+--  proof. In particular, we can write each argument as a
+--  *subproof* using the `by` keyword (the same keyword that
+--  begins a proof- not a coincidence!). For example, since
+--  each subproof of `And.intro` in the example below is
+--  closed by `rfl`, we can close these proofs by passing
+--  `(by rfl)` as an argument to `And.intro`.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  exact And.intro rfl rfl
+  exact And.intro (by rfl) (by rfl)
 
 --  Lean can figure out which constructor to use just from
 --  the goal's type, so we don't have to name it ourselves.
@@ -267,6 +272,10 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  value of the goal's type, leaving one subgoal per
 --  argument of that constructor. Since `And` has just one
 --  constructor, `constructor` always picks it here.
+--
+--  The constructor tactic is *very* useful for proofs
+--  involving types with many constructors, which we will
+--  see in the IndProp chapter.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   constructor
@@ -278,7 +287,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  well.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  exact ⟨rfl, rfl⟩
+  exact ⟨(by rfl), (by rfl)⟩
 
 --  ### Exercise (2 stars): add_is_zero ⭐⭐
 
@@ -1339,4 +1348,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

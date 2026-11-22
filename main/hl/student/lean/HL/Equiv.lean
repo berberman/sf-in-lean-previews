@@ -674,7 +674,7 @@ theorem Com.congruence_while {b b' : Bexp} {c c' : Com}
       injection heq with beq ceq
       subst beq ceq
       rw [hb] at hb'
-      specialize ih2 rfl
+      specialize ih2 (by rfl)
       apply Com.EvalR.whileTrue hb' _ ih2
       · rw [equiv_def] at hc
         exact hc.mp hc'
@@ -693,7 +693,7 @@ theorem Com.congruence_while {b b' : Bexp} {c c' : Com}
       injection heq with beq ceq
       subst beq ceq
       rw [← hb] at hb'
-      specialize ih2 rfl
+      specialize ih2 (by rfl)
       apply Com.EvalR.whileTrue hb' _ ih2
       · rw [equiv_def] at hc
         exact hc.mpr hc'
@@ -1817,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

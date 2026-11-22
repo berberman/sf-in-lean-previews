@@ -491,8 +491,9 @@ theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList)
   sorry
 
 example : count 1 [1] = 1 := by
-  rw [count_cons_same _ _ _ rfl]
-  rw [count_nil]
+  rw [count_cons_same] -- This generates a subgoal for `h`, which will be closed by `rfl`
+  · rw [count_nil]
+  · rfl
 
 example : count 2 [2, 2] = 2 := sorry
 
@@ -528,7 +529,7 @@ theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList)
   sorry
 
 example : member 1 [1] = true := by
-  rw [member_cons_same _ _ _ rfl]
+  rw [member_cons_same _ _ _ (by rfl)]
 
 example : member 2 [1] = false := sorry
 
@@ -560,8 +561,8 @@ theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList)
   sorry
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
-  rw [removeOne_cons_diff _ _ _ rfl]
-  rw [removeOne_cons_same _ _ _ rfl]
+  rw [removeOne_cons_diff _ _ _ (by rfl)]
+  rw [removeOne_cons_same _ _ _ (by rfl)]
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
@@ -586,10 +587,10 @@ theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList)
   sorry
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
-  rw [removeAll_cons_same _ _ _ rfl]
-  rw [removeAll_cons_diff _ _ _ rfl]
+  rw [removeAll_cons_same _ _ _ (by rfl)]
+  rw [removeAll_cons_diff _ _ _ (by rfl)]
   rw [removeAll_nil]
-  rw [count_cons_diff _ _ _ rfl]
+  rw [count_cons_diff _ _ _ (by rfl)]
   rw [count_nil]
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
@@ -619,8 +620,8 @@ theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList)
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
   · exact included_nil _
-  · rw [member_cons_diff _ _ _ rfl]
-    rw [member_cons_same _ _ _ rfl]
+  · rw [member_cons_diff _ _ _ (by rfl)]
+    rw [member_cons_same _ _ _ (by rfl)]
 
 example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
@@ -1232,4 +1233,4 @@ end PartialMap
 
 end Lists
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

@@ -1329,10 +1329,10 @@ theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
   | nil => assumption
   | cons y ys ih =>
     rw [List.cons_append, List.length_cons] at *
-    /- A trick here: by using `rfl` to close `(ys ++ x :: l₂).length = n`
+    /- A trick here: by using `(by rfl)` to close `(ys ++ x :: l₂).length = n`
        we effectively choose `n` to be `(ys ++ x :: l₂).length`
     -/
-    rw [ih rfl]
+    rw [ih (by rfl)]
     assumption
 
 --  ### Exercise (3 stars): length_append_self (Optional) ⭐⭐⭐
@@ -1349,8 +1349,8 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← h]
   | cons x xs ih =>
     rw [List.cons_append, List.length_cons] at *
-    rw [← length_append_cons rfl]
-    rw [ih rfl, ← h]
+    rw [← length_append_cons (n := (xs ++ x::xs).length) (h := by rfl)]
+    rw [ih (by rfl), ← h]
     rw [Nat.add_add_add_comm]
 
 --  ### Exercise (3 stars): list_ext ⭐⭐⭐
@@ -1573,4 +1573,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

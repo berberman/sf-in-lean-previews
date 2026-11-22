@@ -414,7 +414,7 @@ def Nat.even (n : Nat) :=
 
 def Nat.odd (n : Nat) := !(even n)
 
-theorem Nat.odd_def (n : Nat) : n.odd = !(n.even) := rfl
+theorem Nat.odd_def (n : Nat) : n.odd = !(n.even) := by rfl
 
 def Nat.minusTwo (n : Nat) : Nat :=
   match n with
@@ -509,4 +509,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

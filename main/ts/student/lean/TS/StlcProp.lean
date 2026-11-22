@@ -96,9 +96,9 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
     -- `t = t₁ t₂`. Proceed on whether `t₁` is a value or steps.
     subst hΓ
     right
-    cases ih₁ rfl with
+    cases ih₁ (by rfl) with
     | inl hv₁ =>
-      cases ih₂ rfl with
+      cases ih₂ (by rfl) with
       | inl hv₂ =>
         obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ h₁ hv₁
         exists <{ [x := t₂] u }>
@@ -115,7 +115,7 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
   | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
     subst hΓ
     right
-    cases ih₁ rfl with
+    cases ih₁ (by rfl) with
     | inl hv₁ =>
       cases canonical_forms_bool t₁ h₁ hv₁ with
       | inl he =>
@@ -1203,4 +1203,4 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
 
 end StlcArith
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

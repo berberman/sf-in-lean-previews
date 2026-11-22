@@ -2090,13 +2090,13 @@ theorem filter_spec2 {α : Type} (l lsub : List α) (test : α → Bool) :
           | take l hsub =>
             rw [List.length_cons]
             apply succ_le_succ
-            apply ih _ rfl _ hsub
+            apply ih _ (by rfl) _ hsub
             rw [List.allb_cons, Bool.and_eq_true] at hall
             obtain ⟨_, h⟩ := hall
             exact h
           | skip hsub =>
             apply Le.step
-            exact ih _ rfl _ hsub hall
+            apply ih _ (by rfl) _ hsub hall
 
 end FilterChallenge
 
@@ -2396,4 +2396,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

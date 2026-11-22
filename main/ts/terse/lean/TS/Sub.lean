@@ -1005,7 +1005,8 @@ theorem canonical_forms_of_bool {Γ : Context} {t : Tm}
   induction ht with (subst_vars; first | trivial | try lia)
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
     apply sub_inversion_bool at hs; subst_vars
-    exact ih hv rfl
+    apply ih hv
+    rfl
 
 --  ### Progress
 
@@ -1020,10 +1021,10 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
     | try (left; constructor; done)
   )
   | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
-      right; cases ih₁ rfl with
+      right; cases ih₁ (by rfl) with
       -- t₁ is a value
       | inl ht₁ =>
-        cases ih₂ rfl with
+        cases ih₂ (by rfl) with
         -- t₂ is a value
         | inl ht₂ =>
           apply canonical_forms_of_arrow_types at h₁
@@ -1039,7 +1040,7 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
         obtain ⟨t₁', ht₁⟩ := ht₁
         exists <{t₁' t₂}>; apply_rules using StlcSubEval
   | ite Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
-    right; cases ih₁ rfl with
+    right; cases ih₁ (by rfl) with
     -- t₁ is a value
     | inl ht₁ =>
       apply canonical_forms_of_bool at h₁
@@ -1094,7 +1095,7 @@ theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty}
   | abs Γ x τ₁ τ₂ t₁ h i =>
       inversion heq; exists τ₁; solve_by_elim using StlcSubTyping
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
-      obtain ⟨σ₂, hs', ht'⟩ := ih rfl
+      obtain ⟨σ₂, hs', ht'⟩ := ih (by rfl)
       exists σ₂; solve_by_elim using StlcSubTyping
 
 --  Similarly:
@@ -1107,7 +1108,7 @@ theorem typing_inversion_unit (Γ : Context) (τ : Ty)
   induction h with (subst_vars; try contradiction)
   | unit => inversion heq; solve_by_elim using StlcSubTyping
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
-      specialize ih rfl
+      specialize ih (by rfl)
       solve_by_elim using StlcSubTyping
 
 --  -- Add your lemmas for products here when you get to
@@ -1272,4 +1273,4 @@ theorem preservation {t t' : Tm} {τ : Ty}
 
 end StlcSub
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC

@@ -1402,7 +1402,7 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
   | whileTrue hb hc hloop ih₁ ih₂ =>
     injection heq with hbeq hceq
     subst hbeq hceq
-    exact ih₂ (hhoare hc ⟨hpre, hb⟩) rfl
+    apply ih₂ (hhoare hc ⟨hpre, hb⟩) (by rfl)
   | skip | asgn | seq | ifTrue | ifFalse =>
     contradiction
 
@@ -1582,4 +1582,4 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  of Hoare logic as a closed world for reasoning about
 --  programs.
 
--- Source revision: 0519b34, committed 2026-11-20 16:53 UTC
+-- Source revision: 480044d, committed 2026-11-22 23:11 UTC
