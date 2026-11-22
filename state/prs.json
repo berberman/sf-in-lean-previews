@@ -238,6 +238,16 @@
       "status": "ci-failed",
       "title": "[5/5] Show an edited block on the page as a diff against the book's",
       "url": "https://github.com/plclub/sf-in-lean/pull/507"
+    },
+    "519": {
+      "base_sha": "0519b34b6644b3ff3df7dcb91da7b6aa1ec0df18",
+      "changed_variants": [],
+      "head_sha": "6c6927f8a55112cd425d39fbc9aa64e0df09fc81",
+      "preview_path": "pr/519/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Fix #500: `mul_one` should be named `one_mul`",
+      "url": "https://github.com/plclub/sf-in-lean/pull/519"
     }
   },
   "schema": 3
