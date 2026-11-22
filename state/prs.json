@@ -142,53 +142,6 @@
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
     },
-    "468": {
-      "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "cf3f01618b10f2fad37267d2cc9fb6c12750104d",
-      "preview_path": "pr/468/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/40545087007",
-      "status": "published",
-      "title": "Largely to completely eliminated use of `rfl` as a term.",
-      "url": "https://github.com/plclub/sf-in-lean/pull/468"
-    },
     "503": {
       "base_sha": "f784fe9f8409c993574c84694af541d739638de5",
       "changed_variants": [],
@@ -241,11 +194,48 @@
     },
     "519": {
       "base_sha": "0519b34b6644b3ff3df7dcb91da7b6aa1ec0df18",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "6c6927f8a55112cd425d39fbc9aa64e0df09fc81",
       "preview_path": "pr/519/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/45078450173",
+      "status": "published",
       "title": "Fix #500: `mul_one` should be named `one_mul`",
       "url": "https://github.com/plclub/sf-in-lean/pull/519"
     }
