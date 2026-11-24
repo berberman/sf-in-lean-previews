@@ -1,0 +1,1 @@
+window.docContents[237].resolve({"/Preface/#Preface":{"contents":"\n\n\n\n\n\n\n\n","context":"Hoare Logic","header":"1. Preface","id":"/Preface/#Preface"}});

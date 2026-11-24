@@ -238,6 +238,53 @@
       "status": "published",
       "title": "Fix #500: `mul_one` should be named `one_mul`",
       "url": "https://github.com/plclub/sf-in-lean/pull/519"
+    },
+    "520": {
+      "base_sha": "480044d3811cc130be42ac936bbd17e3bf5d68a2",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "5dd81ad8223aca9dbda67ce678cdeb4103b6d64d",
+      "preview_path": "pr/520/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/45484683633",
+      "status": "published",
+      "title": "MoreStlc and Sub: fix grading",
+      "url": "https://github.com/plclub/sf-in-lean/pull/520"
     }
   },
   "schema": 3

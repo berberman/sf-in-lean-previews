@@ -1,0 +1,1 @@
+window.docContents[186].resolve({"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Uniqueness-of-Types":{"contents":"\n\n\n\n","context":"Type Systems\u0009StlcProp: Properties of STLC","header":"6.5. Uniqueness of Types","id":"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Uniqueness-of-Types"}});
