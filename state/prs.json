@@ -285,6 +285,16 @@
       "status": "published",
       "title": "MoreStlc and Sub: fix grading",
       "url": "https://github.com/plclub/sf-in-lean/pull/520"
+    },
+    "521": {
+      "base_sha": "480044d3811cc130be42ac936bbd17e3bf5d68a2",
+      "changed_variants": [],
+      "head_sha": "4c99c4554afc2fec2b9d4c4b0f0a5bca784d6a81",
+      "preview_path": "pr/521/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "References pass after class",
+      "url": "https://github.com/plclub/sf-in-lean/pull/521"
     }
   },
   "schema": 3
