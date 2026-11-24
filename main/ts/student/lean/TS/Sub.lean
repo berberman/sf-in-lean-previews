@@ -482,7 +482,7 @@ import SFLCompat
 --
 --  - `σ*δ <: τ*υ`
 
---  ### Exercise (1 star): subtype_order (Manually graded) ⭐
+--  ### Exercise (2 stars): subtype_order (Manually graded) ⭐⭐
 
 --  The following types happen to form a linear order with respect to
 --  subtyping:
@@ -554,7 +554,7 @@ import SFLCompat
 --    etc., such that all the `σi`'s are different and each `σ(i+1)` is a
 --    supertype of `σi`.
 
---  ### Exercise (1 star): proper_subtypes (Manually graded) ⭐
+--  ### Exercise (2 stars): proper_subtypes (Manually graded) ⭐⭐
 
 --  Is the following statement true or false? Briefly explain your answer.
 --  (`A` here and below represents an arbitrary base type.)
@@ -1961,4 +1961,4 @@ end FormalThoughtExercises
 
 end StlcSub
 
--- Source revision: 480044d, committed 2026-11-22 23:11 UTC
+-- Source revision: 6fb6900, committed 2026-11-24 21:53 UTC

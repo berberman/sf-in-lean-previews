@@ -509,4 +509,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Source revision: 480044d, committed 2026-11-22 23:11 UTC
+-- Source revision: 6fb6900, committed 2026-11-24 21:53 UTC

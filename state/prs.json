@@ -1,5 +1,5 @@
 {
-  "main_sha": "480044d3811cc130be42ac936bbd17e3bf5d68a2",
+  "main_sha": "6fb6900bc58b6a021c31aaeb9fa0ec87ce1dccfc",
   "prs": {
     "418": {
       "base_sha": "2ca0e0986d37a6073989fbb2942062ba4541b60d",
@@ -239,7 +239,7 @@
       "title": "Fix #500: `mul_one` should be named `one_mul`",
       "url": "https://github.com/plclub/sf-in-lean/pull/519"
     },
-    "520": {
+    "521": {
       "base_sha": "480044d3811cc130be42ac936bbd17e3bf5d68a2",
       "changed_variants": [
         {
@@ -279,20 +279,10 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "5dd81ad8223aca9dbda67ce678cdeb4103b6d64d",
-      "preview_path": "pr/520/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/45484683633",
-      "status": "published",
-      "title": "MoreStlc and Sub: fix grading",
-      "url": "https://github.com/plclub/sf-in-lean/pull/520"
-    },
-    "521": {
-      "base_sha": "480044d3811cc130be42ac936bbd17e3bf5d68a2",
-      "changed_variants": [],
       "head_sha": "4c99c4554afc2fec2b9d4c4b0f0a5bca784d6a81",
       "preview_path": "pr/521/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/45496608893",
+      "status": "published",
       "title": "References pass after class",
       "url": "https://github.com/plclub/sf-in-lean/pull/521"
     }
